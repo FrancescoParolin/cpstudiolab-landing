@@ -1,0 +1,5 @@
+# DA COMPILARE: dominio definitivo nella riga Sitemap
+User-agent: *
+Disallow: /grazie.html
+
+Sitemap: https://www.dominio-da-compilare.it/sitemap.xml
