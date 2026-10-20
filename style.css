@@ -1207,6 +1207,41 @@ html.menu-aperto { overflow: hidden; }
   .fase-segno { left: 0; top: calc(-1 * var(--s8)); }
 }
 
+/* ══ 5b. Dati di targa ════════════════════════════════════════════
+   Come la targa di una macchina: poche cifre, tutte verificabili. Mai percentuali o risultati inventati.
+   Su schermo largo la tessera dei servizi è alta due righe, verde, con il disegno di una flangia. */
+.targa { display: grid; gap: var(--s2); }
+.dato {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s1);
+  padding: var(--s4) var(--s3);
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  background: var(--superficie);
+}
+.dato-valore {
+  font: var(--peso-leggero) var(--t-cifra)/var(--lh-cifra) var(--mono);
+  letter-spacing: var(--ls-titolo);
+  font-variant-numeric: tabular-nums;
+  color: var(--accento);
+}
+.dato-unita { margin-top: var(--s1); }
+.dato p { max-width: 22em; color: var(--tenue); }
+.dato-grande { overflow: hidden; border-color: var(--accento); background: var(--accento); color: var(--crema); }
+.dato-grande .dato-valore { color: var(--crema); }
+.dato-grande :is(.micro, p) { color: var(--crema-tenue); }
+.dato-disegno { width: min(100%, 280px); height: auto; margin: var(--s4) 0 0 auto; font-size: 10px; --tratto: .8px; }
+@media (min-width: 640px) {
+  .targa { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dato-grande { grid-column: 1 / -1; }
+}
+@media (min-width: 1024px) {
+  .targa { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .dato-grande { grid-column: 3; grid-row: 1 / 3; }
+  .dato-disegno { width: 100%; margin-top: auto; }
+}
+
 /* ══ 6. Chi siamo ═════════════════════════════════════════════════
    Il marchio che si spiega: la tessera vuota entra nel suo incastro. */
 .chi-griglia { display: grid; gap: var(--s8); }
@@ -1507,6 +1542,18 @@ html.menu-aperto { overflow: hidden; }
   .moto .simbolo-componibile .t-vuota { transform: translate(calc((1 - var(--incastro, 1)) * var(--s3)), calc((1 - var(--incastro, 1)) * var(--s3))); }
   .moto .simbolo-componibile .richiamo { opacity: clamp(0, calc(var(--incastro, 1) * 4 - 3), 1); }
 
+  /* Dati di targa: le tessere salgono una dopo l'altra; nella tessera grande la flangia si compone */
+  .moto .dato { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
+  .moto .dato:not(.visibile) { opacity: 0; transform: translateY(var(--s3)); }
+  .moto .dato:nth-child(2) { transition-delay: var(--sfalsa); }
+  .moto .dato:nth-child(3) { transition-delay: calc(2 * var(--sfalsa)); }
+  .moto .dato:nth-child(5) { transition-delay: var(--sfalsa); }
+  .moto .dato-disegno :is(.strato-pezzo, .strato-quote) { transform-box: fill-box; transition: opacity var(--media) var(--curva), transform var(--lunga) var(--curva-precisa); }
+  .moto .dato-disegno .strato-pezzo { transform-origin: center; transition-delay: calc(4 * var(--sfalsa)); }
+  .moto .dato-disegno .strato-quote { transition-delay: calc(9 * var(--sfalsa)); }
+  .moto .dato:not(.visibile) .strato-pezzo { opacity: 0; transform: rotate(-30deg) scale(.9); }
+  .moto .dato:not(.visibile) .strato-quote { opacity: 0; }
+
   /* Domande e contatto: salgono quando entrano */
   .moto :is(.domanda, .contatto-testa) { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
   .moto :is(.domanda, .contatto-testa):not(.visibile) { opacity: 0; transform: translateY(var(--s3)); }
@@ -1586,6 +1633,10 @@ html.menu-aperto { overflow: hidden; }
   :is(.sintomi, .sintomi li, .recapiti, .recapiti div) { border-color: var(--bordo-forte); }
   .metodo { background: none; }
   .quota::after { background: none; }
-  .servizio, .settore, .fase, .domanda, .socio, .mock { break-inside: avoid; }
+  .servizio, .settore, .fase, .domanda, .socio, .mock, .dato { break-inside: avoid; }
+  .dato-grande { background: none; color: var(--testo); border-color: var(--bordo-forte); }
+  .dato-grande .dato-valore { color: var(--accento); }
+  .dato-grande :is(.micro, p) { color: var(--tenue); }
+  .dato-disegno { display: none; }
   .sezione-testa, h2, h3 { break-after: avoid; }
 }
