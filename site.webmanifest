@@ -1,0 +1,11 @@
+{
+  "name": "CP Studio Lab",
+  "short_name": "CP Studio Lab",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#1F4D3F",
+  "background_color": "#FAFAF8",
+  "display": "browser"
+}
