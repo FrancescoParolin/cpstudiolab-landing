@@ -17,8 +17,10 @@ Ogni valore sta nei token in `:root` di `style.css`. La versione completa, con l
   Un'ombra sola, `--ombra`, solo sugli esempi dei servizi.
 - **Componenti:** `.logo`, `.micro`, `.titolo-sezione`, `.btn`, `.link`, `.link-freccia`, `.elenco-tratto`, `.quota`,
   `.tavola`, `.mirino`, `.servizio` + `.mock-*` (esempi), `.settore` + `.trama-*` + `.disegno-lavorazione`, `.fase`,
-  `.simbolo-componibile` + `.richiamo`, `.socio-tessera`, `.domande`, `.modulo` + `.campo` + `.scelte`, `.cartiglio-piede`.
-- **Momenti firma:** la tavola che si compone come al tornio; il mirino CAD sulla carta millimetrata; il foglio verde
+  `.simbolo-componibile` + `.richiamo`, `.socio-tessera`, `.domande`, `.modulo` + `.campo` + `.scelte`, `.cartiglio-piede`,
+  `.menu` (menu a schermo intero, dialogo modale).
+- **Momenti firma:** il menu, un foglio verde che sale dal fondo e chiudendo esce in alto, con le lettere delle voci che
+  scorrono al passaggio del mouse; la tavola che si compone come al tornio; il mirino CAD sulla carta millimetrata; il foglio verde
   che copre l'apertura; gli esempi dei servizi che si compongono (il disegno si allega, la richiesta parte); i disegni
   delle lavorazioni nella scena ferma; il ciclo 10-20-30-40 che si disegna; le tessere che si incastrano con i richiami.
 - **Movimento:** solo transform e opacity, solo a schermo e senza «riduci movimento». Gli stati nascosti dipendono

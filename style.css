@@ -64,6 +64,7 @@
   --griglia: rgba(31, 77, 63, .06);
   --griglia-fine: rgba(31, 77, 63, .025);
   --mirino: rgba(31, 77, 63, .28);
+  --griglia-verde: rgba(244, 241, 234, .06);   /* carta millimetrata sul foglio verde del menu */
   /* Segnaposto ancora da compilare */
   --segnaposto: #FFE45C;
   --segnaposto-bordo: #8A5A12;
@@ -90,6 +91,7 @@
   --t-h2: clamp(36px, 5.2vw, 72px);
   --t-cifra: clamp(64px, 8vw, 128px);
   --t-display: min(15.5vw, 88px);
+  --t-menu: clamp(40px, min(7vw, 9svh), 104px);   /* voci del menu a schermo intero */
   --t-tavola: 21px;            /* testi della tavola, in unità del disegno: crescono quando la tavola rimpicciolisce,
                                   così a schermo restano tra 12 e 15px */
   --t-scena: 12px;             /* testi dei disegni delle lavorazioni nella scena ferma, in unità del disegno */
@@ -414,6 +416,135 @@ mark.da-compilare {
 }
 @media (min-width: 1024px) {
   .nav { gap: var(--s4); }
+}
+
+/* ── Menu a schermo intero ──
+   Con JavaScript (classe .menu-pronto) il bottone «Menu» prende il posto della nav. Il menu è un foglio verde
+   che sale dal fondo, come «Il punto», e chiudendo continua a salire. Le voci entrano come le righe del titolo;
+   al passaggio del mouse le lettere scorrono e ricompaiono da sotto. Solo transform e opacity. */
+.testata-azioni { display: flex; align-items: center; gap: var(--s1); }
+.menu-pronto .nav { display: none; }
+.menu-apri, .menu-chiudi {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s1);
+  min-width: var(--s5);
+  min-height: var(--s5);
+  padding: var(--s1) var(--s2);
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  background: none;
+  color: var(--testo);
+  font: var(--peso-medio) var(--t-piccolo)/var(--lh-voce) var(--sans);
+  cursor: pointer;
+}
+.menu-apri[hidden] { display: none; }
+.menu-apri:hover { border-color: var(--testo); }
+/* l'icona: due tratti; nel bottone «Chiudi» si incrociano */
+.menu-icona { position: relative; display: block; flex: none; width: var(--s2); height: var(--s1); }
+.menu-icona span { position: absolute; left: 0; right: 0; height: var(--linea-forte); border-radius: var(--linea); background: currentColor; }
+.menu-icona span:first-child { top: 0; }
+.menu-icona span:last-child { bottom: 0; }
+.menu-icona-x span:first-child { top: calc(50% - var(--linea)); transform: rotate(45deg); }
+.menu-icona-x span:last-child { bottom: calc(50% - var(--linea)); transform: rotate(-45deg); }
+/* testo per i lettori di schermo, invisibile a schermo */
+.nascosto {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+html.menu-aperto { overflow: hidden; }
+
+.menu {
+  --sottolineatura: var(--crema-tenue);
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+}
+.menu.aperto { pointer-events: auto; }
+.menu :focus-visible { outline-color: var(--crema); }
+/* il foglio è più alto dello schermo del raggio dei suoi angoli: da aperto gli angoli restano fuori, sopra */
+.menu-foglio {
+  position: absolute;
+  left: 0; right: 0;
+  top: calc(-1 * var(--r-foglio));
+  height: calc(100% + var(--r-foglio));
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--r-foglio);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: var(--r-foglio) var(--r-foglio) 0 0;
+  background:
+    linear-gradient(var(--griglia-verde) var(--linea), transparent var(--linea)) 0 0 / var(--s5) var(--s5),
+    linear-gradient(90deg, var(--griglia-verde) var(--linea), transparent var(--linea)) 0 0 / var(--s5) var(--s5),
+    var(--accento);
+  color: var(--crema);
+  transform: translateY(100%);
+}
+.menu.aperto .menu-foglio { transform: none; }
+.menu.chiude .menu-foglio { transform: translateY(-100%); }
+.menu-testa { display: flex; align-items: center; justify-content: space-between; gap: var(--s2); min-height: var(--testata); }
+.menu .logo { min-height: var(--s3); color: var(--crema); }
+.menu .logo svg { color: var(--crema); }
+.menu .logo-lab { background: var(--crema); color: var(--accento); }
+.menu-chiudi { border-color: var(--linea-verde); color: var(--crema); }
+.menu-chiudi:hover { border-color: var(--crema); }
+.menu-corpo { flex: 1; display: grid; gap: var(--s6); align-content: center; padding-block: var(--s6); }
+.menu-voci { border-top: var(--linea) solid var(--linea-verde); }
+.menu-voci a {
+  display: grid;
+  grid-template-columns: var(--s6) minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--s2);
+  padding: var(--s1) 0;
+  border-bottom: var(--linea) solid var(--linea-verde);
+  color: var(--crema);
+  text-decoration: none;
+}
+.menu-num {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s1);
+  font: var(--peso-medio) var(--t-micro)/1 var(--mono);
+  letter-spacing: var(--ls-micro);
+  font-variant-numeric: tabular-nums;
+  color: var(--crema-tenue);
+}
+/* la sezione in cui vi trovate: una tessera piena accanto al numero */
+.menu-voci a[aria-current] .menu-num { color: var(--crema); }
+.menu-voci a[aria-current] .menu-num::after { content: ''; width: var(--s1); height: var(--s1); border-radius: calc(var(--r-xs) / 2); background: currentColor; }
+.menu-etichetta {
+  display: block;
+  overflow: hidden;
+  font-size: var(--t-menu);
+  font-weight: var(--peso-forte);
+  line-height: 1.1;
+  letter-spacing: var(--ls-titolo);
+}
+@supports (overflow: clip) {
+  .menu-etichetta { overflow: visible clip; }
+}
+.menu-lettere { display: inline-block; white-space: nowrap; }
+.menu-lettere > span { display: inline-block; text-shadow: 0 1.2em currentColor; }
+.menu-lato { display: grid; gap: var(--s4); align-content: start; }
+.menu-lato .btn { justify-content: space-between; min-height: var(--s7); font-weight: var(--peso-forte); }
+.menu-piede { padding-bottom: var(--s4); color: var(--crema-tenue); }
+
+@media (max-width: 479px) {
+  .menu-apri .menu-apri-testo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
+@media (max-width: 359px) {
+  .menu-pronto .testata .btn-piccolo { display: none; }
+}
+@media (min-width: 1024px) {
+  .menu-corpo { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s3); align-items: end; }
+  .menu-nav { grid-column: 1 / 9; }
+  .menu-lato { grid-column: 9 / -1; }
 }
 
 /* ══ 1. Apertura ══════════════════════════════════════════════════
@@ -1251,7 +1382,7 @@ mark.da-compilare {
   .contatto { padding: var(--s16) 0; }
   .contatto-griglia { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s3); }
   .contatto-testa { grid-column: 1 / 7; grid-row: 1; }
-  .recapiti { grid-column: 1 / 7; grid-row: 2; align-self: start; }
+  .contatto-griglia > .recapiti { grid-column: 1 / 7; grid-row: 2; align-self: start; }
   .modulo { grid-column: 8 / -1; grid-row: 1 / 3; }
 }
 
@@ -1383,6 +1514,24 @@ mark.da-compilare {
 }
 @media screen and (prefers-reduced-motion: no-preference) and (min-width: 1024px) {
   .moto .ciclo::after { transform: scaleX(var(--avanzamento, 0)); }
+}
+/* Il menu: il foglio sale (e chiudendo esce in alto), poi le voci salgono una dopo l'altra.
+   Al passaggio del mouse le lettere scorrono in su e la loro copia (text-shadow) prende il posto. */
+@media screen and (prefers-reduced-motion: no-preference) {
+  .menu-foglio { transition: transform var(--lunga) var(--curva-precisa); }
+  .menu-lettere { transition: transform var(--lunga) var(--curva); }
+  .menu:not(.aperto) .menu-lettere { transform: translateY(105%); }
+  .menu.aperto li:nth-child(1) .menu-lettere { transition-delay: calc(4 * var(--sfalsa)); }
+  .menu.aperto li:nth-child(2) .menu-lettere { transition-delay: calc(5 * var(--sfalsa)); }
+  .menu.aperto li:nth-child(3) .menu-lettere { transition-delay: calc(6 * var(--sfalsa)); }
+  .menu.aperto li:nth-child(4) .menu-lettere { transition-delay: calc(7 * var(--sfalsa)); }
+  .menu.aperto li:nth-child(5) .menu-lettere { transition-delay: calc(8 * var(--sfalsa)); }
+  :is(.menu-num, .menu-lato, .menu-piede) { transition: opacity var(--media) var(--curva); }
+  .menu:not(.aperto) :is(.menu-num, .menu-lato, .menu-piede) { opacity: 0; }
+  .menu.aperto .menu-num { transition-delay: calc(6 * var(--sfalsa)); }
+  .menu.aperto :is(.menu-lato, .menu-piede) { transition-delay: calc(8 * var(--sfalsa)); }
+  .menu-lettere > span { transition: transform calc(var(--media) - var(--sfalsa)) cubic-bezier(.625, .05, 0, 1) calc(var(--i, 0) * 15ms); }
+  .menu-voci a:is(:hover, :focus-visible) .menu-lettere > span { transform: translateY(-1.2em); }
 }
 /* Il mirino: solo dove c'è un mouse */
 @media screen and (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
