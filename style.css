@@ -13,6 +13,16 @@
   font-display: swap;
   src: url('fonts/inter-latin.woff2') format('woff2');
 }
+/* Riserva con le metriche di Inter (Arial o Roboto corretti): se Inter arriva dopo il primo disegno,
+   le righe del titolo non cambiano e la pagina non salta */
+@font-face {
+  font-family: 'Inter riserva';
+  src: local('Arial'), local('ArialMT'), local('Roboto');
+  size-adjust: 107.12%;
+  ascent-override: 90.44%;
+  descent-override: 22.52%;
+  line-gap-override: 0%;
+}
 /* Le cifre delle annotazioni vengono da Inter: lo zero di Geist Mono è barrato e accanto al simbolo
    di diametro «Ø» si confonderebbe (0 e Ø). Stesso file di Inter: nessun download in più. */
 @font-face {
@@ -46,7 +56,6 @@
   --bordo-forte: #D6D3CC;
   --velo: #EDF1EE;             /* verde appena accennato: pezzo della tavola, «Fatto», primo risultato */
   --velo-forte: #CAD7CF;       /* barre del resoconto */
-  --fondo-testata: rgba(250, 250, 248, .97);
   /* Sul verde: testi secondari (5,3:1), linee e trame */
   --crema-tenue: #B9C4BC;
   --linea-verde: rgba(244, 241, 234, .2);
@@ -65,7 +74,7 @@
 
   /* Caratteri: Inter per parlare (lo stesso del logo), Geist Mono per annotare (etichette, numeri, quote).
      Accenti con il peso leggero, mai con il corsivo */
-  --sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: 'Inter', 'Inter riserva', system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: 'Cifre', 'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
   --peso-leggero: 300;
   --peso-normale: 400;
@@ -346,9 +355,7 @@ mark.da-compilare {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: var(--fondo-testata);
-  -webkit-backdrop-filter: saturate(1.4) blur(12px);
-  backdrop-filter: saturate(1.4) blur(12px);
+  background: var(--fondo);
   border-bottom: var(--linea) solid var(--bordo);
 }
 .testata-riga {
@@ -495,7 +502,8 @@ mark.da-compilare {
 .apertura-sotto { max-width: var(--misura-stretta); font-size: var(--t-lead); }
 .azioni { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2) var(--s3); }
 
-/* La tavola. Tratti a spessore fisso a ogni scala: 2px il pezzo, 1px quote e asse */
+/* La tavola. Tratti in unità del disegno (--tratto), scelti per fascia di larghezza perché a schermo restino
+   intorno a 1px (quote e asse) e 2px (il pezzo): senza vector-effect le animazioni restano sul compositore */
 .tavola {
   display: block;
   width: 100%;
@@ -505,9 +513,9 @@ mark.da-compilare {
   color: var(--accento);
   fill: none;
   stroke: currentColor;
-  stroke-width: var(--linea);
+  --tratto: 1.6px;
+  stroke-width: var(--tratto);
 }
-.tavola * { vector-effect: non-scaling-stroke; }
 .tavola text {
   fill: currentColor;
   stroke: none;
@@ -516,10 +524,13 @@ mark.da-compilare {
 }
 .tavola marker path { fill: currentColor; stroke: none; }
 .tavola-asse { stroke-dasharray: 16 4 2 4; opacity: .6; }
-.tavola-profilo { fill: var(--velo); stroke-width: var(--linea-forte); stroke-linejoin: round; }
+.tavola-profilo { fill: var(--velo); stroke-width: calc(2 * var(--tratto)); stroke-linejoin: round; }
 
+@media (min-width: 480px) {
+  .tavola { --tratto: 1.1px; }
+}
 @media (min-width: 600px) {
-  .tavola { aspect-ratio: 560 / 296; }
+  .tavola { aspect-ratio: 560 / 296; --tratto: .75px; }
 }
 @media (min-width: 1024px) {
   .apertura-scena { padding-top: clamp(var(--s2), 4svh, var(--s6)); padding-bottom: clamp(var(--s2), 4svh, var(--s8)); }
@@ -531,7 +542,7 @@ mark.da-compilare {
     padding-top: clamp(var(--s2), 4svh, var(--s8));
   }
   .apertura-testo { grid-column: 1 / 6; padding-top: var(--s2); }
-  .tavola { grid-column: 6 / -1; justify-self: end; width: min(100%, 68svh); }
+  .tavola { grid-column: 6 / -1; justify-self: end; width: min(100%, 68svh); --tratto: 1px; }
 }
 
 /* Il mirino del CAD: due linee e le coordinate, agganciati alla griglia di 8px (main.js).
@@ -908,16 +919,16 @@ mark.da-compilare {
   color: var(--crema);
   fill: none;
   stroke: currentColor;
-  stroke-width: var(--linea);
+  --tratto: 1.5px;                             /* unità del disegno: a 160px di altezza è 1px a schermo */
+  stroke-width: var(--tratto);
   font: var(--peso-medio) 18px var(--mono);   /* unità del disegno: a 160px di altezza sono 12px a schermo */
   letter-spacing: .04em;
   font-variant-numeric: tabular-nums;
 }
-.d-sezione, .d-sottile, .d-profilo, .d-spigolo, .d-asse, .d-quota { vector-effect: non-scaling-stroke; }
-.d-sezione { fill: url(#tratteggio); stroke-width: var(--linea-forte); stroke-linejoin: round; }
+.d-sezione { fill: url(#tratteggio); stroke-width: calc(2 * var(--tratto)); stroke-linejoin: round; }
 .d-sezione-inversa { fill: url(#tratteggio-inverso); }
 .d-sottile { fill: currentColor; stroke-linejoin: round; }
-.d-profilo { stroke-width: var(--linea-forte); }
+.d-profilo { stroke-width: calc(2 * var(--tratto)); }
 .d-asse { stroke-dasharray: 12 3 2 3; opacity: .7; }
 .d-punto, .d-testo { fill: currentColor; stroke: none; }
 .tratto { stroke: var(--crema); stroke-width: var(--linea); opacity: .55; }
@@ -954,6 +965,7 @@ mark.da-compilare {
   width: calc(100% - 2 * var(--s4));
   height: auto;
   font-size: var(--t-scena);
+  --tratto: .8px;
   opacity: 0;
   transition: opacity var(--media) var(--curva);
 }
@@ -1075,11 +1087,12 @@ mark.da-compilare {
   color: var(--accento);
   overflow: visible;
   font: var(--peso-medio) 8px var(--mono);                /* unità del disegno: 12px a schermo */
+  --tratto: .67px;                                        /* 1px a schermo */
   letter-spacing: var(--ls-micro);
 }
 /* I richiami: linea sottile, punto sul pezzo, etichetta come nella tavola */
-.richiamo path { fill: none; stroke: currentColor; stroke-width: var(--linea); vector-effect: non-scaling-stroke; }
-.richiamo circle { fill: var(--fondo); stroke: currentColor; stroke-width: var(--linea); vector-effect: non-scaling-stroke; }
+.richiamo path { fill: none; stroke: currentColor; stroke-width: var(--tratto); }
+.richiamo circle { fill: var(--fondo); stroke: currentColor; stroke-width: var(--tratto); }
 .richiamo text { fill: currentColor; }
 .soci { margin-top: var(--s6); border-bottom: var(--linea) solid var(--bordo-forte); }
 .socio {
@@ -1113,7 +1126,7 @@ mark.da-compilare {
   }
   .chi-testo { grid-column: 1 / 7; }
   .chi-simbolo { grid-column: 8 / -1; }
-  .simbolo-componibile { width: min(100%, calc(3 * var(--s16) + var(--s7))); font-size: 5.2px; }   /* 440px */
+  .simbolo-componibile { width: min(100%, calc(3 * var(--s16) + var(--s7))); font-size: 5.2px; --tratto: .43px; }   /* 440px */
 }
 
 /* ══ 7. Domande: tutte aperte, a tutta larghezza ════════════════ */
@@ -1282,31 +1295,32 @@ mark.da-compilare {
    per ultima: se il file non arriva o si ferma, nulla resta nascosto. In stampa tutto è al suo posto. */
 @media screen and (prefers-reduced-motion: no-preference) {
   /* Apertura: le righe salgono, la quota si traccia dal centro, poi arrivano testo e tavola */
-  .riga > span { animation: sale var(--lunga) var(--curva) both; }
+  .riga > span { animation: sale var(--lunga) var(--curva) backwards; }
   .riga + .riga > span { animation-delay: var(--sfalsa); }
-  .quota::before { animation: traccia var(--lunga) var(--curva-precisa) calc(5 * var(--sfalsa)) both; }
-  .quota::after { animation: compare-quota var(--media) var(--curva) calc(12 * var(--sfalsa)) both; }
-  .apertura-testo { animation: compare var(--lunga) var(--curva) calc(4 * var(--sfalsa)) both; }
+  .quota::before { animation: traccia var(--lunga) var(--curva-precisa) calc(5 * var(--sfalsa)) backwards; }
+  .quota::after { animation: compare-quota var(--media) var(--curva) calc(12 * var(--sfalsa)) backwards; }
+  .apertura-testo { animation: compare var(--lunga) var(--curva) calc(4 * var(--sfalsa)) backwards; }
 
   /* La tavola si compone come al tornio: l'asse, poi il pezzo cresce dall'asse, poi le quote una a una */
   .tavola-asse, .tavola-pezzo { transform-box: fill-box; }
-  .tavola-asse { transform-origin: left; animation: traccia var(--lunga) var(--curva-precisa) calc(5 * var(--sfalsa)) both; }
-  .tavola-pezzo { transform-origin: center; animation: tornisce var(--lunga) var(--curva-precisa) calc(8 * var(--sfalsa)) both; }
-  .quota-tavola { animation: compare var(--media) var(--curva) both; }
+  .tavola-asse { transform-origin: left; animation: traccia var(--lunga) var(--curva-precisa) calc(5 * var(--sfalsa)) backwards; }
+  .tavola-pezzo { transform-origin: center; animation: tornisce var(--lunga) var(--curva-precisa) calc(8 * var(--sfalsa)) backwards; }
+  .quota-tavola { animation: compare var(--media) var(--curva) backwards; }
   .quota-tavola:nth-child(1) { animation-delay: calc(14 * var(--sfalsa)); }
   .quota-tavola:nth-child(2) { animation-delay: calc(15 * var(--sfalsa)); }
   .quota-tavola:nth-child(3) { animation-delay: calc(16 * var(--sfalsa)); }
   .quota-tavola:nth-child(4) { animation-delay: calc(17 * var(--sfalsa)); }
   .quota-tavola:nth-child(5) { animation-delay: calc(18 * var(--sfalsa)); }
-  .tavola-cartiglio { animation: compare var(--media) var(--curva) calc(20 * var(--sfalsa)) both; }
+  .tavola-cartiglio { animation: compare var(--media) var(--curva) calc(20 * var(--sfalsa)) backwards; }
   /* su telefono la tavola è sotto la piega: si compone quando arriva in vista */
   .moto .tavola:not(.visibile) :is(.tavola-asse, .tavola-pezzo, .quota-tavola, .tavola-cartiglio) { animation-play-state: paused; }
 
   /* Il foglio verde copre l'apertura, che resta ferma e si allontana: solo scala, nessuna dissolvenza
      (le micro-scritte in grigio devono restare AA fino all'ultimo).
-     Con il fuoco dentro l'apertura (tastiera) l'apertura smette di stare ferma e non viene coperta. */
+     Con il fuoco da tastiera dentro l'apertura smette di stare ferma e non viene coperta. :focus-visible e non
+     :focus-within: il mouse dà il fuoco già alla pressione, e l'apertura saltando farebbe perdere il clic. */
   .js .apertura { position: sticky; top: var(--apertura-top, var(--testata)); }
-  .js .apertura:focus-within { position: relative; top: auto; }
+  .js .apertura:has(:focus-visible) { position: relative; top: auto; }
   .js .apertura-scena {
     transform-origin: 50% 0;
     transform: scale(calc(1 - .05 * var(--copertura, 0)));
@@ -1412,7 +1426,7 @@ mark.da-compilare {
 @media print {
   .salta, .mirino, .nav, .testata .btn, .modulo, .settori-scena, .settore-trama, .tavola-cartiglio { display: none; }
   /* il logo resta intero (pillola compresa) e la quota resta disegnata anche senza «grafica di sfondo» */
-  .testata { position: static; background: none; border: 0; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .testata { position: static; background: none; border: 0; }
   .logo-lab, .quota, .socio-tessera, .fase-segno, .simbolo-componibile { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   body { background: none; }
   .apertura-scena { min-height: 0; padding: 0 0 var(--s4); background: none; }

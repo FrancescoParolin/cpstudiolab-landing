@@ -54,7 +54,8 @@ Due campi obbligatori (azienda o sito, email o telefono) e le scelte facoltative
 nessun JavaScript. Il `mailto:` resta come alternativa,
 perché su molti PC (Gmail o Outlook web) il clic su un `mailto:` non apre niente.
 
-- **Su Netlify** funziona così com'è (Netlify Forms: `data-netlify="true"`, campo trappola anti-spam `altro`).
+- **Su Netlify** funziona così com'è (Netlify Forms: `data-netlify="true"`, campo trappola anti-spam `altro`
+  con `data-netlify-honeypot`, la forma valida in HTML). Al primo deploy fate un invio di prova.
   Le richieste arrivano nel pannello Netlify → Forms; da lì si attiva la notifica email.
 - **Altrove**: create un modulo su Formspree e mettete il suo indirizzo in `action`
   (`action="https://formspree.io/f/XXXX"`); togliete `data-netlify` e `netlify-honeypot`.
