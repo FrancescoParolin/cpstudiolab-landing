@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Officina Esempio · un sito d’esempio di CP Studio Lab</title>
+  <meta name="description" content="Il sito di un’officina inventata, per provare come lavora un sito tecnico: lavorazioni, macchine, qualità e richiesta d’offerta con il disegno.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#16161A">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="/main.js" defer></script>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/esempio/officina.css">
+</head>
+<body class="officina">
+  <!-- Il nastro dell'esempio: dice sempre che l'azienda è inventata -->
+  <p class="officina-nastro">
+    <span><strong>Esempio</strong> · azienda inventata · sito di prova di CP Studio Lab</span>
+    <a href="/#servizi">Torna a CP Studio Lab</a>
+  </p>
+
+  <a class="salta" href="#contenuto">Contenuto principale</a>
+
+  <header class="officina-testata">
+    <div class="officina-contenitore officina-testata-riga">
+      <a class="officina-marchio" href="#contenuto"><span class="officina-segno" aria-hidden="true"></span>Officina Esempio</a>
+      <nav class="officina-nav" aria-label="Sezioni">
+        <a href="#lavorazioni">Lavorazioni</a>
+        <a href="#macchine">Macchine</a>
+        <a href="#qualita">Qualità</a>
+        <a class="officina-btn officina-btn-piccolo" href="#offerta">Richiedete un’offerta</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenuto" tabindex="-1">
+    <section class="officina-apertura" aria-labelledby="titolo-officina">
+      <div class="officina-contenitore">
+        <p class="officina-micro">Tornitura CNC conto terzi · Provincia esempio</p>
+        <h1 id="titolo-officina">Tornitura CNC conto terzi, dal prototipo alla serie.</h1>
+        <p class="officina-lead">Acciaio, inox, ottone e alluminio. Mandateci il disegno: vi rispondiamo con l’offerta.</p>
+        <a class="officina-btn" href="#offerta">Richiedete un’offerta</a>
+        <dl class="officina-dati">
+          <div><dt>Diametri</dt><dd>Ø 4–120 mm</dd></div>
+          <div><dt>Tolleranze</dt><dd>± 0,01 mm</dd></div>
+          <div><dt>Lotti</dt><dd>1–50.000 pz</dd></div>
+          <div><dt>Qualità</dt><dd>ISO 9001</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="officina-sezione" id="lavorazioni" aria-labelledby="titolo-lavorazioni">
+      <div class="officina-contenitore">
+        <h2 id="titolo-lavorazioni">Lavorazioni</h2>
+        <ul class="officina-schede">
+          <li><h3>Tornitura CNC</h3><p>Da barra fino a Ø 65 mm, da ripresa fino a Ø 120 mm.</p></li>
+          <li><h3>Fresatura di ripresa</h3><p>Piani, cave e fori sullo stesso pezzo, senza passaggi esterni.</p></li>
+          <li><h3>Filettatura</h3><p>Metriche, gas e trapezie, interne ed esterne.</p></li>
+          <li><h3>Rettifica</h3><p>Sui diametri che lo chiedono, fino a Ra 0,4.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="officina-sezione officina-grigia" id="macchine" aria-labelledby="titolo-macchine">
+      <div class="officina-contenitore">
+        <h2 id="titolo-macchine">Macchine</h2>
+        <div class="officina-tabella-scorre" tabindex="0" role="region" aria-label="Tabella delle macchine">
+          <table class="officina-tabella">
+            <thead><tr><th scope="col">Macchina</th><th scope="col">Diametro max</th><th scope="col">Lunghezza max</th><th scope="col">Quante</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Tornio a fantina mobile</th><td>Ø 32 mm</td><td>300 mm</td><td>3</td></tr>
+              <tr><th scope="row">Tornio bimandrino</th><td>Ø 65 mm</td><td>500 mm</td><td>2</td></tr>
+              <tr><th scope="row">Tornio da ripresa</th><td>Ø 120 mm</td><td>800 mm</td><td>1</td></tr>
+              <tr><th scope="row">Centro di lavoro 5 assi</th><td>—</td><td>500 × 400 mm</td><td>1</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="officina-sezione" id="qualita" aria-labelledby="titolo-qualita">
+      <div class="officina-contenitore officina-due">
+        <h2 id="titolo-qualita">Qualità</h2>
+        <ul class="officina-elenco">
+          <li>Primi pezzi controllati al 100%, con il rapporto di misura</li>
+          <li>Certificati dei materiali con ogni consegna</li>
+          <li>Strumenti di misura tarati ogni anno</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="officina-sezione officina-grigia" id="offerta" aria-labelledby="titolo-offerta">
+      <div class="officina-contenitore officina-due">
+        <div>
+          <h2 id="titolo-offerta">Richiesta d’offerta</h2>
+          <p class="officina-lead">Allegate il disegno: PDF, DXF o STEP. Rispondiamo entro due giorni lavorativi.</p>
+        </div>
+        <!-- È un esempio: il bottone non invia niente (type="button"); con JavaScript lo dice -->
+        <form class="officina-modulo">
+          <div class="officina-campo"><label for="o-azienda">Azienda</label><input id="o-azienda" type="text" autocomplete="off"></div>
+          <div class="officina-campo"><label for="o-email">Email</label><input id="o-email" type="email" autocomplete="off"></div>
+          <div class="officina-campo"><label for="o-materiale">Materiale</label><select id="o-materiale"><option>Acciaio</option><option>Inox</option><option>Ottone</option><option>Alluminio</option><option>Altro</option></select></div>
+          <div class="officina-campo"><label for="o-pezzi">Quantità</label><input id="o-pezzi" type="number" min="1" inputmode="numeric"></div>
+          <div class="officina-campo officina-campo-largo"><label for="o-disegno">Disegno</label><input id="o-disegno" type="file" accept=".pdf,.dxf,.step,.stp"></div>
+          <div class="officina-campo officina-campo-largo"><label for="o-note">Note</label><textarea id="o-note" rows="3"></textarea></div>
+          <button class="officina-btn" type="button" data-esempio-invia>Inviate la richiesta</button>
+          <p class="officina-esito" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="officina-piede">
+    <div class="officina-contenitore">
+      <p>Officina Esempio non esiste: è un’azienda inventata da CP Studio Lab per mostrare come lavora un sito tecnico.</p>
+      <p><a href="/#servizi">Torna a CP Studio Lab</a></p>
+    </div>
+  </footer>
+</body>
+</html>

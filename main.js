@@ -118,6 +118,77 @@
     radice.classList.add('menu-pronto');
   }
 
+  // ── Calibro passa / non passa: tutto nella pagina, non si invia niente.
+  //    La lancetta segna quante risposte passano; a domande finite, il primo lavoro consigliato. ──
+  const calibro = document.getElementById('calibro');
+  if (calibro) {
+    const domande = $$('.calibro-domanda');
+    const lancetta = calibro.querySelector('.lancetta');
+    const punteggio = calibro.querySelector('.calibro-punteggio');
+    const consiglio = calibro.querySelector('.calibro-consiglio');
+    const porta = calibro.querySelector('.calibro-porta');
+    const ordine = ['Sito', 'Google', 'CRM e follow-up', 'Automazioni'];
+    const perche = {
+      'Sito': 'Il sito è il primo pezzo: senza, Google e CRM lavorano a vuoto.',
+      'Google': 'Il sito c’è, ma chi cerca un fornitore non vi trova.',
+      'CRM e follow-up': 'Le richieste arrivano, ma si perdono per strada.',
+      'Automazioni': 'Le richieste ci sono: ora si tratta di rispondere prima.',
+      'Manutenzione': 'Per restare così basta una mano ogni mese.',
+    };
+    let consigliato = '';
+    const valuta = () => {
+      let risposte = 0;
+      let passa = 0;
+      const mancanze = {};
+      domande.forEach((d) => {
+        const scelta = d.querySelector('input:checked');
+        if (!scelta) return;
+        risposte += 1;
+        if (scelta.value === 'si') passa += 1;
+        else mancanze[d.dataset.servizio] = (mancanze[d.dataset.servizio] || 0) + 1;
+      });
+      if (lancetta) lancetta.style.setProperty('--angolo', (passa / domande.length) * 180 + 'deg');
+      if (risposte < domande.length) {
+        punteggio.textContent = `${passa} su ${domande.length} passano · ${domande.length - risposte} da rispondere`;
+        consiglio.textContent = '';
+        porta.hidden = true;
+        return;
+      }
+      consigliato = passa === domande.length
+        ? 'Manutenzione'
+        : ordine.reduce((a, b) => ((mancanze[b] || 0) > (mancanze[a] || 0) ? b : a), ordine[0]);
+      punteggio.textContent = `${passa} su ${domande.length} passano.`;
+      consiglio.textContent = `Primo lavoro consigliato: ${consigliato}. ${perche[consigliato]}`;
+      porta.hidden = false;
+    };
+    calibro.addEventListener('change', valuta);
+    // il risultato passa al modulo: la scelta consigliata è già spuntata
+    porta.addEventListener('click', () => {
+      const casella = document.querySelector(`.scelte input[value="${consigliato}"]`);
+      if (casella) casella.checked = true;
+      setTimeout(() => {
+        const campo = document.getElementById('campo-azienda');
+        if (campo) campo.focus({ preventScroll: true });
+      }, 50);
+    });
+    calibro.hidden = false;
+  }
+
+  // ── Scheda di collaudo: «Verificate voi» misura l'indirizzo da cui state leggendo ──
+  const verifica = document.querySelector('.collaudo-verifica');
+  if (verifica && location.protocol === 'https:') {
+    verifica.href = 'https://pagespeed.web.dev/analysis?url=' + encodeURIComponent(location.origin + '/');
+  }
+
+  // ── Sito d'esempio: il modulo non invia niente, lo dice ──
+  const esempioInviato = (e) => {
+    if (e) e.preventDefault();
+    const esito = document.querySelector('.officina-esito');
+    if (esito) esito.textContent = 'È un esempio: non è stato inviato niente.';
+  };
+  $$('[data-esempio-invia]').forEach((b) => b.addEventListener('click', () => esempioInviato()));
+  $$('.officina-modulo').forEach((f) => f.addEventListener('submit', esempioInviato));
+
   // Tutto il resto si calcola dalla posizione, non dagli ingressi: anche un salto con i link lo aggiorna.
   const scena = document.querySelector('.settori-scena');
   const settori = $$('.settore');

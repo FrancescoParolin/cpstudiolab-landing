@@ -53,6 +53,7 @@
   <!-- Simboli usati più volte: il marchio del kit F e la freccia dei bottoni -->
   <svg style="display: none" aria-hidden="true">
     <symbol id="marchio" viewBox="-4 -4 108 108"><path fill="currentColor" d="M16 6H54A10 10 0 0 1 64 16V28H46A18 18 0 0 0 28 46V64H16A10 10 0 0 1 6 54V16A10 10 0 0 1 16 6ZM46 44H64V54A10 10 0 0 1 54 64H44V46A2 2 0 0 1 46 44Z"/><rect x="36" y="36" width="58" height="58" rx="10" fill="none" stroke="currentColor" stroke-width="6"/></symbol>
+    <symbol id="telefono" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.1L8.1 9.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.84.58 2.8.7a2 2 0 0 1 1.72 2.02Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
     <symbol id="freccia" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   </svg>
 
@@ -142,6 +143,10 @@
         <a href="#chi-siamo">Chi siamo</a>
       </nav>
       <div class="testata-azioni">
+        <a class="testata-tel" href="tel:+393203222498" aria-label="Chiamate il 320 322 2498">
+          <svg class="tel-icona" aria-hidden="true" focusable="false"><use href="#telefono"/></svg>
+          <span class="testata-tel-testo">320 322 2498</span>
+        </a>
         <a class="btn btn-piccolo" href="#contatto">Contattateci</a>
         <!-- Il bottone del menu c'è solo con JavaScript (main.js toglie hidden); senza, resta la nav qui sopra -->
         <button class="menu-apri" type="button" aria-expanded="false" aria-controls="menu" hidden>
@@ -321,6 +326,10 @@
                 <li>Richiesta d’offerta con PDF, DXF o STEP</li>
                 <li>Veloce anche da telefono</li>
               </ul>
+              <a class="link-freccia" href="/esempio/">
+                Provate un sito d’esempio
+                <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+              </a>
             </div>
             <div class="mock mock-sito" aria-hidden="true">
               <p class="micro mock-etichetta">Esempio</p>
@@ -475,6 +484,10 @@
                 <li>Prototipi, serie o tutti e due</li>
                 <li>Tolleranze e finiture che garantite</li>
               </ul>
+              <a class="link-freccia" href="/tornitura/">
+                Il sito per la tornitura
+                <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+              </a>
             </li>
             <li class="settore" data-settore="lamiera">
               <div class="settore-trama" aria-hidden="true"><div class="trama trama-lamiera"></div><svg class="disegno-lavorazione settore-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d2-pezzo"/><use href="#d2-quote"/></svg></div>
@@ -484,6 +497,10 @@
                 <li>Taglio laser, piegatura, saldatura</li>
                 <li>Tempi di consegna tipici</li>
               </ul>
+              <a class="link-freccia" href="/lamiera/">
+                Il sito per la lamiera
+                <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+              </a>
             </li>
             <li class="settore" data-settore="stampaggio">
               <div class="settore-trama" aria-hidden="true"><div class="trama trama-stampaggio"></div><svg class="disegno-lavorazione settore-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d3-pezzo"/><use href="#d3-quote"/></svg></div>
@@ -493,6 +510,10 @@
                 <li>L’attrezzeria interna, in vista</li>
                 <li>I settori che servite, con esempi</li>
               </ul>
+              <a class="link-freccia" href="/stampaggio/">
+                Il sito per lo stampaggio
+                <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+              </a>
             </li>
             <li class="settore" data-settore="carpenteria">
               <div class="settore-trama" aria-hidden="true"><div class="trama trama-carpenteria"></div><svg class="disegno-lavorazione settore-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d4-pezzo"/><use href="#d4-quote"/></svg></div>
@@ -502,6 +523,10 @@
                 <li>Dimensioni e pesi massimi</li>
                 <li>Lavori realizzati, con le misure</li>
               </ul>
+              <a class="link-freccia" href="/carpenteria/">
+                Il sito per la carpenteria
+                <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+              </a>
             </li>
           </ol>
         </div>
@@ -659,6 +684,75 @@
       </div>
     </section>
 
+    <!-- ── 7b. Calibro passa / non passa: un controllo del sito fatto da voi, tutto nella pagina.
+         Non si invia niente. Senza JavaScript la sezione resta nascosta (main.js toglie hidden). -->
+    <section class="sezione calibro" id="calibro" aria-labelledby="titolo-calibro" hidden>
+      <div class="contenitore">
+        <div class="sezione-testa">
+          <p class="micro">Calibro passa / non passa</p>
+          <h2 class="titolo-sezione" id="titolo-calibro">Il vostro sito passa il collaudo?</h2>
+          <p class="sezione-sotto">Otto domande, un minuto. Non si invia niente: il risultato resta qui.</p>
+        </div>
+        <div class="calibro-griglia">
+          <ol class="calibro-domande">
+            <li><fieldset class="calibro-domanda" data-servizio="Sito">
+              <legend><span class="calibro-num" aria-hidden="true">01</span>Avete una pagina per ogni lavorazione che fate?</legend>
+              <div class="calibro-scelte"><label><input type="radio" name="c1" value="si"> Sì</label><label><input type="radio" name="c1" value="no"> No</label></div>
+            </fieldset></li>
+            <li><fieldset class="calibro-domanda" data-servizio="Sito">
+              <legend><span class="calibro-num" aria-hidden="true">02</span>Chi vi chiede un’offerta può allegare il disegno?</legend>
+              <div class="calibro-scelte"><label><input type="radio" name="c2" value="si"> Sì</label><label><input type="radio" name="c2" value="no"> No</label></div>
+            </fieldset></li>
+            <li><fieldset class="calibro-domanda" data-servizio="Sito">
+              <legend><span class="calibro-num" aria-hidden="true">03</span>Dal telefono il vostro sito si legge bene?</legend>
+              <div class="calibro-scelte"><label><input type="radio" name="c3" value="si"> Sì</label><label><input type="radio" name="c3" value="no"> No</label></div>
+            </fieldset></li>
+            <li><fieldset class="calibro-domanda" data-servizio="Google">
+              <legend><span class="calibro-num" aria-hidden="true">04</span>Cercando la vostra lavorazione e la vostra provincia, siete nella prima pagina di Google?</legend>
+              <div class="calibro-scelte"><label><input type="radio" name="c4" value="si"> Sì</label><label><input type="radio" name="c4" value="no"> No</label></div>
+            </fieldset></li>
+            <li><fieldset class="calibro-domanda" data-servizio="Google">
+              <legend><span class="calibro-num" aria-hidden="true">05</span>La scheda Google dell’azienda è completa, con foto e orari?</legend>
+              <div class="calibro-scelte"><label><input type="radio" name="c5" value="si"> Sì</label><label><input type="radio" name="c5" value="no"> No</label></div>
+            </fieldset></li>
+            <li><fieldset class="calibro-domanda" data-servizio="CRM e follow-up">
+              <legend><span class="calibro-num" aria-hidden="true">06</span>Le richieste dal sito e i contatti delle fiere finiscono in un elenco unico?</legend>
+              <div class="calibro-scelte"><label><input type="radio" name="c6" value="si"> Sì</label><label><input type="radio" name="c6" value="no"> No</label></div>
+            </fieldset></li>
+            <li><fieldset class="calibro-domanda" data-servizio="CRM e follow-up">
+              <legend><span class="calibro-num" aria-hidden="true">07</span>Sapete sempre chi deve richiamare chi, e quando?</legend>
+              <div class="calibro-scelte"><label><input type="radio" name="c7" value="si"> Sì</label><label><input type="radio" name="c7" value="no"> No</label></div>
+            </fieldset></li>
+            <li><fieldset class="calibro-domanda" data-servizio="Automazioni">
+              <legend><span class="calibro-num" aria-hidden="true">08</span>Una richiesta ripetitiva diventa un’offerta in meno di un’ora?</legend>
+              <div class="calibro-scelte"><label><input type="radio" name="c8" value="si"> Sì</label><label><input type="radio" name="c8" value="no"> No</label></div>
+            </fieldset></li>
+          </ol>
+          <div class="calibro-esito">
+            <!-- il comparatore: la lancetta segna quante risposte passano. Decorativo, il risultato è nel testo -->
+            <svg class="comparatore" viewBox="0 0 200 116" aria-hidden="true" focusable="false">
+              <path class="comparatore-arco" d="M18 100A82 82 0 0 1 182 100"/>
+              <path class="comparatore-passa" d="M100 18A82 82 0 0 1 182 100"/>
+              <g class="comparatore-tacche"><path d="M18.0 100.0 30.0 100.0"/><path d="M24.2 68.6 30.7 71.3"/><path d="M42.0 42.0 47.0 47.0"/><path d="M68.6 24.2 71.3 30.7"/><path d="M100.0 18.0 100.0 30.0"/><path d="M131.4 24.2 128.7 30.7"/><path d="M158.0 42.0 153.0 47.0"/><path d="M175.8 68.6 169.3 71.3"/><path d="M182.0 100.0 170.0 100.0"/></g>
+              <text x="18" y="114" text-anchor="middle">0</text>
+              <text x="100" y="12" text-anchor="middle">4</text>
+              <text x="182" y="114" text-anchor="middle">8</text>
+              <line class="lancetta" x1="100" y1="100" x2="34" y2="100"/>
+              <circle class="comparatore-perno" cx="100" cy="100" r="6"/>
+            </svg>
+            <div class="calibro-testo" aria-live="polite">
+              <p class="calibro-punteggio">Rispondete alle otto domande.</p>
+              <p class="calibro-consiglio"></p>
+            </div>
+            <a class="btn calibro-porta" href="#contatto" hidden>
+              Portate il risultato nella richiesta
+              <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ── 8. Contatto ── -->
     <section class="contatto" id="contatto" aria-labelledby="titolo-contatto">
       <div class="contenitore contatto-griglia">
@@ -738,6 +832,17 @@
         <div><dt class="micro">Privacy</dt><dd><a class="link link-blocco" href="privacy.html">Informativa privacy</a></dd></div>
         <div><dt class="micro">Revisione</dt><dd>© 2026 CP Studio Lab</dd></div>
       </dl>
+      <!-- Scheda di collaudo: misure vere della pagina. Rifatele a ogni modifica grande (vedi README). -->
+      <div class="collaudo">
+        <p class="micro collaudo-titolo">Scheda di collaudo di questa pagina</p>
+        <dl>
+          <div><dt class="micro">Peso, prima visita</dt><dd><span class="collaudo-peso">105</span> KB</dd></div>
+          <div><dt class="micro">Richieste ad altri server</dt><dd>0</dd></div>
+          <div><dt class="micro">Cookie</dt><dd>0</dd></div>
+          <div><dt class="micro">Collaudo del</dt><dd>20/10/2026</dd></div>
+          <div><dt class="micro">Verificate voi</dt><dd><a class="link link-blocco collaudo-verifica" href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fcpstudiolab.netlify.app%2F" rel="noopener">PageSpeed</a></dd></div>
+        </dl>
+      </div>
     </div>
   </footer>
 </body>
