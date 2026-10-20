@@ -33,7 +33,7 @@
   <script src="main.js" defer></script>
   <link rel="stylesheet" href="style.css">
 
-  <!-- DA COMPILARE: dati strutturati. Togliete il commento quando città, telefono e P.IVA sono veri.
+  <!-- Dati strutturati. DA COMPILARE: aggiungete "vatID": "IT…" quando c'è la P.IVA -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -43,13 +43,11 @@
     "image": "https://cpstudiolab.it/og-image.png",
     "description": "Siti tecnici, Google, CRM e automazioni per aziende manifatturiere.",
     "email": "info@cpstudiolab.it",
-    "telephone": "+390000000000",
-    "vatID": "IT00000000000",
-    "address": { "@type": "PostalAddress", "addressLocality": "Città-da-compilare", "addressCountry": "IT" },
+    "telephone": "+393203222498",
+    "address": { "@type": "PostalAddress", "addressLocality": "Bassano del Grappa", "addressRegion": "VI", "addressCountry": "IT" },
     "areaServed": "IT"
   }
   </script>
-  -->
 </head>
 <body>
   <!-- Simboli usati più volte: il marchio del kit F e la freccia dei bottoni -->
@@ -162,8 +160,7 @@
         <div class="contenitore">
           <div class="apertura-meta">
             <p class="micro">Studio digitale per le PMI manifatturiere</p>
-            <!-- DA COMPILARE: città -->
-            <p class="micro">Sede a <mark class="da-compilare">Città</mark> · Italia</p>
+            <p class="micro">Sede a Bassano del Grappa · Italia</p>
           </div>
 
           <h1 class="apertura-titolo" id="titolo-apertura">
@@ -509,8 +506,7 @@
         <div class="chi-testo">
           <p class="micro">Chi siamo</p>
           <h2 class="titolo-sezione" id="titolo-chi">Due soci, un solo studio.</h2>
-          <!-- DA COMPILARE: città -->
-          <p>Sede a <mark class="da-compilare">Città</mark>. Poche aziende alla volta: parlate sempre con chi fa il lavoro.</p>
+          <p>Sede a Bassano del Grappa. Poche aziende alla volta: parlate sempre con chi fa il lavoro.</p>
 
           <ul class="soci">
             <li class="socio">
@@ -519,8 +515,8 @@
               <span class="socio-tessera socio-c" aria-hidden="true">C</span>
               <div>
                 <h3>Tommaso Campagnolo</h3>
-                <!-- DA COMPILARE: cosa segue (una riga concreta, diversa da quella dell'altro socio) -->
-                <p class="micro socio-ruolo"><mark class="da-compilare">es. siti e automazioni</mark></p>
+                <!-- DA COMPILARE: cosa segue, in una riga concreta. Esempio:
+                     <p class="micro socio-ruolo">Siti e automazioni</p> -->
               </div>
             </li>
             <li class="socio">
@@ -529,8 +525,8 @@
               <span class="socio-tessera socio-p" aria-hidden="true">P</span>
               <div>
                 <h3>Francesco Parolin</h3>
-                <!-- DA COMPILARE: cosa segue (una riga concreta, diversa da quella dell'altro socio) -->
-                <p class="micro socio-ruolo"><mark class="da-compilare">es. Google e CRM</mark></p>
+                <!-- DA COMPILARE: cosa segue, in una riga concreta. Esempio:
+                     <p class="micro socio-ruolo">Google e CRM</p> -->
               </div>
             </li>
           </ul>
@@ -587,8 +583,7 @@
         <div class="contatto-testa" data-entra>
           <p class="micro">Contatto</p>
           <h2 class="titolo-sezione" id="titolo-contatto">Chiedeteci un <span class="leggero">preventivo</span>.</h2>
-          <!-- DA COMPILARE: numero di giorni lavorativi che i soci possono garantire -->
-          <p>Indicate cosa vi serve: vi rispondiamo entro <mark class="da-compilare">N</mark> giorni lavorativi.</p>
+          <p>Indicate cosa vi serve: vi rispondiamo entro 24 ore lavorative.</p>
         </div>
 
         <!-- Modulo statico, senza JavaScript. Funziona così com'è su Netlify (Netlify Forms).
@@ -629,13 +624,11 @@
           </div>
           <div>
             <dt class="micro">Telefono</dt>
-            <!-- DA COMPILARE: telefono (nel tel: senza spazi) -->
-            <dd><a class="link link-blocco" href="tel:+390000000000"><mark class="da-compilare">+39 000 000 0000</mark></a></dd>
+            <dd><a class="link link-blocco" href="tel:+393203222498">+39 320 322 2498</a></dd>
           </div>
           <div>
             <dt class="micro">WhatsApp</dt>
-            <!-- DA COMPILARE: numero WhatsApp (in wa.me: prefisso 39, senza + né spazi) -->
-            <dd><a class="link link-blocco" href="https://wa.me/390000000000" rel="noopener">Scriveteci su WhatsApp</a></dd>
+            <dd><a class="link link-blocco" href="https://wa.me/393203222498" rel="noopener">Scriveteci su WhatsApp</a></dd>
           </div>
         </dl>
       </div>
@@ -656,9 +649,9 @@
         <a class="link link-blocco" href="#inizio">Inizio pagina</a>
       </div>
       <dl class="cartiglio-piede">
-        <!-- DA COMPILARE: città e P.IVA -->
-        <div><dt class="micro">Sede</dt><dd><mark class="da-compilare">Città</mark> · Italia</dd></div>
-        <div><dt class="micro">P.IVA</dt><dd><mark class="da-compilare">00000000000</mark></dd></div>
+        <div><dt class="micro">Sede</dt><dd>Bassano del Grappa · Italia</dd></div>
+        <!-- DA COMPILARE: P.IVA, obbligatoria sul sito. Esempio:
+             <div><dt class="micro">P.IVA</dt><dd>01234567890</dd></div> -->
         <div><dt class="micro">Email</dt><dd><a class="link link-blocco" href="mailto:info@cpstudiolab.it">info@cpstudiolab.it</a></dd></div>
         <div><dt class="micro">Privacy</dt><dd><a class="link link-blocco" href="privacy.html">Informativa privacy</a></dd></div>
         <div><dt class="micro">Revisione</dt><dd>© 2026 CP Studio Lab</dd></div>

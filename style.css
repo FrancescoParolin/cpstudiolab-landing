@@ -1276,7 +1276,8 @@ mark.da-compilare {
 .cartiglio-piede dd { font-size: var(--t-piccolo); overflow-wrap: anywhere; }
 
 @media (min-width: 768px) {
-  .cartiglio-piede { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  /* tante colonne quante sono le voci del cartiglio */
+  .cartiglio-piede { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
 }
 
 /* ── Pagine di servizio: privacy e grazie ── */

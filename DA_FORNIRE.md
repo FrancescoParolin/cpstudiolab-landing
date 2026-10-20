@@ -1,14 +1,16 @@
 # Da fornire
 
-In pagina sono evidenziati in giallo. Compilati: togliete anche il `<mark class="da-compilare">`.
+In pagina i dati mancanti non si vedono: sono nei commenti `DA COMPILARE` di index.html e privacy.html.
 
-- [ ] Città (e indirizzo per la privacy)
-- [ ] Telefono e numero WhatsApp
-- [ ] P.IVA
-- [ ] Giorni lavorativi per rispondere a una richiesta (un numero che potete garantire)
+- [x] Città: Bassano del Grappa
+- [x] Telefono e WhatsApp: +39 320 322 2498
+- [x] Tempo di risposta: 24 ore lavorative
+- [ ] **P.IVA** (di ciascun socio o della società): è obbligatoria sul sito. Va nel piè di pagina, nella privacy e nei dati strutturati (`vatID`)
+- [ ] Indirizzo per la privacy
 - [ ] Cosa segue ciascun socio, in una riga
 - [ ] Foto dei soci: ritratti in bianco e nero, verticali (4:5). Servono: in «Chi siamo» oggi ci sono solo le sigle
-- [ ] Privacy: hosting, servizio del modulo, tempo di conservazione, data
+- [ ] Privacy: servizio di posta usato, conferma dei 12 mesi di conservazione, verifica di un professionista
+- [ ] Dominio cpstudiolab.it e casella info@cpstudiolab.it funzionanti
 - [ ] Confermare i servizi così come sono scritti: CRM (quale strumento?), LinkedIn, annunci Google,
       automazioni che leggono il disegno allegato, resoconto mensile, «Nessun vincolo di anni»,
       analisi «Senza impegno», i quattro settori
