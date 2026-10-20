@@ -62,15 +62,23 @@ perché su molti PC (Gmail o Outlook web) il clic su un `mailto:` non apre nient
 
 In locale il modulo non invia nulla: porta solo a `grazie.html`.
 
-## Pubblicarla (quando sarà il momento, non ora)
+## Online
 
-È una cartella statica: va bene qualunque hosting statico. Il dominio è già `https://cpstudiolab.it`
-(canonical, anteprima, `robots.txt`, `sitemap.xml`).
+- **Sito:** https://cpstudiolab.netlify.app (Netlify, account di Francesco). Il dominio `cpstudiolab.it` va ancora collegato.
+- **Cosa si pubblica:** `prepara.sh` copia in `dist/` solo i file del sito (niente `.md`); `netlify.toml` dice a Netlify
+  di eseguirlo e di pubblicare `dist/`, con gli header di sicurezza e la cache lunga per i font.
+- **Modulo:** Netlify Forms, modulo «richiesta». Le richieste arrivano in Netlify → Forms.
 
-- **Netlify:** collegate il repository (nessun comando di build, cartella da pubblicare `.`). Il modulo funziona da subito;
-  attivate il rilevamento dei moduli in Site settings → Forms se è spento.
-- **Vercel:** importate il repository, preset «Other», nessun comando di build (poi modulo con Formspree).
+## Lavorare in due
 
-I file `.md` sono note interne: se non volete che siano raggiungibili, escludeteli dalla pubblicazione.
-Dopo la pubblicazione controllate l'anteprima del link con il debugger di condivisione di LinkedIn o Facebook
-e misurate la pagina con PageSpeed Insights (obiettivo: sopra 95 su telefono, in tutte e quattro le voci).
+Il repository è su GitHub; Netlify pubblica da solo quello che entra in `main`.
+
+1. Mai lavorare su `main`: un ramo per ogni modifica, `paro/…` o `campa/…`.
+2. Pull request verso `main`. Netlify crea un'anteprima della pull request: si guarda lì prima di unire.
+3. Si unisce quando l'altro socio ha visto l'anteprima. Unita in `main`, la modifica è online in un minuto.
+
+Prima di ogni pull request: la pagina in locale (sopra), a 390px e a 1440px, e la console senza errori.
+Le regole di testi, design e movimento sono in `CLAUDE.md` e `DESIGN_SYSTEM.md`.
+
+Controlli dopo ogni pubblicazione: anteprima del link con il debugger di condivisione di LinkedIn o Facebook,
+PageSpeed Insights (obiettivo: sopra 95 su telefono, in tutte e quattro le voci), un invio di prova del modulo.
