@@ -141,9 +141,56 @@
         <a href="#metodo">Metodo</a>
         <a href="#chi-siamo">Chi siamo</a>
       </nav>
-      <a class="btn btn-piccolo" href="#contatto">Contattateci</a>
+      <div class="testata-azioni">
+        <a class="btn btn-piccolo" href="#contatto">Contattateci</a>
+        <!-- Il bottone del menu c'è solo con JavaScript (main.js toglie hidden); senza, resta la nav qui sopra -->
+        <button class="menu-apri" type="button" aria-expanded="false" aria-controls="menu" hidden>
+          <span class="menu-apri-testo">Menu</span>
+          <span class="menu-icona" aria-hidden="true"><span></span><span></span></span>
+        </button>
+      </div>
     </div>
   </header>
+
+  <!-- Menu a schermo intero: un foglio verde che sale sulla pagina, come «Il punto».
+       Dialogo modale: mentre è aperto il resto della pagina è inerte; Esc lo chiude. -->
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+    <div class="menu-foglio">
+      <div class="contenitore menu-testa">
+        <span class="logo" role="img" aria-label="CP Studio Lab">
+          <svg aria-hidden="true" focusable="false"><use href="#marchio"/></svg>
+          <span>CP Studio</span><span class="logo-lab">Lab</span>
+        </span>
+        <button class="menu-chiudi" type="button">
+          <span class="menu-apri-testo">Chiudi</span>
+          <span class="menu-icona menu-icona-x" aria-hidden="true"><span></span><span></span></span>
+        </button>
+      </div>
+      <div class="contenitore menu-corpo">
+        <nav class="menu-nav" aria-label="Sezioni della pagina">
+          <ol class="menu-voci">
+            <li><a href="#servizi"><span class="menu-num" aria-hidden="true">01</span><span class="menu-etichetta">Servizi</span></a></li>
+            <li><a href="#lavorazioni"><span class="menu-num" aria-hidden="true">02</span><span class="menu-etichetta">Lavorazioni</span></a></li>
+            <li><a href="#metodo"><span class="menu-num" aria-hidden="true">03</span><span class="menu-etichetta">Metodo</span></a></li>
+            <li><a href="#chi-siamo"><span class="menu-num" aria-hidden="true">04</span><span class="menu-etichetta">Chi siamo</span></a></li>
+            <li><a href="#contatto"><span class="menu-num" aria-hidden="true">05</span><span class="menu-etichetta">Contatto</span></a></li>
+          </ol>
+        </nav>
+        <div class="menu-lato">
+          <a class="btn btn-chiaro" href="#contatto">
+            Chiedeteci un preventivo
+            <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+          </a>
+          <dl class="recapiti">
+            <div><dt class="micro">Telefono</dt><dd><a class="link link-blocco" href="tel:+393203222498">+39 320 322 2498</a></dd></div>
+            <div><dt class="micro">WhatsApp</dt><dd><a class="link link-blocco" href="https://wa.me/393203222498" rel="noopener">Scriveteci su WhatsApp</a></dd></div>
+            <div><dt class="micro">Email</dt><dd><a class="link link-blocco" href="mailto:info@cpstudiolab.it">info@cpstudiolab.it</a></dd></div>
+          </dl>
+        </div>
+      </div>
+      <p class="contenitore menu-piede micro">Studio digitale per le PMI manifatturiere · Bassano del Grappa</p>
+    </div>
+  </div>
 
   <main id="contenuto" tabindex="-1">
 
@@ -497,6 +544,41 @@
             <p>Un resoconto ogni mese.</p>
           </li>
         </ol>
+      </div>
+    </section>
+
+    <!-- ── 5b. Dati di targa: solo cifre vere e verificabili (mai percentuali o risultati inventati) ── -->
+    <section class="sezione dati" id="dati" aria-labelledby="titolo-dati">
+      <div class="contenitore">
+        <div class="sezione-testa">
+          <p class="micro">Dati di targa</p>
+          <h2 class="titolo-sezione" id="titolo-dati">Solo cifre che potete verificare.</h2>
+        </div>
+        <ul class="targa">
+          <li class="dato" data-entra><span class="dato-valore">24</span><span class="micro dato-unita">ore lavorative</span><p>Per rispondere a ogni richiesta.</p></li>
+          <li class="dato" data-entra><span class="dato-valore">2</span><span class="micro dato-unita">soci</span><p>Sempre gli stessi due interlocutori.</p></li>
+          <li class="dato dato-grande" data-entra>
+            <span class="dato-valore">5</span><span class="micro dato-unita">servizi</span>
+            <p>Sito, Google, CRM, automazioni e manutenzione: un solo studio.</p>
+            <svg class="disegno-lavorazione dato-disegno" viewBox="0 0 240 240" aria-hidden="true" focusable="false">
+                <g class="strato-pezzo">
+                  <circle class="d-profilo" cx="120" cy="120" r="96"/>
+                  <circle class="d-profilo" cx="120" cy="120" r="36"/>
+                  <circle class="d-profilo" cx="120.0" cy="52.0" r="8"/><circle class="d-profilo" cx="178.9" cy="86.0" r="8"/><circle class="d-profilo" cx="178.9" cy="154.0" r="8"/><circle class="d-profilo" cx="120.0" cy="188.0" r="8"/><circle class="d-profilo" cx="61.1" cy="154.0" r="8"/><circle class="d-profilo" cx="61.1" cy="86.0" r="8"/>
+                  <circle class="d-asse" cx="120" cy="120" r="68"/>
+                  <path class="d-asse" d="M12 120H228M120 12V228M108.0 52.0h24M120.0 40.0v24M166.9 86.0h24M178.9 74.0v24M166.9 154.0h24M178.9 142.0v24M108.0 188.0h24M120.0 176.0v24M49.1 154.0h24M61.1 142.0v24M49.1 86.0h24M61.1 74.0v24"/>
+                </g>
+                <g class="strato-quote">
+                  <path class="d-quota" d="M184.5 80.3 214 26H236" marker-start="url(#punta-chiara)"/>
+                  <text class="d-testo" x="236" y="20" text-anchor="end">6 × Ø 10</text>
+                  <path class="d-quota" d="M94.5 145.5 60 212H8" marker-start="url(#punta-chiara)"/>
+                  <text class="d-testo" x="8" y="206">Ø 45 H7</text>
+                </g>
+              </svg>
+          </li>
+          <li class="dato" data-entra><span class="dato-valore">4</span><span class="micro dato-unita">fasi</span><p>Analisi, preventivo, realizzazione, manutenzione.</p></li>
+          <li class="dato" data-entra><span class="dato-valore">3</span><span class="micro dato-unita">formati</span><p>PDF, DXF e STEP: il disegno arriva insieme alla richiesta.</p></li>
+        </ul>
       </div>
     </section>
 

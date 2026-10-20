@@ -28,22 +28,94 @@
     campo.addEventListener('input', () => campo.setCustomValidity(''));
   });
 
-  // ── Navigazione: evidenzia la sezione in cui vi trovate (nessuna, se non è nel menu) ──
+  // ── Navigazione: evidenzia la sezione in cui vi trovate, nella nav e nel menu (nessuna, se non è nel menu) ──
   const vociNav = new Map();
-  $$('.nav a[href^="#"]').forEach((a) => {
+  $$('.nav a[href^="#"], .menu-voci a[href^="#"]').forEach((a) => {
     const sezione = document.getElementById(a.getAttribute('href').slice(1));
-    if (sezione) vociNav.set(sezione, a);
+    if (!sezione) return;
+    if (!vociNav.has(sezione)) vociNav.set(sezione, []);
+    vociNav.get(sezione).push(a);
   });
   if (vociNav.size && 'IntersectionObserver' in window) {
     const io = new IntersectionObserver((voci) => {
       voci.forEach((v) => {
         if (!v.isIntersecting) return;
-        vociNav.forEach((a) => { a.classList.remove('corrente'); a.removeAttribute('aria-current'); });
-        const voce = vociNav.get(v.target);
-        if (voce) { voce.classList.add('corrente'); voce.setAttribute('aria-current', 'true'); }
+        vociNav.forEach((link) => link.forEach((a) => { a.classList.remove('corrente'); a.removeAttribute('aria-current'); }));
+        (vociNav.get(v.target) || []).forEach((a) => { a.classList.add('corrente'); a.setAttribute('aria-current', 'true'); });
       });
     }, { rootMargin: '-50% 0px -50% 0px' });
     $$('main section').forEach((sezione) => io.observe(sezione));
+  }
+
+  // ── Menu a schermo intero: un dialogo modale. Mentre è aperto il resto della pagina è inerte,
+  //    quindi il fuoco resta nel menu; Esc lo chiude e il fuoco torna al bottone «Menu». ──
+  const menu = document.getElementById('menu');
+  const apriMenu = document.querySelector('.menu-apri');
+  if (menu && apriMenu && 'inert' in HTMLElement.prototype) {
+    const chiudiMenuBtn = menu.querySelector('.menu-chiudi');
+    const resto = $$('body > *').filter((el) => el !== menu && el.tagName !== 'SCRIPT');
+    const durata = ridotto ? 0 : token('--lunga', 1) * 1000;
+    let attesa = 0;
+
+    // le lettere delle voci, una per una, per lo scorrimento al passaggio del mouse (il nome resta intero per i lettori)
+    if (!ridotto) {
+      $$('.menu-etichetta').forEach((voce) => {
+        const testo = voce.textContent;
+        voce.textContent = '';
+        const nome = document.createElement('span');
+        nome.className = 'nascosto';
+        nome.textContent = testo;
+        const lettere = document.createElement('span');
+        lettere.className = 'menu-lettere';
+        lettere.setAttribute('aria-hidden', 'true');
+        [...testo].forEach((c, i) => {
+          const l = document.createElement('span');
+          l.textContent = c === ' ' ? '\u00a0' : c;
+          l.style.setProperty('--i', i);
+          lettere.appendChild(l);
+        });
+        voce.append(nome, lettere);
+      });
+    } else {
+      $$('.menu-etichetta').forEach((voce) => {
+        const lettere = document.createElement('span');
+        lettere.className = 'menu-lettere';
+        lettere.textContent = voce.textContent;
+        voce.textContent = '';
+        voce.appendChild(lettere);
+      });
+    }
+
+    const apri = () => {
+      clearTimeout(attesa);
+      menu.hidden = false;
+      menu.classList.remove('chiude');
+      void menu.offsetWidth;                      // lo stato di partenza viene disegnato prima della transizione
+      menu.classList.add('aperto');
+      radice.classList.add('menu-aperto');
+      apriMenu.setAttribute('aria-expanded', 'true');
+      resto.forEach((el) => { el.inert = true; });
+      const prima = menu.querySelector('.menu-voci a');
+      if (prima) prima.focus({ preventScroll: true });
+    };
+    const chiudi = (restituisci = true) => {
+      if (menu.hidden || !menu.classList.contains('aperto')) return;
+      menu.classList.remove('aperto');
+      menu.classList.add('chiude');
+      radice.classList.remove('menu-aperto');
+      apriMenu.setAttribute('aria-expanded', 'false');
+      resto.forEach((el) => { el.inert = false; });
+      if (restituisci) apriMenu.focus({ preventScroll: true });
+      attesa = setTimeout(() => { menu.hidden = true; menu.classList.remove('chiude'); }, durata);
+    };
+
+    apriMenu.addEventListener('click', apri);
+    if (chiudiMenuBtn) chiudiMenuBtn.addEventListener('click', () => chiudi());
+    menu.addEventListener('keydown', (e) => { if (e.key === 'Escape') { e.preventDefault(); chiudi(); } });
+    // una voce porta alla sua sezione: il foglio esce in alto e scopre la pagina già al posto giusto
+    menu.querySelectorAll('a[href^="#"]').forEach((a) => a.addEventListener('click', () => chiudi(false)));
+    apriMenu.hidden = false;
+    radice.classList.add('menu-pronto');
   }
 
   // Tutto il resto si calcola dalla posizione, non dagli ingressi: anche un salto con i link lo aggiorna.
