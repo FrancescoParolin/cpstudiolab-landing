@@ -65,7 +65,8 @@ In locale il modulo non invia nulla: porta solo a `grazie.html`.
 ## Online
 
 - **Sito:** https://cpstudiolab.netlify.app (Netlify, account di Francesco). Il dominio `cpstudiolab.it` va ancora collegato.
-- **Repository:** https://github.com/FrancescoParolin/cpstudiolab-landing (privato; Campa, `yngcmp`, ha accesso in scrittura).
+- **Repository:** https://github.com/FrancescoParolin/cpstudiolab-landing, pubblico (il codice di un sito è comunque visibile);
+  Campa, `yngcmp`, ha accesso in scrittura. Mai password, chiavi o dati dei clienti nel repository.
   Netlify pubblica `main` a ogni push: chiave di sola lettura e webhook sul repository.
 - **Cosa si pubblica:** `prepara.sh` copia in `dist/` solo i file del sito (niente `.md`); `netlify.toml` dice a Netlify
   di eseguirlo e di pubblicare `dist/`, con gli header di sicurezza e la cache lunga per i font.
