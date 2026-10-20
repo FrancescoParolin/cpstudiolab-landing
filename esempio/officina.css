@@ -1,0 +1,95 @@
+/* Officina Esempio: il sito di un'azienda inventata, per provare un sito tecnico.
+   Ha un aspetto suo (inchiostro e blu acciaio), diverso da CP Studio Lab: è il sito del cliente. */
+.officina {
+  --o-blu: #1E4E79;          /* 8,3:1 sul bianco */
+  --o-blu-scuro: #163A5B;
+  --o-grigio: #F3F5F7;
+  --o-linea: #D9DEE3;
+  --o-tenue: #5B6670;        /* 5,9:1 sul bianco */
+  background: #ffffff;
+  color: var(--testo);
+}
+.officina-contenitore { width: 100%; max-width: calc(1120px + 2 * var(--gutter)); margin: 0 auto; padding: 0 var(--gutter); }
+.officina-nastro {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--s1) var(--s3);
+  margin: 0;
+  padding: var(--s1) var(--gutter);
+  background: var(--accento);
+  color: var(--crema);
+  font: var(--peso-medio) var(--t-micro)/1.5 var(--mono);
+  letter-spacing: var(--ls-micro);
+  text-transform: uppercase;
+}
+.officina-nastro a { color: var(--crema); text-underline-offset: var(--scarto); }
+.officina-nastro :focus-visible { outline-color: var(--crema); }
+.officina-testata { border-bottom: var(--linea) solid var(--o-linea); }
+.officina-testata-riga { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s2); min-height: var(--s8); padding-block: var(--s1); }
+.officina-marchio { display: inline-flex; align-items: center; gap: var(--s1); font-weight: var(--peso-forte); font-size: var(--t-lead); letter-spacing: var(--ls-voce); color: var(--testo); text-decoration: none; }
+.officina-segno { width: 18px; height: 18px; border-radius: 3px; background: var(--testo); box-shadow: inset 0 0 0 4px var(--testo), inset 0 0 0 6px #fff; }
+.officina-nav { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s1) var(--s3); font-size: var(--t-piccolo); }
+.officina-nav a:not(.officina-btn) { color: var(--o-tenue); text-decoration: none; padding: var(--s1) 0; }
+.officina-nav a:not(.officina-btn):hover { color: var(--testo); }
+.officina :focus-visible { outline-color: var(--o-blu); }
+.officina-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--s6);
+  padding: var(--s1) var(--s3);
+  border: 0;
+  border-radius: var(--r-s);
+  background: var(--o-blu);
+  color: #fff;
+  font: var(--peso-forte) var(--t-corpo)/1.2 var(--sans);
+  text-decoration: none;
+  cursor: pointer;
+}
+.officina-btn:hover { background: var(--o-blu-scuro); }
+.officina-btn-piccolo { min-height: var(--s5); padding: var(--s1) var(--s2); font-size: var(--t-piccolo); }
+.officina-apertura { padding: var(--s10) 0 var(--s8); background: var(--o-grigio); }
+.officina-apertura h1 { max-width: 14em; margin-top: var(--s2); font-size: clamp(36px, 6vw, 64px); line-height: 1.05; letter-spacing: var(--ls-titolo); }
+.officina-micro { font: var(--peso-medio) var(--t-micro)/1.4 var(--mono); letter-spacing: var(--ls-micro); text-transform: uppercase; color: var(--o-blu); }
+.officina-lead { max-width: 32em; margin: var(--s3) 0; font-size: var(--t-lead); color: var(--o-tenue); }
+.officina-dati { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s1); margin-top: var(--s6); }
+.officina-dati div { padding: var(--s2); border-radius: var(--r-s); background: #fff; border: var(--linea) solid var(--o-linea); }
+.officina-dati dt { font: var(--peso-medio) var(--t-micro)/1.4 var(--mono); letter-spacing: var(--ls-micro); text-transform: uppercase; color: var(--o-tenue); }
+.officina-dati dd { margin-top: var(--s1); font-size: var(--t-h3); font-weight: var(--peso-forte); font-variant-numeric: tabular-nums; }
+.officina-sezione { padding: var(--s10) 0; }
+.officina-sezione h2 { font-size: clamp(28px, 4vw, 44px); letter-spacing: var(--ls-titolo); line-height: 1.1; }
+.officina-grigia { background: var(--o-grigio); }
+.officina-schede { display: grid; gap: var(--s2); margin-top: var(--s5); }
+.officina-schede li { padding: var(--s3); border: var(--linea) solid var(--o-linea); border-radius: var(--r-s); border-top: 3px solid var(--o-blu); }
+.officina-schede h3 { font-size: var(--t-lead); }
+.officina-schede p { margin-top: var(--s1); color: var(--o-tenue); }
+.officina-tabella-scorre { margin-top: var(--s5); overflow-x: auto; }
+.officina-tabella { width: 100%; min-width: 520px; border-collapse: collapse; background: #fff; font-variant-numeric: tabular-nums; }
+.officina-tabella th, .officina-tabella td { padding: var(--s2); border-bottom: var(--linea) solid var(--o-linea); text-align: left; }
+.officina-tabella thead th { font: var(--peso-medio) var(--t-micro)/1.4 var(--mono); letter-spacing: var(--ls-micro); text-transform: uppercase; color: var(--o-tenue); }
+.officina-tabella tbody th { font-weight: var(--peso-medio); }
+.officina-due { display: grid; gap: var(--s5); }
+.officina-elenco { display: grid; gap: var(--s2); }
+.officina-elenco li { padding-left: var(--s3); position: relative; font-size: var(--t-lead); }
+.officina-elenco li::before { content: ''; position: absolute; left: 0; top: .7em; width: 12px; height: 3px; background: var(--o-blu); }
+.officina-modulo { display: grid; gap: var(--s2); }
+.officina-campo { display: grid; gap: var(--s1); }
+.officina-campo label { font-size: var(--t-piccolo); font-weight: var(--peso-medio); }
+.officina-campo :is(input, select, textarea) { width: 100%; min-height: var(--s6); padding: var(--s1) var(--s2); border: var(--linea) solid #9AA5AF; border-radius: var(--r-s); background: #fff; color: var(--testo); font: var(--peso-normale) var(--t-corpo)/1.4 var(--sans); }
+.officina-campo input[type="file"] { padding: 12px var(--s2); }
+.officina-esito { min-height: 1.5em; color: var(--o-blu); font-weight: var(--peso-medio); }
+.officina-piede { padding: var(--s6) 0; border-top: var(--linea) solid var(--o-linea); color: var(--o-tenue); font-size: var(--t-piccolo); }
+.officina-piede p + p { margin-top: var(--s1); }
+.officina-piede a { color: var(--testo); }
+@media (min-width: 768px) {
+  .officina-dati { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .officina-schede { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .officina-modulo { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .officina-campo-largo, .officina-modulo .officina-btn, .officina-esito { grid-column: 1 / -1; }
+  .officina-modulo .officina-btn { justify-self: start; }
+}
+@media (min-width: 1024px) {
+  .officina-schede { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .officina-due { grid-template-columns: 5fr 7fr; align-items: start; column-gap: var(--s8); }
+}

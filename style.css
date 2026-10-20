@@ -423,6 +423,26 @@ mark.da-compilare {
    che sale dal fondo, come «Il punto», e chiudendo continua a salire. Le voci entrano come le righe del titolo;
    al passaggio del mouse le lettere scorrono e ricompaiono da sotto. Solo transform e opacity. */
 .testata-azioni { display: flex; align-items: center; gap: var(--s1); }
+/* Il tasto per chiamare: su telefono solo l'icona, da 1024px anche il numero */
+.testata-tel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s1);
+  min-width: var(--s5);
+  min-height: var(--s5);
+  padding: var(--s1) var(--s2);
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  color: var(--testo);
+  font: var(--peso-medio) var(--t-piccolo)/var(--lh-voce) var(--sans);
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.testata-tel:hover { border-color: var(--testo); }
+.tel-icona { width: var(--s2); height: var(--s2); flex: none; color: var(--accento); }
+.testata-tel-testo { display: none; }
 .menu-pronto .nav { display: none; }
 .menu-apri, .menu-chiudi {
   display: inline-flex;
@@ -535,11 +555,14 @@ html.menu-aperto { overflow: hidden; }
 .menu-lato .btn { justify-content: space-between; min-height: var(--s7); font-weight: var(--peso-forte); }
 .menu-piede { padding-bottom: var(--s4); color: var(--crema-tenue); }
 
+@media (min-width: 1024px) {
+  .testata-tel-testo { display: inline; }
+}
+@media (max-width: 559px) {
+  .testata .btn-piccolo { display: none; }
+}
 @media (max-width: 479px) {
   .menu-apri .menu-apri-testo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-}
-@media (max-width: 359px) {
-  .menu-pronto .testata .btn-piccolo { display: none; }
 }
 @media (min-width: 1024px) {
   .menu-corpo { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s3); align-items: end; }
@@ -1011,6 +1034,7 @@ html.menu-aperto { overflow: hidden; }
 .settore { display: grid; gap: var(--s3); align-content: start; }
 .settore h3 { font-size: var(--t-voce); line-height: var(--lh-voce); letter-spacing: var(--ls-titolo); }
 .settore-num { margin-right: var(--s2); font-family: var(--mono); font-weight: var(--peso-leggero); color: var(--accento); }
+.settore .link-freccia, .servizio-testo .link-freccia { justify-self: start; }
 .settori-nota { margin-top: var(--s8); max-width: var(--misura); font-size: var(--t-lead); color: var(--tenue); }
 
 /* Le trame delle lavorazioni (anche come fascia sopra ogni settore, su telefono) */
@@ -1320,6 +1344,92 @@ html.menu-aperto { overflow: hidden; }
   .domande { grid-template-columns: 1fr 1fr; }
 }
 
+/* ══ 7b. Calibro passa / non passa ══════════════════════════════
+   Otto domande sì/no, il comparatore segna quante passano, il consiglio dice il primo lavoro.
+   Tutto nella pagina: non si invia niente. */
+.calibro { background: var(--superficie); border-top: var(--linea) solid var(--bordo); }
+.calibro-griglia { display: grid; gap: var(--s6); }
+.calibro-domande { counter-reset: domanda; border-top: var(--linea) solid var(--bordo-forte); }
+.calibro-domande li { border-bottom: var(--linea) solid var(--bordo-forte); }
+.calibro-domanda {
+  display: grid;
+  gap: var(--s2);
+  min-width: 0;
+  margin: 0;
+  padding: var(--s3) 0;
+  border: 0;
+}
+.calibro-domanda legend { float: left; width: 100%; padding: 0; font-size: var(--t-lead); line-height: var(--lh-voce); }
+.calibro-num { margin-right: var(--s2); font: var(--peso-medio) var(--t-micro)/1 var(--mono); letter-spacing: var(--ls-micro); color: var(--accento); }
+.calibro-scelte { display: flex; gap: var(--s1); clear: both; }
+.calibro-scelte label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s1);
+  min-height: var(--s5);
+  padding: var(--s1) var(--s2);
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  cursor: pointer;
+}
+.calibro-scelte label:hover { border-color: var(--testo); }
+/* il pallino: un cerchio che si riempie quando è scelto */
+.calibro-scelte input {
+  -webkit-appearance: none;
+  appearance: none;
+  display: grid;
+  place-content: center;
+  flex: none;
+  width: var(--s2); height: var(--s2);
+  margin: 0;
+  border: var(--linea-forte) solid currentColor;
+  border-radius: 50%;
+  color: inherit;
+  cursor: pointer;
+}
+.calibro-scelte input::before {
+  content: '';
+  width: var(--s1); height: var(--s1);
+  border-radius: 50%;
+  background: currentColor;
+  transform: scale(0);
+  transition: transform var(--breve) var(--curva);
+}
+.calibro-scelte input:checked::before { transform: scale(1); }
+.calibro-scelte label:has(:checked) { border-color: var(--accento); background: var(--accento); color: var(--crema); }
+@supports selector(:has(*)) {
+  .calibro-scelte input:focus-visible { outline: none; }
+  .calibro-scelte label:has(:focus-visible) { outline: var(--linea-forte) solid var(--accento); outline-offset: var(--fuoco-distanza); }
+}
+@media (forced-colors: active) {
+  .calibro-scelte input { -webkit-appearance: auto; appearance: auto; }
+}
+.calibro-esito { display: grid; gap: var(--s3); justify-items: start; align-content: start; }
+.comparatore {
+  width: min(100%, 320px);
+  height: auto;
+  overflow: visible;
+  color: var(--accento);
+  fill: none;
+  stroke: currentColor;
+  font: var(--peso-medio) 11px var(--mono);
+}
+.comparatore text { fill: var(--tenue); stroke: none; }
+.comparatore-arco { stroke: var(--bordo-forte); stroke-width: 6; }
+.comparatore-passa { stroke-width: 6; }
+.comparatore-tacche { stroke-width: 1.5; }
+.lancetta { stroke: var(--testo); stroke-width: 3; stroke-linecap: round; transform-origin: 100px 100px; transform: rotate(var(--angolo, 0deg)); }
+.comparatore-perno { fill: var(--testo); stroke: none; }
+.calibro-punteggio { font-size: var(--t-h3); font-weight: var(--peso-forte); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
+.calibro-consiglio { max-width: var(--misura-stretta); color: var(--tenue); }
+.calibro-consiglio:empty { display: none; }
+
+@media (min-width: 1024px) {
+  .calibro-griglia { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s3); align-items: start; }
+  .calibro-domande { grid-column: 1 / 8; }
+  .calibro-esito { grid-column: 9 / -1; }
+}
+
 /* ══ 8. Contatto ══════════════════════════════════════════════════
    Il secondo foglio verde. Su telefono: titolo, modulo, poi i recapiti. */
 .contatto {
@@ -1446,6 +1556,46 @@ html.menu-aperto { overflow: hidden; }
   .cartiglio-piede { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
 }
 
+/* La scheda di collaudo: le misure vere della pagina, sotto il cartiglio */
+.collaudo { margin-top: var(--s5); }
+.collaudo dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: var(--s2); border-top: var(--linea) solid var(--bordo-forte); }
+.collaudo dl div { padding: var(--s2) var(--s2) var(--s2) 0; border-bottom: var(--linea) solid var(--bordo-forte); }
+.collaudo dt { margin-bottom: var(--s1); }
+.collaudo dd { font-size: var(--t-piccolo); font-variant-numeric: tabular-nums; }
+@media (min-width: 768px) {
+  .collaudo dl { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
+}
+
+/* ── Pagine per lavorazione (/tornitura/, /lamiera/, /stampaggio/, /carpenteria/) ── */
+.lav-apertura { padding: var(--s8) 0 var(--sezione); }
+.lav-griglia { display: grid; gap: var(--s6); align-items: center; }
+.lav-testo { display: grid; gap: var(--s3); justify-items: start; }
+.lav-testo .titolo-sezione { margin-top: 0; }
+.lav-testo .sezione-sotto { margin-top: 0; color: var(--testo); }
+.lav-figura { margin: 0; display: grid; gap: var(--s1); }
+.pannello-lav { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r); background: var(--accento); }
+.pannello-lav .trama { opacity: .4; }
+.lav-disegno { position: absolute; inset: var(--s3); width: calc(100% - 2 * var(--s3)); height: calc(100% - 2 * var(--s3)); font-size: 14px; --tratto: 1px; }
+.lav-corpo { background: var(--superficie); border-top: var(--linea) solid var(--bordo); }
+.lav-colonne { display: grid; gap: var(--s8); }
+.lav-titolo { margin: var(--s2) 0 var(--s4); font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
+.lav-elenco { gap: var(--s2); font-size: var(--t-lead); }
+.lav-ricerche { display: grid; gap: var(--s1); }
+.lav-ricerca { max-width: 28em; }
+.lav-nota { margin-top: var(--s3); color: var(--tenue); }
+.lav-chiusura { border-radius: var(--r-foglio) var(--r-foglio) 0 0; }
+.lav-azioni { margin-top: var(--s5); }
+.lav-azioni .link-freccia { color: var(--crema); }
+.lav-altre-titolo { margin-top: var(--s10); }
+.lav-altre { display: flex; flex-wrap: wrap; gap: 0 var(--s4); margin-top: var(--s1); }
+@media (min-width: 1024px) {
+  .lav-griglia { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s3); }
+  .lav-testo { grid-column: 1 / 7; }
+  .lav-figura { grid-column: 7 / -1; }
+  .lav-colonne { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s10); }
+  .lav-disegno { font-size: 11px; }
+}
+
 /* ── Pagine di servizio: privacy e grazie ── */
 .documento { max-width: calc(var(--misura-documento) + 2 * var(--gutter)); }
 .documento-intro { margin-top: var(--s3); font-size: var(--t-lead); color: var(--tenue); }
@@ -1553,6 +1703,9 @@ html.menu-aperto { overflow: hidden; }
   .moto .dato-disegno .strato-quote { transition-delay: calc(9 * var(--sfalsa)); }
   .moto .dato:not(.visibile) .strato-pezzo { opacity: 0; transform: rotate(-30deg) scale(.9); }
   .moto .dato:not(.visibile) .strato-quote { opacity: 0; }
+
+  /* Calibro: la lancetta ruota fino al punteggio */
+  .lancetta { transition: transform var(--lunga) var(--curva-precisa); }
 
   /* Domande e contatto: salgono quando entrano */
   .moto :is(.domanda, .contatto-testa) { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
