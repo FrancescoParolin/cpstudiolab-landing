@@ -18,7 +18,10 @@ Ogni valore sta nei token in `:root` di `style.css`. La versione completa, con l
 - **Componenti:** `.logo`, `.micro`, `.titolo-sezione`, `.btn`, `.link`, `.link-freccia`, `.elenco-tratto`, `.quota`,
   `.tavola`, `.mirino`, `.servizio` + `.mock-*` (esempi), `.settore` + `.trama-*` + `.disegno-lavorazione`, `.fase`,
   `.simbolo-componibile` + `.richiamo`, `.socio-tessera`, `.domande`, `.modulo` + `.campo` + `.scelte`, `.cartiglio-piede`,
-  `.menu` (menu a schermo intero, dialogo modale), `.targa` + `.dato` (dati di targa: solo cifre verificabili).
+  `.menu` (menu a schermo intero, dialogo modale), `.targa` + `.dato` (dati di targa: solo cifre verificabili),
+  `.qualita` (su misura, collaudato, chiaro: nella pagina Contatti), `.testata-contatto` (icona del telefono e «Contatti diretti»,
+  senza freccia: porta alla pagina Contatti; su telefono «Contatti»), `.contatti-diretto` (il foglio verde in cima alla pagina
+  Contatti: si vede subito, senza ingresso animato).
 - **Momenti firma:** il menu, un foglio verde che sale dal fondo e chiudendo esce in alto, con le lettere delle voci che
   scorrono al passaggio del mouse; la tavola che si compone come al tornio; il mirino CAD sulla carta millimetrata; il foglio verde
   che copre l'apertura; gli esempi dei servizi che si compongono (il disegno si allega, la richiesta parte); i disegni

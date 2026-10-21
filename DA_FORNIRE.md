@@ -4,6 +4,7 @@ In pagina i dati mancanti non si vedono: sono nei commenti `DA COMPILARE` di ind
 
 - [x] Città: Bassano del Grappa
 - [x] Telefono e WhatsApp: +39 320 322 2498
+- [x] Telefoni con i nomi: Tommaso Campagnolo +39 389 003 0969, Francesco Parolin +39 320 322 2498 (menu, pagina Contatti, sezione Contatto)
 - [x] Tempo di risposta: 24 ore lavorative
 - [ ] **P.IVA** (di ciascun socio o della società): è obbligatoria sul sito. Va nel piè di pagina, nella privacy e nei dati strutturati (`vatID`)
 - [ ] Indirizzo per la privacy
