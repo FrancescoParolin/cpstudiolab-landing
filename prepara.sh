@@ -8,8 +8,8 @@ mkdir -p dist/fonts
 cp index.html privacy.html grazie.html style.css main.js robots.txt sitemap.xml site.webmanifest \
    favicon.ico favicon-32.png apple-touch-icon.png icon-192.png icon-512.png og-image.png dist/
 cp fonts/*.woff2 fonts/*.txt dist/fonts/
-# pagine per lavorazione e sito d'esempio
-for cartella in tornitura lamiera stampaggio carpenteria esempio; do
+# pagine per lavorazione, la pagina dei contatti e il sito d'esempio
+for cartella in tornitura lamiera stampaggio carpenteria contatti esempio; do
   mkdir -p "dist/$cartella"
   cp "$cartella"/*.html "dist/$cartella/"
 done
