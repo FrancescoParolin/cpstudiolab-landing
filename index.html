@@ -620,6 +620,58 @@
       </div>
     </section>
 
+    <!-- bozza -->
+    <!-- ── 6b. Recensioni: solo clienti veri, con il loro permesso scritto per nome, logo e testo. Mai inventarle.
+         Finché ci sono segnaposto la sezione è in bozza: si vede in locale e nelle anteprime, ma la versione
+         online non la riceve (prepara.sh toglie tutto quello che sta tra la riga «bozza» qui sopra e la riga «/bozza»).
+         Per pubblicarla: testi, nomi e loghi veri al posto dei segnaposto gialli, poi togliete le due righe. -->
+    <section class="sezione recensioni" id="recensioni" aria-labelledby="titolo-recensioni">
+      <div class="contenitore">
+        <div class="sezione-testa">
+          <p class="micro">Recensioni</p>
+          <h2 class="titolo-sezione" id="titolo-recensioni">La parola ai clienti.</h2>
+          <p class="sezione-sotto">Chi ha già lavorato con noi.</p>
+        </div>
+
+        <!-- I loghi delle aziende, in grigio: file in clienti/ (meglio SVG). Per ogni logo:
+             <li class="cliente" data-entra><img src="clienti/nome.svg" alt="Nome dell’azienda" width="160" height="48"></li> -->
+        <div class="clienti-cornice">
+          <ul class="clienti" aria-label="Aziende clienti">
+            <li class="cliente" data-entra><mark class="da-compilare">Logo cliente 1</mark></li>
+            <li class="cliente" data-entra><mark class="da-compilare">Logo cliente 2</mark></li>
+          </ul>
+        </div>
+
+        <div class="recensioni-elenco">
+          <figure class="recensione" data-entra>
+            <blockquote class="recensione-testo">
+              <span class="recensione-virgolette" aria-hidden="true">«</span>
+              <p><mark class="da-compilare">Il testo del cliente, con le sue parole: due o tre frasi su cosa è cambiato.</mark></p>
+            </blockquote>
+            <figcaption>
+              <dl class="recensione-firma">
+                <div><dt class="micro">Firma</dt><dd><mark class="da-compilare">Nome e cognome, ruolo</mark></dd></div>
+                <div><dt class="micro">Azienda</dt><dd><mark class="da-compilare">Nome dell’azienda, città</mark></dd></div>
+              </dl>
+            </figcaption>
+          </figure>
+          <figure class="recensione" data-entra>
+            <blockquote class="recensione-testo">
+              <span class="recensione-virgolette" aria-hidden="true">«</span>
+              <p><mark class="da-compilare">Il testo del secondo cliente, con le sue parole.</mark></p>
+            </blockquote>
+            <figcaption>
+              <dl class="recensione-firma">
+                <div><dt class="micro">Firma</dt><dd><mark class="da-compilare">Nome e cognome, ruolo</mark></dd></div>
+                <div><dt class="micro">Azienda</dt><dd><mark class="da-compilare">Nome dell’azienda, città</mark></dd></div>
+              </dl>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+    <!-- /bozza -->
+
     <!-- ── 7. Domande ── -->
     <section class="sezione" id="domande" aria-labelledby="titolo-domande">
       <div class="contenitore">

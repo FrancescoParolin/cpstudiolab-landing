@@ -193,7 +193,7 @@ body {
   overflow-x: clip;
 }
 h1, h2, h3 { margin: 0; font-weight: var(--peso-forte); }
-p, figure, dl, dd { margin: 0; }
+p, figure, blockquote, dl, dd { margin: 0; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 a { color: inherit; }
 
@@ -1240,6 +1240,89 @@ html.menu-aperto { overflow: hidden; }
   .simbolo-componibile { width: min(100%, calc(3 * var(--s16) + var(--s7))); font-size: 5.2px; --tratto: .43px; }   /* 440px */
 }
 
+/* ══ 6b. Recensioni ══════════════════════════════════════════════
+   Solo clienti veri, con il loro permesso. In alto i loghi su una striscia del foglio: due righe che corrono
+   da un bordo all'altro dello schermo e un crocino dove le righe si incontrano. Sotto, una scheda per cliente:
+   le sue parole, poi un piccolo cartiglio con firma e azienda (come quello del piè di pagina). */
+.recensioni { overflow: hidden; overflow: clip; }       /* le righe escono dal contenitore, non dalla pagina */
+.clienti-cornice { position: relative; }
+.clienti-cornice::before, .clienti-cornice::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  width: 100vw;
+  height: var(--linea);
+  margin-left: -50vw;
+  background: var(--bordo-forte);
+}
+.clienti-cornice::before { top: 0; }
+.clienti-cornice::after { bottom: 0; }
+.clienti {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--linea);                                     /* le righe tra le celle sono lo spazio tra le celle */
+  border-inline: var(--linea) solid var(--bordo-forte);
+  background: var(--bordo-forte);
+}
+.cliente {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: var(--s16);
+  padding: var(--s4) var(--s3);
+  background: var(--superficie);
+  text-align: center;
+}
+.cliente:nth-child(even) { background: var(--superficie-2); }
+.cliente:last-child:nth-child(odd) { grid-column: 1 / -1; }   /* un logo da solo nell'ultima riga la occupa tutta */
+.cliente img { width: auto; max-width: 100%; height: auto; max-height: var(--s5); filter: grayscale(1); mix-blend-mode: multiply; }
+/* I crocini: 25px con il tratto da 1px al centro, che cade proprio sulla riga (sporge di 12px, più la riga
+   a sinistra della cella). Ogni cella ha i suoi due a sinistra, la striscia i due a destra */
+.clienti { --crocino: calc(var(--s3) + var(--linea)); --sporge: calc(var(--s3) / -2); }
+.cliente::before, .cliente::after, .clienti::before, .clienti::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  width: var(--crocino);
+  height: var(--crocino);
+  background:
+    linear-gradient(var(--accento) 0 0) center / var(--linea) 100% no-repeat,
+    linear-gradient(var(--accento) 0 0) center / 100% var(--linea) no-repeat;
+  pointer-events: none;
+}
+.cliente::before { left: calc(var(--sporge) - var(--linea)); top: var(--sporge); }
+.cliente::after { left: calc(var(--sporge) - var(--linea)); bottom: var(--sporge); }
+.clienti::before { right: calc(var(--sporge) - var(--linea)); top: var(--sporge); }
+.clienti::after { right: calc(var(--sporge) - var(--linea)); bottom: var(--sporge); }
+
+.recensioni-elenco { display: grid; gap: var(--s3); margin-top: var(--s8); }
+.recensione {
+  display: flex;
+  flex-direction: column;
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  background: var(--superficie);
+}
+.recensione-testo { flex: 1; padding: var(--s3) var(--s3) var(--s5); }
+.recensione-virgolette { display: block; font: var(--peso-leggero) var(--t-voce)/1 var(--sans); color: var(--accento); }
+.recensione-testo p { max-width: var(--misura); margin-top: var(--s1); font-size: var(--t-lead); font-weight: var(--peso-medio); }
+.recensione-firma { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: var(--linea) solid var(--accento); }
+.recensione-firma div { padding: var(--s2) var(--s3); }
+.recensione-firma div + div { border-left: var(--linea) solid var(--bordo-forte); }
+.recensione-firma dt { margin-bottom: var(--s1); }
+.recensione-firma dd { font-size: var(--t-piccolo); font-weight: var(--peso-medio); overflow-wrap: anywhere; }
+
+@media (min-width: 768px) {
+  .recensioni-elenco { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1024px) {
+  .cliente { min-height: calc(var(--s16) + var(--s4)); }
+  .recensione-testo { padding: var(--s4) var(--s5) var(--s6); }
+  .recensione-firma div { padding: var(--s2) var(--s5); }
+}
+
 /* ══ 7. Domande: tutte aperte, a tutta larghezza ════════════════ */
 .domande-titolo { margin-bottom: var(--s3); }
 .domande { display: grid; column-gap: var(--s3); border-top: var(--linea) solid var(--bordo-forte); counter-reset: nota; }
@@ -1625,6 +1708,12 @@ html.menu-aperto { overflow: hidden; }
   .moto .risultati li:nth-child(3) { transition-delay: calc(2 * var(--sfalsa)); }
   .moto .risultati li:nth-child(4) { transition-delay: calc(3 * var(--sfalsa)); }
 
+  /* Recensioni: i loghi salgono nelle loro celle (le celle restano: sotto c'è il colore delle righe), poi le schede */
+  .moto .cliente > *, .moto .recensione { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
+  .moto .cliente:not(.visibile) > * { opacity: 0; transform: translateY(var(--s2)); }
+  .moto .recensione:not(.visibile) { opacity: 0; transform: translateY(var(--s3)); }
+  .moto .cliente:nth-child(2) > *, .moto .recensione:nth-child(2) { transition-delay: var(--sfalsa); }
+
   /* Domande e contatto: salgono quando entrano */
   .moto :is(.domanda, .contatto-testa) { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
   .moto :is(.domanda, .contatto-testa):not(.visibile) { opacity: 0; transform: translateY(var(--s3)); }
@@ -1704,7 +1793,7 @@ html.menu-aperto { overflow: hidden; }
   :is(.sintomi, .sintomi li, .recapiti, .recapiti div) { border-color: var(--bordo-forte); }
   .metodo { background: none; }
   .quota::after { background: none; }
-  .servizio, .settore-riga, .risultati li, .fase, .domanda, .mock, .dato { break-inside: avoid; }
+  .servizio, .settore-riga, .risultati li, .fase, .domanda, .mock, .dato, .cliente, .recensione { break-inside: avoid; }
   .dato-grande { background: none; color: var(--testo); border-color: var(--bordo-forte); }
   .dato-grande .dato-valore { color: var(--accento); }
   .dato-grande :is(.micro, p) { color: var(--tenue); }
