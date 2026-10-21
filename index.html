@@ -621,10 +621,13 @@
     </section>
 
     <!-- bozza -->
-    <!-- ── 6b. Recensioni: solo clienti veri, con il loro permesso scritto per nome, logo e testo. Mai inventarle.
-         Finché ci sono segnaposto la sezione è in bozza: si vede in locale e nelle anteprime, ma la versione
-         online non la riceve (prepara.sh toglie tutto quello che sta tra la riga «bozza» qui sopra e la riga «/bozza»).
-         Per pubblicarla: testi, nomi e loghi veri al posto dei segnaposto gialli, poi togliete le due righe. -->
+    <!-- ── 6b. Recensioni: solo clienti veri, con il loro permesso scritto per nome, logo e testo.
+         Per ora ci sono due esempi inventati e dichiarati: etichetta «Esempio», aziende «… Esempio»,
+         attributo «data-segnaposto». Servono a vedere come verrà. La sezione è in bozza: si vede in locale e nelle
+         anteprime, la versione online non la riceve (prepara.sh toglie tutto quello che sta tra la riga «bozza»
+         qui sopra e la riga «/bozza», e si ferma se un esempio arriva lo stesso nelle pagine da pubblicare).
+         Per pubblicarla: al posto degli esempi i clienti veri, senza etichetta «Esempio» né «data-segnaposto»,
+         poi togliete le due righe. -->
     <section class="sezione recensioni" id="recensioni" aria-labelledby="titolo-recensioni">
       <div class="contenitore">
         <div class="sezione-testa">
@@ -637,33 +640,43 @@
              <li class="cliente" data-entra><img src="clienti/nome.svg" alt="Nome dell’azienda" width="160" height="48"></li> -->
         <div class="clienti-cornice">
           <ul class="clienti" aria-label="Aziende clienti">
-            <li class="cliente" data-entra><mark class="da-compilare">Logo cliente 1</mark></li>
-            <li class="cliente" data-entra><mark class="da-compilare">Logo cliente 2</mark></li>
+            <li class="cliente" data-entra data-segnaposto><span class="logo-esempio"><span class="segno-quadro" aria-hidden="true"></span>Officina Esempio</span></li>
+            <li class="cliente" data-entra data-segnaposto><span class="logo-esempio"><span class="segno-tondo" aria-hidden="true"></span>Lamiere Esempio</span></li>
           </ul>
         </div>
 
         <div class="recensioni-elenco">
-          <figure class="recensione" data-entra>
+          <figure class="recensione" data-entra data-segnaposto>
+            <p class="micro mock-etichetta">Esempio</p>
             <blockquote class="recensione-testo">
               <span class="recensione-virgolette" aria-hidden="true">«</span>
-              <p><mark class="da-compilare">Il testo del cliente, con le sue parole: due o tre frasi su cosa è cambiato.</mark></p>
+              <p>Il sito era fermo da anni. Adesso chi ci cerca su Google trova le nostre lavorazioni, e <strong>le richieste arrivano con il disegno già allegato</strong>.</p>
             </blockquote>
             <figcaption>
+              <p class="recensione-persona">
+                <span class="recensione-sigla" aria-hidden="true">MB</span>
+                <span><span class="recensione-nome">Marco Bianchi</span><span class="nascosto">, </span><span class="recensione-ruolo">Titolare</span></span>
+              </p>
               <dl class="recensione-firma">
-                <div><dt class="micro">Firma</dt><dd><mark class="da-compilare">Nome e cognome, ruolo</mark></dd></div>
-                <div><dt class="micro">Azienda</dt><dd><mark class="da-compilare">Nome dell’azienda, città</mark></dd></div>
+                <div><dt class="micro">Azienda</dt><dd>Officina Esempio</dd></div>
+                <div><dt class="micro">Servizi</dt><dd>Sito · Google</dd></div>
               </dl>
             </figcaption>
           </figure>
-          <figure class="recensione" data-entra>
+          <figure class="recensione" data-entra data-segnaposto>
+            <p class="micro mock-etichetta">Esempio</p>
             <blockquote class="recensione-testo">
               <span class="recensione-virgolette" aria-hidden="true">«</span>
-              <p><mark class="da-compilare">Il testo del secondo cliente, con le sue parole.</mark></p>
+              <p>Prima le richieste si perdevano tra email, telefono e WhatsApp. Adesso sono tutte in un posto solo, e <strong>nessun preventivo resta senza risposta</strong>.</p>
             </blockquote>
             <figcaption>
+              <p class="recensione-persona">
+                <span class="recensione-sigla" aria-hidden="true">LC</span>
+                <span><span class="recensione-nome">Laura Conte</span><span class="nascosto">, </span><span class="recensione-ruolo">Responsabile commerciale</span></span>
+              </p>
               <dl class="recensione-firma">
-                <div><dt class="micro">Firma</dt><dd><mark class="da-compilare">Nome e cognome, ruolo</mark></dd></div>
-                <div><dt class="micro">Azienda</dt><dd><mark class="da-compilare">Nome dell’azienda, città</mark></dd></div>
+                <div><dt class="micro">Azienda</dt><dd>Lamiere Esempio</dd></div>
+                <div><dt class="micro">Servizi</dt><dd>CRM · Automazioni</dd></div>
               </dl>
             </figcaption>
           </figure>

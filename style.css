@@ -87,6 +87,7 @@
   --t-corpo: 16px;
   --t-lead: 18px;
   --t-h3: 24px;
+  --t-citazione: clamp(18px, 1.5vw, 22px);   /* le parole dei clienti nelle recensioni */
   --t-voce: clamp(28px, 3.4vw, 48px);
   --t-h2: clamp(36px, 5.2vw, 72px);
   --t-cifra: clamp(64px, 8vw, 128px);
@@ -99,6 +100,7 @@
   --lh-cifra: .85;
   --lh-titolo: 1.02;
   --lh-voce: 1.2;
+  --lh-citazione: 1.4;
   --lh-corpo: 1.55;
   --ls-display: -.05em;
   --ls-titolo: -.035em;
@@ -1297,17 +1299,41 @@ html.menu-aperto { overflow: hidden; }
 .clienti::before { right: calc(var(--sporge) - var(--linea)); top: var(--sporge); }
 .clienti::after { right: calc(var(--sporge) - var(--linea)); bottom: var(--sporge); }
 
-.recensioni-elenco { display: grid; gap: var(--s3); margin-top: var(--s8); }
+/* Loghi d'esempio (aziende inventate): un segno e il nome, in grigio come i loghi veri */
+.logo-esempio { display: inline-flex; align-items: center; gap: var(--s1); font-size: var(--t-lead); font-weight: var(--peso-forte); letter-spacing: var(--ls-voce); color: var(--tenue); }
+.logo-esempio > span { flex: none; width: 18px; height: 18px; border: var(--scarto) solid currentColor; }
+.segno-quadro { border-radius: 3px; }
+.segno-tondo { border-radius: 50%; }
+
+.recensioni-elenco { display: grid; gap: var(--s5) var(--s3); margin-top: var(--s8); }
 .recensione {
+  position: relative;
   display: flex;
   flex-direction: column;
   border: var(--linea) solid var(--bordo-forte);
   border-radius: var(--r);
   background: var(--superficie);
 }
-.recensione-testo { flex: 1; padding: var(--s3) var(--s3) var(--s5); }
+.recensione-testo { flex: 1; padding: var(--s3) var(--s3) var(--s4); }
 .recensione-virgolette { display: block; font: var(--peso-leggero) var(--t-voce)/1 var(--sans); color: var(--accento); }
-.recensione-testo p { max-width: var(--misura); margin-top: var(--s1); font-size: var(--t-lead); font-weight: var(--peso-medio); }
+.recensione-testo p { max-width: var(--misura); margin-top: var(--s1); font-size: var(--t-citazione); line-height: var(--lh-citazione); letter-spacing: -.01em; }
+.recensione-testo strong { font-weight: var(--peso-forte); color: var(--accento); }
+/* Chi parla: le iniziali in una tessera verde (come quelle del marchio), nome e ruolo */
+.recensione-persona { display: flex; align-items: center; gap: var(--s2); padding: 0 var(--s3) var(--s3); }
+.recensione-sigla {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--s6);
+  height: var(--s6);
+  border-radius: var(--r);
+  background: var(--accento);
+  color: var(--crema);
+  font: var(--peso-medio) var(--t-piccolo)/1 var(--mono);
+  letter-spacing: var(--ls-micro);
+}
+.recensione-nome { display: block; font-weight: var(--peso-forte); }
+.recensione-ruolo { display: block; font-size: var(--t-piccolo); color: var(--tenue); }
 .recensione-firma { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: var(--linea) solid var(--accento); }
 .recensione-firma div { padding: var(--s2) var(--s3); }
 .recensione-firma div + div { border-left: var(--linea) solid var(--bordo-forte); }
@@ -1317,9 +1343,15 @@ html.menu-aperto { overflow: hidden; }
 @media (min-width: 768px) {
   .recensioni-elenco { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+/* Schede affiancate: testo, persona e cartiglio restano allineati anche se una scheda va a capo più dell'altra */
+@supports (grid-template-rows: subgrid) {
+  .recensione { display: grid; grid-row: span 3; grid-template-rows: subgrid; row-gap: 0; }
+  .recensione figcaption { display: grid; grid-row: span 2; grid-template-rows: subgrid; row-gap: 0; }
+}
 @media (min-width: 1024px) {
   .cliente { min-height: calc(var(--s16) + var(--s4)); }
-  .recensione-testo { padding: var(--s4) var(--s5) var(--s6); }
+  .recensione-testo { padding: var(--s4) var(--s5) var(--s5); }
+  .recensione-persona { padding: 0 var(--s5) var(--s4); }
   .recensione-firma div { padding: var(--s2) var(--s5); }
 }
 

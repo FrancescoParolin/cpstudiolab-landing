@@ -19,7 +19,8 @@ if [ -d clienti ]; then mkdir -p dist/clienti && cp clienti/* dist/clienti/; fi
 
 # Le parti in bozza, tra le righe <!-- bozza --> e <!-- /bozza --> di index.html, si vedono solo nelle anteprime:
 # Netlify mette CONTEXT=deploy-preview in quelle delle pull request; a mano: ANTEPRIMA=1 sh prepara.sh.
-# Per la versione online vengono tolte, e se resta un segnaposto giallo (da-compilare) ci si ferma qui.
+# Per la versione online vengono tolte, e se resta un segnaposto giallo (da-compilare) o un esempio
+# da sostituire (data-segnaposto, come le recensioni inventate) ci si ferma qui.
 if [ "$CONTEXT" != "deploy-preview" ] && [ -z "$ANTEPRIMA" ]; then
   inizi=$(grep -c '<!-- bozza -->' dist/index.html || true)
   fini=$(grep -c '<!-- /bozza -->' dist/index.html || true)
@@ -29,8 +30,8 @@ if [ "$CONTEXT" != "deploy-preview" ] && [ -z "$ANTEPRIMA" ]; then
   fi
   sed '/<!-- bozza -->/,/<!-- \/bozza -->/d' dist/index.html > dist/index.tmp
   mv dist/index.tmp dist/index.html
-  if grep -rl --include='*.html' 'class="da-compilare"' dist; then
-    echo "Fermo: nelle pagine qui sopra c'è ancora un segnaposto da compilare."
+  if grep -rl --include='*.html' -e 'class="da-compilare"' -e 'data-segnaposto[ >=]' dist; then
+    echo "Fermo: nelle pagine qui sopra c'è ancora un segnaposto o un esempio da sostituire."
     exit 1
   fi
   [ "$inizi" = 0 ] || echo "tolte $inizi parti in bozza (si vedono solo nelle anteprime)"

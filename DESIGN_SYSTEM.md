@@ -21,7 +21,8 @@ Ogni valore sta nei token in `:root` di `style.css`. La versione completa, con l
   `.menu` (menu a schermo intero, dialogo modale), `.targa` + `.dato` (dati di targa: solo cifre verificabili),
   `.risultati` + `.settori-lista` (settori in distinta, il primo con le lavorazioni), `.qualita` (su misura, collaudato, chiaro: in «Lo studio»),
   `.calibro` (passa/non passa), `.clienti` (striscia dei loghi: righe da un bordo all'altro dello schermo, crocini
-  agli incroci, loghi in grigio), `.recensione` + `.recensione-firma` (le parole del cliente, poi un piccolo cartiglio).
+  agli incroci, loghi in grigio), `.recensione` (le parole del cliente con la frase chiave in verde, le iniziali in una
+  tessera, nome e ruolo, poi il piccolo cartiglio `.recensione-firma` con azienda e servizi).
 - **Momenti firma:** il menu, un foglio verde che sale dal fondo e chiudendo esce in alto, con le lettere delle voci che
   scorrono al passaggio del mouse; la tavola che si compone come al tornio; il mirino CAD sulla carta millimetrata; il foglio verde
   che copre l'apertura; gli esempi dei servizi che si compongono (il disegno si allega, la richiesta parte); i disegni
@@ -33,4 +34,5 @@ Ogni valore sta nei token in `:root` di `style.css`. La versione completa, con l
   su verde; mai deformato, ruotato o ricolorato; sempre «CP Studio Lab». In stampa il logo resta intero, pillola compresa.
 - **Contenuti:** voi, poche parole, le parole delle officine; esempi sempre dichiarati «Esempio»; niente clienti,
   numeri o recensioni inventati. Recensioni e loghi solo di clienti veri, con il loro permesso scritto: finché mancano,
-  la sezione resta in bozza (`<!-- bozza -->`) e online non c'è.
+  la sezione resta in bozza (`<!-- bozza -->`) e online non c'è. Gli esempi al loro posto sono dichiarati («Esempio»,
+  aziende «… Esempio») e marcati `data-segnaposto`: `prepara.sh` non li lascia andare online.

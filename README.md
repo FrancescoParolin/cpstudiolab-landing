@@ -40,11 +40,11 @@ I segnaposto dentro gli attributi (`href`, meta) hanno accanto un commento `DA C
 `DA_FORNIRE.md`.
 
 **Parti in bozza.** Una sezione che aspetta dati veri sta tra le righe `<!-- bozza -->` e `<!-- /bozza -->`
-di `index.html` (oggi: «Recensioni», che aspetta testi, nomi e loghi dei clienti). Si vede in locale e nelle anteprime;
+di `index.html` (oggi: «Recensioni», con due esempi dichiarati al posto dei clienti veri). Si vede in locale e nelle anteprime;
 per la versione online `prepara.sh` la toglie. Quando i dati ci sono: segnaposto sostituiti, poi via le due righe.
 
 Il controllo prima della pubblicazione lo fa `prepara.sh`: se fuori dalle bozze resta un segnaposto giallo
-(`class="da-compilare"`), si ferma e Netlify lascia online la versione di prima.
+(`class="da-compilare"`) o un esempio da sostituire (`data-segnaposto`), si ferma e Netlify lascia online la versione di prima.
 I commenti `DA COMPILARE` (P.IVA, privacy) non si vedono in pagina: si trovano con
 
 ```bash
