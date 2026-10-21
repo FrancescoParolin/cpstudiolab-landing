@@ -1,7 +1,7 @@
 // ══════════════════════════════════════════════════════════════════
 // CP Studio Lab — landing: movimento e piccoli aiuti.
 // Solo miglioramenti: senza JavaScript la pagina è completa e il modulo funziona.
-// .js (subito) abilita la scena ferma dei Settori e l'apertura che resta ferma;
+// .js (subito) abilita l'apertura che resta ferma;
 // .moto (per ultima, se tutto è andato bene) abilita gli stati nascosti degli ingressi:
 // se questo file non arriva o si ferma a metà, nulla resta nascosto.
 // Con «riduci movimento» attivo nulla si muove: tutto resta nello stato finale.
@@ -174,12 +174,6 @@
     calibro.hidden = false;
   }
 
-  // ── Scheda di collaudo: «Verificate voi» misura l'indirizzo da cui state leggendo ──
-  const verifica = document.querySelector('.collaudo-verifica');
-  if (verifica && location.protocol === 'https:') {
-    verifica.href = 'https://pagespeed.web.dev/analysis?url=' + encodeURIComponent(location.origin + '/');
-  }
-
   // ── Sito d'esempio: il modulo non invia niente, lo dice ──
   const esempioInviato = (e) => {
     if (e) e.preventDefault();
@@ -190,8 +184,6 @@
   $$('.officina-modulo').forEach((f) => f.addEventListener('submit', esempioInviato));
 
   // Tutto il resto si calcola dalla posizione, non dagli ingressi: anche un salto con i link lo aggiorna.
-  const scena = document.querySelector('.settori-scena');
-  const settori = $$('.settore');
   let daMostrare = $$('[data-entra]');                 // entrano una volta sola, ognuno alla sua soglia
   const frasi = $$('.frase');                          // si accendono e si rispengono
   const apertura = document.querySelector('.apertura');
@@ -223,13 +215,6 @@
   function aggiorna() {
     inAttesa = false;
     const h = window.innerHeight;
-
-    // Settori: la scena mostra l'ultimo settore salito sopra metà schermo (o il primo)
-    if (scena && settori.length) {
-      let attivo = settori[0];
-      settori.forEach((s) => { if (s.getBoundingClientRect().top < h / 2) attivo = s; });
-      scena.dataset.attivo = attivo.dataset.settore;
-    }
 
     if (ridotto) return;
 

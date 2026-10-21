@@ -39,10 +39,16 @@ non può passare inosservato. Quando compilate un dato, togliete anche il `<mark
 I segnaposto dentro gli attributi (`href`, meta) hanno accanto un commento `DA COMPILARE`. L'elenco completo è in
 `DA_FORNIRE.md`.
 
-Controllo prima del deploy: questo comando deve restituire **0 righe**.
+**Parti in bozza.** Una sezione che aspetta dati veri sta tra le righe `<!-- bozza -->` e `<!-- /bozza -->`
+di `index.html` (oggi: «Recensioni», con due esempi dichiarati al posto dei clienti veri). Si vede in locale e nelle anteprime;
+per la versione online `prepara.sh` la toglie. Quando i dati ci sono: segnaposto sostituiti, poi via le due righe.
+
+Il controllo prima della pubblicazione lo fa `prepara.sh`: se fuori dalle bozze resta un segnaposto giallo
+(`class="da-compilare"`) o un esempio da sostituire (`data-segnaposto`), si ferma e Netlify lascia online la versione di prima.
+I commenti `DA COMPILARE` (P.IVA, privacy) non si vedono in pagina: si trovano con
 
 ```bash
-grep -n 'da-compilare\|000000\|DA COMPILARE' index.html privacy.html grazie.html robots.txt sitemap.xml
+grep -n 'DA COMPILARE' index.html privacy.html tornitura/index.html
 ```
 
 Regole di contenuto: niente prezzi (il listino è interno), niente numeri, clienti, lavori o recensioni inventati.
@@ -78,14 +84,12 @@ Il repository è su GitHub; Netlify pubblica da solo quello che entra in `main`.
 
 1. Mai lavorare su `main`: un ramo per ogni modifica, `paro/…` o `campa/…`.
 2. Pull request verso `main`. Netlify crea un'anteprima della pull request: si guarda lì prima di unire.
+   Se l'anteprima non arriva, si fa a mano, con le parti in bozza:
+   `ANTEPRIMA=1 sh prepara.sh`, poi `npx netlify-cli deploy --dir dist --alias anteprima-N --no-build`.
 3. Si unisce quando l'altro socio ha visto l'anteprima. Unita in `main`, la modifica è online in un minuto.
 
 Prima di ogni pull request: la pagina in locale (sopra), a 390px e a 1440px, e la console senza errori.
 Le regole di testi, design e movimento sono in `CLAUDE.md` e `DESIGN_SYSTEM.md`.
-
-Scheda di collaudo (piè di pagina della home): dopo una modifica grande rifate la misura e aggiornate peso e data.
-Chrome → Strumenti per sviluppatori → Rete → «Disattiva cache» → ricaricate la pagina pubblicata da telefono simulato:
-il totale «trasferiti» è il peso. Le richieste ad altri server e i cookie devono restare 0.
 
 Controlli dopo ogni pubblicazione: anteprima del link con il debugger di condivisione di LinkedIn o Facebook,
 PageSpeed Insights (obiettivo: sopra 95 su telefono, in tutte e quattro le voci), un invio di prova del modulo.

@@ -87,6 +87,7 @@
   --t-corpo: 16px;
   --t-lead: 18px;
   --t-h3: 24px;
+  --t-citazione: clamp(18px, 1.5vw, 22px);   /* le parole dei clienti nelle recensioni */
   --t-voce: clamp(28px, 3.4vw, 48px);
   --t-h2: clamp(36px, 5.2vw, 72px);
   --t-cifra: clamp(64px, 8vw, 128px);
@@ -94,12 +95,12 @@
   --t-menu: clamp(40px, min(7vw, 9svh), 104px);   /* voci del menu a schermo intero */
   --t-tavola: 21px;            /* testi della tavola, in unità del disegno: crescono quando la tavola rimpicciolisce,
                                   così a schermo restano tra 12 e 15px */
-  --t-scena: 12px;             /* testi dei disegni delle lavorazioni nella scena ferma, in unità del disegno */
   /* Interlinee e spaziature tra lettere */
   --lh-display: .9;
   --lh-cifra: .85;
   --lh-titolo: 1.02;
   --lh-voce: 1.2;
+  --lh-citazione: 1.4;
   --lh-corpo: 1.55;
   --ls-display: -.05em;
   --ls-titolo: -.035em;
@@ -178,11 +179,8 @@
 @media (min-width: 1024px) and (max-height: 820px) {
   :root { --t-tavola: 15px; }
 }
-@media (min-width: 1152px) {
-  :root { --t-scena: 10px; }
-}
 @media (min-width: 1280px) {
-  :root { --gutter: 48px; --t-tavola: 12px; --t-scena: 9px; }
+  :root { --gutter: 48px; --t-tavola: 12px; }
 }
 
 /* ── Base ── */
@@ -197,7 +195,7 @@ body {
   overflow-x: clip;
 }
 h1, h2, h3 { margin: 0; font-weight: var(--peso-forte); }
-p, figure, dl, dd { margin: 0; }
+p, figure, blockquote, dl, dd { margin: 0; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 a { color: inherit; }
 
@@ -208,7 +206,7 @@ a { color: inherit; }
 }
 main:focus { outline: none; }
 ::selection { background: var(--accento); color: var(--crema); }
-.servizio-pos, .settore-num, .scena-num, .fase-num, .mock-url, .mock-nota, .tavola, .mirino-valore { font-variant-numeric: tabular-nums; }
+.servizio-pos, .settore-num, .fase-num, .mock-url, .mock-nota, .tavola, .mirino-valore { font-variant-numeric: tabular-nums; }
 
 /* Segnaposto ancora da compilare: ben visibili di proposito.
    Quando compilate un dato, togliete il <mark class="da-compilare"> che lo avvolge. */
@@ -1020,25 +1018,37 @@ html.menu-aperto { overflow: hidden; }
   .mock-carta { font-size: var(--t-piccolo); }
 }
 
-/* ══ 4. Lavorazioni (i settori) ═══════════════════════════════════
-   Su schermo largo la scena resta ferma e cambia trama col settore letto. */
-.settori-corpo { display: grid; gap: var(--s6); }
-.settori-scena { display: none; }
-.settori-elenco { display: grid; gap: var(--s8); }
-.settore { display: grid; gap: var(--s3); align-content: start; }
-.settore h3 { font-size: var(--t-voce); line-height: var(--lh-voce); letter-spacing: var(--ls-titolo); }
-.settore-num { margin-right: var(--s2); font-family: var(--mono); font-weight: var(--peso-leggero); color: var(--accento); }
-.settore .link-freccia, .servizio-testo .link-freccia { justify-self: start; }
-.settori-nota { margin-top: var(--s8); max-width: var(--misura); font-size: var(--t-lead); color: var(--tenue); }
+/* ══ 4. Settori ═══════════════════════════════════════════════════
+   Prima quello che cerchiamo in ogni azienda (A-D, come le revisioni di una tavola), poi i settori in distinta.
+   Il primo è la manifattura, con le sue lavorazioni in tessere verdi che portano alle loro pagine. */
+.risultati-titolo { margin-bottom: var(--s3); }
+.risultati { display: grid; gap: 0 var(--s3); border-top: var(--linea) solid var(--bordo-forte); }
+.risultati li { display: grid; grid-template-columns: var(--s6) minmax(0, 1fr); gap: var(--s1) var(--s2); align-items: baseline; padding: var(--s3) 0; border-bottom: var(--linea) solid var(--bordo-forte); }
+.risultato-lettera { grid-row: span 2; font: var(--peso-leggero) var(--t-h3)/1 var(--mono); color: var(--accento); }
+.risultati h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
+.risultati p { color: var(--tenue); }
+.settori-lista { margin-top: var(--s12); border-bottom: var(--linea) solid var(--bordo-forte); }
+.settore-riga { display: grid; gap: var(--s4); padding: var(--s6) 0; border-top: var(--linea) solid var(--bordo-forte); }
+.settore-intesta { display: grid; grid-template-columns: var(--s8) minmax(0, 1fr); gap: var(--s2); align-items: baseline; }
+.settore-num { font: var(--peso-leggero) var(--t-voce)/var(--lh-voce) var(--mono); color: var(--accento); }
+.settore-intesta h3 { font-size: var(--t-voce); line-height: var(--lh-voce); letter-spacing: var(--ls-titolo); }
+.settore-intesta p { margin-top: var(--s1); max-width: var(--misura-stretta); color: var(--tenue); }
+.settore-servizi { display: flex; flex-wrap: wrap; gap: var(--s1); }
+.settore-servizi li { padding: var(--scarto) var(--s2); border: var(--linea) solid var(--bordo-forte); border-radius: var(--r-pillola); font-size: var(--t-piccolo); }
+.settore-lavorazioni { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s2); }
+.settore-lav { display: grid; gap: var(--s1); color: var(--testo); text-decoration: none; }
+.settore-lav-nome { display: inline-flex; align-items: center; gap: var(--s1); font-weight: var(--peso-medio); }
+.settore-lav:hover .freccia { transform: translateX(var(--scarto)); }
+.pannello-mini { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r); background: var(--accento); }
+.pannello-mini .trama { opacity: .4; }
+.mini-disegno { position: absolute; inset: var(--s1); width: calc(100% - 2 * var(--s1)); height: calc(100% - 2 * var(--s1)); --tratto: 2.2px; }
+/* su telefono le tessere sono piccole: si vede il pezzo, le quote no */
+.mini-disegno use + use { display: none; }
+.settore-aperto { border-top-style: dashed; }
+.settore-aperto .link-freccia { justify-self: start; }
+.servizio-testo .link-freccia { justify-self: start; }
 
-/* Le trame delle lavorazioni (anche come fascia sopra ogni settore, su telefono) */
-.settore-trama {
-  position: relative;
-  height: calc(var(--s16) + var(--s8));
-  border-radius: var(--r);
-  background: var(--accento);
-  overflow: hidden;
-}
+/* Le trame delle lavorazioni, sotto i disegni */
 .trama { position: absolute; inset: 0; }
 .trama-tornitura {
   background: repeating-radial-gradient(circle at 78% 70%, var(--trama) 0 1px, transparent 1.5px 9px);
@@ -1056,8 +1066,6 @@ html.menu-aperto { overflow: hidden; }
 .trama-carpenteria {
   background: repeating-linear-gradient(45deg, var(--trama) 0 1px, transparent 1px 12px);
 }
-/* Sotto i disegni la trama si fa da parte */
-.settore-trama .trama { opacity: .4; }
 
 /* I disegni delle lavorazioni: crema su verde, stessi tratti della tavola (pezzo 2px, quote 1px).
    Sono <symbol> in index.html: le classi qui sotto valgono anche dentro <use>; colore e corpo arrivano da fuori. */
@@ -1082,88 +1090,23 @@ html.menu-aperto { overflow: hidden; }
 .d-punto, .d-testo { fill: currentColor; stroke: none; }
 .tratto { stroke: var(--crema); stroke-width: var(--linea); opacity: .55; }
 .punta-chiara { fill: var(--crema); }
-/* su telefono: il disegno nella fascia, a destra, alto 160px */
-.settore-disegno { position: absolute; top: var(--s2); right: var(--s2); width: auto; height: calc(100% - 2 * var(--s2)); aspect-ratio: 4 / 3; }
 
+@media (min-width: 768px) {
+  .risultati { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mini-disegno { inset: var(--s2); width: calc(100% - 2 * var(--s2)); height: calc(100% - 2 * var(--s2)); font-size: 12px; --tratto: 1px; }
+  .mini-disegno use + use { display: inline; }
+}
 @media (min-width: 1024px) {
-  .js .settori-corpo { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: var(--s10); align-items: start; }
-  .js .settori-scena {
-    display: block;
-    position: sticky;
-    top: calc(var(--testata) + var(--s5));
-    order: 2;
-  }
-  .js .settore-trama { display: none; }
-  .js .settori-elenco { gap: 0; }
-  .js .settore { min-height: 40vh; align-content: center; padding: var(--s6) 0; }
+  .risultati { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .risultati li { grid-template-columns: minmax(0, 1fr); align-content: start; }
+  .risultato-lettera { grid-row: auto; font-size: var(--t-voce); }
+  .settore-riga { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s3); align-items: start; }
+  .settore-intesta { grid-column: 1 / 8; }
+  .settore-servizi { grid-column: 8 / -1; justify-content: flex-end; padding-top: var(--s1); }
+  .settore-lavorazioni { grid-column: 1 / -1; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .mini-disegno { font-size: 15px; --tratto: 1.25px; }
+  .settore-aperto .link-freccia { grid-column: 8 / -1; justify-self: end; }
 }
-.scena-pannello {
-  position: relative;
-  aspect-ratio: 4 / 5;
-  max-height: calc(100vh - var(--testata) - var(--s10));
-  border-radius: var(--r);
-  background: var(--accento);
-  color: var(--crema);
-  overflow: hidden;
-}
-/* nella scena ferma: il disegno della lavorazione letta si compone, pezzo e poi quote */
-.scena-disegno {
-  position: absolute;
-  z-index: 1;
-  top: var(--s5); left: var(--s4);
-  width: calc(100% - 2 * var(--s4));
-  height: auto;
-  font-size: var(--t-scena);
-  --tratto: .8px;
-  opacity: 0;
-  transition: opacity var(--media) var(--curva);
-}
-.scena-disegno use { transform-box: fill-box; transition: opacity var(--media) var(--curva), transform var(--lunga) var(--curva-precisa); }
-.scena-disegno .strato-pezzo { transform-origin: center; transform: scale(.94); opacity: 0; }
-.scena-disegno .strato-quote { transform: translateY(var(--s1)); opacity: 0; }
-.scena-pannello .trama {
-  opacity: 0;
-  transform: scale(1.08);
-  transition: opacity var(--media) var(--curva), transform var(--lunga) var(--curva);
-}
-/* La trama sfuma in basso: numero e didascalia poggiano sul verde pieno */
-.scena-pannello::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, transparent 45%, var(--accento) 85%);
-  pointer-events: none;
-}
-.scena-voce {
-  position: absolute;
-  z-index: 1;
-  left: var(--s4); right: var(--s4); bottom: var(--s4);
-  display: grid;
-  gap: var(--s2);
-  opacity: 0;
-  transform: translateY(var(--s2));
-  transition: opacity var(--media) var(--curva), transform var(--media) var(--curva);
-}
-.scena-num { font-family: var(--mono); font-size: var(--t-cifra); font-weight: var(--peso-leggero); line-height: var(--lh-cifra); letter-spacing: var(--ls-titolo); }
-.scena-voce .micro { color: var(--crema-tenue); }
-.settori-scena[data-attivo="tornitura"] :is([data-voce="tornitura"], [data-voce="tornitura"] use),
-.settori-scena[data-attivo="lamiera"] :is([data-voce="lamiera"], [data-voce="lamiera"] use),
-.settori-scena[data-attivo="stampaggio"] :is([data-voce="stampaggio"], [data-voce="stampaggio"] use),
-.settori-scena[data-attivo="carpenteria"] :is([data-voce="carpenteria"], [data-voce="carpenteria"] use) {
-  opacity: 1;
-  transform: none;
-}
-.settori-scena[data-attivo="tornitura"] .trama-tornitura,
-.settori-scena[data-attivo="lamiera"] .trama-lamiera,
-.settori-scena[data-attivo="stampaggio"] .trama-stampaggio,
-.settori-scena[data-attivo="carpenteria"] .trama-carpenteria {
-  opacity: .4;
-  transform: none;
-}
-.settori-scena[data-attivo="tornitura"] [data-voce="tornitura"] .strato-quote,
-.settori-scena[data-attivo="lamiera"] [data-voce="lamiera"] .strato-quote,
-.settori-scena[data-attivo="stampaggio"] [data-voce="stampaggio"] .strato-quote,
-.settori-scena[data-attivo="carpenteria"] [data-voce="carpenteria"] .strato-quote { transition-delay: calc(4 * var(--sfalsa)); }
 
 /* ══ 5. Metodo: il ciclo di lavoro ═══════════════════════════════
    Fasi 10-20-30-40: la linea si disegna con lo scorrimento e accende le fasi.
@@ -1260,7 +1203,7 @@ html.menu-aperto { overflow: hidden; }
   .dato-disegno { width: 100%; margin-top: auto; }
 }
 
-/* ══ 6. Chi siamo ═════════════════════════════════════════════════
+/* ══ 6. Lo studio ═════════════════════════════════════════════════
    Il marchio che si spiega: la tessera vuota entra nel suo incastro. */
 .chi-griglia { display: grid; gap: var(--s8); }
 .chi-testo > p:not(.micro) { margin-top: var(--s3); max-width: var(--misura-stretta); font-size: var(--t-lead); color: var(--tenue); }
@@ -1285,29 +1228,6 @@ html.menu-aperto { overflow: hidden; }
 .qualita h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
 .qualita p { max-width: var(--misura-stretta); color: var(--tenue); }
 .chi-firma { margin-top: var(--s4); }
-.soci { margin-top: var(--s6); border-bottom: var(--linea) solid var(--bordo-forte); }
-.socio {
-  display: grid;
-  grid-template-columns: var(--s7) minmax(0, 1fr);
-  gap: var(--s3);
-  align-items: center;
-  padding: var(--s3) 0;
-  border-top: var(--linea) solid var(--bordo-forte);
-}
-.socio-tessera {
-  width: var(--s7); height: var(--s7);
-  display: grid;
-  place-items: center;
-  border-radius: var(--r);
-  font-size: var(--t-h3);
-  font-weight: var(--peso-forte);
-}
-.socio-c { background: var(--accento); color: var(--crema); }
-.socio-p { border: var(--linea-tessera) solid var(--accento); color: var(--accento); }
-/* pronta per le foto dei soci (vedi il commento in index.html) */
-.socio-foto { width: var(--s7); height: var(--s7); border-radius: var(--r); object-fit: cover; filter: grayscale(1); }
-.socio h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
-.socio-ruolo { margin-top: var(--s1); }
 
 @media (min-width: 1024px) {
   .chi-griglia {
@@ -1318,6 +1238,119 @@ html.menu-aperto { overflow: hidden; }
   .chi-testo { grid-column: 1 / 7; }
   .chi-simbolo { grid-column: 8 / -1; }
   .simbolo-componibile { width: min(100%, calc(3 * var(--s16) + var(--s7))); font-size: 5.2px; --tratto: .43px; }   /* 440px */
+}
+
+/* ══ 6b. Recensioni ══════════════════════════════════════════════
+   Solo clienti veri, con il loro permesso. In alto i loghi su una striscia del foglio: due righe che corrono
+   da un bordo all'altro dello schermo e un crocino dove le righe si incontrano. Sotto, una scheda per cliente:
+   le sue parole, poi un piccolo cartiglio con firma e azienda (come quello del piè di pagina). */
+.recensioni { overflow: hidden; overflow: clip; }       /* le righe escono dal contenitore, non dalla pagina */
+.clienti-cornice { position: relative; }
+.clienti-cornice::before, .clienti-cornice::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  width: 100vw;
+  height: var(--linea);
+  margin-left: -50vw;
+  background: var(--bordo-forte);
+}
+.clienti-cornice::before { top: 0; }
+.clienti-cornice::after { bottom: 0; }
+.clienti {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--linea);                                     /* le righe tra le celle sono lo spazio tra le celle */
+  border-inline: var(--linea) solid var(--bordo-forte);
+  background: var(--bordo-forte);
+}
+.cliente {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: var(--s16);
+  padding: var(--s4) var(--s3);
+  background: var(--superficie);
+  text-align: center;
+}
+.cliente:nth-child(even) { background: var(--superficie-2); }
+.cliente:last-child:nth-child(odd) { grid-column: 1 / -1; }   /* un logo da solo nell'ultima riga la occupa tutta */
+.cliente img { width: auto; max-width: 100%; height: auto; max-height: var(--s5); filter: grayscale(1); mix-blend-mode: multiply; }
+/* I crocini: 25px con il tratto da 1px al centro, che cade proprio sulla riga (sporge di 12px, più la riga
+   a sinistra della cella). Ogni cella ha i suoi due a sinistra, la striscia i due a destra */
+.clienti { --crocino: calc(var(--s3) + var(--linea)); --sporge: calc(var(--s3) / -2); }
+.cliente::before, .cliente::after, .clienti::before, .clienti::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  width: var(--crocino);
+  height: var(--crocino);
+  background:
+    linear-gradient(var(--accento) 0 0) center / var(--linea) 100% no-repeat,
+    linear-gradient(var(--accento) 0 0) center / 100% var(--linea) no-repeat;
+  pointer-events: none;
+}
+.cliente::before { left: calc(var(--sporge) - var(--linea)); top: var(--sporge); }
+.cliente::after { left: calc(var(--sporge) - var(--linea)); bottom: var(--sporge); }
+.clienti::before { right: calc(var(--sporge) - var(--linea)); top: var(--sporge); }
+.clienti::after { right: calc(var(--sporge) - var(--linea)); bottom: var(--sporge); }
+
+/* Loghi d'esempio (aziende inventate): un segno e il nome, in grigio come i loghi veri */
+.logo-esempio { display: inline-flex; align-items: center; gap: var(--s1); font-size: var(--t-lead); font-weight: var(--peso-forte); letter-spacing: var(--ls-voce); color: var(--tenue); }
+.logo-esempio > span { flex: none; width: 18px; height: 18px; border: var(--scarto) solid currentColor; }
+.segno-quadro { border-radius: 3px; }
+.segno-tondo { border-radius: 50%; }
+
+.recensioni-elenco { display: grid; gap: var(--s5) var(--s3); margin-top: var(--s8); }
+.recensione {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  background: var(--superficie);
+}
+.recensione-testo { flex: 1; padding: var(--s3) var(--s3) var(--s4); }
+.recensione-virgolette { display: block; font: var(--peso-leggero) var(--t-voce)/1 var(--sans); color: var(--accento); }
+.recensione-testo p { max-width: var(--misura); margin-top: var(--s1); font-size: var(--t-citazione); line-height: var(--lh-citazione); letter-spacing: -.01em; }
+.recensione-testo strong { font-weight: var(--peso-forte); color: var(--accento); }
+/* Chi parla: le iniziali in una tessera verde (come quelle del marchio), nome e ruolo */
+.recensione-persona { display: flex; align-items: center; gap: var(--s2); padding: 0 var(--s3) var(--s3); }
+.recensione-sigla {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--s6);
+  height: var(--s6);
+  border-radius: var(--r);
+  background: var(--accento);
+  color: var(--crema);
+  font: var(--peso-medio) var(--t-piccolo)/1 var(--mono);
+  letter-spacing: var(--ls-micro);
+}
+.recensione-nome { display: block; font-weight: var(--peso-forte); }
+.recensione-ruolo { display: block; font-size: var(--t-piccolo); color: var(--tenue); }
+.recensione-firma { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: var(--linea) solid var(--accento); }
+.recensione-firma div { padding: var(--s2) var(--s3); }
+.recensione-firma div + div { border-left: var(--linea) solid var(--bordo-forte); }
+.recensione-firma dt { margin-bottom: var(--s1); }
+.recensione-firma dd { font-size: var(--t-piccolo); font-weight: var(--peso-medio); overflow-wrap: anywhere; }
+
+@media (min-width: 768px) {
+  .recensioni-elenco { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+/* Schede affiancate: testo, persona e cartiglio restano allineati anche se una scheda va a capo più dell'altra */
+@supports (grid-template-rows: subgrid) {
+  .recensione { display: grid; grid-row: span 3; grid-template-rows: subgrid; row-gap: 0; }
+  .recensione figcaption { display: grid; grid-row: span 2; grid-template-rows: subgrid; row-gap: 0; }
+}
+@media (min-width: 1024px) {
+  .cliente { min-height: calc(var(--s16) + var(--s4)); }
+  .recensione-testo { padding: var(--s4) var(--s5) var(--s5); }
+  .recensione-persona { padding: 0 var(--s5) var(--s4); }
+  .recensione-firma div { padding: var(--s2) var(--s5); }
 }
 
 /* ══ 7. Domande: tutte aperte, a tutta larghezza ════════════════ */
@@ -1571,16 +1604,6 @@ html.menu-aperto { overflow: hidden; }
   .cartiglio-piede { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
 }
 
-/* La scheda di collaudo: le misure vere della pagina, sotto il cartiglio */
-.collaudo { margin-top: var(--s5); }
-.collaudo dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: var(--s2); border-top: var(--linea) solid var(--bordo-forte); }
-.collaudo dl div { padding: var(--s2) var(--s2) var(--s2) 0; border-bottom: var(--linea) solid var(--bordo-forte); }
-.collaudo dt { margin-bottom: var(--s1); }
-.collaudo dd { font-size: var(--t-piccolo); font-variant-numeric: tabular-nums; }
-@media (min-width: 768px) {
-  .collaudo dl { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
-}
-
 /* ── Pagine per lavorazione (/tornitura/, /lamiera/, /stampaggio/, /carpenteria/) ── */
 .lav-apertura { padding: var(--s8) 0 var(--sezione); }
 .lav-griglia { display: grid; gap: var(--s6); align-items: center; }
@@ -1722,6 +1745,19 @@ html.menu-aperto { overflow: hidden; }
   /* Calibro: la lancetta ruota fino al punteggio */
   .lancetta { transition: transform var(--lunga) var(--curva-precisa); }
 
+  /* Settori: i risultati e le righe dei settori salgono quando entrano */
+  .moto :is(.risultati li, .settore-riga) { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
+  .moto :is(.risultati li, .settore-riga):not(.visibile) { opacity: 0; transform: translateY(var(--s3)); }
+  .moto .risultati li:nth-child(2) { transition-delay: var(--sfalsa); }
+  .moto .risultati li:nth-child(3) { transition-delay: calc(2 * var(--sfalsa)); }
+  .moto .risultati li:nth-child(4) { transition-delay: calc(3 * var(--sfalsa)); }
+
+  /* Recensioni: i loghi salgono nelle loro celle (le celle restano: sotto c'è il colore delle righe), poi le schede */
+  .moto .cliente > *, .moto .recensione { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
+  .moto .cliente:not(.visibile) > * { opacity: 0; transform: translateY(var(--s2)); }
+  .moto .recensione:not(.visibile) { opacity: 0; transform: translateY(var(--s3)); }
+  .moto .cliente:nth-child(2) > *, .moto .recensione:nth-child(2) { transition-delay: var(--sfalsa); }
+
   /* Domande e contatto: salgono quando entrano */
   .moto :is(.domanda, .contatto-testa) { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
   .moto :is(.domanda, .contatto-testa):not(.visibile) { opacity: 0; transform: translateY(var(--s3)); }
@@ -1789,10 +1825,10 @@ html.menu-aperto { overflow: hidden; }
 
 /* ══ Stampa: nero su bianco, niente fogli verdi, testata e modulo, niente pagine spezzate a metà voce ══ */
 @media print {
-  .salta, .mirino, .nav, .testata .btn, .modulo, .settori-scena, .settore-trama, .tavola-cartiglio { display: none; }
+  .salta, .mirino, .nav, .testata .btn, .menu-apri, .modulo, .calibro, .tavola-cartiglio, .pannello-mini { display: none; }
   /* il logo resta intero (pillola compresa) e la quota resta disegnata anche senza «grafica di sfondo» */
   .testata { position: static; background: none; border: 0; }
-  .logo-lab, .quota, .socio-tessera, .fase-segno, .simbolo-componibile { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .logo-lab, .quota, .fase-segno, .simbolo-componibile { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   body { background: none; }
   .apertura-scena { min-height: 0; padding: 0 0 var(--s4); background: none; }
   .sezione, .punto, .contatto { padding: var(--s6) 0; }
@@ -1801,7 +1837,7 @@ html.menu-aperto { overflow: hidden; }
   :is(.sintomi, .sintomi li, .recapiti, .recapiti div) { border-color: var(--bordo-forte); }
   .metodo { background: none; }
   .quota::after { background: none; }
-  .servizio, .settore, .fase, .domanda, .socio, .mock, .dato { break-inside: avoid; }
+  .servizio, .settore-riga, .risultati li, .fase, .domanda, .mock, .dato, .cliente, .recensione { break-inside: avoid; }
   .dato-grande { background: none; color: var(--testo); border-color: var(--bordo-forte); }
   .dato-grande .dato-valore { color: var(--accento); }
   .dato-grande :is(.micro, p) { color: var(--tenue); }

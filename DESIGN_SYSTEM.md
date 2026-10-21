@@ -19,9 +19,12 @@ Ogni valore sta nei token in `:root` di `style.css`. La versione completa, con l
   `.tavola`, `.mirino`, `.servizio` + `.mock-*` (esempi), `.settore` + `.trama-*` + `.disegno-lavorazione`, `.fase`,
   `.simbolo-componibile` + `.richiamo`, `.socio-tessera`, `.domande`, `.modulo` + `.campo` + `.scelte`, `.cartiglio-piede`,
   `.menu` (menu a schermo intero, dialogo modale), `.targa` + `.dato` (dati di targa: solo cifre verificabili),
-  `.qualita` (su misura, collaudato, chiaro: nella pagina Contatti), `.testata-contatto` (icona del telefono e «Contatti diretti»,
-  senza freccia: porta alla pagina Contatti; su telefono «Contatti»), `.contatti-diretto` (il foglio verde in cima alla pagina
-  Contatti: si vede subito, senza ingresso animato).
+  `.risultati` + `.settori-lista` (settori in distinta, il primo con le lavorazioni), `.qualita` (su misura, collaudato, chiaro: in «Lo studio» e nella pagina Contatti),
+  `.testata-contatto` (icona del telefono e «Contatti diretti», senza freccia: porta alla pagina Contatti; su telefono «Contatti»), `.contatti-diretto`
+  (il foglio verde in cima alla pagina Contatti: si vede subito, senza ingresso animato),
+  `.calibro` (passa/non passa), `.clienti` (striscia dei loghi: righe da un bordo all'altro dello schermo, crocini
+  agli incroci, loghi in grigio), `.recensione` (le parole del cliente con la frase chiave in verde, le iniziali in una
+  tessera, nome e ruolo, poi il piccolo cartiglio `.recensione-firma` con azienda e servizi).
 - **Momenti firma:** il menu, un foglio verde che sale dal fondo e chiudendo esce in alto, con le lettere delle voci che
   scorrono al passaggio del mouse; la tavola che si compone come al tornio; il mirino CAD sulla carta millimetrata; il foglio verde
   che copre l'apertura; gli esempi dei servizi che si compongono (il disegno si allega, la richiesta parte); i disegni
@@ -32,4 +35,6 @@ Ogni valore sta nei token in `:root` di `style.css`. La versione completa, con l
   di larghezza (minimo 120px; sotto, l'icona «cp»). Spazio libero = altezza della pillola «Lab». Verde su chiaro, crema
   su verde; mai deformato, ruotato o ricolorato; sempre «CP Studio Lab». In stampa il logo resta intero, pillola compresa.
 - **Contenuti:** voi, poche parole, le parole delle officine; esempi sempre dichiarati «Esempio»; niente clienti,
-  numeri o recensioni inventati.
+  numeri o recensioni inventati. Recensioni e loghi solo di clienti veri, con il loro permesso scritto: finché mancano,
+  la sezione resta in bozza (`<!-- bozza -->`) e online non c'è. Gli esempi al loro posto sono dichiarati («Esempio»,
+  aziende «… Esempio») e marcati `data-segnaposto`: `prepara.sh` non li lascia andare online.
