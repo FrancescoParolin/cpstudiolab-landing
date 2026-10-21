@@ -423,26 +423,10 @@ mark.da-compilare {
    che sale dal fondo, come «Il punto», e chiudendo continua a salire. Le voci entrano come le righe del titolo;
    al passaggio del mouse le lettere scorrono e ricompaiono da sotto. Solo transform e opacity. */
 .testata-azioni { display: flex; align-items: center; gap: var(--s1); }
-/* Il tasto per chiamare: su telefono solo l'icona, da 1024px anche il numero */
-.testata-tel {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--s1);
-  min-width: var(--s5);
-  min-height: var(--s5);
-  padding: var(--s1) var(--s2);
-  border: var(--linea) solid var(--bordo-forte);
-  border-radius: var(--r);
-  color: var(--testo);
-  font: var(--peso-medio) var(--t-piccolo)/var(--lh-voce) var(--sans);
-  font-variant-numeric: tabular-nums;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.testata-tel:hover { border-color: var(--testo); }
 .tel-icona { width: var(--s2); height: var(--s2); flex: none; color: var(--accento); }
-.testata-tel-testo { display: none; }
+/* «Contatti diretti»: il telefono dentro il bottone, che porta alla pagina Contatti */
+.testata-contatto { gap: var(--s1); white-space: nowrap; }
+.testata-contatto .tel-icona { color: currentColor; }
 .menu-pronto .nav { display: none; }
 .menu-apri, .menu-chiudi {
   display: inline-flex;
@@ -555,11 +539,21 @@ html.menu-aperto { overflow: hidden; }
 .menu-lato .btn { justify-content: space-between; min-height: var(--s7); font-weight: var(--peso-forte); }
 .menu-piede { padding-bottom: var(--s4); color: var(--crema-tenue); }
 
-@media (min-width: 1024px) {
-  .testata-tel-testo { display: inline; }
-}
+/* Su telefono la testata resta su una riga: «Contatti» (il «diretti» resta per i lettori di schermo),
+   bottoni compatti; sotto i 360px l'icona del telefono nel bottone lascia il posto */
 @media (max-width: 559px) {
-  .testata .btn-piccolo { display: none; }
+  .contatto-esteso { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
+@media (max-width: 479px) {
+  .menu-apri { padding: var(--s1); }
+  .testata-contatto { padding: var(--s1) var(--s2); }
+}
+@media (max-width: 379px) {
+  .testata-riga { gap: var(--s1); }
+  .testata-contatto { padding: var(--s1); }
+}
+@media (max-width: 359px) {
+  .testata-contatto .tel-icona { display: none; }
 }
 @media (max-width: 479px) {
   .menu-apri .menu-apri-testo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
@@ -1284,6 +1278,13 @@ html.menu-aperto { overflow: hidden; }
 .richiamo path { fill: none; stroke: currentColor; stroke-width: var(--tratto); }
 .richiamo circle { fill: var(--fondo); stroke: currentColor; stroke-width: var(--tratto); }
 .richiamo text { fill: currentColor; }
+/* La qualità, come una distinta: tre voci numerate */
+.qualita { margin-top: var(--s5); border-bottom: var(--linea) solid var(--bordo-forte); }
+.qualita li { display: grid; grid-template-columns: var(--s6) minmax(0, 1fr); gap: var(--s1) var(--s2); align-items: baseline; padding: var(--s3) 0; border-top: var(--linea) solid var(--bordo-forte); }
+.qualita-num { grid-row: span 2; font: var(--peso-medio) var(--t-micro)/1 var(--mono); letter-spacing: var(--ls-micro); color: var(--accento); }
+.qualita h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
+.qualita p { max-width: var(--misura-stretta); color: var(--tenue); }
+.chi-firma { margin-top: var(--s4); }
 .soci { margin-top: var(--s6); border-bottom: var(--linea) solid var(--bordo-forte); }
 .socio {
   display: grid;
@@ -1522,6 +1523,10 @@ html.menu-aperto { overflow: hidden; }
 }
 .recapiti dt { color: var(--crema-tenue); }
 .recapiti dd { overflow-wrap: anywhere; }
+/* Da 560px i nomi dei soci accanto ai numeri stanno su una riga; su telefono vanno a capo, nome sopra cognome */
+@media (min-width: 560px) {
+  .recapiti div { grid-template-columns: calc(var(--s16) + var(--s6)) minmax(0, 1fr); }
+}
 
 @media (min-width: 1024px) {
   .contatto { padding: var(--s16) 0; }
@@ -1529,6 +1534,16 @@ html.menu-aperto { overflow: hidden; }
   .contatto-testa { grid-column: 1 / 7; grid-row: 1; }
   .contatto-griglia > .recapiti { grid-column: 1 / 7; grid-row: 2; align-self: start; }
   .modulo { grid-column: 8 / -1; grid-row: 1 / 3; }
+}
+
+/* ══ Pagina Contatti ═══════════════════════════════════════════════
+   Il contatto diretto subito in alto, sul foglio verde che scende dalla testata; poi il marchio e lo studio. */
+.contatti-diretto { border-radius: 0 0 var(--r-foglio) var(--r-foglio); }
+.contatti-azioni, .contatti-fine { margin-top: var(--s5); }
+/* Il contatto diretto si vede subito: niente ingresso animato, anche con .moto */
+.moto .contatti-diretto .contatto-testa:not(.visibile) { opacity: 1; transform: none; }
+@media (min-width: 1024px) {
+  .contatti-diretto .contatto-griglia > .recapiti { grid-column: 8 / -1; grid-row: 1; align-self: end; }
 }
 
 /* ══ 9. Piè di pagina: un cartiglio ═════════════════════════════ */
