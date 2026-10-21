@@ -83,7 +83,7 @@ Il repository è su GitHub; Netlify pubblica da solo quello che entra in `main`.
 Prima di ogni pull request: la pagina in locale (sopra), a 390px e a 1440px, e la console senza errori.
 Le regole di testi, design e movimento sono in `CLAUDE.md` e `DESIGN_SYSTEM.md`.
 
-Scheda di collaudo (piè di pagina della home): dopo una modifica grande rifate la misura e aggiornate peso e data.
+Scheda di collaudo («Lo studio» nella home): dopo una modifica grande rifate la misura e aggiornate peso e data.
 Chrome → Strumenti per sviluppatori → Rete → «Disattiva cache» → ricaricate la pagina pubblicata da telefono simulato:
 il totale «trasferiti» è il peso. Le richieste ad altri server e i cookie devono restare 0.
 
