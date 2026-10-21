@@ -419,7 +419,7 @@ mark.da-compilare {
    che sale dal fondo, come «Il punto», e chiudendo continua a salire. Le voci entrano come le righe del titolo;
    al passaggio del mouse le lettere scorrono e ricompaiono da sotto. Solo transform e opacity. */
 .testata-azioni { display: flex; align-items: center; gap: var(--s1); }
-/* Il tasto per chiamare: su telefono solo l'icona, da 1024px anche il numero */
+/* Il tasto per chiamare: solo l'icona (il numero è nel nome accessibile e nel contatto) */
 .testata-tel {
   display: inline-flex;
   align-items: center;
@@ -438,7 +438,6 @@ mark.da-compilare {
 }
 .testata-tel:hover { border-color: var(--testo); }
 .tel-icona { width: var(--s2); height: var(--s2); flex: none; color: var(--accento); }
-.testata-tel-testo { display: none; }
 .menu-pronto .nav { display: none; }
 .menu-apri, .menu-chiudi {
   display: inline-flex;
@@ -551,9 +550,6 @@ html.menu-aperto { overflow: hidden; }
 .menu-lato .btn { justify-content: space-between; min-height: var(--s7); font-weight: var(--peso-forte); }
 .menu-piede { padding-bottom: var(--s4); color: var(--crema-tenue); }
 
-@media (min-width: 1024px) {
-  .testata-tel-testo { display: inline; }
-}
 @media (max-width: 559px) {
   .testata .btn-piccolo { display: none; }
 }
