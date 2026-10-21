@@ -174,12 +174,6 @@
     calibro.hidden = false;
   }
 
-  // ── Scheda di collaudo: «Verificate voi» misura l'indirizzo da cui state leggendo ──
-  const verifica = document.querySelector('.collaudo-verifica');
-  if (verifica && location.protocol === 'https:') {
-    verifica.href = 'https://pagespeed.web.dev/analysis?url=' + encodeURIComponent(location.origin + '/');
-  }
-
   // ── Sito d'esempio: il modulo non invia niente, lo dice ──
   const esempioInviato = (e) => {
     if (e) e.preventDefault();

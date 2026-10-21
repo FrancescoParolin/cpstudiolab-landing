@@ -1225,12 +1225,12 @@ html.menu-aperto { overflow: hidden; }
 .richiamo path { fill: none; stroke: currentColor; stroke-width: var(--tratto); }
 .richiamo circle { fill: var(--fondo); stroke: currentColor; stroke-width: var(--tratto); }
 .richiamo text { fill: currentColor; }
-/* La prova: le misure di questa pagina, grandi come i dati di targa */
-.prova { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s2); margin-top: var(--s5); border-top: var(--linea) solid var(--bordo-forte); }
-.prova div { display: flex; flex-direction: column; justify-content: space-between; gap: var(--s1); padding-top: var(--s2); }
-.prova dd { font: var(--peso-leggero) var(--t-h2)/1 var(--mono); letter-spacing: var(--ls-titolo); color: var(--accento); font-variant-numeric: tabular-nums; }
-.prova-unita { margin-left: var(--scarto); font: var(--peso-medio) var(--t-micro)/1 var(--mono); letter-spacing: var(--ls-micro); color: var(--tenue); }
-.chi-testo .link-freccia { margin-top: var(--s3); }
+/* La qualità, come una distinta: tre voci numerate */
+.qualita { margin-top: var(--s5); border-bottom: var(--linea) solid var(--bordo-forte); }
+.qualita li { display: grid; grid-template-columns: var(--s6) minmax(0, 1fr); gap: var(--s1) var(--s2); align-items: baseline; padding: var(--s3) 0; border-top: var(--linea) solid var(--bordo-forte); }
+.qualita-num { grid-row: span 2; font: var(--peso-medio) var(--t-micro)/1 var(--mono); letter-spacing: var(--ls-micro); color: var(--accento); }
+.qualita h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
+.qualita p { max-width: var(--misura-stretta); color: var(--tenue); }
 .chi-firma { margin-top: var(--s4); }
 
 @media (min-width: 1024px) {
