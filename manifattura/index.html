@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manifattura e subfornitura · CP Studio Lab</title>
+  <meta name="description" content="Siti, Google, CRM e automazioni per la manifattura e la subfornitura: aziende che lavorano su disegno, anche conto terzi.">
+  <meta name="theme-color" content="#1F4D3F">
+  <link rel="canonical" href="https://cpstudiolab.it/manifattura/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="it_IT">
+  <meta property="og:site_name" content="CP Studio Lab">
+  <meta property="og:title" content="Precisi in officina. Invisibili online? · CP Studio Lab">
+  <meta property="og:description" content="Siti, Google, CRM e automazioni per la manifattura e la subfornitura: aziende che lavorano su disegno, anche conto terzi.">
+  <meta property="og:image" content="https://cpstudiolab.it/og-image.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/geist-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="/main.js" defer></script>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <!-- Simboli usati più volte: il marchio del kit F e la freccia dei bottoni -->
+  <svg style="display: none" aria-hidden="true">
+    <symbol id="marchio" viewBox="-4 -4 108 108"><path fill="currentColor" d="M16 6H54A10 10 0 0 1 64 16V28H46A18 18 0 0 0 28 46V64H16A10 10 0 0 1 6 54V16A10 10 0 0 1 16 6ZM46 44H64V54A10 10 0 0 1 54 64H44V46A2 2 0 0 1 46 44Z"/><rect x="36" y="36" width="58" height="58" rx="10" fill="none" stroke="currentColor" stroke-width="6"/></symbol>
+    <symbol id="telefono" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.1L8.1 9.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.84.58 2.8.7a2 2 0 0 1 1.72 2.02Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="freccia" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
+  <!-- I disegni delle lavorazioni: tratteggi di sezione, punte delle quote e quattro disegni in due strati
+       (pezzo e quote), usati nella scena ferma e nelle fasce su telefono. SVG visibile ma senza misura:
+       dentro un SVG nascosto i tratteggi non si vedrebbero. -->
+  <svg class="definizioni" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <pattern id="tratteggio" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path class="tratto" d="M3 0V6"/></pattern>
+      <pattern id="tratteggio-inverso" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><path class="tratto" d="M3 0V6"/></pattern>
+      <marker id="punta-chiara" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path class="punta-chiara" d="M0 1.5 8 4 0 6.5z"/></marker>
+    </defs>
+    <!-- Fig. 1 · Tornitura: boccola in sezione -->
+    <symbol id="d1-pezzo" viewBox="0 0 320 240">
+      <path class="d-sezione" d="M84 52H236L240 56V72H80V56Z"/>
+      <path class="d-sezione" d="M80 152H240V168L236 172H84L80 168Z"/>
+      <path class="d-spigolo" d="M80 72V152M240 72V152"/>
+      <path class="d-asse" d="M64 112H256"/>
+    </symbol>
+    <symbol id="d1-quote" viewBox="0 0 320 240">
+      <path class="d-quota" d="M104 72V152" marker-start="url(#punta-chiara)" marker-end="url(#punta-chiara)"/>
+      <text class="d-testo" x="110" y="100">Ø 40 H7</text>
+      <path class="d-quota" d="M244 52H272M244 172H272"/>
+      <path class="d-quota" d="M266 52V172" marker-start="url(#punta-chiara)" marker-end="url(#punta-chiara)"/>
+      <text class="d-testo" x="272" y="104">Ø 60</text>
+      <path class="d-quota" d="M80 176V204M240 176V204"/>
+      <path class="d-quota" d="M80 198H240" marker-start="url(#punta-chiara)" marker-end="url(#punta-chiara)"/>
+      <text class="d-testo" x="160" y="192" text-anchor="middle">80</text>
+    </symbol>
+    <!-- Fig. 2 · Lamiera: staffa piegata, sezione sottile annerita -->
+    <symbol id="d2-pezzo" viewBox="0 0 320 240">
+      <path class="d-sottile" d="M90 40H96V170A4 4 0 0 0 100 174H250V180H100A10 10 0 0 1 90 170Z"/>
+    </symbol>
+    <symbol id="d2-quote" viewBox="0 0 320 240">
+      <circle class="d-punto" cx="93" cy="84" r="2.5"/>
+      <path class="d-quota" d="M93 84 128 52H160"/>
+      <text class="d-testo" x="132" y="46">s 3</text>
+      <path class="d-quota" d="M97.2 172.8 116 156H126" marker-start="url(#punta-chiara)"/>
+      <text class="d-testo" x="118" y="150">R 2</text>
+      <path class="d-quota" d="M96 94A80 80 0 0 1 176 174" marker-start="url(#punta-chiara)" marker-end="url(#punta-chiara)"/>
+      <text class="d-testo" x="162" y="108">90°</text>
+    </symbol>
+    <!-- Fig. 3 · Stampaggio: piastra tranciata, vista dall'alto -->
+    <symbol id="d3-pezzo" viewBox="0 0 320 240">
+      <rect class="d-profilo" x="72" y="56" width="176" height="128" rx="12"/>
+      <circle class="d-profilo" cx="96" cy="80" r="6.5"/>
+      <circle class="d-profilo" cx="224" cy="80" r="6.5"/>
+      <circle class="d-profilo" cx="96" cy="160" r="6.5"/>
+      <circle class="d-profilo" cx="224" cy="160" r="6.5"/>
+      <circle class="d-profilo" cx="160" cy="120" r="24"/>
+      <path class="d-asse" d="M86 80H106M96 70V90M214 80H234M224 70V90M86 160H106M96 150V170M214 160H234M224 150V170M130 120H190M160 90V150"/>
+    </symbol>
+    <symbol id="d3-quote" viewBox="0 0 320 240">
+      <path class="d-quota" d="M228.6 75.4 252 44H316" marker-start="url(#punta-chiara)"/>
+      <text class="d-testo" x="316" y="38" text-anchor="end">4 × Ø 6,5</text>
+      <path class="d-quota" d="M72 188V212M248 188V212"/>
+      <path class="d-quota" d="M72 206H248" marker-start="url(#punta-chiara)" marker-end="url(#punta-chiara)"/>
+      <text class="d-testo" x="160" y="200" text-anchor="middle">88</text>
+    </symbol>
+    <!-- Fig. 4 · Carpenteria: giunto a T in sezione, saldato dai due lati -->
+    <symbol id="d4-pezzo" viewBox="0 0 320 240">
+      <path class="d-sezione" d="M56 164H264V184H56Z"/>
+      <path class="d-sezione d-sezione-inversa" d="M150 52H170V164H150Z"/>
+      <path class="d-sottile" d="M150 164V150L136 164ZM170 164V150L184 164Z"/>
+    </symbol>
+    <symbol id="d4-quote" viewBox="0 0 320 240">
+      <path class="d-quota" d="M143 157 112 108H40" marker-start="url(#punta-chiara)"/>
+      <path class="d-quota" d="M64 108V96L76 108ZM64 108V120L76 108Z"/>
+      <text class="d-testo" x="60" y="104" text-anchor="end">a5</text>
+      <text class="d-testo" x="60" y="127" text-anchor="end">a5</text>
+    </symbol>
+  </svg>
+
+  <a class="salta" href="#contenuto">Contenuto principale</a>
+
+  <header class="testata">
+    <div class="contenitore testata-riga">
+      <a class="logo" href="/" aria-label="CP Studio Lab, pagina principale">
+        <svg aria-hidden="true" focusable="false"><use href="#marchio"/></svg>
+        <span>CP Studio</span><span class="logo-lab">Lab</span>
+      </a>
+      <nav class="nav" aria-label="Sezioni della pagina">
+        <a href="/#servizi">Servizi</a>
+        <a href="/#settori">Settori</a>
+        <a href="/#metodo">Metodo</a>
+        <a href="/#chi-siamo">Lo studio</a>
+      </nav>
+      <div class="testata-azioni">
+        <a class="btn btn-piccolo testata-contatto" href="/contatti/">
+          <svg class="tel-icona" aria-hidden="true" focusable="false"><use href="#telefono"/></svg>
+          <span>Contatti<span class="contatto-esteso"> diretti</span></span>
+        </a>
+        <!-- Il bottone del menu c'è solo con JavaScript (main.js toglie hidden); senza, resta la nav qui sopra -->
+        <button class="menu-apri" type="button" aria-expanded="false" aria-controls="menu" hidden>
+          <span class="menu-apri-testo">Menu</span>
+          <span class="menu-icona" aria-hidden="true"><span></span><span></span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Menu a schermo intero: un foglio verde che sale sulla pagina, come «Il punto».
+       Dialogo modale: mentre è aperto il resto della pagina è inerte; Esc lo chiude. -->
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+    <div class="menu-foglio">
+      <div class="contenitore menu-testa">
+        <span class="logo" role="img" aria-label="CP Studio Lab">
+          <svg aria-hidden="true" focusable="false"><use href="#marchio"/></svg>
+          <span>CP Studio</span><span class="logo-lab">Lab</span>
+        </span>
+        <button class="menu-chiudi" type="button">
+          <span class="menu-apri-testo">Chiudi</span>
+          <span class="menu-icona menu-icona-x" aria-hidden="true"><span></span><span></span></span>
+        </button>
+      </div>
+      <div class="contenitore menu-corpo">
+        <nav class="menu-nav" aria-label="Sezioni della pagina">
+          <ol class="menu-voci">
+            <li><a href="/#servizi"><span class="menu-num" aria-hidden="true">01</span><span class="menu-etichetta">Servizi</span></a></li>
+            <li><a href="/#settori"><span class="menu-num" aria-hidden="true">02</span><span class="menu-etichetta">Settori</span></a></li>
+            <li><a href="/#metodo"><span class="menu-num" aria-hidden="true">03</span><span class="menu-etichetta">Metodo</span></a></li>
+            <li><a href="/#chi-siamo"><span class="menu-num" aria-hidden="true">04</span><span class="menu-etichetta">Lo studio</span></a></li>
+            <li><a href="/contatti/"><span class="menu-num" aria-hidden="true">05</span><span class="menu-etichetta">Contatti</span></a></li>
+          </ol>
+        </nav>
+        <div class="menu-lato">
+          <a class="btn btn-chiaro" href="/#contatto">
+            Chiedeteci un preventivo
+            <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+          </a>
+          <dl class="recapiti">
+            <div><dt class="micro">Tommaso Campagnolo</dt><dd><a class="link link-blocco" href="tel:+393890030969">+39 389 003 0969</a></dd></div>
+            <div><dt class="micro">Francesco Parolin</dt><dd><a class="link link-blocco" href="tel:+393203222498">+39 320 322 2498</a></dd></div>
+            <div><dt class="micro">WhatsApp</dt><dd><a class="link link-blocco" href="https://wa.me/393203222498" rel="noopener">Scriveteci su WhatsApp</a></dd></div>
+            <div><dt class="micro">Email</dt><dd><a class="link link-blocco" href="mailto:info@cpstudiolab.it">info@cpstudiolab.it</a></dd></div>
+          </dl>
+        </div>
+      </div>
+      <p class="contenitore menu-piede micro">Studio digitale per le PMI · Bassano del Grappa</p>
+    </div>
+  </div>
+
+  <main id="contenuto" tabindex="-1">
+
+    <!-- ── Apertura del settore: era l'apertura della pagina principale. Ferma, senza effetti allo scorrimento ── -->
+    <section class="apertura apertura-statica" aria-labelledby="titolo-apertura">
+      <div class="apertura-scena">
+        <div class="contenitore">
+          <div class="apertura-meta">
+            <p class="micro"><a class="link" href="/#settori">Settori</a> · Manifattura e subfornitura</p>
+            <p class="micro">Sede a Bassano del Grappa · Italia</p>
+          </div>
+
+          <h1 class="apertura-titolo" id="titolo-apertura">
+            <span class="riga riga-quota"><span><span class="quota" data-quota="± 0,01">Precisi</span> <span class="unita">in officina.</span></span></span>
+            <span class="riga riga-rientro riga-leggera"><span>Invisibili online?</span></span>
+          </h1>
+
+          <div class="apertura-piede">
+            <div class="apertura-testo">
+              <p class="apertura-sotto">Siti, Google, CRM e automazioni per la manifattura e la subfornitura: aziende che lavorano su disegno, anche conto terzi.</p>
+              <div class="azioni">
+                <a class="btn" href="/#contatto">
+                  Chiedeteci un preventivo
+                  <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+                </a>
+                <a class="link-freccia" href="#lavorazioni">
+                  Le lavorazioni
+                  <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- La tavola: un albero tornito con le sue quote, che si compone pezzo per pezzo. Decorativa.
+                 Su telefono il riquadro taglia il cartiglio (preserveAspectRatio … slice). -->
+            <svg class="tavola" viewBox="0 0 560 296" preserveAspectRatio="xMidYMin slice" aria-hidden="true" focusable="false" data-entra>
+              <defs>
+                <marker id="punta" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 1.5 8 4 0 6.5z"/></marker>
+              </defs>
+              <line class="tavola-asse" x1="30" y1="120" x2="470" y2="120"/>
+              <g class="tavola-pezzo">
+                <path class="tavola-profilo" d="M60 84 64 80H140V65H260V88H380V98H436L440 102V138L436 142H380V152H260V175H140V160H64L60 156Z"/>
+                <path class="tavola-spigoli" d="M64 80V160M140 80V160M260 88V152M380 98V142M436 98V142"/>
+                <path class="tavola-filetto" d="M380 101H433M380 139H433"/>
+              </g>
+              <g class="tavola-quote">
+                <g class="quota-tavola">
+                  <path d="M200 65 222 24H286" marker-start="url(#punta)"/>
+                  <text x="228" y="18">Ø 110 h7</text>
+                </g>
+                <g class="quota-tavola">
+                  <path d="M312 74 320 88 336 60H376"/>
+                  <text x="338" y="54">Ra 0,8</text>
+                </g>
+                <g class="quota-tavola">
+                  <path d="M420 98 466 52H520" marker-start="url(#punta)"/>
+                  <text x="464" y="46">M45×1,5</text>
+                </g>
+                <g class="quota-tavola">
+                  <path class="tavola-riferimento" d="M140 179V208M260 179V208"/>
+                  <line x1="140" y1="202" x2="260" y2="202" marker-start="url(#punta)" marker-end="url(#punta)"/>
+                  <text x="200" y="196" text-anchor="middle">120</text>
+                </g>
+                <g class="quota-tavola">
+                  <path class="tavola-riferimento" d="M60 164V232M440 146V232"/>
+                  <line x1="60" y1="226" x2="440" y2="226" marker-start="url(#punta)" marker-end="url(#punta)"/>
+                  <text x="250" y="220" text-anchor="middle">380</text>
+                </g>
+              </g>
+              <g class="tavola-cartiglio">
+                <rect x="280" y="244" width="270" height="48"/>
+                <path d="M280 268H550M450 244V292"/>
+                <text x="288" y="261">Albero · esempio</text>
+                <text x="458" y="261">Scala 1:2</text>
+                <text x="288" y="285">CP Studio Lab</text>
+                <text x="458" y="285">Tav. 01</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Come compra un buyer industriale: solo cifre con la fonte ── -->
+    <section class="sezione dati" aria-labelledby="titolo-buyer">
+      <div class="contenitore">
+        <div class="sezione-testa">
+          <p class="micro">Come compra un buyer industriale</p>
+          <h2 class="titolo-sezione" id="titolo-buyer">Quando vi chiama, ha già quasi deciso.</h2>
+        </div>
+        <ul class="targa targa-buyer">
+          <li class="dato" data-entra><span class="dato-valore">84</span><span class="micro dato-unita">per cento</span><p>dei buyer manifatturieri comincia online la ricerca dei fornitori.</p></li>
+          <li class="dato" data-entra><span class="dato-valore">80</span><span class="micro dato-unita">per cento</span><p>della decisione è già presa al primo contatto con il fornitore.</p></li>
+        </ul>
+        <p class="micro fonte-dati">Fonte: Delta Market, 2026</p>
+      </div>
+    </section>
+
+    <!-- ── Cosa facciamo per la manifattura: gli esempi dell'officina, dichiarati «Esempio» ── -->
+    <section class="sezione" id="servizi-manifattura" aria-labelledby="titolo-servizi">
+      <div class="contenitore">
+        <div class="sezione-testa">
+          <p class="micro">Cosa facciamo per la manifattura</p>
+          <h2 class="titolo-sezione" id="titolo-servizi">Un sito tecnico, non una brochure.</h2>
+          <p class="sezione-sotto">Gli stessi servizi della pagina principale, scritti con le parole dell’officina.</p>
+        </div>
+
+        <ol class="servizi">
+          <li class="servizio" data-entra>
+            <span class="servizio-pos" aria-hidden="true">01</span>
+            <div class="servizio-testo">
+              <h3>Siti tecnici</h3>
+              <p>Il sito come una scheda tecnica: lavorazioni, macchine, tolleranze, certificazioni. Quello che il buyer controlla prima di scrivervi.</p>
+              <ul class="elenco-tratto">
+                <li>Una pagina per ogni lavorazione</li>
+                <li>Richiesta d’offerta con PDF, DXF o STEP</li>
+                <li>Veloce anche da telefono</li>
+              </ul>
+              <a class="link-freccia" href="/esempio/">
+                Provate un sito d’esempio
+                <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+              </a>
+            </div>
+            <div class="mock mock-sito" aria-hidden="true">
+              <p class="micro mock-etichetta">Esempio</p>
+              <div class="mock-barra"><span>officina-esempio.it/tornitura</span></div>
+              <div class="mock-corpo">
+                <div class="mock-pagina">
+                  <p class="mock-marchio">Officina Esempio</p>
+                  <p class="mock-titolo">Tornitura CNC conto terzi</p>
+                  <ul class="mock-specifiche">
+                    <li><span>Materiali</span>Acciaio, inox, ottone</li>
+                    <li><span>Diametri</span>Ø 4–120 mm</li>
+                    <li><span>Lotti</span>Prototipo e serie</li>
+                    <li><span>Certificazioni</span>ISO 9001</li>
+                  </ul>
+                </div>
+                <div class="mock-richiesta">
+                  <p class="mock-col">Richiesta d’offerta</p>
+                  <span class="mock-campo">Quantità<b>500 pz</b></span>
+                  <span class="mock-campo">Materiale<b>AISI 304</b></span>
+                  <span class="mock-file">flangia.pdf<small>1,2 MB</small></span>
+                  <span class="mock-btn">Richiedete un’offerta</span>
+                  <span class="mock-inviata">Richiesta inviata</span>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="servizio" data-entra>
+            <span class="servizio-pos" aria-hidden="true">02</span>
+            <div class="servizio-testo">
+              <h3>Google</h3>
+              <p>Le ricerche di chi ha un pezzo da far fare: poche, ma di chi compra.</p>
+              <ul class="elenco-tratto">
+                <li>Ricerche per lavorazione e materiale</li>
+                <li>Ricerche per zona e distretto</li>
+                <li>Scheda Google dell’azienda</li>
+              </ul>
+            </div>
+            <div class="mock mock-ricerca" aria-hidden="true">
+              <p class="micro mock-etichetta">Esempio</p>
+              <p class="mock-cerca"><span>tornitura inox conto terzi</span></p>
+              <ol class="mock-risultati">
+                <li class="mock-primo">
+                  <span class="mock-url">officina-esempio.it › tornitura</span>
+                  <span class="mock-link">Tornitura CNC inox conto terzi · Officina Esempio</span>
+                  <span class="mock-desc">Prototipi e serie. Inviate il disegno, vi rispondiamo con l’offerta.</span>
+                </li>
+                <li><span class="mock-riga"></span><span class="mock-riga mock-riga-corta"></span></li>
+                <li><span class="mock-riga"></span><span class="mock-riga mock-riga-corta"></span></li>
+              </ol>
+            </div>
+          </li>
+          <li class="servizio" data-entra>
+            <span class="servizio-pos" aria-hidden="true">03</span>
+            <div class="servizio-testo">
+              <h3>Automazioni</h3>
+              <p>Il preventivo parte prima: dalla richiesta con il disegno alla bozza, che controllate voi.</p>
+              <ul class="elenco-tratto">
+                <li>Dati letti dalla richiesta e dagli allegati</li>
+                <li>Bozza di preventivo pronta</li>
+                <li>Email di risposta già scritte</li>
+              </ul>
+            </div>
+            <div class="mock mock-flusso" aria-hidden="true">
+              <p class="micro mock-etichetta">Esempio</p>
+              <ol>
+                <li><span class="mock-passo">1</span><span>Richiesta con disegno allegato<span class="mock-nota">flangia.pdf</span></span></li>
+                <li><span class="mock-passo">2</span><span>Letti materiale, quantità, tolleranze<span class="mock-nota">AISI 304 · 500 pz · ± 0,02</span></span></li>
+                <li><span class="mock-passo">3</span><span>Bozza di preventivo<span class="mock-nota">Da controllare</span></span></li>
+              </ol>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ── Le lavorazioni: una pagina per ognuna ── -->
+    <section class="sezione" id="lavorazioni" aria-labelledby="titolo-lavorazioni">
+      <div class="contenitore">
+        <div class="sezione-testa">
+          <p class="micro">Lavorazioni</p>
+          <h2 class="titolo-sezione" id="titolo-lavorazioni">Ogni lavorazione ha le sue parole.</h2>
+        </div>
+        <ul class="settore-lavorazioni manifattura-lavorazioni" aria-label="Le pagine per lavorazione">
+          <li><a class="settore-lav" href="/tornitura/">
+            <span class="pannello-mini" aria-hidden="true"><span class="trama trama-tornitura"></span><svg class="disegno-lavorazione mini-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d1-pezzo"/><use href="#d1-quote"/></svg></span>
+            <span class="settore-lav-nome">Tornitura<svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></span>
+          </a></li>
+          <li><a class="settore-lav" href="/lamiera/">
+            <span class="pannello-mini" aria-hidden="true"><span class="trama trama-lamiera"></span><svg class="disegno-lavorazione mini-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d2-pezzo"/><use href="#d2-quote"/></svg></span>
+            <span class="settore-lav-nome">Lamiera<svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></span>
+          </a></li>
+          <li><a class="settore-lav" href="/stampaggio/">
+            <span class="pannello-mini" aria-hidden="true"><span class="trama trama-stampaggio"></span><svg class="disegno-lavorazione mini-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d3-pezzo"/><use href="#d3-quote"/></svg></span>
+            <span class="settore-lav-nome">Stampaggio<svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></span>
+          </a></li>
+          <li><a class="settore-lav" href="/carpenteria/">
+            <span class="pannello-mini" aria-hidden="true"><span class="trama trama-carpenteria"></span><svg class="disegno-lavorazione mini-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d4-pezzo"/><use href="#d4-quote"/></svg></span>
+            <span class="settore-lav-nome">Carpenteria e saldatura<svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></span>
+          </a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="contatto lav-chiusura" aria-labelledby="titolo-chiusura">
+      <div class="contenitore">
+        <p class="micro">Contatto</p>
+        <h2 class="titolo-sezione" id="titolo-chiusura">Raccontateci cosa lavorate.</h2>
+        <div class="azioni lav-azioni">
+          <a class="btn btn-chiaro" href="/#contatto">
+            Chiedeteci un preventivo
+            <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+          </a>
+          <a class="link-freccia" href="/contatti/">
+            Contatti diretti
+            <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ── 9. Piè di pagina ── -->
+  <footer class="piede">
+    <div class="contenitore">
+      <div class="piede-riga">
+        <div>
+          <div class="logo" role="img" aria-label="CP Studio Lab">
+            <svg aria-hidden="true" focusable="false"><use href="#marchio"/></svg>
+            <span>CP Studio</span><span class="logo-lab">Lab</span>
+          </div>
+          <p class="piede-sotto">Studio digitale per le PMI</p>
+        </div>
+        <a class="link link-blocco" href="#contenuto">Inizio pagina</a>
+      </div>
+      <dl class="cartiglio-piede">
+        <div><dt class="micro">Sede</dt><dd>Bassano del Grappa · Italia</dd></div>
+        <!-- DA COMPILARE: P.IVA, obbligatoria sul sito. Esempio:
+             <div><dt class="micro">P.IVA</dt><dd>01234567890</dd></div> -->
+        <div><dt class="micro">Email</dt><dd><a class="link link-blocco" href="mailto:info@cpstudiolab.it">info@cpstudiolab.it</a></dd></div>
+        <div><dt class="micro">Privacy</dt><dd><a class="link link-blocco" href="/privacy.html">Informativa privacy</a></dd></div>
+        <div><dt class="micro">Revisione</dt><dd>© 2026 CP Studio Lab</dd></div>
+      </dl>
+    </div>
+  </footer>
+</body>
+</html>
