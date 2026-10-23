@@ -13,7 +13,7 @@
   <meta property="og:locale" content="it_IT">
   <meta property="og:site_name" content="CP Studio Lab">
   <meta property="og:url" content="https://cpstudiolab.it/">
-  <meta property="og:title" content="Precisi in officina. Invisibili online? · CP Studio Lab">
+  <meta property="og:title" content="Più richieste di preventivo, dal vostro digitale. · CP Studio Lab">
   <meta property="og:description" content="Siti, Google, CRM e automazioni per le PMI, a partire dalla manifattura.">
   <meta property="og:image" content="https://cpstudiolab.it/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -199,30 +199,24 @@
 
   <main id="contenuto" tabindex="-1">
 
-    <!-- Apertura e Il punto stanno insieme: l'apertura resta ferma finché il foglio verde non l'ha coperta.
-         «Inizio pagina» punta qui, perché l'apertura, ferma, non ha una posizione fissa nella pagina. -->
-    <div class="apertura-e-punto" id="inizio">
-
-    <!-- ── 1. Apertura ── -->
-    <section class="apertura" aria-labelledby="titolo-apertura">
+    <!-- ── 1. Apertura: lo studio, per tutte le PMI. Ferma: niente effetti allo scorrimento.
+         Il titolo della manifattura («Precisi in officina») e la tavola sono nella pagina /manifattura/. ── -->
+    <section class="apertura apertura-statica apertura-studio" id="inizio" aria-labelledby="titolo-apertura">
       <div class="apertura-scena">
-        <!-- Il mirino del CAD: segue il puntatore sulla carta millimetrata. Decorativo. -->
-        <div class="mirino" aria-hidden="true"><span class="mirino-x"></span><span class="mirino-y"></span><span class="mirino-valore"></span></div>
-
         <div class="contenitore">
           <div class="apertura-meta">
-            <p class="micro">Studio digitale per le PMI</p>
+            <p class="micro">Studio di servizi digitali per le PMI</p>
             <p class="micro">Sede a Bassano del Grappa · Italia</p>
           </div>
 
           <h1 class="apertura-titolo" id="titolo-apertura">
-            <span class="riga riga-quota"><span><span class="quota" data-quota="± 0,01">Precisi</span> <span class="unita">in officina.</span></span></span>
-            <span class="riga riga-rientro riga-leggera"><span>Invisibili online?</span></span>
+            <span class="riga"><span>Più richieste di preventivo,</span></span>
+            <span class="riga riga-leggera"><span>dal vostro digitale.</span></span>
           </h1>
 
           <div class="apertura-piede">
             <div class="apertura-testo">
-              <p class="apertura-sotto">Siti, Google, CRM e automazioni per le PMI, a partire dalla manifattura.</p>
+              <p class="apertura-sotto">Siti, Google, CRM e automazioni per le piccole e medie imprese. Misuriamo il lavoro in richieste di preventivo, non in visite.</p>
               <div class="azioni">
                 <a class="btn" href="#contatto">
                   Chiedeteci un preventivo
@@ -234,76 +228,45 @@
                 </a>
               </div>
             </div>
-
-            <!-- La tavola: un albero tornito con le sue quote, che si compone pezzo per pezzo. Decorativa.
-                 Su telefono il riquadro taglia il cartiglio (preserveAspectRatio … slice). -->
-            <svg class="tavola" viewBox="0 0 560 296" preserveAspectRatio="xMidYMin slice" aria-hidden="true" focusable="false" data-entra>
-              <defs>
-                <marker id="punta" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 1.5 8 4 0 6.5z"/></marker>
-              </defs>
-              <line class="tavola-asse" x1="30" y1="120" x2="470" y2="120"/>
-              <g class="tavola-pezzo">
-                <path class="tavola-profilo" d="M60 84 64 80H140V65H260V88H380V98H436L440 102V138L436 142H380V152H260V175H140V160H64L60 156Z"/>
-                <path class="tavola-spigoli" d="M64 80V160M140 80V160M260 88V152M380 98V142M436 98V142"/>
-                <path class="tavola-filetto" d="M380 101H433M380 139H433"/>
-              </g>
-              <g class="tavola-quote">
-                <g class="quota-tavola">
-                  <path d="M200 65 222 24H286" marker-start="url(#punta)"/>
-                  <text x="228" y="18">Ø 110 h7</text>
-                </g>
-                <g class="quota-tavola">
-                  <path d="M312 74 320 88 336 60H376"/>
-                  <text x="338" y="54">Ra 0,8</text>
-                </g>
-                <g class="quota-tavola">
-                  <path d="M420 98 466 52H520" marker-start="url(#punta)"/>
-                  <text x="464" y="46">M45×1,5</text>
-                </g>
-                <g class="quota-tavola">
-                  <path class="tavola-riferimento" d="M140 179V208M260 179V208"/>
-                  <line x1="140" y1="202" x2="260" y2="202" marker-start="url(#punta)" marker-end="url(#punta)"/>
-                  <text x="200" y="196" text-anchor="middle">120</text>
-                </g>
-                <g class="quota-tavola">
-                  <path class="tavola-riferimento" d="M60 164V232M440 146V232"/>
-                  <line x1="60" y1="226" x2="440" y2="226" marker-start="url(#punta)" marker-end="url(#punta)"/>
-                  <text x="250" y="220" text-anchor="middle">380</text>
-                </g>
-              </g>
-              <g class="tavola-cartiglio">
-                <rect x="280" y="244" width="270" height="48"/>
-                <path d="M280 268H550M450 244V292"/>
-                <text x="288" y="261">Albero · esempio</text>
-                <text x="458" y="261">Scala 1:2</text>
-                <text x="288" y="285">CP Studio Lab</text>
-                <text x="458" y="285">Tav. 01</text>
-              </g>
-            </svg>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- ── 1b. I settori, subito: una porta per ogni settore che seguiamo. I nuovi si aggiungono come voci. ── -->
+    <nav class="striscia-settori" aria-label="Settori">
+      <div class="contenitore striscia-griglia">
+        <p class="micro">Per settore</p>
+        <ul class="striscia-voci">
+          <li><a href="/manifattura/">
+            <span>Manifattura e subfornitura<small>Tornitura, lamiera, stampaggio, carpenteria</small></span>
+            <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+          </a></li>
+          <li><a href="#contatto">
+            <span>Il vostro settore?<small>Raccontateci cosa fate: vi diciamo se possiamo esservi utili</small></span>
+            <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+          </a></li>
+        </ul>
+      </div>
+    </nav>
 
     <!-- ── 2. Il punto ── -->
     <section class="punto" aria-labelledby="titolo-punto">
       <div class="contenitore punto-griglia">
         <h2 class="micro" id="titolo-punto">Il punto</h2>
         <ul class="sintomi">
-          <li class="frase">I clienti nuovi arrivano solo dal passaparola.</li>
-          <li class="frase">Su Google, chi vi cerca trova i concorrenti.</li>
-          <li class="frase">Le richieste si perdono tra email, telefono e WhatsApp.</li>
-          <li class="frase">Il sito è fermo da anni.</li>
+          <li>I clienti nuovi arrivano solo dal passaparola.</li>
+          <li>Su Google, chi vi cerca trova i concorrenti.</li>
+          <li>Le richieste si perdono tra email, telefono e WhatsApp.</li>
+          <li>Il sito è fermo da anni.</li>
         </ul>
-        <p class="punto-chiave frase">Serve un sistema che porti richieste e non le lasci cadere.</p>
+        <p class="punto-chiave">Serve un sistema che porti richieste e non le lasci cadere.</p>
         <a class="link-freccia" href="#servizi">
           Ecco come lo costruiamo
           <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
         </a>
       </div>
     </section>
-
-    </div>
 
     <!-- ── 3. Servizi ── -->
     <section class="sezione" id="servizi" aria-labelledby="titolo-servizi">
@@ -319,38 +282,34 @@
           <li class="servizio" data-entra>
             <span class="servizio-pos" aria-hidden="true">01</span>
             <div class="servizio-testo">
-              <h3>Siti tecnici</h3>
-              <p>Il sito come una scheda tecnica: lavorazioni, macchinari, certificazioni.</p>
+              <h3>Siti</h3>
+              <p>Il sito come una scheda di quello che fate: servizi, lavori fatti, certificazioni.</p>
               <ul class="elenco-tratto">
-                <li>Una pagina per ogni lavorazione</li>
-                <li>Richiesta d’offerta con PDF, DXF o STEP</li>
+                <li>Una pagina per ogni servizio</li>
+                <li>Richiesta di preventivo con foto, disegni o capitolato</li>
                 <li>Veloce anche da telefono</li>
               </ul>
-              <a class="link-freccia" href="/esempio/">
-                Provate un sito d’esempio
-                <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
-              </a>
             </div>
             <div class="mock mock-sito" aria-hidden="true">
               <p class="micro mock-etichetta">Esempio</p>
-              <div class="mock-barra"><span>officina-esempio.it/tornitura</span></div>
+              <div class="mock-barra"><span>azienda-esempio.it/servizi</span></div>
               <div class="mock-corpo">
                 <div class="mock-pagina">
-                  <p class="mock-marchio">Officina Esempio</p>
-                  <p class="mock-titolo">Tornitura CNC conto terzi</p>
+                  <p class="mock-marchio">Azienda Esempio</p>
+                  <p class="mock-titolo">Lavori su misura</p>
                   <ul class="mock-specifiche">
-                    <li><span>Materiali</span>Acciaio, inox, ottone</li>
-                    <li><span>Diametri</span>Ø 4–120 mm</li>
-                    <li><span>Lotti</span>Prototipo e serie</li>
+                    <li><span>Servizi</span>Progetto, produzione, posa</li>
+                    <li><span>Zona</span>Veneto e Nord Italia</li>
+                    <li><span>Tempi</span>Preventivo in 48 ore</li>
                     <li><span>Certificazioni</span>ISO 9001</li>
                   </ul>
                 </div>
                 <div class="mock-richiesta">
-                  <p class="mock-col">Richiesta d’offerta</p>
-                  <span class="mock-campo">Quantità<b>500 pz</b></span>
-                  <span class="mock-campo">Materiale<b>AISI 304</b></span>
-                  <span class="mock-file">flangia.pdf<small>1,2 MB</small></span>
-                  <span class="mock-btn">Richiedete un’offerta</span>
+                  <p class="mock-col">Richiesta di preventivo</p>
+                  <span class="mock-campo">Cosa vi serve<b>Su misura</b></span>
+                  <span class="mock-campo">Entro<b>Marzo</b></span>
+                  <span class="mock-file">capitolato.pdf<small>1,2 MB</small></span>
+                  <span class="mock-btn">Chiedete un preventivo</span>
                   <span class="mock-inviata">Richiesta inviata</span>
                 </div>
               </div>
@@ -369,12 +328,12 @@
             </div>
             <div class="mock mock-ricerca" aria-hidden="true">
               <p class="micro mock-etichetta">Esempio</p>
-              <p class="mock-cerca"><span>tornitura inox conto terzi</span></p>
+              <p class="mock-cerca"><span>lavori su misura vicenza</span></p>
               <ol class="mock-risultati">
                 <li class="mock-primo">
-                  <span class="mock-url">officina-esempio.it › tornitura</span>
-                  <span class="mock-link">Tornitura CNC inox conto terzi · Officina Esempio</span>
-                  <span class="mock-desc">Prototipi e serie. Inviate il disegno, vi rispondiamo con l’offerta.</span>
+                  <span class="mock-url">azienda-esempio.it › servizi</span>
+                  <span class="mock-link">Lavori su misura a Vicenza · Azienda Esempio</span>
+                  <span class="mock-desc">Inviate la richiesta con foto o disegno: vi rispondiamo con il preventivo.</span>
                 </li>
                 <li><span class="mock-riga"></span><span class="mock-riga mock-riga-corta"></span></li>
                 <li><span class="mock-riga"></span><span class="mock-riga mock-riga-corta"></span></li>
@@ -415,8 +374,8 @@
             <div class="mock mock-flusso" aria-hidden="true">
               <p class="micro mock-etichetta">Esempio</p>
               <ol>
-                <li><span class="mock-passo">1</span><span>Richiesta con disegno allegato<span class="mock-nota">flangia.pdf</span></span></li>
-                <li><span class="mock-passo">2</span><span>Letti materiale, quantità, tolleranze<span class="mock-nota">AISI 304 · 500 pz · ± 0,02</span></span></li>
+                <li><span class="mock-passo">1</span><span>Richiesta con allegato<span class="mock-nota">capitolato.pdf</span></span></li>
+                <li><span class="mock-passo">2</span><span>Letti cosa serve, quantità, tempi<span class="mock-nota">Su misura · 12 pezzi · entro marzo</span></span></li>
                 <li><span class="mock-passo">3</span><span>Bozza di preventivo<span class="mock-nota">Da controllare</span></span></li>
               </ol>
             </div>
@@ -437,7 +396,7 @@
               <p class="mock-col">Resoconto del mese</p>
               <ul>
                 <li>Aggiornamenti e backup<span>Fatto</span></li>
-                <li>Nuova scheda lavorazione<span>Fatto</span></li>
+                <li>Nuova pagina servizio<span>Fatto</span></li>
               </ul>
               <p class="mock-col">Richieste dal sito</p>
               <div class="mock-barre"><span></span><span></span><span></span><span></span><span></span><span></span></div>
@@ -473,6 +432,10 @@
               <div>
                 <h3>Manifattura e subfornitura</h3>
                 <p>Il primo settore che seguiamo: aziende che lavorano su disegno, anche conto terzi.</p>
+                <a class="link-freccia settore-pagina" href="/manifattura/">
+                  La pagina della manifattura
+                  <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+                </a>
               </div>
             </div>
             <ul class="settore-servizi" aria-label="Servizi per la manifattura">
@@ -693,7 +656,7 @@
         <div class="domande">
           <div class="domanda" data-entra>
             <h3>Quanto costa?</h3>
-            <p>Come per un pezzo a disegno: prima capiamo cosa serve, poi un preventivo scritto.</p>
+            <p>Prima capiamo cosa vi serve, poi vi mandiamo un preventivo scritto.</p>
           </div>
           <div class="domanda" data-entra>
             <h3>Con chi lavorate?</h3>

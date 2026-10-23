@@ -20,7 +20,7 @@ Ogni valore sta nei token in `:root` di `style.css`. La versione completa, con l
   `.simbolo-componibile` + `.richiamo`, `.socio-tessera`, `.domande`, `.modulo` + `.campo` + `.scelte`, `.cartiglio-piede`,
   `.menu` (menu a schermo intero, dialogo modale), `.targa` + `.dato` (dati di targa: solo cifre verificabili),
   `.risultati` + `.settori-lista` (settori in distinta, il primo con le lavorazioni), `.qualita` (su misura, collaudato, chiaro: in «Lo studio» e nella pagina Contatti),
-  `.testata-contatto` (icona del telefono e «Contatti diretti», senza freccia: porta alla pagina Contatti; su telefono «Contatti»), `.contatti-diretto`
+  `.testata-contatto` (icona del telefono e «Contatti diretti», senza freccia: porta alla pagina Contatti; su telefono «Contatti»), `.apertura-statica` (apertura ferma, alta quanto il contenuto: pagina principale e pagine di settore; `.apertura-studio` per il titolo su due righe della pagina principale), `.striscia-settori` (sotto l'apertura, una porta per ogni settore), `.contatti-diretto`
   (il foglio verde in cima alla pagina Contatti: si vede subito, senza ingresso animato),
   `.calibro` (passa/non passa), `.clienti` (striscia dei loghi: righe da un bordo all'altro dello schermo, crocini
   agli incroci, loghi in grigio), `.recensione` (le parole del cliente con la frase chiave in verde, le iniziali in una

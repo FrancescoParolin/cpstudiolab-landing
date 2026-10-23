@@ -695,6 +695,45 @@ html.menu-aperto { overflow: hidden; }
    Solo con mouse, con JavaScript e senza «riduci movimento»: la regola è in Movimento. */
 .mirino { display: none; }
 
+/* Apertura ferma (pagina principale e pagine di settore): alta quanto il suo contenuto, non resta ferma sotto
+   la testata e non si allontana sotto il foglio verde. Specificità più alta delle regole in Movimento. */
+.apertura-statica .apertura-scena { min-height: 0; padding-bottom: var(--s10); }
+.js .apertura.apertura-statica { position: relative; top: auto; }
+.js .apertura-statica .apertura-scena { transform: none; will-change: auto; }
+/* le righe tagliano in verticale per l'animazione: un po' d'aria sotto, per le lettere con la gamba (g, p) */
+.apertura-statica .riga { padding-bottom: .14em; margin-bottom: -.14em; }
+/* Pagina principale: titolo su due righe, così la striscia dei settori arriva presto */
+.apertura-studio .apertura-titolo { font-size: min(10.5vw, 76px); }
+.apertura-studio .apertura-piede { padding-top: var(--s5); }
+
+/* ══ 1b. Striscia dei settori: subito sotto l'apertura, una porta per ogni settore ══ */
+.striscia-settori { background: var(--superficie); border-block: var(--linea) solid var(--bordo); }
+.striscia-griglia { display: grid; gap: var(--s2) var(--s3); align-items: center; padding-block: var(--s3); }
+.striscia-voci { display: grid; gap: var(--s1); grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+.striscia-voci a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  min-height: var(--s8);
+  padding: var(--s2);
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  color: var(--testo);
+  font-weight: var(--peso-medio);
+  text-decoration: none;
+  transition: border-color var(--breve) var(--curva), color var(--breve) var(--curva);
+}
+.striscia-voci a:hover { border-color: var(--accento); color: var(--accento); }
+.striscia-voci a:hover .freccia { transform: translateX(var(--scarto)); }
+.striscia-voci small { display: block; margin-top: var(--scarto); font-size: var(--t-piccolo); font-weight: var(--peso-normale); color: var(--tenue); }
+@media (min-width: 768px) {
+  .striscia-griglia { grid-template-columns: auto minmax(0, 1fr); }
+}
+
+/* La riga della manifattura in «Settori» porta anche alla pagina del settore */
+.settore-pagina { margin-top: var(--s2); }
+
 /* ══ 2. Il punto ══════════════════════════════════════════════════
    Un foglio verde che sale sull'apertura: è il passaggio crema → verde. */
 .punto {
@@ -1201,6 +1240,12 @@ html.menu-aperto { overflow: hidden; }
   .targa { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .dato-grande { grid-column: 3; grid-row: 1 / 3; }
   .dato-disegno { width: 100%; margin-top: auto; }
+  .targa-buyer { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+/* Pagine di settore: dati di mercato, sempre con la fonte sotto; le lavorazioni in quattro colonne */
+.fonte-dati { margin-top: var(--s3); }
+@media (min-width: 1024px) {
+  .manifattura-lavorazioni { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 /* ══ 6. Lo studio ═════════════════════════════════════════════════
