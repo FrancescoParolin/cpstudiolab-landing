@@ -1273,6 +1273,7 @@ html.menu-aperto { overflow: hidden; }
 .qualita h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
 .qualita p { max-width: var(--misura-stretta); color: var(--tenue); }
 .chi-firma { margin-top: var(--s4); }
+.chi-azioni { margin-top: var(--s4); }
 
 @media (min-width: 1024px) {
   .chi-griglia {
@@ -1622,6 +1623,95 @@ html.menu-aperto { overflow: hidden; }
 .moto .contatti-diretto .contatto-testa:not(.visibile) { opacity: 1; transform: none; }
 @media (min-width: 1024px) {
   .contatti-diretto .contatto-griglia > .recapiti { grid-column: 8 / -1; grid-row: 1; align-self: end; }
+}
+
+/* ══ Pagina Lo studio ══════════════════════════════════════════════
+   Perché «studio»: il cartiglio dello studio accanto al titolo, i principi come una distinta,
+   il marchio disegnato in tavola con le quote, i soci, gli strumenti e gli impegni in cifre. */
+/* La scheda dello studio: come una scheda tecnica, testata verde e voci in righe */
+.scheda-studio {
+  align-self: end;
+  overflow: hidden;
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  background: var(--superficie);
+}
+.scheda-testa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s1) var(--s2);
+  padding: var(--s3);
+  background: var(--accento);
+  color: var(--crema);
+}
+.scheda-testa .micro { color: var(--crema-tenue); }
+.scheda-nome { font-size: var(--t-h3); font-weight: var(--peso-forte); letter-spacing: var(--ls-voce); }
+.scheda-voci div {
+  display: grid;
+  grid-template-columns: calc(var(--s10) + var(--s2)) minmax(0, 1fr);
+  gap: var(--s2);
+  align-items: baseline;
+  padding: var(--s2) var(--s3);
+  border-top: var(--linea) solid var(--bordo);
+}
+.scheda-voci div:first-child { border-top: 0; }
+.scheda-voci dd { font-size: var(--t-piccolo); font-weight: var(--peso-medio); overflow-wrap: anywhere; }
+@media (min-width: 1024px) {
+  .studio-piede .apertura-testo { grid-column: 1 / 7; }
+  .scheda-studio { grid-column: 8 / -1; }
+}
+
+/* I principi: quattro voci numerate, due per riga da tablet */
+.principi { display: grid; gap: 0 var(--s4); border-top: var(--linea) solid var(--bordo-forte); }
+.principio { display: grid; grid-template-columns: var(--s8) minmax(0, 1fr); gap: var(--s1) var(--s2); align-content: start; padding: var(--s4) 0; border-bottom: var(--linea) solid var(--bordo-forte); }
+.principio-num { grid-row: span 2; font: var(--peso-leggero) var(--t-voce)/1 var(--sans); letter-spacing: var(--ls-titolo); color: var(--accento); }
+.principio h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
+.principio p { max-width: var(--misura-stretta); color: var(--tenue); }
+@media (min-width: 768px) {
+  .principi { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Il marchio in tavola: il simbolo del kit con quote, richiami e cartiglio (tratti in unità del disegno) */
+.tavola-marchio {
+  width: min(100%, 520px);
+  height: auto;
+  overflow: visible;
+  color: var(--accento);
+  font: var(--peso-medio) 7px var(--mono);
+  letter-spacing: var(--ls-micro);
+  --tratto: .6px;
+}
+.tm-piena { fill: currentColor; }
+.tm-aperta { fill: none; stroke: currentColor; stroke-width: 6; }
+.tm-riferimento, .tm-quota { fill: none; stroke: currentColor; stroke-width: var(--tratto); }
+.tm-riferimento { stroke-dasharray: 3 2; opacity: .6; }
+.tm-testo { fill: currentColor; }
+.tavola-marchio marker path { fill: currentColor; }
+.tm-cartiglio rect, .tm-cartiglio path { fill: none; stroke: currentColor; stroke-width: var(--tratto); }
+.tm-cartiglio text { fill: currentColor; }
+
+/* I soci: la tessera con le iniziali, come le tessere del marchio */
+.soci { display: grid; gap: var(--s2); }
+.socio { display: grid; grid-template-columns: var(--s10) minmax(0, 1fr); gap: var(--s3); align-items: start; padding: var(--s4); border: var(--linea) solid var(--bordo-forte); border-radius: var(--r); background: var(--superficie); }
+.socio-iniziali { display: grid; place-items: center; aspect-ratio: 1; border-radius: var(--r); background: var(--accento); color: var(--crema); font: var(--peso-forte) var(--t-h3)/1 var(--sans); letter-spacing: var(--ls-voce); }
+.socio-testo { display: grid; gap: var(--s1); justify-items: start; }
+.socio-testo h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
+.socio-testo p:not(.micro) { color: var(--tenue); }
+@media (min-width: 768px) {
+  .soci { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Gli impegni: quattro cifre, due per riga e poi quattro in fila */
+@media (min-width: 1024px) {
+  .targa-impegni { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* La chiusura dello studio: i contatti accanto al titolo; il titolo si vede sempre, senza ingresso animato */
+.moto .studio-chiusura .contatto-testa:not(.visibile) { opacity: 1; transform: none; }
+@media (min-width: 1024px) {
+  .studio-chiusura .contatto-griglia > .recapiti { grid-column: 8 / -1; grid-row: 1; align-self: end; }
 }
 
 /* ══ 9. Piè di pagina: un cartiglio ═════════════════════════════ */
