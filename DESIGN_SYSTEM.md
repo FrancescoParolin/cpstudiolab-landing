@@ -24,7 +24,14 @@ Ogni valore sta nei token in `:root` di `style.css`. La versione completa, con l
   (il foglio verde in cima alla pagina Contatti: si vede subito, senza ingresso animato),
   `.calibro` (passa/non passa), `.clienti` (striscia dei loghi: righe da un bordo all'altro dello schermo, crocini
   agli incroci, loghi in grigio), `.recensione` (le parole del cliente con la frase chiave in verde, le iniziali in una
-  tessera, nome e ruolo, poi il piccolo cartiglio `.recensione-firma` con azienda e servizi).
+  tessera, nome e ruolo, poi il piccolo cartiglio `.recensione-firma` con azienda e servizi),
+  `.lav-*` (le pagine dei segmenti, `/manifattura/<segmento>/`: apertura con il disegno della lavorazione, «Dove si
+  perdono i clienti» e «Cosa mettiamo sul vostro sito», poi `.lav-percorsi`: i tre percorsi A, B e C, ognuno con le fasi
+  numerate come nel metodo e spiegate per quella lavorazione; il consigliato è un foglio verde, `.lav-percorso-consigliato`).
+  Alle pagine dei segmenti si arriva dalla pagina Manifattura, non dalla pagina principale.
+  I disegni delle lavorazioni sono cinque, ognuno con la sua trama: boccola (tornitura),
+  blocco con tasca fresata (fresatura CNC, Fig. 5), giunto a T saldato (carpenteria e saldatura), staffa piegata (lamiera),
+  piastra tranciata (stampaggio).
 - **Momenti firma:** il menu, un foglio verde che sale dal fondo e chiudendo esce in alto, con le lettere delle voci che
   scorrono al passaggio del mouse; la tavola che si compone come al tornio; il mirino CAD sulla carta millimetrata; il foglio verde
   che copre l'apertura; gli esempi dei servizi che si compongono (il disegno si allega, la richiesta parte); i disegni

@@ -16,3 +16,37 @@
     X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Le pagine per lavorazione sono passate sotto /manifattura/ (ottobre 2026): i vecchi indirizzi rimandano lì
+[[redirects]]
+  from = "/tornitura"
+  to = "/manifattura/tornitura/"
+  status = 301
+[[redirects]]
+  from = "/tornitura/*"
+  to = "/manifattura/tornitura/"
+  status = 301
+[[redirects]]
+  from = "/lamiera"
+  to = "/manifattura/lamiera/"
+  status = 301
+[[redirects]]
+  from = "/lamiera/*"
+  to = "/manifattura/lamiera/"
+  status = 301
+[[redirects]]
+  from = "/stampaggio"
+  to = "/manifattura/stampaggio/"
+  status = 301
+[[redirects]]
+  from = "/stampaggio/*"
+  to = "/manifattura/stampaggio/"
+  status = 301
+[[redirects]]
+  from = "/carpenteria"
+  to = "/manifattura/carpenteria-saldatura/"
+  status = 301
+[[redirects]]
+  from = "/carpenteria/*"
+  to = "/manifattura/carpenteria-saldatura/"
+  status = 301

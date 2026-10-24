@@ -98,6 +98,20 @@
       <text class="d-testo" x="60" y="104" text-anchor="end">a5</text>
       <text class="d-testo" x="60" y="127" text-anchor="end">a5</text>
     </symbol>
+    <!-- Fig. 5 · Fresatura: blocco con tasca fresata, in sezione -->
+    <symbol id="d5-pezzo" viewBox="0 0 320 240">
+      <path class="d-sezione" d="M64 72H112V118A6 6 0 0 0 118 124H202A6 6 0 0 0 208 118V72H256V176H64Z"/>
+    </symbol>
+    <symbol id="d5-quote" viewBox="0 0 320 240">
+      <path class="d-quota" d="M112 68V36M208 68V36"/>
+      <path class="d-quota" d="M112 42H208" marker-start="url(#punta-chiara)" marker-end="url(#punta-chiara)"/>
+      <text class="d-testo" x="160" y="36" text-anchor="middle">96</text>
+      <path class="d-quota" d="M122 72V124" marker-start="url(#punta-chiara)" marker-end="url(#punta-chiara)"/>
+      <text class="d-testo" x="127" y="103">26 ±0,01</text>
+      <path class="d-quota" d="M64 180V204M256 180V204"/>
+      <path class="d-quota" d="M64 198H256" marker-start="url(#punta-chiara)" marker-end="url(#punta-chiara)"/>
+      <text class="d-testo" x="160" y="192" text-anchor="middle">120</text>
+    </symbol>
   </svg>
 
   <a class="salta" href="#contenuto">Contenuto principale</a>
@@ -372,21 +386,25 @@
           <h2 class="titolo-sezione" id="titolo-lavorazioni">Ogni lavorazione ha le sue parole.</h2>
         </div>
         <ul class="settore-lavorazioni manifattura-lavorazioni" aria-label="Le pagine per lavorazione">
-          <li><a class="settore-lav" href="/tornitura/">
+          <li><a class="settore-lav" href="/manifattura/tornitura/">
             <span class="pannello-mini" aria-hidden="true"><span class="trama trama-tornitura"></span><svg class="disegno-lavorazione mini-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d1-pezzo"/><use href="#d1-quote"/></svg></span>
             <span class="settore-lav-nome">Tornitura<svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></span>
           </a></li>
-          <li><a class="settore-lav" href="/lamiera/">
+          <li><a class="settore-lav" href="/manifattura/fresatura-cnc/">
+            <span class="pannello-mini" aria-hidden="true"><span class="trama trama-fresatura"></span><svg class="disegno-lavorazione mini-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d5-pezzo"/><use href="#d5-quote"/></svg></span>
+            <span class="settore-lav-nome">Fresatura CNC<svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></span>
+          </a></li>
+          <li><a class="settore-lav" href="/manifattura/carpenteria-saldatura/">
+            <span class="pannello-mini" aria-hidden="true"><span class="trama trama-carpenteria"></span><svg class="disegno-lavorazione mini-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d4-pezzo"/><use href="#d4-quote"/></svg></span>
+            <span class="settore-lav-nome">Carpenteria e saldatura<svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></span>
+          </a></li>
+          <li><a class="settore-lav" href="/manifattura/lamiera/">
             <span class="pannello-mini" aria-hidden="true"><span class="trama trama-lamiera"></span><svg class="disegno-lavorazione mini-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d2-pezzo"/><use href="#d2-quote"/></svg></span>
             <span class="settore-lav-nome">Lamiera<svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></span>
           </a></li>
-          <li><a class="settore-lav" href="/stampaggio/">
+          <li><a class="settore-lav" href="/manifattura/stampaggio/">
             <span class="pannello-mini" aria-hidden="true"><span class="trama trama-stampaggio"></span><svg class="disegno-lavorazione mini-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d3-pezzo"/><use href="#d3-quote"/></svg></span>
             <span class="settore-lav-nome">Stampaggio<svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></span>
-          </a></li>
-          <li><a class="settore-lav" href="/carpenteria/">
-            <span class="pannello-mini" aria-hidden="true"><span class="trama trama-carpenteria"></span><svg class="disegno-lavorazione mini-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d4-pezzo"/><use href="#d4-quote"/></svg></span>
-            <span class="settore-lav-nome">Carpenteria e saldatura<svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></span>
           </a></li>
         </ul>
       </div>
