@@ -1078,6 +1078,11 @@ html.menu-aperto { overflow: hidden; }
 .settore-lav { display: grid; gap: var(--s1); color: var(--testo); text-decoration: none; }
 .settore-lav-nome { display: inline-flex; align-items: center; gap: var(--s1); font-weight: var(--peso-medio); }
 .settore-lav:hover .freccia { transform: translateX(var(--scarto)); }
+/* su due colonne la quinta tessera resta sola: prende tutta la riga, con il pannello più basso */
+@media (max-width: 1023px) {
+  .settore-lavorazioni > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .settore-lavorazioni > li:last-child:nth-child(odd) .pannello-mini { aspect-ratio: 8 / 3; }
+}
 .pannello-mini { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r); background: var(--accento); }
 .pannello-mini .trama { opacity: .4; }
 .mini-disegno { position: absolute; inset: var(--s1); width: calc(100% - 2 * var(--s1)); height: calc(100% - 2 * var(--s1)); --tratto: 2.2px; }
@@ -1104,6 +1109,10 @@ html.menu-aperto { overflow: hidden; }
 }
 .trama-carpenteria {
   background: repeating-linear-gradient(45deg, var(--trama) 0 1px, transparent 1px 12px);
+}
+/* fresatura: i segni della fresa, archi uno accanto all'altro */
+.trama-fresatura {
+  background: radial-gradient(circle at 0 50%, transparent 0 15px, var(--trama) 15px 16px, transparent 16.5px) 0 0 / var(--s3) var(--s3);
 }
 
 /* I disegni delle lavorazioni: crema su verde, stessi tratti della tavola (pezzo 2px, quote 1px).
@@ -1142,7 +1151,7 @@ html.menu-aperto { overflow: hidden; }
   .settore-riga { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s3); align-items: start; }
   .settore-intesta { grid-column: 1 / 8; }
   .settore-servizi { grid-column: 8 / -1; justify-content: flex-end; padding-top: var(--s1); }
-  .settore-lavorazioni { grid-column: 1 / -1; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .settore-lavorazioni { grid-column: 1 / -1; grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .mini-disegno { font-size: 15px; --tratto: 1.25px; }
   .settore-aperto .link-freccia { grid-column: 8 / -1; justify-self: end; }
 }
@@ -1242,10 +1251,10 @@ html.menu-aperto { overflow: hidden; }
   .dato-disegno { width: 100%; margin-top: auto; }
   .targa-buyer { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-/* Pagine di settore: dati di mercato, sempre con la fonte sotto; le lavorazioni in quattro colonne */
+/* Pagine di settore: dati di mercato, sempre con la fonte sotto; le lavorazioni in cinque colonne */
 .fonte-dati { margin-top: var(--s3); }
 @media (min-width: 1024px) {
-  .manifattura-lavorazioni { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .manifattura-lavorazioni { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
 
 /* ══ 6. Lo studio ═════════════════════════════════════════════════
@@ -1649,7 +1658,8 @@ html.menu-aperto { overflow: hidden; }
   .cartiglio-piede { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
 }
 
-/* ── Pagine per lavorazione (/tornitura/, /lamiera/, /stampaggio/, /carpenteria/) ── */
+/* ── Pagine dei segmenti della manifattura (/manifattura/<segmento>/: tornitura, fresatura CNC,
+      carpenteria e saldatura, lamiera, stampaggio) ── */
 .lav-apertura { padding: var(--s8) 0 var(--sezione); }
 .lav-griglia { display: grid; gap: var(--s6); align-items: center; }
 .lav-testo { display: grid; gap: var(--s3); justify-items: start; }
@@ -1663,7 +1673,7 @@ html.menu-aperto { overflow: hidden; }
 .lav-colonne { display: grid; gap: var(--s8); }
 .lav-titolo { margin: var(--s2) 0 var(--s4); font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
 .lav-elenco { gap: var(--s2); font-size: var(--t-lead); }
-.lav-ricerche { display: grid; gap: var(--s1); }
+.lav-ricerche { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s1); }   /* sui telefoni stretti la ricerca lunga finisce con i puntini */
 .lav-ricerca { max-width: 28em; }
 .lav-nota { margin-top: var(--s3); color: var(--tenue); }
 .lav-chiusura { border-radius: var(--r-foglio) var(--r-foglio) 0 0; }
@@ -1671,6 +1681,17 @@ html.menu-aperto { overflow: hidden; }
 .lav-azioni .link-freccia { color: var(--crema); }
 .lav-altre-titolo { margin-top: var(--s10); }
 .lav-altre { display: flex; flex-wrap: wrap; gap: 0 var(--s4); margin-top: var(--s1); }
+/* Il percorso consigliato: una scheda con le fasi numerate come nel ciclo del metodo */
+.lav-percorso { display: grid; gap: var(--s2); padding: var(--s4) var(--s3); border: var(--linea) solid var(--bordo-forte); border-radius: var(--r); background: var(--superficie); }
+.lav-percorso h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
+.lav-percorso p:not(.micro) { color: var(--tenue); }
+.lav-ciclo { display: grid; gap: var(--s1); padding: var(--s2) 0; border-block: var(--linea) solid var(--bordo-forte); }
+.lav-ciclo li { display: grid; grid-template-columns: var(--s5) minmax(0, 1fr); align-items: baseline; font-weight: var(--peso-medio); }
+.lav-ciclo-num { font: var(--peso-medio) var(--t-micro)/1 var(--mono); letter-spacing: var(--ls-micro); color: var(--accento); }
+.lav-percorso .lav-percorso-esito { color: var(--testo); }
+.lav-percorso .link-freccia { justify-self: start; }
+.lav-in-piu { margin-top: var(--s4); max-width: var(--misura-stretta); }
+.lav-in-piu .micro { display: block; margin-bottom: var(--s1); }
 @media (min-width: 1024px) {
   .lav-griglia { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s3); }
   .lav-testo { grid-column: 1 / 7; }

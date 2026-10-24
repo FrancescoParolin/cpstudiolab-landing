@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Siti per carpenterie · CP Studio Lab</title>
-  <meta name="description" content="Per una carpenteria contano le certificazioni e le dimensioni che riuscite a gestire. Il sito deve dirlo subito, con i lavori fatti e le loro misure.">
+  <title>Siti per tornerie · CP Studio Lab</title>
+  <meta name="description" content="Chi cerca un tornitore conto terzi non sa ancora che esistete. Il sito deve dirgli subito cosa lavorate, con che tolleranze e in che lotti.">
   <meta name="theme-color" content="#1F4D3F">
-  <link rel="canonical" href="https://cpstudiolab.it/carpenteria/">
+  <link rel="canonical" href="https://cpstudiolab.it/manifattura/tornitura/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="it_IT">
   <meta property="og:site_name" content="CP Studio Lab">
-  <meta property="og:title" content="Siti per carpenterie · CP Studio Lab">
-  <meta property="og:description" content="Per una carpenteria contano le certificazioni e le dimensioni che riuscite a gestire. Il sito deve dirlo subito, con i lavori fatti e le loro misure.">
+  <meta property="og:title" content="Siti per tornerie · CP Studio Lab">
+  <meta property="og:description" content="Chi cerca un tornitore conto terzi non sa ancora che esistete. Il sito deve dirgli subito cosa lavorate, con che tolleranze e in che lotti.">
   <meta property="og:image" content="https://cpstudiolab.it/og-image.png">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
@@ -98,6 +98,20 @@
       <text class="d-testo" x="60" y="104" text-anchor="end">a5</text>
       <text class="d-testo" x="60" y="127" text-anchor="end">a5</text>
     </symbol>
+    <!-- Fig. 5 · Fresatura: blocco con tasca fresata, in sezione -->
+    <symbol id="d5-pezzo" viewBox="0 0 320 240">
+      <path class="d-sezione" d="M64 72H112V118A6 6 0 0 0 118 124H202A6 6 0 0 0 208 118V72H256V176H64Z"/>
+    </symbol>
+    <symbol id="d5-quote" viewBox="0 0 320 240">
+      <path class="d-quota" d="M112 68V36M208 68V36"/>
+      <path class="d-quota" d="M112 42H208" marker-start="url(#punta-chiara)" marker-end="url(#punta-chiara)"/>
+      <text class="d-testo" x="160" y="36" text-anchor="middle">96</text>
+      <path class="d-quota" d="M122 72V124" marker-start="url(#punta-chiara)" marker-end="url(#punta-chiara)"/>
+      <text class="d-testo" x="127" y="103">26 ±0,01</text>
+      <path class="d-quota" d="M64 180V204M256 180V204"/>
+      <path class="d-quota" d="M64 198H256" marker-start="url(#punta-chiara)" marker-end="url(#punta-chiara)"/>
+      <text class="d-testo" x="160" y="192" text-anchor="middle">120</text>
+    </symbol>
   </svg>
 
   <a class="salta" href="#contenuto">Contenuto principale</a>
@@ -173,39 +187,66 @@
     <section class="lav-apertura" aria-labelledby="titolo-lav">
       <div class="contenitore lav-griglia">
         <div class="lav-testo">
-          <p class="micro"><a class="link" href="/manifattura/">Manifattura</a> · 04 Carpenteria e saldatura</p>
-          <h1 class="titolo-sezione" id="titolo-lav">Un sito per la vostra carpenteria.</h1>
-          <p class="sezione-sotto">Per una carpenteria contano le certificazioni e le dimensioni che riuscite a gestire. Il sito deve dirlo subito, con i lavori fatti e le loro misure.</p>
+          <p class="micro"><a class="link" href="/manifattura/">Manifattura</a> · 01 Tornitura</p>
+          <h1 class="titolo-sezione" id="titolo-lav">Pezzi torniti che pochi sanno fare.</h1>
+          <p class="sezione-sotto">Chi cerca un tornitore conto terzi non sa ancora che esistete. Il sito deve dirgli subito cosa lavorate, con che tolleranze e in che lotti.</p>
           <div class="azioni">
-            <a class="btn" href="/#contatto">
+            <a class="btn" href="/?percorso=da-zero#contatto">
               Chiedeteci un preventivo
               <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
             </a>
-            <a class="link-freccia" href="tel:+393203222498">
-              Chiamate il 320 322 2498
+            <a class="link-freccia" href="/contatti/">
+              Contatti diretti
               <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
             </a>
           </div>
         </div>
         <figure class="lav-figura" aria-hidden="true">
-          <div class="pannello-lav"><div class="trama trama-carpenteria"></div><svg class="disegno-lavorazione lav-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d4-pezzo"/><use href="#d4-quote"/></svg></div>
-          <figcaption class="micro">Fig. 4 — Giunto a T saldato</figcaption>
+          <div class="pannello-lav"><div class="trama trama-tornitura"></div><svg class="disegno-lavorazione lav-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d1-pezzo"/><use href="#d1-quote"/></svg></div>
+          <figcaption class="micro">Fig. 1 — Boccola in sezione</figcaption>
         </figure>
       </div>
     </section>
 
-    <section class="sezione lav-corpo" aria-labelledby="titolo-cosa">
+    <section class="sezione lav-corpo" aria-labelledby="titolo-problemi">
       <div class="contenitore lav-colonne">
         <div>
           <p class="micro">Pos. 01</p>
-          <h2 class="lav-titolo" id="titolo-cosa">Cosa mettiamo sul vostro sito</h2>
-          <ul class="elenco-tratto lav-elenco"><li>Certificazioni EN 1090 e ISO 3834, con le classi di esecuzione</li><li>Dimensioni e pesi massimi</li><li>Saldatura: procedimenti e materiali</li><li>Trattamenti: sabbiatura, verniciatura, zincatura</li><li>Montaggio in cantiere</li><li>Lavori realizzati, con le misure</li></ul>
+          <h2 class="lav-titolo" id="titolo-problemi">Dove si perdono i clienti</h2>
+          <ul class="elenco-tratto lav-elenco"><li>Il passaparola finisce, e clienti nuovi non ne arrivano.</li><li>Nei giorni pieni, le richieste con il disegno restano nella posta.</li><li>Cercate tornitori e non li trovate.</li></ul>
         </div>
         <div>
           <p class="micro">Pos. 02</p>
+          <h2 class="lav-titolo">Cosa mettiamo sul vostro sito</h2>
+          <ul class="elenco-tratto lav-elenco"><li>Diametri e lunghezze massimi, per materiale</li><li>Materiali: acciaio, inox, ottone, alluminio</li><li>Lotti: prototipo, piccola serie, grande serie</li><li>Tolleranze, controlli e certificazioni</li><li>Le macchine: torni CNC, plurimandrino, fantine mobili</li><li>Richiesta d’offerta con il disegno allegato</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="sezione" aria-labelledby="titolo-percorso">
+      <div class="contenitore lav-colonne">
+        <div>
+          <p class="micro">Pos. 03</p>
+          <h2 class="lav-titolo" id="titolo-percorso">Da dove partire</h2>
+          <div class="lav-percorso">
+            <p class="micro">Percorso consigliato</p>
+            <h3>A · Da zero</h3>
+            <p>Per chi non ha un sito, o ce l’ha fermo da anni.</p>
+            <ol class="lav-ciclo" aria-label="Le fasi del percorso"><li><span class="lav-ciclo-num">10</span>Sito tecnico</li><li><span class="lav-ciclo-num">20</span>Google</li></ol>
+            <p class="lav-percorso-esito">Chi vi cerca vi trova e capisce cosa lavorate.</p>
+            <a class="link-freccia" href="/?percorso=da-zero#contatto">
+              Partiamo da qui
+              <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+            </a>
+          </div>
+          <p class="lav-nota"><a class="link" href="/?percorso=richieste#contatto">Il sito c’è già? Allora si parte dal percorso B.</a></p>
+          <p class="lav-in-piu"><span class="micro">In più</span>Una pagina «Lavora con noi» per trovare tornitori CNC.</p>
+        </div>
+        <div>
+          <p class="micro">Pos. 04</p>
           <h2 class="lav-titolo">Le ricerche da cui vi devono trovare</h2>
-          <ul class="lav-ricerche"><li><span class="mock-cerca lav-ricerca"><span>carpenteria metallica EN 1090</span></span></li><li><span class="mock-cerca lav-ricerca"><span>strutture in acciaio + provincia</span></span></li><li><span class="mock-cerca lav-ricerca"><span>saldatura conto terzi</span></span></li><li><span class="mock-cerca lav-ricerca"><span>carpenteria pesante</span></span></li></ul>
-          <p class="lav-nota">Esempi: le ricerche giuste le scegliamo con voi, nella fase 10.</p>
+          <ul class="lav-ricerche"><li><span class="mock-cerca lav-ricerca"><span>tornitura conto terzi + provincia</span></span></li><li><span class="mock-cerca lav-ricerca"><span>tornitura inox</span></span></li><li><span class="mock-cerca lav-ricerca"><span>minuteria tornita</span></span></li><li><span class="mock-cerca lav-ricerca"><span>tornitura CNC piccole serie</span></span></li></ul>
+          <p class="lav-nota">Esempi: le ricerche giuste le scegliamo con voi, all’inizio del lavoro.</p>
         </div>
       </div>
     </section>
@@ -213,19 +254,19 @@
     <section class="contatto lav-chiusura" aria-labelledby="titolo-chiusura">
       <div class="contenitore">
         <p class="micro">Contatto</p>
-        <h2 class="titolo-sezione" id="titolo-chiusura">Parliamo della vostra carpenteria.</h2>
+        <h2 class="titolo-sezione" id="titolo-chiusura">Parliamo della vostra tornitura.</h2>
         <div class="azioni lav-azioni">
-          <a class="btn btn-chiaro" href="/#contatto">
+          <a class="btn btn-chiaro" href="/?percorso=da-zero#contatto">
             Chiedeteci un preventivo
             <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
           </a>
-          <a class="link-freccia" href="tel:+393203222498">
-            Chiamate il 320 322 2498
+          <a class="link-freccia" href="/contatti/">
+            Contatti diretti
             <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
           </a>
         </div>
         <p class="micro lav-altre-titolo">Le altre lavorazioni</p>
-        <ul class="lav-altre"><li><a class="link link-blocco" href="/tornitura/">Tornitura</a></li><li><a class="link link-blocco" href="/lamiera/">Lamiera</a></li><li><a class="link link-blocco" href="/stampaggio/">Stampaggio</a></li></ul>
+        <ul class="lav-altre"><li><a class="link link-blocco" href="/manifattura/fresatura-cnc/">Fresatura CNC</a></li><li><a class="link link-blocco" href="/manifattura/carpenteria-saldatura/">Carpenteria e saldatura</a></li><li><a class="link link-blocco" href="/manifattura/lamiera/">Lamiera</a></li><li><a class="link link-blocco" href="/manifattura/stampaggio/">Stampaggio</a></li></ul>
       </div>
     </section>
   </main>
