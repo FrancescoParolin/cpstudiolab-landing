@@ -24,7 +24,9 @@ Ogni valore sta nei token in `:root` di `style.css`. La versione completa, con l
   (il foglio verde in cima alla pagina Contatti: si vede subito, senza ingresso animato),
   `.calibro` (passa/non passa), `.clienti` (striscia dei loghi: righe da un bordo all'altro dello schermo, crocini
   agli incroci, loghi in grigio), `.recensione` (le parole del cliente con la frase chiave in verde, le iniziali in una
-  tessera, nome e ruolo, poi il piccolo cartiglio `.recensione-firma` con azienda e servizi).
+  tessera, nome e ruolo, poi il piccolo cartiglio `.recensione-firma` con azienda e servizi),
+  `.percorsi` + `.percorso` (pagine di settore: tre situazioni, ognuna con il suo ciclo di lavoro `.percorso-ciclo`;
+  il caso più frequente su foglio verde, `.percorso-evidenza`; il link porta al modulo con i servizi già spuntati).
 - **Momenti firma:** il menu, un foglio verde che sale dal fondo e chiudendo esce in alto, con le lettere delle voci che
   scorrono al passaggio del mouse; la tavola che si compone come al tornio; il mirino CAD sulla carta millimetrata; il foglio verde
   che copre l'apertura; gli esempi dei servizi che si compongono (il disegno si allega, la richiesta parte); i disegni
