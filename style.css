@@ -1681,17 +1681,43 @@ html.menu-aperto { overflow: hidden; }
 .lav-azioni .link-freccia { color: var(--crema); }
 .lav-altre-titolo { margin-top: var(--s10); }
 .lav-altre { display: flex; flex-wrap: wrap; gap: 0 var(--s4); margin-top: var(--s1); }
-/* Il percorso consigliato: una scheda con le fasi numerate come nel ciclo del metodo */
-.lav-percorso { display: grid; gap: var(--s2); padding: var(--s4) var(--s3); border: var(--linea) solid var(--bordo-forte); border-radius: var(--r); background: var(--superficie); }
+/* I tre percorsi di ogni lavorazione: schede affiancate con le fasi numerate come nel ciclo del metodo.
+   Quella consigliata per la lavorazione è un foglio verde. */
+.lav-sotto { max-width: var(--misura-stretta); font-size: var(--t-lead); color: var(--tenue); }
+.lav-percorsi { display: grid; gap: var(--s3); margin-top: var(--s5); }
+.lav-percorso {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  padding: var(--s4) var(--s3);
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  background: var(--superficie);
+}
 .lav-percorso h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
-.lav-percorso p:not(.micro) { color: var(--tenue); }
-.lav-ciclo { display: grid; gap: var(--s1); padding: var(--s2) 0; border-block: var(--linea) solid var(--bordo-forte); }
-.lav-ciclo li { display: grid; grid-template-columns: var(--s5) minmax(0, 1fr); align-items: baseline; font-weight: var(--peso-medio); }
+.lav-percorso-lettera { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s1); }
+.lav-consigliato { padding: 2px var(--s1); border-radius: var(--r-pillola); background: var(--crema); color: var(--accento); }
+.lav-percorso-chi { color: var(--tenue); }
+.lav-ciclo { display: grid; gap: var(--s2); padding: var(--s3) 0; border-block: var(--linea) solid var(--bordo-forte); }
+.lav-ciclo li { display: grid; grid-template-columns: var(--s5) minmax(0, 1fr); align-items: baseline; }
 .lav-ciclo-num { font: var(--peso-medio) var(--t-micro)/1 var(--mono); letter-spacing: var(--ls-micro); color: var(--accento); }
-.lav-percorso .lav-percorso-esito { color: var(--testo); }
-.lav-percorso .link-freccia { justify-self: start; }
-.lav-in-piu { margin-top: var(--s4); max-width: var(--misura-stretta); }
-.lav-in-piu .micro { display: block; margin-bottom: var(--s1); }
+.lav-ciclo strong { display: block; font-weight: var(--peso-medio); }
+.lav-fase-cosa { display: block; margin-top: 2px; font-size: var(--t-piccolo); color: var(--tenue); }
+.lav-percorso-esito { font-weight: var(--peso-medio); }
+.lav-percorso .link-freccia { margin-top: auto; align-self: flex-start; }
+.lav-percorso-consigliato {
+  border-color: var(--accento);
+  background: var(--accento);
+  color: var(--crema);
+  --sottolineatura: var(--crema-tenue);
+}
+.lav-percorso-consigliato :is(.micro, .lav-percorso-chi, .lav-fase-cosa, .lav-ciclo-num) { color: var(--crema-tenue); }
+.lav-percorso-consigliato .lav-ciclo { border-color: var(--linea-verde); }
+.lav-percorso-consigliato .link-freccia { color: var(--crema); }
+.lav-percorso-consigliato :focus-visible { outline-color: var(--crema); }
+@media (min-width: 1024px) {
+  .lav-percorsi { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
 @media (min-width: 1024px) {
   .lav-griglia { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s3); }
   .lav-testo { grid-column: 1 / 7; }
