@@ -1541,6 +1541,8 @@ html.menu-aperto { overflow: hidden; }
 /* il completamento automatico del browser non deve riempire il campo di bianco */
 .campo input:-webkit-autofill { -webkit-text-fill-color: var(--crema); caret-color: var(--crema); box-shadow: inset 0 0 0 var(--s16) var(--accento); }
 .campo-nota { margin-left: var(--s1); font-weight: var(--peso-normale); color: var(--crema-tenue); }
+/* Arrivate da un percorso: la riga sotto «Cosa vi serve» lo dice */
+.modulo-percorso { margin-bottom: var(--s2); font-size: var(--t-piccolo); color: var(--crema-tenue); }
 /* Le scelte: tessere da spuntare, piene di crema quando sono scelte */
 .scelte { min-width: 0; margin: 0; padding: 0; border: 0; }
 .scelte legend { padding: 0; margin-bottom: var(--s1); }
@@ -1689,6 +1691,45 @@ html.menu-aperto { overflow: hidden; }
 .documento-data { margin-top: var(--s5); font-size: var(--t-piccolo); color: var(--tenue); }
 .documento .link-blocco { margin-top: var(--s3); }
 
+/* ══ Percorsi (pagine di settore) ═══════════════════════════════
+   Tre situazioni, ognuna con il suo ciclo di lavoro: le fasi in fila (10, 20, 30…) lungo una linea, come nel ciclo
+   di lavorazione. Il percorso più frequente sta sul foglio verde. Affiancati, i percorsi tengono allineate le stesse
+   righe (titolo, situazione, ciclo, risultato, link). */
+.percorsi-elenco { display: grid; gap: var(--s3); }
+.percorso {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  padding: var(--s4) var(--s3);
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  background: var(--superficie);
+}
+.percorso h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
+.percorso-num { color: var(--accento); }
+.percorso-chi { max-width: var(--misura-stretta); color: var(--tenue); }
+.percorso-ciclo { display: grid; gap: var(--s1); align-self: start; padding: var(--scarto) 0 var(--scarto) var(--s2); border-left: var(--linea-forte) solid var(--accento); }
+.percorso-ciclo li { display: flex; align-items: baseline; gap: var(--s2); font-weight: var(--peso-medio); }
+.percorso-fase { flex: none; min-width: 2ch; font: var(--peso-medio) var(--t-micro)/1 var(--mono); letter-spacing: var(--ls-micro); font-variant-numeric: tabular-nums; color: var(--accento); }
+.percorso-esito .micro { display: block; margin-bottom: var(--scarto); }
+.percorso .link-freccia { margin-top: auto; align-self: flex-start; justify-self: start; }
+/* Il percorso più frequente, sul foglio verde: crema 8,5:1, crema tenue 5,3:1 */
+.percorso-evidenza { border-color: var(--accento); background: var(--accento); color: var(--crema); }
+.percorso-evidenza :is(.percorso-num, .percorso-fase, .percorso-chi, .micro) { color: var(--crema-tenue); }
+.percorso-evidenza .percorso-ciclo { border-left-color: var(--crema-tenue); }
+.percorso-evidenza .link-freccia { color: var(--crema); }
+.percorso-evidenza :focus-visible { outline-color: var(--crema); }
+
+@media (min-width: 1024px) {
+  .percorsi-elenco { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .percorso { padding: var(--s5) var(--s4); }
+}
+@supports (grid-template-rows: subgrid) {
+  @media (min-width: 1024px) {
+    .percorso { display: grid; grid-row: span 6; grid-template-rows: subgrid; row-gap: var(--s2); }
+  }
+}
+
 /* ══ Movimento ════════════════════════════════════════════════════
    Solo a schermo e senza «riduci movimento». Gli ingressi dell'apertura sono solo CSS;
    gli stati nascosti degli altri ingressi chiedono anche la classe .moto, che main.js aggiunge
@@ -1803,6 +1844,17 @@ html.menu-aperto { overflow: hidden; }
   .moto .recensione:not(.visibile) { opacity: 0; transform: translateY(var(--s3)); }
   .moto .cliente:nth-child(2) > *, .moto .recensione:nth-child(2) { transition-delay: var(--sfalsa); }
 
+  /* Percorsi: i tre fogli salgono uno dopo l'altro, poi le fasi del ciclo arrivano in fila */
+  .moto .percorso, .moto .percorso-ciclo li { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
+  .moto .percorso:not(.visibile) { opacity: 0; transform: translateY(var(--s3)); }
+  .moto .percorso:nth-child(2) { transition-delay: var(--sfalsa); }
+  .moto .percorso:nth-child(3) { transition-delay: calc(2 * var(--sfalsa)); }
+  .moto .percorso:not(.visibile) .percorso-ciclo li { opacity: 0; transform: translateX(calc(-1 * var(--s1))); }
+  .moto .percorso-ciclo li:nth-child(1) { transition-delay: calc(4 * var(--sfalsa)); }
+  .moto .percorso-ciclo li:nth-child(2) { transition-delay: calc(5 * var(--sfalsa)); }
+  .moto .percorso-ciclo li:nth-child(3) { transition-delay: calc(6 * var(--sfalsa)); }
+  .moto .percorso-ciclo li:nth-child(4) { transition-delay: calc(7 * var(--sfalsa)); }
+
   /* Domande e contatto: salgono quando entrano */
   .moto :is(.domanda, .contatto-testa) { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
   .moto :is(.domanda, .contatto-testa):not(.visibile) { opacity: 0; transform: translateY(var(--s3)); }
@@ -1882,9 +1934,11 @@ html.menu-aperto { overflow: hidden; }
   :is(.sintomi, .sintomi li, .recapiti, .recapiti div) { border-color: var(--bordo-forte); }
   .metodo { background: none; }
   .quota::after { background: none; }
-  .servizio, .settore-riga, .risultati li, .fase, .domanda, .mock, .dato, .cliente, .recensione { break-inside: avoid; }
+  .servizio, .settore-riga, .risultati li, .fase, .domanda, .mock, .dato, .cliente, .recensione, .percorso { break-inside: avoid; }
   .dato-grande { background: none; color: var(--testo); border-color: var(--bordo-forte); }
   .dato-grande .dato-valore { color: var(--accento); }
+  .percorso-evidenza { background: none; color: var(--testo); border-color: var(--bordo-forte); }
+  .percorso-evidenza :is(.percorso-num, .percorso-fase, .percorso-chi, .micro, .link-freccia) { color: var(--tenue); }
   .dato-grande :is(.micro, p) { color: var(--tenue); }
   .dato-disegno { display: none; }
   .sezione-testa, h2, h3 { break-after: avoid; }
