@@ -174,6 +174,32 @@
     calibro.hidden = false;
   }
 
+  // ── Percorsi delle pagine di settore: il link porta qui con ?percorso=…
+  //    Nel modulo spuntiamo i servizi del percorso e lo scriviamo nel campo nascosto «percorso»,
+  //    così nella richiesta si vede da quale percorso arriva. Le scelte restano modificabili. ──
+  const percorsi = {
+    'da-zero': { nome: 'Da zero', servizi: ['Sito', 'Google'] },
+    'richieste': { nome: 'Il sito c’è, le richieste no', servizi: ['Sito', 'Google', 'CRM e follow-up'] },
+    'estero': { nome: 'Nuovi clienti, anche all’estero', servizi: ['Sito', 'Google', 'CRM e follow-up'] },
+  };
+  const modulo = document.getElementById('richiesta');
+  const scelto = percorsi[new URLSearchParams(location.search).get('percorso')];
+  if (modulo && scelto) {
+    scelto.servizi.forEach((valore) => {
+      const casella = modulo.querySelector(`input[name="servizi[]"][value="${valore}"]`);
+      if (casella) casella.checked = true;
+    });
+    const campo = modulo.querySelector('input[name="percorso"]');
+    if (campo) campo.value = scelto.nome;
+    const legenda = modulo.querySelector('.scelte legend');
+    if (legenda) {
+      const nota = document.createElement('p');
+      nota.className = 'modulo-percorso';
+      nota.textContent = `Dal percorso «${scelto.nome}»: i servizi sono già spuntati, cambiateli pure.`;
+      legenda.after(nota);
+    }
+  }
+
   // ── Sito d'esempio: il modulo non invia niente, lo dice ──
   const esempioInviato = (e) => {
     if (e) e.preventDefault();

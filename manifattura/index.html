@@ -279,6 +279,67 @@
       </div>
     </section>
 
+    <!-- ── Da dove partite: tre percorsi, ognuno con i suoi servizi in ordine, come un ciclo di lavoro.
+         Ogni settore ha i suoi tre percorsi, con le sue parole. «Partiamo da qui» porta al modulo della pagina
+         principale con i servizi del percorso già spuntati (main.js legge ?percorso=; senza JavaScript il link
+         porta comunque al modulo). Il percorso B, il caso più frequente, sta sul foglio verde. ── -->
+    <section class="sezione percorsi" id="percorsi" aria-labelledby="titolo-percorsi">
+      <div class="contenitore">
+        <div class="sezione-testa">
+          <p class="micro">Percorsi</p>
+          <h2 class="titolo-sezione" id="titolo-percorsi">Da dove partite?</h2>
+          <p class="sezione-sotto">Tre situazioni che troviamo nelle officine. Ognuna ha il suo ciclo di lavoro.</p>
+        </div>
+        <ol class="percorsi-elenco">
+          <li class="percorso" data-entra>
+            <p class="micro percorso-num">Percorso A</p>
+            <h3>Da zero</h3>
+            <p class="percorso-chi">Non avete un sito, oppure è fermo da anni.</p>
+            <ol class="percorso-ciclo" aria-label="Ciclo di lavoro del percorso A">
+              <li><span class="percorso-fase">10</span> Sito tecnico</li>
+              <li><span class="percorso-fase">20</span> Google</li>
+            </ol>
+            <p class="percorso-esito"><span class="micro">Cosa cambia</span>Chi vi cerca vi trova, e capisce subito cosa lavorate.</p>
+            <a class="link-freccia" href="/?percorso=da-zero#contatto">
+              Partiamo da qui<span class="nascosto">: percorso A, da zero</span>
+              <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+            </a>
+          </li>
+          <li class="percorso percorso-evidenza" data-entra>
+            <p class="micro percorso-num">Percorso B</p>
+            <h3>Il sito c’è, le richieste no</h3>
+            <p class="percorso-chi">Il sito esiste, ma i clienti nuovi arrivano ancora solo dal passaparola.</p>
+            <ol class="percorso-ciclo" aria-label="Ciclo di lavoro del percorso B">
+              <li><span class="percorso-fase">10</span> Analisi del sito</li>
+              <li><span class="percorso-fase">20</span> Sito rifatto</li>
+              <li><span class="percorso-fase">30</span> Google</li>
+              <li><span class="percorso-fase">40</span> CRM e follow-up</li>
+            </ol>
+            <p class="percorso-esito"><span class="micro">Cosa cambia</span>Le richieste arrivano, e nessuna resta senza risposta.</p>
+            <a class="link-freccia" href="/?percorso=richieste#contatto">
+              Partiamo da qui<span class="nascosto">: percorso B, il sito c’è, le richieste no</span>
+              <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+            </a>
+          </li>
+          <li class="percorso" data-entra>
+            <p class="micro percorso-num">Percorso C</p>
+            <h3>Nuovi clienti, anche all’estero</h3>
+            <p class="percorso-chi">Volete lavorare per clienti fuori zona, o fuori Italia.</p>
+            <ol class="percorso-ciclo" aria-label="Ciclo di lavoro del percorso C">
+              <li><span class="percorso-fase">10</span> Sito in più lingue</li>
+              <li><span class="percorso-fase">20</span> Google per l’estero</li>
+              <li><span class="percorso-fase">30</span> Follow-up delle richieste</li>
+            </ol>
+            <p class="percorso-esito"><span class="micro">Cosa cambia</span>Vi trovano i buyer che oggi non sanno che esistete.</p>
+            <a class="link-freccia" href="/?percorso=estero#contatto">
+              Partiamo da qui<span class="nascosto">: percorso C, nuovi clienti, anche all’estero</span>
+              <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+            </a>
+          </li>
+        </ol>
+      </div>
+    </section>
+
     <!-- ── Cosa facciamo per la manifattura: gli esempi dell'officina, dichiarati «Esempio» ── -->
     <section class="sezione" id="servizi-manifattura" aria-labelledby="titolo-servizi">
       <div class="contenitore">

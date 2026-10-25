@@ -685,6 +685,8 @@
              Su un altro hosting: cambiate action con l'indirizzo di Formspree (vedi README). -->
         <form class="modulo" id="richiesta" name="richiesta" method="POST" action="/grazie.html" data-netlify="true" data-netlify-honeypot="altro">
           <input type="hidden" name="form-name" value="richiesta">
+          <!-- da quale percorso arriva la richiesta (lo compila main.js, vedi le pagine di settore) -->
+          <input type="hidden" name="percorso" value="">
           <p hidden><label>Non compilate questo campo <input name="altro" tabindex="-1" autocomplete="off"></label></p>
           <div class="campo">
             <label for="campo-azienda">Azienda o sito</label>

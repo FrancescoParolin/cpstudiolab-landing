@@ -14,6 +14,9 @@ In pagina i dati mancanti non si vedono: sono nei commenti `DA COMPILARE` di ind
 - [ ] Confermare i servizi così come sono scritti: CRM (quale strumento?), LinkedIn, annunci Google,
       automazioni che leggono il disegno allegato, resoconto mensile, «Nessun vincolo di anni»,
       analisi «Senza impegno», i quattro settori
+- [ ] Confermare i tre percorsi della pagina Manifattura (da zero; il sito c'è, le richieste no; nuovi clienti,
+      anche all'estero). Nel percorso C: «sito in più lingue» e «Google per l'estero» li offrite davvero?
+- [ ] I distretti di ogni settore (sottocartelle, es. `/manifattura/<distretto>/`): quali, e cosa sapete di ognuno
 - [ ] **Recensioni dei primi 2 clienti**: per ciascuno il testo con le sue parole (2-3 frasi), nome e cognome, ruolo,
       azienda e città, il logo (meglio SVG) e il **permesso scritto** a pubblicarli. Finché mancano, «Recensioni»
       resta in bozza: si vede nelle anteprime, online no

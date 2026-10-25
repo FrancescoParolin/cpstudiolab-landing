@@ -25,6 +25,8 @@ Ogni valore sta nei token in `:root` di `style.css`. La versione completa, con l
   `.calibro` (passa/non passa), `.clienti` (striscia dei loghi: righe da un bordo all'altro dello schermo, crocini
   agli incroci, loghi in grigio), `.recensione` (le parole del cliente con la frase chiave in verde, le iniziali in una
   tessera, nome e ruolo, poi il piccolo cartiglio `.recensione-firma` con azienda e servizi),
+  `.percorsi` + `.percorso` (pagine di settore: tre situazioni, ognuna con il suo ciclo di lavoro `.percorso-ciclo`;
+  il caso più frequente su foglio verde, `.percorso-evidenza`; il link porta al modulo con i servizi già spuntati),
   `.lav-*` (le pagine dei segmenti, `/manifattura/<segmento>/`: apertura con il disegno della lavorazione, «Dove si
   perdono i clienti» e «Cosa mettiamo sul vostro sito», poi `.lav-percorsi`: i tre percorsi A, B e C, ognuno con le fasi
   numerate come nel metodo e spiegate per quella lavorazione; il consigliato è un foglio verde, `.lav-percorso-consigliato`).
