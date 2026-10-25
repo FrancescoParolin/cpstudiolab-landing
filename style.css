@@ -916,7 +916,7 @@ html.menu-aperto { overflow: hidden; }
 .mock-inviata::before { content: ''; flex: none; width: var(--s2); height: var(--s2); border-radius: var(--r-xs); background: var(--accento); }
 
 /* 02 · Una ricerca e il primo risultato */
-.mock-ricerca { display: grid; gap: var(--s3); }
+.mock-ricerca { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s3); }   /* la ricerca lunga finisce con i puntini, non allarga la pagina */
 .mock-cerca {
   display: flex;
   align-items: center;
@@ -1815,14 +1815,80 @@ html.menu-aperto { overflow: hidden; }
   .lav-disegno { font-size: 11px; }
 }
 
-/* «Cosa facciamo per voi»: i punti a sinistra, l'esempio (dichiarato «Esempio») a destra */
-.lav-esempio { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s6); align-items: center; }
-.lav-esempio-testo .lav-sotto { margin-bottom: var(--s4); }
+/* «Cosa cambia»: tre righe, oggi → con noi. La freccia è una linea di quota con la punta, che si traccia */
 .lav-corpo .lav-percorso:not(.lav-percorso-consigliato) { background: var(--fondo); }
+.lav-cambia { border-top: var(--linea) solid var(--bordo-forte); }
+.lav-cambia li { display: grid; gap: var(--s2); padding: var(--s4) 0; border-bottom: var(--linea) solid var(--bordo-forte); }
+.lav-cambia .micro { display: block; margin-bottom: var(--s1); }
+.lav-oggi { max-width: var(--misura-stretta); color: var(--tenue); }
+.lav-con-noi { max-width: var(--misura-stretta); font-size: var(--t-lead); font-weight: var(--peso-medio); line-height: var(--lh-voce); }
+.lav-con-noi .micro { color: var(--accento); }
+.lav-freccia-quota { display: none; }
+@media (min-width: 768px) {
+  .lav-cambia li { grid-template-columns: minmax(0, 1fr) var(--s12) minmax(0, 1fr); column-gap: var(--s4); align-items: center; }
+  .lav-freccia-quota {
+    position: relative;
+    display: block;
+    height: var(--linea);
+    background: var(--accento);
+    transform-origin: left;
+  }
+  .lav-freccia-quota::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 50%;
+    width: var(--s1); height: var(--s1);
+    border-top: var(--linea) solid var(--accento);
+    border-right: var(--linea) solid var(--accento);
+    transform: translateY(-50%) rotate(45deg);
+  }
+}
+
+/* «Dalla ricerca all'ordine»: quattro passi in fila, uniti da una linea come il ciclo del metodo.
+   Ogni passo ha il suo esempio (ricerca, sito, richiesta, CRM) che si muove quando entra */
+.lav-passi { display: grid; gap: var(--s8); }
+.lav-passo { position: relative; display: grid; grid-template-columns: var(--s6) minmax(0, 1fr); column-gap: var(--s3); row-gap: var(--s3); }
+.lav-passo::before, .lav-passo::after {
+  content: '';
+  position: absolute;
+  left: calc(var(--s3) - var(--linea));
+  top: var(--s5);
+  bottom: calc(-1 * var(--s8));
+  width: var(--linea-forte);
+  background: var(--bordo-forte);
+}
+.lav-passo::after { background: var(--accento); transform-origin: top; }
+.lav-passo:last-child::before, .lav-passo:last-child::after { display: none; }
+.lav-passo-num {
+  position: relative;
+  z-index: 1;
+  grid-row: 1 / span 2;
+  justify-self: center;
+  display: grid;
+  place-items: center;
+  width: var(--s5);
+  height: var(--s5);
+  border: var(--linea-forte) solid var(--accento);
+  border-radius: var(--r-s);
+  background: var(--fondo);
+  font: var(--peso-medio) var(--t-micro)/1 var(--mono);
+  letter-spacing: var(--ls-micro);
+  color: var(--accento);
+}
+.lav-passo-testo { display: grid; gap: var(--s1); align-content: start; }
+.lav-passo-testo h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
+.lav-passo-testo p { max-width: var(--misura-stretta); color: var(--tenue); }
+.lav-passo-altre-titolo { margin-top: var(--s2); }
+.lav-passo-altre { display: flex; flex-wrap: wrap; gap: var(--s1); }
+.lav-passo-altre li { padding: 2px var(--s1); border: var(--linea) solid var(--bordo-forte); border-radius: var(--r-pillola); font-size: var(--t-piccolo); color: var(--tenue); }
+.lav-passo .mock { grid-column: 2; min-width: 0; }
+.lav-passo .mock-sito .mock-corpo { grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 1024px) {
-  .lav-esempio { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s3); }
-  .lav-esempio-testo { grid-column: 1 / 6; }
-  .lav-esempio .mock { grid-column: 6 / -1; }
+  .lav-passi { gap: var(--s10); }
+  .lav-passo { grid-template-columns: var(--s6) minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--s5); align-items: start; }
+  .lav-passo::before, .lav-passo::after { bottom: calc(-1 * var(--s10)); }
+  .lav-passo-num { grid-row: 1; }
+  .lav-passo .mock { grid-column: 3; grid-row: 1; }
 }
 
 /* ── Pagina Manifattura: la tavola delle cinque lavorazioni ──
@@ -2000,11 +2066,11 @@ html.menu-aperto { overflow: hidden; }
   .moto :is(.mock-file, .mock-inviata) { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
   .moto .mock-file { transition-delay: calc(6 * var(--sfalsa)); }
   .moto .mock-inviata { transition-delay: calc(12 * var(--sfalsa)); }
-  .moto :is(.servizio, .lav-esempio):not(.visibile) .mock-file { opacity: 0; transform: translateX(calc(-1 * var(--s2))); }
-  .moto :is(.servizio, .lav-esempio):not(.visibile) .mock-inviata { opacity: 0; transform: translateY(var(--s1)); }
+  .moto :is(.servizio, .lav-passo):not(.visibile) .mock-file { opacity: 0; transform: translateX(calc(-1 * var(--s2))); }
+  .moto :is(.servizio, .lav-passo):not(.visibile) .mock-inviata { opacity: 0; transform: translateY(var(--s1)); }
   /* CRM: la richiesta confermata arriva nella colonna «Ordine» */
   .moto .mock-carta-fatta { transition: transform var(--lunga) var(--curva) calc(7 * var(--sfalsa)), opacity var(--media) var(--curva) calc(7 * var(--sfalsa)); }
-  .moto .servizio:not(.visibile) .mock-carta-fatta { opacity: 0; transform: translateX(-60%); }
+  .moto :is(.servizio, .lav-passo):not(.visibile) .mock-carta-fatta { opacity: 0; transform: translateX(-60%); }
   /* Automazioni: la linea scende e i passi arrivano in fila */
   .moto .mock-flusso ol::after { transition: transform calc(2 * var(--lunga)) var(--curva-precisa) calc(4 * var(--sfalsa)); }
   .moto .servizio:not(.visibile) .mock-flusso ol::after { transform: scaleY(0); }
@@ -2054,6 +2120,41 @@ html.menu-aperto { overflow: hidden; }
   .moto .risultati li:nth-child(2) { transition-delay: var(--sfalsa); }
   .moto .risultati li:nth-child(3) { transition-delay: calc(2 * var(--sfalsa)); }
   .moto .risultati li:nth-child(4) { transition-delay: calc(3 * var(--sfalsa)); }
+
+  /* Pagine delle lavorazioni. L'apertura: il disegno si compone (pezzo, poi quote), solo CSS come l'apertura della home */
+  .lav-figura .lav-disegno use:first-child { transform-box: fill-box; transform-origin: center; animation: compone var(--lunga) var(--curva-precisa) calc(3 * var(--sfalsa)) backwards; }
+  .lav-figura .lav-disegno use + use { animation: compare var(--media) var(--curva) calc(9 * var(--sfalsa)) backwards; }
+  /* «Cosa cambia»: la riga sale, la quota si traccia, poi compare «con noi» */
+  .moto .lav-cambia li { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
+  .moto .lav-cambia li:not(.visibile) { opacity: 0; transform: translateY(var(--s2)); }
+  .moto .lav-freccia-quota { transition: transform var(--lunga) var(--curva-precisa) calc(3 * var(--sfalsa)); }
+  .moto .lav-cambia li:not(.visibile) .lav-freccia-quota { transform: scaleX(0); }
+  .moto .lav-con-noi { transition: opacity var(--media) var(--curva) calc(7 * var(--sfalsa)), transform var(--media) var(--curva) calc(7 * var(--sfalsa)); }
+  .moto .lav-cambia li:not(.visibile) .lav-con-noi { opacity: 0; transform: translateX(calc(-1 * var(--s2))); }
+  /* «Dalla ricerca all'ordine»: il testo e l'esempio salgono, poi la linea scende verso il passo dopo */
+  .moto .lav-passo :is(.lav-passo-testo, .mock) { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
+  .moto .lav-passo .mock { transition-delay: var(--sfalsa); }
+  .moto .lav-passo:not(.visibile) :is(.lav-passo-testo, .mock) { opacity: 0; transform: translateY(var(--s3)); }
+  .moto .lav-passo::after { transition: transform calc(2 * var(--lunga)) var(--curva-precisa) calc(6 * var(--sfalsa)); }
+  .moto .lav-passo:not(.visibile)::after { transform: scaleY(0); }
+  /* ricerca: i risultati arrivano uno dopo l'altro; sito: le righe della scheda si compilano */
+  .moto .lav-passo :is(.mock-risultati li, .mock-specifiche li) { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
+  .moto .lav-passo:not(.visibile) :is(.mock-risultati li, .mock-specifiche li) { opacity: 0; transform: translateX(calc(-1 * var(--s1))); }
+  .moto .lav-passo :is(.mock-risultati, .mock-specifiche) li:nth-child(1) { transition-delay: calc(5 * var(--sfalsa)); }
+  .moto .lav-passo :is(.mock-risultati, .mock-specifiche) li:nth-child(2) { transition-delay: calc(7 * var(--sfalsa)); }
+  .moto .lav-passo :is(.mock-risultati, .mock-specifiche) li:nth-child(3) { transition-delay: calc(9 * var(--sfalsa)); }
+  .moto .lav-passo :is(.mock-risultati, .mock-specifiche) li:nth-child(4) { transition-delay: calc(11 * var(--sfalsa)); }
+  /* i tre percorsi salgono in fila; nel consigliato le fasi arrivano una alla volta */
+  .moto .lav-percorso { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
+  .moto .lav-percorso:not(.visibile) { opacity: 0; transform: translateY(var(--s3)); }
+  .moto .lav-percorso:nth-child(2) { transition-delay: var(--sfalsa); }
+  .moto .lav-percorso:nth-child(3) { transition-delay: calc(2 * var(--sfalsa)); }
+  .moto .lav-percorso-consigliato .lav-ciclo li { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
+  .moto .lav-percorso-consigliato:not(.visibile) .lav-ciclo li { opacity: 0; transform: translateX(calc(-1 * var(--s1))); }
+  .moto .lav-percorso-consigliato .lav-ciclo li:nth-child(1) { transition-delay: calc(4 * var(--sfalsa)); }
+  .moto .lav-percorso-consigliato .lav-ciclo li:nth-child(2) { transition-delay: calc(6 * var(--sfalsa)); }
+  .moto .lav-percorso-consigliato .lav-ciclo li:nth-child(3) { transition-delay: calc(8 * var(--sfalsa)); }
+  .moto .lav-percorso-consigliato .lav-ciclo li:nth-child(4) { transition-delay: calc(10 * var(--sfalsa)); }
 
   /* Manifattura: sulla tavola la quota scorre fino alla scheda scelta; il disegno si compone (pezzo, poi quote) */
   .lavorazioni-quota { transition: transform var(--media) var(--curva-precisa); }
@@ -2158,7 +2259,7 @@ html.menu-aperto { overflow: hidden; }
   :is(.sintomi, .sintomi li, .recapiti, .recapiti div) { border-color: var(--bordo-forte); }
   .metodo { background: none; }
   .quota::after { background: none; }
-  .servizio, .settore-riga, .risultati li, .fase, .domanda, .mock, .dato, .cliente, .recensione, .percorso { break-inside: avoid; }
+  .servizio, .settore-riga, .risultati li, .fase, .domanda, .mock, .dato, .cliente, .recensione, .percorso, .lav-passo, .lav-cambia li, .lav-percorso { break-inside: avoid; }
   .dato-grande { background: none; color: var(--testo); border-color: var(--bordo-forte); }
   .dato-grande .dato-valore { color: var(--accento); }
   .percorso-evidenza { background: none; color: var(--testo); border-color: var(--bordo-forte); }
