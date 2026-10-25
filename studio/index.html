@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lo studio · CP Studio Lab</title>
+  <meta name="description" content="CP Studio Lab è uno studio di servizi digitali per le PMI, a Bassano del Grappa: un metodo scritto, la firma di chi fa il lavoro, i numeri decisi prima.">
+  <meta name="theme-color" content="#1F4D3F">
+  <link rel="canonical" href="https://cpstudiolab.it/studio/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="it_IT">
+  <meta property="og:site_name" content="CP Studio Lab">
+  <meta property="og:title" content="Lo studio · CP Studio Lab">
+  <meta property="og:description" content="Uno studio, non un'agenzia: un metodo scritto, la firma di chi fa il lavoro, i numeri decisi prima.">
+  <meta property="og:image" content="https://cpstudiolab.it/og-image.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/geist-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="/main.js" defer></script>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <!-- Simboli usati più volte: il marchio del kit F e la freccia dei bottoni -->
+  <svg style="display: none" aria-hidden="true">
+    <symbol id="marchio" viewBox="-4 -4 108 108"><path fill="currentColor" d="M16 6H54A10 10 0 0 1 64 16V28H46A18 18 0 0 0 28 46V64H16A10 10 0 0 1 6 54V16A10 10 0 0 1 16 6ZM46 44H64V54A10 10 0 0 1 54 64H44V46A2 2 0 0 1 46 44Z"/><rect x="36" y="36" width="58" height="58" rx="10" fill="none" stroke="currentColor" stroke-width="6"/></symbol>
+    <symbol id="telefono" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.1L8.1 9.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.84.58 2.8.7a2 2 0 0 1 1.72 2.02Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="freccia" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+
+
+  <a class="salta" href="#contenuto">Contenuto principale</a>
+
+  <header class="testata">
+    <div class="contenitore testata-riga">
+      <a class="logo" href="/" aria-label="CP Studio Lab, pagina principale">
+        <svg aria-hidden="true" focusable="false"><use href="#marchio"/></svg>
+        <span>CP Studio</span><span class="logo-lab">Lab</span>
+      </a>
+      <nav class="nav" aria-label="Sezioni della pagina">
+        <a href="/#servizi">Servizi</a>
+        <a href="/#settori">Settori</a>
+        <a href="/#metodo">Metodo</a>
+        <a href="/studio/" aria-current="page">Lo studio</a>
+      </nav>
+      <div class="testata-azioni">
+        <a class="btn btn-piccolo testata-contatto" href="/contatti/">
+          <svg class="tel-icona" aria-hidden="true" focusable="false"><use href="#telefono"/></svg>
+          <span>Contatti<span class="contatto-esteso"> diretti</span></span>
+        </a>
+        <!-- Il bottone del menu c'è solo con JavaScript (main.js toglie hidden); senza, resta la nav qui sopra -->
+        <button class="menu-apri" type="button" aria-expanded="false" aria-controls="menu" hidden>
+          <span class="menu-apri-testo">Menu</span>
+          <span class="menu-icona" aria-hidden="true"><span></span><span></span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Menu a schermo intero: un foglio verde che sale sulla pagina, come «Il punto».
+       Dialogo modale: mentre è aperto il resto della pagina è inerte; Esc lo chiude. -->
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+    <div class="menu-foglio">
+      <div class="contenitore menu-testa">
+        <span class="logo" role="img" aria-label="CP Studio Lab">
+          <svg aria-hidden="true" focusable="false"><use href="#marchio"/></svg>
+          <span>CP Studio</span><span class="logo-lab">Lab</span>
+        </span>
+        <button class="menu-chiudi" type="button">
+          <span class="menu-apri-testo">Chiudi</span>
+          <span class="menu-icona menu-icona-x" aria-hidden="true"><span></span><span></span></span>
+        </button>
+      </div>
+      <div class="contenitore menu-corpo">
+        <nav class="menu-nav" aria-label="Sezioni della pagina">
+          <ol class="menu-voci">
+            <li><a href="/#servizi"><span class="menu-num" aria-hidden="true">01</span><span class="menu-etichetta">Servizi</span></a></li>
+            <li><a href="/#settori"><span class="menu-num" aria-hidden="true">02</span><span class="menu-etichetta">Settori</span></a></li>
+            <li><a href="/#metodo"><span class="menu-num" aria-hidden="true">03</span><span class="menu-etichetta">Metodo</span></a></li>
+            <li><a href="/studio/" aria-current="page"><span class="menu-num" aria-hidden="true">04</span><span class="menu-etichetta">Lo studio</span></a></li>
+            <li><a href="/contatti/"><span class="menu-num" aria-hidden="true">05</span><span class="menu-etichetta">Contatti</span></a></li>
+          </ol>
+        </nav>
+        <div class="menu-lato">
+          <a class="btn btn-chiaro" href="/#contatto">
+            Chiedeteci un preventivo
+            <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+          </a>
+          <dl class="recapiti">
+            <div><dt class="micro">Tommaso Campagnolo</dt><dd><a class="link link-blocco" href="tel:+393890030969">+39 389 003 0969</a></dd></div>
+            <div><dt class="micro">Francesco Parolin</dt><dd><a class="link link-blocco" href="tel:+393203222498">+39 320 322 2498</a></dd></div>
+            <div><dt class="micro">WhatsApp</dt><dd><a class="link link-blocco" href="https://wa.me/393203222498" rel="noopener">Scriveteci su WhatsApp</a></dd></div>
+            <div><dt class="micro">Email</dt><dd><a class="link link-blocco" href="mailto:info@cpstudiolab.it">info@cpstudiolab.it</a></dd></div>
+          </dl>
+        </div>
+      </div>
+      <p class="contenitore menu-piede micro">Studio digitale per le PMI · Bassano del Grappa</p>
+    </div>
+  </div>
+
+  <main id="contenuto" tabindex="-1">
+
+    <!-- ── 1. Apertura: perché «studio». A destra la scheda dello studio, come una scheda tecnica:
+         solo dati veri. Ferma, senza effetti allo scorrimento. ── -->
+    <section class="apertura apertura-statica" aria-labelledby="titolo-apertura">
+      <div class="apertura-scena">
+        <div class="contenitore">
+          <div class="apertura-meta">
+            <p class="micro">Lo studio</p>
+            <p class="micro">Sede a Bassano del Grappa · Italia</p>
+          </div>
+          <h1 class="apertura-titolo studio-titolo" id="titolo-apertura">
+            <span class="riga"><span>Uno studio,</span></span>
+            <span class="riga riga-leggera"><span>non un’agenzia.</span></span>
+          </h1>
+          <div class="apertura-piede studio-piede">
+            <div class="apertura-testo">
+              <p class="apertura-sotto">Come in uno studio tecnico: poche persone, un metodo scritto e la firma di chi fa il lavoro. Nel vostro digitale mettiamo la stessa cura che voi mettete nel vostro mestiere.</p>
+              <div class="azioni">
+                <a class="btn" href="/#contatto">
+                  Chiedeteci un preventivo
+                  <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+                </a>
+                <a class="link-freccia" href="#principi">
+                  Come lavora lo studio
+                  <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+                </a>
+              </div>
+            </div>
+            <div class="scheda-studio" role="group" aria-label="Lo studio in breve">
+              <div class="scheda-testa">
+                <span class="scheda-nome">CP Studio Lab</span>
+                <span class="micro">Lo studio in breve</span>
+              </div>
+              <dl class="scheda-voci">
+                <div><dt class="micro">Partner</dt><dd>Tommaso Campagnolo · Francesco Parolin</dd></div>
+                <div><dt class="micro">Sede</dt><dd>Bassano del Grappa (VI)</dd></div>
+                <div><dt class="micro">Ambito</dt><dd>Servizi digitali per le PMI</dd></div>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 2. Perché «studio»: quattro principi, come una distinta ── -->
+    <section class="sezione" id="principi" aria-labelledby="titolo-principi">
+      <div class="contenitore">
+        <div class="sezione-testa">
+          <p class="micro">Perché «studio»</p>
+          <h2 class="titolo-sezione" id="titolo-principi">Chi firma il lavoro, ne risponde.</h2>
+          <p class="sezione-sotto">In Italia uno studio è il posto dove un professionista firma il proprio lavoro: lo studio tecnico, lo studio del commercialista. È la promessa che facciamo a ogni cliente.</p>
+        </div>
+        <ol class="principi">
+          <li class="principio" data-entra><span class="principio-num" aria-hidden="true">01</span><h3>Parlate con chi fa il lavoro</h3><p>Nessun commerciale in mezzo e nessun lavoro passato ad altri. Dall’analisi alla consegna vi segue uno dei due partner dello studio.</p></li>
+          <li class="principio" data-entra><span class="principio-num" aria-hidden="true">02</span><h3>Un metodo scritto</h3><p>Analisi, preventivo scritto, realizzazione nei tempi concordati, consegna. Sapete sempre cosa stiamo facendo e quando sarà pronto.</p></li>
+          <li class="principio" data-entra><span class="principio-num" aria-hidden="true">03</span><h3>I numeri si decidono prima</h3><p>Prima di iniziare scegliamo insieme cosa misurare: richieste, tempi di risposta, preventivi. Il lavoro si giudica da quelli.</p></li>
+          <li class="principio" data-entra><span class="principio-num" aria-hidden="true">04</span><h3>Testato prima della consegna</h3><p>Ogni servizio è verificato con cura in ogni sua parte prima di arrivare a voi. Consegniamo un lavoro finito, non da sistemare dopo.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ── 3. Il marchio in tavola: il simbolo disegnato con le sue quote e i richiami ── -->
+    <section class="sezione studio-marchio" id="marchio-spiegato" aria-labelledby="titolo-marchio">
+      <div class="contenitore chi-griglia">
+        <div class="chi-testo">
+          <p class="micro">Il marchio</p>
+          <h2 class="titolo-sezione" id="titolo-marchio">Due tessere che si incastrano.</h2>
+          <p>La tessera piena è il vostro mestiere, quella aperta è il nostro digitale. Nessuna delle due basta da sola.</p>
+          <ol class="qualita">
+            <li><span class="qualita-num" aria-hidden="true">A</span><h3>Il vostro mestiere</h3><p>Quello che sapete fare e che pochi sanno fare.</p></li>
+            <li><span class="qualita-num" aria-hidden="true">B</span><h3>Il nostro digitale</h3><p>Sito, Google, CRM e automazioni costruiti attorno al vostro lavoro, con un solo obiettivo: far crescere la vostra azienda. Ogni servizio deve portare un risultato concreto, non essere solo bello.</p></li>
+            <li><span class="qualita-num" aria-hidden="true">C</span><h3>Lab</h3><p>Il laboratorio: dove ogni servizio viene messo a punto e verificato prima di arrivare a voi.</p></li>
+          </ol>
+        </div>
+        <figure class="chi-simbolo tavola-marchio-figura" aria-hidden="true">
+          <svg class="tavola-marchio" viewBox="-60 -44 240 212" focusable="false">
+            <defs>
+              <marker id="punta-marchio" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="6" markerHeight="6" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0 1.5 8 4 0 6.5z"/></marker>
+            </defs>
+            <!-- il simbolo, come nel kit -->
+            <path class="tm-piena" d="M16 6H54A10 10 0 0 1 64 16V28H46A18 18 0 0 0 28 46V64H16A10 10 0 0 1 6 54V16A10 10 0 0 1 16 6ZM46 44H64V54A10 10 0 0 1 54 64H44V46A2 2 0 0 1 46 44Z"/>
+            <rect class="tm-aperta" x="36" y="36" width="58" height="58" rx="10"/>
+            <!-- quote -->
+            <path class="tm-riferimento" d="M6 70V128M94 100V128M36 100V114"/>
+            <line class="tm-quota" x1="6" y1="122" x2="94" y2="122" marker-start="url(#punta-marchio)" marker-end="url(#punta-marchio)"/>
+            <text class="tm-testo" x="50" y="117" text-anchor="middle">88</text>
+            <line class="tm-quota" x1="36" y1="108" x2="94" y2="108" marker-start="url(#punta-marchio)" marker-end="url(#punta-marchio)"/>
+            <text class="tm-testo" x="65" y="104" text-anchor="middle">58</text>
+            <path class="tm-quota" d="M91 39 116 14H144" marker-start="url(#punta-marchio)"/>
+            <text class="tm-testo" x="118" y="9">R 10</text>
+            <!-- richiami -->
+            <g class="richiamo"><path d="M22 22L8-20H-44"/><circle cx="22" cy="22" r="2.5"/><text x="-44" y="-24">A · MESTIERE</text></g>
+            <g class="richiamo"><path d="M94 70H116L130 84H176"/><circle cx="94" cy="70" r="2.5"/><text x="176" y="80" text-anchor="end">B · DIGITALE</text></g>
+            <!-- cartiglio -->
+            <g class="tm-cartiglio">
+              <rect x="-56" y="140" width="226" height="24"/>
+              <path d="M110 140V164"/>
+              <text x="-50" y="156">Marchio · CP Studio Lab</text>
+              <text x="116" y="156">Scala 1:1</text>
+            </g>
+          </svg>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ── 4. I partner: alla pari, un solo interlocutore per ogni cliente. Niente foto per ora ── -->
+    <section class="sezione" id="soci" aria-labelledby="titolo-soci">
+      <div class="contenitore">
+        <div class="sezione-testa">
+          <p class="micro">I partner</p>
+          <h2 class="titolo-sezione" id="titolo-soci">Due partner alla pari, <span class="leggero">un solo interlocutore per voi.</span></h2>
+          <p class="sezione-sotto">CP Studio Lab nasce da due partner con un’ampia esperienza in ambito digitale, le stesse competenze e lo stesso metodo. Ogni cliente è seguito da uno di noi, dall’analisi alla consegna: un solo interlocutore, decisioni e risposte più rapide.</p>
+        </div>
+        <ul class="soci">
+          <li class="socio" data-entra>
+            <span class="socio-iniziali" aria-hidden="true">TC</span>
+            <div class="socio-testo">
+              <h3>Tommaso Campagnolo</h3>
+              <p class="micro">Partner · Riferimento clienti</p>
+              <a class="link link-blocco" href="tel:+393890030969">+39 389 003 0969</a>
+            </div>
+          </li>
+          <li class="socio" data-entra>
+            <span class="socio-iniziali" aria-hidden="true">FP</span>
+            <div class="socio-testo">
+              <h3>Francesco Parolin</h3>
+              <p class="micro">Partner · Riferimento clienti</p>
+              <a class="link link-blocco" href="tel:+393203222498">+39 320 322 2498</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── 5. Gli strumenti dello studio: solo cose vere, verificabili ── -->
+    <section class="sezione" id="strumenti" aria-labelledby="titolo-strumenti">
+      <div class="contenitore">
+        <div class="sezione-testa">
+          <p class="micro">Gli strumenti</p>
+          <h2 class="titolo-sezione" id="titolo-strumenti">Usiamo quello che costruiamo.</h2>
+        </div>
+        <ol class="qualita strumenti">
+          <li><span class="qualita-num" aria-hidden="true">01</span><h3>Strumenti sviluppati da noi</h3><p>Lavoriamo con strumenti costruiti all’interno dello studio: li conosciamo a fondo, perché li abbiamo progettati noi.</p></li>
+          <li><span class="qualita-num" aria-hidden="true">02</span><h3>Ogni valutazione passa da una persona</h3><p>La tecnologia ci aiuta ad analizzare; le valutazioni e le scelte restano sempre nostre.</p></li>
+          <li><span class="qualita-num" aria-hidden="true">03</span><h3>Su misura, mai di serie</h3><p>Niente soluzioni preconfezionate: ogni progetto nasce dal lavoro e dagli obiettivi della vostra azienda.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ── 6. Impegni scritti: solo cifre vere e già dichiarate nel sito ── -->
+    <section class="sezione dati" id="impegni" aria-labelledby="titolo-impegni">
+      <div class="contenitore">
+        <div class="sezione-testa">
+          <p class="micro">Impegni scritti</p>
+          <h2 class="titolo-sezione" id="titolo-impegni">Quello che vi promettiamo, in cifre.</h2>
+        </div>
+        <ul class="targa targa-impegni">
+          <li class="dato" data-entra><span class="dato-valore">24</span><span class="micro dato-unita">ore lavorative</span><p>Per rispondere a ogni richiesta.</p></li>
+          <li class="dato" data-entra><span class="dato-valore">1</span><span class="micro dato-unita">preventivo scritto</span><p>Cosa fare, in quanto tempo, a che prezzo. Prima di iniziare.</p></li>
+          <li class="dato" data-entra><span class="dato-valore">0</span><span class="micro dato-unita">intermediari</span><p>Il lavoro lo facciamo noi, non lo passiamo ad altri.</p></li>
+          <li class="dato" data-entra><span class="dato-valore">1</span><span class="micro dato-unita">interlocutore</span><p>Uno dei due partner, dall’analisi alla consegna.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── 7. Chiusura: il foglio verde con i contatti diretti ── -->
+    <section class="contatto lav-chiusura studio-chiusura" aria-labelledby="titolo-chiusura">
+      <div class="contenitore contatto-griglia">
+        <div class="contatto-testa">
+          <p class="micro">Contatto</p>
+          <h2 class="titolo-sezione" id="titolo-chiusura">Uno studio si giudica dal lavoro. <span class="leggero">Mettiamoci alla prova.</span></h2>
+          <div class="azioni lav-azioni">
+            <a class="btn btn-chiaro" href="/#contatto">
+              Chiedeteci un preventivo
+              <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+            </a>
+          </div>
+        </div>
+        <dl class="recapiti">
+          <div><dt class="micro">Tommaso Campagnolo</dt><dd><a class="link link-blocco" href="tel:+393890030969">+39 389 003 0969</a></dd></div>
+          <div><dt class="micro">Francesco Parolin</dt><dd><a class="link link-blocco" href="tel:+393203222498">+39 320 322 2498</a></dd></div>
+          <div><dt class="micro">Email</dt><dd><a class="link link-blocco" href="mailto:info@cpstudiolab.it">info@cpstudiolab.it</a></dd></div>
+          <div><dt class="micro">Sede</dt><dd>Bassano del Grappa · Italia</dd></div>
+        </dl>
+      </div>
+    </section>
+  </main>
+
+  <!-- ── 9. Piè di pagina ── -->
+  <footer class="piede">
+    <div class="contenitore">
+      <div class="piede-riga">
+        <div>
+          <div class="logo" role="img" aria-label="CP Studio Lab">
+            <svg aria-hidden="true" focusable="false"><use href="#marchio"/></svg>
+            <span>CP Studio</span><span class="logo-lab">Lab</span>
+          </div>
+          <p class="piede-sotto">Studio digitale per le PMI</p>
+        </div>
+        <a class="link link-blocco" href="#contenuto">Inizio pagina</a>
+      </div>
+      <dl class="cartiglio-piede">
+        <div><dt class="micro">Sede</dt><dd>Bassano del Grappa · Italia</dd></div>
+        <!-- DA COMPILARE: P.IVA, obbligatoria sul sito. Esempio:
+             <div><dt class="micro">P.IVA</dt><dd>01234567890</dd></div> -->
+        <div><dt class="micro">Email</dt><dd><a class="link link-blocco" href="mailto:info@cpstudiolab.it">info@cpstudiolab.it</a></dd></div>
+        <div><dt class="micro">Privacy</dt><dd><a class="link link-blocco" href="/privacy.html">Informativa privacy</a></dd></div>
+        <div><dt class="micro">Revisione</dt><dd>© 2026 CP Studio Lab</dd></div>
+      </dl>
+    </div>
+  </footer>
+</body>
+</html>
