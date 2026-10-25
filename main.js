@@ -200,6 +200,43 @@
     }
   }
 
+  // ── Manifattura: la tavola delle cinque lavorazioni. Su schermo largo è un gruppo di schede (tab):
+  //    si sceglie con il clic o con le frecce, la quota scorre e il disegno si compone (lo fa style.css).
+  //    Su telefono le lavorazioni restano una sotto l'altra, come senza JavaScript. ──
+  const tavola = document.querySelector('.lavorazioni-tavola');
+  if (tavola) {
+    const elenco = tavola.querySelector('.lavorazioni-schede');
+    const schede = Array.from(elenco.querySelectorAll('[role="tab"]'));
+    const pannelli = schede.map((s) => document.getElementById(s.getAttribute('aria-controls')));
+    let attiva = 0;
+    const scegli = (i, fuoco) => {
+      attiva = i;
+      schede.forEach((s, j) => { s.setAttribute('aria-selected', String(j === i)); s.tabIndex = j === i ? 0 : -1; });
+      pannelli.forEach((p, j) => { p.hidden = j !== i; });
+      elenco.style.setProperty('--attiva', i);
+      if (fuoco) schede[i].focus();
+    };
+    const imposta = () => {
+      const aSchede = largo.matches;
+      tavola.classList.toggle('a-schede', aSchede);
+      elenco.hidden = !aSchede;
+      pannelli.forEach((p, j) => {
+        if (aSchede) { p.setAttribute('role', 'tabpanel'); p.setAttribute('aria-labelledby', schede[j].id); }
+        else { p.hidden = false; p.removeAttribute('role'); p.setAttribute('aria-labelledby', `titolo-${p.id}`); }
+      });
+      if (aSchede) scegli(attiva);
+    };
+    schede.forEach((s, i) => s.addEventListener('click', () => scegli(i)));
+    elenco.addEventListener('keydown', (e) => {
+      const passi = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1, Home: -attiva, End: schede.length - 1 - attiva };
+      if (!(e.key in passi)) return;
+      e.preventDefault();
+      scegli((attiva + passi[e.key] + schede.length) % schede.length, true);
+    });
+    largo.addEventListener('change', imposta);
+    imposta();
+  }
+
   // ── Sito d'esempio: il modulo non invia niente, lo dice ──
   const esempioInviato = (e) => {
     if (e) e.preventDefault();

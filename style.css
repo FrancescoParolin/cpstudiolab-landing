@@ -1251,11 +1251,8 @@ html.menu-aperto { overflow: hidden; }
   .dato-disegno { width: 100%; margin-top: auto; }
   .targa-buyer { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-/* Pagine di settore: dati di mercato, sempre con la fonte sotto; le lavorazioni in cinque colonne */
+/* Pagine di settore: dati di mercato, sempre con la fonte sotto */
 .fonte-dati { margin-top: var(--s3); }
-@media (min-width: 1024px) {
-  .manifattura-lavorazioni { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-}
 
 /* ══ 6. Lo studio ═════════════════════════════════════════════════
    Il marchio che si spiega: la tessera vuota entra nel suo incastro. */
@@ -1818,6 +1815,89 @@ html.menu-aperto { overflow: hidden; }
   .lav-disegno { font-size: 11px; }
 }
 
+/* «Cosa facciamo per voi»: i punti a sinistra, l'esempio (dichiarato «Esempio») a destra */
+.lav-esempio { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s6); align-items: center; }
+.lav-esempio-testo .lav-sotto { margin-bottom: var(--s4); }
+.lav-corpo .lav-percorso:not(.lav-percorso-consigliato) { background: var(--fondo); }
+@media (min-width: 1024px) {
+  .lav-esempio { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s3); }
+  .lav-esempio-testo { grid-column: 1 / 6; }
+  .lav-esempio .mock { grid-column: 6 / -1; }
+}
+
+/* ── Pagina Manifattura: la tavola delle cinque lavorazioni ──
+   Su schermo largo (main.js aggiunge .a-schede) le schede stanno a sinistra, con una quota che scorre sulla scelta,
+   e il disegno grande a destra si compone: prima il pezzo, poi le quote. Su telefono e senza JavaScript
+   le cinque lavorazioni stanno una sotto l'altra, ognuna con il suo disegno. */
+.lavorazioni-pannelli { display: grid; gap: var(--s8); }
+.lavorazione { display: grid; gap: var(--s3); }
+.lavorazione[hidden], .lavorazioni-schede[hidden] { display: none; }   /* sulla tavola si vede solo la lavorazione scelta */
+.lavorazione-disegno { position: relative; }
+.lavorazione-cartiglio {
+  position: absolute;
+  right: var(--s2); bottom: var(--s2);
+  padding: var(--scarto) var(--s1);
+  border: var(--linea) solid var(--linea-verde);
+  color: var(--crema-tenue);
+}
+.lavorazione-testo { display: grid; gap: var(--s2); justify-items: start; }
+.lavorazione-testo h3 { max-width: 16em; font-size: var(--t-voce); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); text-wrap: balance; }
+.lavorazione-testo p:not(.micro) { max-width: var(--misura-stretta); color: var(--tenue); }
+.lavorazione-testo .lavorazione-percorso { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--s1); color: var(--testo); font-weight: var(--peso-medio); }
+.lavorazioni-schede { position: relative; align-content: start; }
+.lavorazioni-scheda {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  width: 100%;
+  height: var(--s8);
+  padding: 0 var(--s3);
+  border: 0;
+  background: none;
+  box-shadow: inset 0 calc(-1 * var(--linea)) var(--bordo);
+  color: var(--tenue);
+  font: var(--peso-medio) var(--t-h3)/1 var(--sans);
+  letter-spacing: var(--ls-voce);
+  text-align: left;
+  cursor: pointer;
+}
+.lavorazioni-scheda:hover, .lavorazioni-scheda[aria-selected="true"] { color: var(--testo); }
+.lavorazioni-num { flex: none; width: var(--s4); font: var(--peso-medio) var(--t-micro)/1 var(--mono); letter-spacing: var(--ls-micro); color: var(--accento); }
+/* la quota: una linea verde con i due tratti alle estremità, alta quanto una scheda; scorre sulla scheda scelta */
+.lavorazioni-quota {
+  position: absolute;
+  left: 0; top: 0;
+  width: var(--linea-forte);
+  height: var(--s8);
+  background: var(--accento);
+  transform: translateY(calc(var(--attiva, 0) * var(--s8)));
+  pointer-events: none;
+}
+.lavorazioni-quota::before, .lavorazioni-quota::after {
+  content: '';
+  position: absolute;
+  left: calc(-1 * var(--scarto) + var(--linea));
+  width: var(--s1);
+  height: var(--linea-forte);
+  background: var(--accento);
+}
+.lavorazioni-quota::before { top: 0; }
+.lavorazioni-quota::after { bottom: 0; }
+@media (min-width: 1024px) {
+  .lavorazioni-tavola.a-schede { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s3); align-items: start; }
+  .a-schede .lavorazioni-schede { display: grid; grid-column: 1 / 6; border-top: var(--linea) solid var(--bordo-forte); }
+  .a-schede .lavorazioni-pannelli { grid-column: 6 / -1; }
+  .a-schede .lavorazione-disegno { aspect-ratio: 16 / 9; }   /* più basso: il testo resta in vista sotto il disegno */
+  .a-schede .lavorazione { grid-template-columns: minmax(0, 1fr); gap: var(--s4); }
+  .a-schede .lavorazione-testo { grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: var(--s4); }
+  .a-schede .lavorazione-testo > :not(.link-freccia) { grid-column: 1; }
+  .a-schede .lavorazione-testo .link-freccia { grid-column: 2; grid-row: 1 / span 4; align-self: end; }
+  .lavorazione .lav-disegno { font-size: 11px; }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .lavorazioni-scheda { font-size: var(--t-lead); }   /* «Carpenteria e saldatura» resta su una riga */
+}
+
 /* ── Pagine di servizio: privacy e grazie ── */
 .documento { max-width: calc(var(--misura-documento) + 2 * var(--gutter)); }
 .documento-intro { margin-top: var(--s3); font-size: var(--t-lead); color: var(--tenue); }
@@ -1920,8 +2000,8 @@ html.menu-aperto { overflow: hidden; }
   .moto :is(.mock-file, .mock-inviata) { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
   .moto .mock-file { transition-delay: calc(6 * var(--sfalsa)); }
   .moto .mock-inviata { transition-delay: calc(12 * var(--sfalsa)); }
-  .moto .servizio:not(.visibile) .mock-file { opacity: 0; transform: translateX(calc(-1 * var(--s2))); }
-  .moto .servizio:not(.visibile) .mock-inviata { opacity: 0; transform: translateY(var(--s1)); }
+  .moto :is(.servizio, .lav-esempio):not(.visibile) .mock-file { opacity: 0; transform: translateX(calc(-1 * var(--s2))); }
+  .moto :is(.servizio, .lav-esempio):not(.visibile) .mock-inviata { opacity: 0; transform: translateY(var(--s1)); }
   /* CRM: la richiesta confermata arriva nella colonna «Ordine» */
   .moto .mock-carta-fatta { transition: transform var(--lunga) var(--curva) calc(7 * var(--sfalsa)), opacity var(--media) var(--curva) calc(7 * var(--sfalsa)); }
   .moto .servizio:not(.visibile) .mock-carta-fatta { opacity: 0; transform: translateX(-60%); }
@@ -1974,6 +2054,12 @@ html.menu-aperto { overflow: hidden; }
   .moto .risultati li:nth-child(2) { transition-delay: var(--sfalsa); }
   .moto .risultati li:nth-child(3) { transition-delay: calc(2 * var(--sfalsa)); }
   .moto .risultati li:nth-child(4) { transition-delay: calc(3 * var(--sfalsa)); }
+
+  /* Manifattura: sulla tavola la quota scorre fino alla scheda scelta; il disegno si compone (pezzo, poi quote) */
+  .lavorazioni-quota { transition: transform var(--media) var(--curva-precisa); }
+  .a-schede .lavorazione:not([hidden]) .lav-disegno use:first-child { transform-box: fill-box; transform-origin: center; animation: compone var(--media) var(--curva-precisa) backwards; }
+  .a-schede .lavorazione:not([hidden]) .lav-disegno use + use { animation: compare var(--media) var(--curva) calc(3 * var(--sfalsa)) backwards; }
+  .a-schede .lavorazione:not([hidden]) .lavorazione-testo { animation: compare var(--media) var(--curva) var(--sfalsa) backwards; }
 
   /* Recensioni: i loghi salgono nelle loro celle (le celle restano: sotto c'è il colore delle righe), poi le schede */
   .moto .cliente > *, .moto .recensione { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
@@ -2049,6 +2135,7 @@ html.menu-aperto { overflow: hidden; }
 @keyframes traccia { from { transform: scaleX(0); } }
 @keyframes tornisce { from { transform: scaleY(0); } }
 @keyframes compare { from { opacity: 0; transform: translateY(var(--s1)); } }
+@keyframes compone { from { opacity: 0; transform: scale(.94); } }
 @keyframes compare-quota { from { opacity: 0; transform: translate(-50%, 0); } }
 @keyframes lampeggia { 50% { opacity: 0; } }
 

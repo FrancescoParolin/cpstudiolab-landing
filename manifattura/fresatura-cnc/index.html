@@ -223,10 +223,40 @@
       </div>
     </section>
 
+    <!-- Cosa facciamo, in concreto: un esempio dichiarato «Esempio» di come vi vede il buyer -->
+    <section class="sezione" aria-labelledby="titolo-facciamo">
+      <div class="contenitore lav-esempio" data-entra>
+        <div class="lav-esempio-testo">
+          <p class="micro">Pos. 03</p>
+          <h2 class="lav-titolo" id="titolo-facciamo">Cosa facciamo per voi</h2>
+          <p class="lav-sotto">Un esempio di come vi vede il buyer, quando apre il vostro sito.</p>
+          <ul class="elenco-tratto lav-elenco"><li>Una pagina per ogni centro di lavoro: assi, corse, tolleranze.</li><li>Il modulo accetta il file 3D, e la riservatezza è scritta prima dell’invio.</li><li>Ogni preventivo è seguito fino all’ordine, o al motivo per cui si è perso.</li></ul>
+        </div>
+        <div class="mock mock-sito" aria-hidden="true">
+            <p class="micro mock-etichetta">Esempio</p>
+            <div class="mock-barra"><span>meccanica-esempio.it/fresatura-cnc</span></div>
+            <div class="mock-corpo">
+              <div class="mock-pagina">
+                <p class="mock-marchio">Meccanica Esempio</p>
+                <p class="mock-titolo">Fresatura CNC a 5 assi</p>
+                <ul class="mock-specifiche"><li><span>Centri di lavoro</span>3 e 5 assi</li><li><span>Corse</span>800 × 600 × 500 mm</li><li><span>Tolleranze</span>± 0,01 mm</li><li><span>Materiali</span>Alluminio, acciai, titanio</li></ul>
+              </div>
+              <div class="mock-richiesta">
+                <p class="mock-col">Richiesta d’offerta</p>
+                <span class="mock-campo">Quantità<b>20 pz</b></span><span class="mock-campo">Riservatezza<b>NDA</b></span>
+                <span class="mock-file">supporto.step<small>3,4 MB</small></span>
+                <span class="mock-btn">Richiedete un’offerta</span>
+                <span class="mock-inviata">Richiesta inviata</span>
+              </div>
+            </div>
+          </div>
+      </div>
+    </section>
+
     <!-- I tre percorsi, con le fasi spiegate per questa lavorazione. Nomi e chiavi del modulo come nella pagina Manifattura -->
-    <section class="sezione" aria-labelledby="titolo-percorsi">
+    <section class="sezione lav-corpo" aria-labelledby="titolo-percorsi">
       <div class="contenitore">
-        <p class="micro">Pos. 03</p>
+        <p class="micro">Pos. 04</p>
         <h2 class="lav-titolo" id="titolo-percorsi">Da dove partire</h2>
         <p class="lav-sotto">Tre percorsi, a seconda di dove siete oggi. Per un’officina di fresatura vi consigliamo di partire da B.</p>
         <ol class="lav-percorsi">
@@ -237,7 +267,7 @@
             <ol class="lav-ciclo" aria-label="Le fasi del percorso A"><li><span class="lav-ciclo-num">10</span><span><strong>Sito tecnico</strong><span class="lav-fase-cosa">Assi, corse, materiali, tolleranze</span></span></li><li><span class="lav-ciclo-num">20</span><span><strong>Google</strong><span class="lav-fase-cosa">Profilo dell’attività e pagine per «fresatura CNC + provincia»</span></span></li></ol>
             <p class="lav-percorso-esito">Chi cerca un’officina di precisione vi trova.</p>
             <a class="link-freccia" href="/?percorso=da-zero#contatto">
-              Partiamo da qui
+              Partiamo da qui<span class="nascosto">: percorso A, da zero</span>
               <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
             </a>
           </li>
@@ -248,7 +278,7 @@
             <ol class="lav-ciclo" aria-label="Le fasi del percorso B"><li><span class="lav-ciclo-num">10</span><span><strong>Analisi</strong><span class="lav-fase-cosa">Dove si fermano le richieste con il file 3D</span></span></li><li><span class="lav-ciclo-num">20</span><span><strong>Sito rifatto</strong><span class="lav-fase-cosa">Richiesta con il file 3D e la riservatezza scritta</span></span></li><li><span class="lav-ciclo-num">30</span><span><strong>Google</strong><span class="lav-fase-cosa">Le ricerche come «fresatura 5 assi» e «prototipi meccanici»</span></span></li><li><span class="lav-ciclo-num">40</span><span><strong>CRM e follow-up</strong><span class="lav-fase-cosa">Ogni preventivo seguito: inviato, sollecitato, ordine o perso</span></span></li></ol>
             <p class="lav-percorso-esito">Ogni file 3D ha una risposta, e sapete quanti preventivi diventano ordini.</p>
             <a class="link-freccia" href="/?percorso=richieste#contatto">
-              Partiamo da qui
+              Partiamo da qui<span class="nascosto">: percorso B, il sito c’è, le richieste no</span>
               <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
             </a>
           </li>
@@ -259,7 +289,7 @@
             <ol class="lav-ciclo" aria-label="Le fasi del percorso C"><li><span class="lav-ciclo-num">10</span><span><strong>Sito in più lingue</strong><span class="lav-fase-cosa">Le stesse schede, anche in inglese</span></span></li><li><span class="lav-ciclo-num">20</span><span><strong>Google per l’estero</strong><span class="lav-fase-cosa">Le ricerche dei buyer stranieri, come «CNC machining Italy»</span></span></li><li><span class="lav-ciclo-num">30</span><span><strong>Follow-up</strong><span class="lav-fase-cosa">Risposte e solleciti anche in inglese</span></span></li></ol>
             <p class="lav-percorso-esito">Il buyer straniero capisce cosa fate e vi scrive.</p>
             <a class="link-freccia" href="/?percorso=estero#contatto">
-              Partiamo da qui
+              Partiamo da qui<span class="nascosto">: percorso C, nuovi clienti, anche all’estero</span>
               <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
             </a>
           </li>
@@ -267,10 +297,10 @@
       </div>
     </section>
 
-    <section class="sezione lav-corpo" aria-labelledby="titolo-ricerche">
+    <section class="sezione" aria-labelledby="titolo-ricerche">
       <div class="contenitore lav-colonne">
         <div>
-          <p class="micro">Pos. 04</p>
+          <p class="micro">Pos. 05</p>
           <h2 class="lav-titolo" id="titolo-ricerche">Le ricerche da cui vi devono trovare</h2>
           <p class="lav-nota">Esempi: le ricerche giuste le scegliamo con voi, all’inizio del lavoro.</p>
         </div>
