@@ -98,6 +98,20 @@
       <text class="d-testo" x="60" y="104" text-anchor="end">a5</text>
       <text class="d-testo" x="60" y="127" text-anchor="end">a5</text>
     </symbol>
+    <!-- Fig. 5 · Fresatura: blocco con tasca fresata, in sezione -->
+    <symbol id="d5-pezzo" viewBox="0 0 320 240">
+      <path class="d-sezione" d="M64 72H112V118A6 6 0 0 0 118 124H202A6 6 0 0 0 208 118V72H256V176H64Z"/>
+    </symbol>
+    <symbol id="d5-quote" viewBox="0 0 320 240">
+      <path class="d-quota" d="M112 68V36M208 68V36"/>
+      <path class="d-quota" d="M112 42H208" marker-start="url(#punta-chiara)" marker-end="url(#punta-chiara)"/>
+      <text class="d-testo" x="160" y="36" text-anchor="middle">96</text>
+      <path class="d-quota" d="M122 72V124" marker-start="url(#punta-chiara)" marker-end="url(#punta-chiara)"/>
+      <text class="d-testo" x="127" y="103">26 ±0,01</text>
+      <path class="d-quota" d="M64 180V204M256 180V204"/>
+      <path class="d-quota" d="M64 198H256" marker-start="url(#punta-chiara)" marker-end="url(#punta-chiara)"/>
+      <text class="d-testo" x="160" y="192" text-anchor="middle">120</text>
+    </symbol>
   </svg>
 
   <a class="salta" href="#contenuto">Contenuto principale</a>
@@ -250,6 +264,115 @@
       </div>
     </section>
 
+    <!-- ── Le cinque lavorazioni. Su schermo largo è una tavola a schede: si sceglie la lavorazione e il suo disegno
+         si compone. Su telefono e senza JavaScript le cinque stanno una sotto l'altra. Ognuna porta alla sua pagina. ── -->
+    <section class="sezione lavorazioni" id="lavorazioni" aria-labelledby="titolo-lavorazioni">
+      <div class="contenitore">
+        <div class="sezione-testa">
+          <p class="micro">Le cinque lavorazioni</p>
+          <h2 class="titolo-sezione" id="titolo-lavorazioni">Cosa lavorate?</h2>
+          <p class="sezione-sotto">Scegliete la vostra lavorazione. Per ognuna c’è una pagina: dove si perdono i clienti, cosa facciamo, i tre percorsi.</p>
+        </div>
+        <div class="lavorazioni-tavola">
+          <div class="lavorazioni-schede" role="tablist" aria-label="Le cinque lavorazioni" aria-orientation="vertical" hidden>
+            <button class="lavorazioni-scheda" type="button" role="tab" id="scheda-tornitura" aria-controls="lavorazione-tornitura" aria-selected="true"><span class="lavorazioni-num">01</span>Tornitura</button>
+            <button class="lavorazioni-scheda" type="button" role="tab" id="scheda-fresatura-cnc" aria-controls="lavorazione-fresatura-cnc" aria-selected="false" tabindex="-1"><span class="lavorazioni-num">02</span>Fresatura CNC</button>
+            <button class="lavorazioni-scheda" type="button" role="tab" id="scheda-carpenteria-saldatura" aria-controls="lavorazione-carpenteria-saldatura" aria-selected="false" tabindex="-1"><span class="lavorazioni-num">03</span>Carpenteria e saldatura</button>
+            <button class="lavorazioni-scheda" type="button" role="tab" id="scheda-lamiera" aria-controls="lavorazione-lamiera" aria-selected="false" tabindex="-1"><span class="lavorazioni-num">04</span>Lamiera</button>
+            <button class="lavorazioni-scheda" type="button" role="tab" id="scheda-stampaggio" aria-controls="lavorazione-stampaggio" aria-selected="false" tabindex="-1"><span class="lavorazioni-num">05</span>Stampaggio</button>
+            <span class="lavorazioni-quota" aria-hidden="true"></span>
+          </div>
+          <div class="lavorazioni-pannelli">
+            <article class="lavorazione" id="lavorazione-tornitura" aria-labelledby="titolo-lavorazione-tornitura">
+              <div class="pannello-lav lavorazione-disegno" aria-hidden="true">
+                <div class="trama trama-tornitura"></div>
+                <svg class="disegno-lavorazione lav-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d1-pezzo"/><use href="#d1-quote"/></svg>
+                <p class="micro lavorazione-cartiglio">Fig. 1 · Boccola in sezione</p>
+              </div>
+              <div class="lavorazione-testo">
+                <p class="micro">01 · Tornitura</p>
+                <h3 id="titolo-lavorazione-tornitura">Pezzi torniti che pochi sanno fare.</h3>
+                <p>Per tornerie conto terzi che lavorano su disegno.</p>
+                <p class="lavorazione-percorso"><span class="micro">Percorso consigliato</span>A · Da zero</p>
+                <a class="link-freccia" href="/manifattura/tornitura/">
+                  La pagina della tornitura
+                  <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+                </a>
+              </div>
+            </article>
+            <article class="lavorazione" id="lavorazione-fresatura-cnc" aria-labelledby="titolo-lavorazione-fresatura-cnc">
+              <div class="pannello-lav lavorazione-disegno" aria-hidden="true">
+                <div class="trama trama-fresatura"></div>
+                <svg class="disegno-lavorazione lav-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d5-pezzo"/><use href="#d5-quote"/></svg>
+                <p class="micro lavorazione-cartiglio">Fig. 5 · Blocco con tasca fresata</p>
+              </div>
+              <div class="lavorazione-testo">
+                <p class="micro">02 · Fresatura CNC</p>
+                <h3 id="titolo-lavorazione-fresatura-cnc">Lavorate al centesimo. Il sito lo dice?</h3>
+                <p>Per officine con centri di lavoro a 3 e 5 assi: prototipi e piccole serie.</p>
+                <p class="lavorazione-percorso"><span class="micro">Percorso consigliato</span>B · Il sito c’è, le richieste no</p>
+                <a class="link-freccia" href="/manifattura/fresatura-cnc/">
+                  La pagina della fresatura CNC
+                  <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+                </a>
+              </div>
+            </article>
+            <article class="lavorazione" id="lavorazione-carpenteria-saldatura" aria-labelledby="titolo-lavorazione-carpenteria-saldatura">
+              <div class="pannello-lav lavorazione-disegno" aria-hidden="true">
+                <div class="trama trama-carpenteria"></div>
+                <svg class="disegno-lavorazione lav-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d4-pezzo"/><use href="#d4-quote"/></svg>
+                <p class="micro lavorazione-cartiglio">Fig. 4 · Giunto a T saldato</p>
+              </div>
+              <div class="lavorazione-testo">
+                <p class="micro">03 · Carpenteria e saldatura</p>
+                <h3 id="titolo-lavorazione-carpenteria-saldatura">Avete la EN 1090. Chi vi cerca lo vede?</h3>
+                <p>Per carpenterie e saldature conto terzi: telai, basamenti, strutture.</p>
+                <p class="lavorazione-percorso"><span class="micro">Percorso consigliato</span>B · Il sito c’è, le richieste no</p>
+                <a class="link-freccia" href="/manifattura/carpenteria-saldatura/">
+                  La pagina della carpenteria e saldatura
+                  <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+                </a>
+              </div>
+            </article>
+            <article class="lavorazione" id="lavorazione-lamiera" aria-labelledby="titolo-lavorazione-lamiera">
+              <div class="pannello-lav lavorazione-disegno" aria-hidden="true">
+                <div class="trama trama-lamiera"></div>
+                <svg class="disegno-lavorazione lav-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d2-pezzo"/><use href="#d2-quote"/></svg>
+                <p class="micro lavorazione-cartiglio">Fig. 2 · Staffa piegata</p>
+              </div>
+              <div class="lavorazione-testo">
+                <p class="micro">04 · Lamiera</p>
+                <h3 id="titolo-lavorazione-lamiera">Chi risponde prima prende il lavoro.</h3>
+                <p>Per chi fa taglio laser, piegatura e assemblaggio conto terzi.</p>
+                <p class="lavorazione-percorso"><span class="micro">Percorso consigliato</span>B · Il sito c’è, le richieste no</p>
+                <a class="link-freccia" href="/manifattura/lamiera/">
+                  La pagina della lamiera
+                  <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+                </a>
+              </div>
+            </article>
+            <article class="lavorazione" id="lavorazione-stampaggio" aria-labelledby="titolo-lavorazione-stampaggio">
+              <div class="pannello-lav lavorazione-disegno" aria-hidden="true">
+                <div class="trama trama-stampaggio"></div>
+                <svg class="disegno-lavorazione lav-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d3-pezzo"/><use href="#d3-quote"/></svg>
+                <p class="micro lavorazione-cartiglio">Fig. 3 · Piastra tranciata</p>
+              </div>
+              <div class="lavorazione-testo">
+                <p class="micro">05 · Stampaggio</p>
+                <h3 id="titolo-lavorazione-stampaggio">Un cliente grande rallenta. Chi vi trova?</h3>
+                <p>Per lo stampaggio della lamiera con presse e stampi propri.</p>
+                <p class="lavorazione-percorso"><span class="micro">Percorso consigliato</span>C · Nuovi clienti, anche all’estero</p>
+                <a class="link-freccia" href="/manifattura/stampaggio/">
+                  La pagina dello stampaggio
+                  <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ── Come compra un buyer industriale: solo cifre con la fonte ── -->
     <section class="sezione dati" aria-labelledby="titolo-buyer">
       <div class="contenitore">
@@ -265,130 +388,64 @@
       </div>
     </section>
 
-    <!-- ── Cosa facciamo per la manifattura: gli esempi dell'officina, dichiarati «Esempio» ── -->
-    <section class="sezione" id="servizi-manifattura" aria-labelledby="titolo-servizi">
+    <!-- ── Da dove partite: tre percorsi, ognuno con i suoi servizi in ordine, come un ciclo di lavoro.
+         Ogni settore ha i suoi tre percorsi, con le sue parole. «Partiamo da qui» porta al modulo della pagina
+         principale con i servizi del percorso già spuntati (main.js legge ?percorso=; senza JavaScript il link
+         porta comunque al modulo). Il percorso B, il caso più frequente, sta sul foglio verde. ── -->
+    <section class="sezione percorsi" id="percorsi" aria-labelledby="titolo-percorsi">
       <div class="contenitore">
         <div class="sezione-testa">
-          <p class="micro">Cosa facciamo per la manifattura</p>
-          <h2 class="titolo-sezione" id="titolo-servizi">Un sito tecnico, non una brochure.</h2>
-          <p class="sezione-sotto">Gli stessi servizi della pagina principale, scritti con le parole dell’officina.</p>
+          <p class="micro">Percorsi</p>
+          <h2 class="titolo-sezione" id="titolo-percorsi">Da dove partite?</h2>
+          <p class="sezione-sotto">Tre situazioni che troviamo nelle officine. Ognuna ha il suo ciclo di lavoro.</p>
         </div>
-
-        <ol class="servizi">
-          <li class="servizio" data-entra>
-            <span class="servizio-pos" aria-hidden="true">01</span>
-            <div class="servizio-testo">
-              <h3>Siti tecnici</h3>
-              <p>Il sito come una scheda tecnica: lavorazioni, macchine, tolleranze, certificazioni. Quello che il buyer controlla prima di scrivervi.</p>
-              <ul class="elenco-tratto">
-                <li>Una pagina per ogni lavorazione</li>
-                <li>Richiesta d’offerta con PDF, DXF o STEP</li>
-                <li>Veloce anche da telefono</li>
-              </ul>
-              <a class="link-freccia" href="/esempio/">
-                Provate un sito d’esempio
-                <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
-              </a>
-            </div>
-            <div class="mock mock-sito" aria-hidden="true">
-              <p class="micro mock-etichetta">Esempio</p>
-              <div class="mock-barra"><span>officina-esempio.it/tornitura</span></div>
-              <div class="mock-corpo">
-                <div class="mock-pagina">
-                  <p class="mock-marchio">Officina Esempio</p>
-                  <p class="mock-titolo">Tornitura CNC conto terzi</p>
-                  <ul class="mock-specifiche">
-                    <li><span>Materiali</span>Acciaio, inox, ottone</li>
-                    <li><span>Diametri</span>Ø 4–120 mm</li>
-                    <li><span>Lotti</span>Prototipo e serie</li>
-                    <li><span>Certificazioni</span>ISO 9001</li>
-                  </ul>
-                </div>
-                <div class="mock-richiesta">
-                  <p class="mock-col">Richiesta d’offerta</p>
-                  <span class="mock-campo">Quantità<b>500 pz</b></span>
-                  <span class="mock-campo">Materiale<b>AISI 304</b></span>
-                  <span class="mock-file">flangia.pdf<small>1,2 MB</small></span>
-                  <span class="mock-btn">Richiedete un’offerta</span>
-                  <span class="mock-inviata">Richiesta inviata</span>
-                </div>
-              </div>
-            </div>
+        <ol class="percorsi-elenco">
+          <li class="percorso" data-entra>
+            <p class="micro percorso-num">Percorso A</p>
+            <h3>Da zero</h3>
+            <p class="percorso-chi">Non avete un sito, oppure è fermo da anni.</p>
+            <ol class="percorso-ciclo" aria-label="Ciclo di lavoro del percorso A">
+              <li><span class="percorso-fase">10</span> Sito tecnico</li>
+              <li><span class="percorso-fase">20</span> Google</li>
+            </ol>
+            <p class="percorso-esito"><span class="micro">Cosa cambia</span>Chi vi cerca vi trova, e capisce subito cosa lavorate.</p>
+            <a class="link-freccia" href="/?percorso=da-zero#contatto">
+              Partiamo da qui<span class="nascosto">: percorso A, da zero</span>
+              <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+            </a>
           </li>
-          <li class="servizio" data-entra>
-            <span class="servizio-pos" aria-hidden="true">02</span>
-            <div class="servizio-testo">
-              <h3>Google</h3>
-              <p>Le ricerche di chi ha un pezzo da far fare: poche, ma di chi compra.</p>
-              <ul class="elenco-tratto">
-                <li>Ricerche per lavorazione e materiale</li>
-                <li>Ricerche per zona e distretto</li>
-                <li>Scheda Google dell’azienda</li>
-              </ul>
-            </div>
-            <div class="mock mock-ricerca" aria-hidden="true">
-              <p class="micro mock-etichetta">Esempio</p>
-              <p class="mock-cerca"><span>tornitura inox conto terzi</span></p>
-              <ol class="mock-risultati">
-                <li class="mock-primo">
-                  <span class="mock-url">officina-esempio.it › tornitura</span>
-                  <span class="mock-link">Tornitura CNC inox conto terzi · Officina Esempio</span>
-                  <span class="mock-desc">Prototipi e serie. Inviate il disegno, vi rispondiamo con l’offerta.</span>
-                </li>
-                <li><span class="mock-riga"></span><span class="mock-riga mock-riga-corta"></span></li>
-                <li><span class="mock-riga"></span><span class="mock-riga mock-riga-corta"></span></li>
-              </ol>
-            </div>
+          <li class="percorso percorso-evidenza" data-entra>
+            <p class="micro percorso-num">Percorso B</p>
+            <h3>Il sito c’è, le richieste no</h3>
+            <p class="percorso-chi">Il sito esiste, ma i clienti nuovi arrivano ancora solo dal passaparola.</p>
+            <ol class="percorso-ciclo" aria-label="Ciclo di lavoro del percorso B">
+              <li><span class="percorso-fase">10</span> Analisi del sito</li>
+              <li><span class="percorso-fase">20</span> Sito rifatto</li>
+              <li><span class="percorso-fase">30</span> Google</li>
+              <li><span class="percorso-fase">40</span> CRM e follow-up</li>
+            </ol>
+            <p class="percorso-esito"><span class="micro">Cosa cambia</span>Le richieste arrivano, e nessuna resta senza risposta.</p>
+            <a class="link-freccia" href="/?percorso=richieste#contatto">
+              Partiamo da qui<span class="nascosto">: percorso B, il sito c’è, le richieste no</span>
+              <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+            </a>
           </li>
-          <li class="servizio" data-entra>
-            <span class="servizio-pos" aria-hidden="true">03</span>
-            <div class="servizio-testo">
-              <h3>Automazioni</h3>
-              <p>Il preventivo parte prima: dalla richiesta con il disegno alla bozza, che controllate voi.</p>
-              <ul class="elenco-tratto">
-                <li>Dati letti dalla richiesta e dagli allegati</li>
-                <li>Bozza di preventivo pronta</li>
-                <li>Email di risposta già scritte</li>
-              </ul>
-            </div>
-            <div class="mock mock-flusso" aria-hidden="true">
-              <p class="micro mock-etichetta">Esempio</p>
-              <ol>
-                <li><span class="mock-passo">1</span><span>Richiesta con disegno allegato<span class="mock-nota">flangia.pdf</span></span></li>
-                <li><span class="mock-passo">2</span><span>Letti materiale, quantità, tolleranze<span class="mock-nota">AISI 304 · 500 pz · ± 0,02</span></span></li>
-                <li><span class="mock-passo">3</span><span>Bozza di preventivo<span class="mock-nota">Da controllare</span></span></li>
-              </ol>
-            </div>
+          <li class="percorso" data-entra>
+            <p class="micro percorso-num">Percorso C</p>
+            <h3>Nuovi clienti, anche all’estero</h3>
+            <p class="percorso-chi">Volete lavorare per clienti fuori zona, o fuori Italia.</p>
+            <ol class="percorso-ciclo" aria-label="Ciclo di lavoro del percorso C">
+              <li><span class="percorso-fase">10</span> Sito in più lingue</li>
+              <li><span class="percorso-fase">20</span> Google per l’estero</li>
+              <li><span class="percorso-fase">30</span> Follow-up delle richieste</li>
+            </ol>
+            <p class="percorso-esito"><span class="micro">Cosa cambia</span>Vi trovano i buyer che oggi non sanno che esistete.</p>
+            <a class="link-freccia" href="/?percorso=estero#contatto">
+              Partiamo da qui<span class="nascosto">: percorso C, nuovi clienti, anche all’estero</span>
+              <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+            </a>
           </li>
         </ol>
-      </div>
-    </section>
-
-    <!-- ── Le lavorazioni: una pagina per ognuna ── -->
-    <section class="sezione" id="lavorazioni" aria-labelledby="titolo-lavorazioni">
-      <div class="contenitore">
-        <div class="sezione-testa">
-          <p class="micro">Lavorazioni</p>
-          <h2 class="titolo-sezione" id="titolo-lavorazioni">Ogni lavorazione ha le sue parole.</h2>
-        </div>
-        <ul class="settore-lavorazioni manifattura-lavorazioni" aria-label="Le pagine per lavorazione">
-          <li><a class="settore-lav" href="/tornitura/">
-            <span class="pannello-mini" aria-hidden="true"><span class="trama trama-tornitura"></span><svg class="disegno-lavorazione mini-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d1-pezzo"/><use href="#d1-quote"/></svg></span>
-            <span class="settore-lav-nome">Tornitura<svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></span>
-          </a></li>
-          <li><a class="settore-lav" href="/lamiera/">
-            <span class="pannello-mini" aria-hidden="true"><span class="trama trama-lamiera"></span><svg class="disegno-lavorazione mini-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d2-pezzo"/><use href="#d2-quote"/></svg></span>
-            <span class="settore-lav-nome">Lamiera<svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></span>
-          </a></li>
-          <li><a class="settore-lav" href="/stampaggio/">
-            <span class="pannello-mini" aria-hidden="true"><span class="trama trama-stampaggio"></span><svg class="disegno-lavorazione mini-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d3-pezzo"/><use href="#d3-quote"/></svg></span>
-            <span class="settore-lav-nome">Stampaggio<svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></span>
-          </a></li>
-          <li><a class="settore-lav" href="/carpenteria/">
-            <span class="pannello-mini" aria-hidden="true"><span class="trama trama-carpenteria"></span><svg class="disegno-lavorazione mini-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d4-pezzo"/><use href="#d4-quote"/></svg></span>
-            <span class="settore-lav-nome">Carpenteria e saldatura<svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></span>
-          </a></li>
-        </ul>
       </div>
     </section>
 

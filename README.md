@@ -70,10 +70,14 @@ In locale il modulo non invia nulla: porta solo a `grazie.html`.
 
 ## Online
 
-- **Sito:** https://cpstudiolab.netlify.app (Netlify, account di Francesco). Il dominio `cpstudiolab.it` va ancora collegato.
+- **Sito:** https://cpstudiolab.it, su Netlify, nell'account dello studio (team «campaeparo», sito `cpstudiolablanding`,
+  piano gratuito con 300 crediti al mese). Ogni pubblicazione in `main` costa 15 crediti, le anteprime sono gratis.
+- **Dominio (DNS su Aruba):** record A di `cpstudiolab.it` verso 75.2.60.5 e CNAME `www` verso
+  `cpstudiolablanding.netlify.app`. Posta (MX, mail, smtp, imap, webmail, SPF) e `crm` (Railway) non si toccano.
+  HTTPS con certificato Let's Encrypt, rinnovato da Netlify.
 - **Repository:** https://github.com/FrancescoParolin/cpstudiolab-landing, pubblico (il codice di un sito è comunque visibile);
   Campa, `yngcmp`, ha accesso in scrittura. Mai password, chiavi o dati dei clienti nel repository.
-  Netlify pubblica `main` a ogni push: chiave di sola lettura e webhook sul repository.
+  Netlify è collegato con la sua app GitHub: pubblica `main` a ogni merge e fa l'anteprima di ogni pull request.
 - **Cosa si pubblica:** `prepara.sh` copia in `dist/` solo i file del sito (niente `.md`); `netlify.toml` dice a Netlify
   di eseguirlo e di pubblicare `dist/`, con gli header di sicurezza e la cache lunga per i font.
 - **Modulo:** Netlify Forms, modulo «richiesta». Le richieste arrivano in Netlify → Forms.

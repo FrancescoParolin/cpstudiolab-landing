@@ -67,65 +67,6 @@
       <pattern id="tratteggio-inverso" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><path class="tratto" d="M3 0V6"/></pattern>
       <marker id="punta-chiara" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path class="punta-chiara" d="M0 1.5 8 4 0 6.5z"/></marker>
     </defs>
-    <!-- Fig. 1 · Tornitura: boccola in sezione -->
-    <symbol id="d1-pezzo" viewBox="0 0 320 240">
-      <path class="d-sezione" d="M84 52H236L240 56V72H80V56Z"/>
-      <path class="d-sezione" d="M80 152H240V168L236 172H84L80 168Z"/>
-      <path class="d-spigolo" d="M80 72V152M240 72V152"/>
-      <path class="d-asse" d="M64 112H256"/>
-    </symbol>
-    <symbol id="d1-quote" viewBox="0 0 320 240">
-      <path class="d-quota" d="M104 72V152" marker-start="url(#punta-chiara)" marker-end="url(#punta-chiara)"/>
-      <text class="d-testo" x="110" y="100">Ø 40 H7</text>
-      <path class="d-quota" d="M244 52H272M244 172H272"/>
-      <path class="d-quota" d="M266 52V172" marker-start="url(#punta-chiara)" marker-end="url(#punta-chiara)"/>
-      <text class="d-testo" x="272" y="104">Ø 60</text>
-      <path class="d-quota" d="M80 176V204M240 176V204"/>
-      <path class="d-quota" d="M80 198H240" marker-start="url(#punta-chiara)" marker-end="url(#punta-chiara)"/>
-      <text class="d-testo" x="160" y="192" text-anchor="middle">80</text>
-    </symbol>
-    <!-- Fig. 2 · Lamiera: staffa piegata, sezione sottile annerita -->
-    <symbol id="d2-pezzo" viewBox="0 0 320 240">
-      <path class="d-sottile" d="M90 40H96V170A4 4 0 0 0 100 174H250V180H100A10 10 0 0 1 90 170Z"/>
-    </symbol>
-    <symbol id="d2-quote" viewBox="0 0 320 240">
-      <circle class="d-punto" cx="93" cy="84" r="2.5"/>
-      <path class="d-quota" d="M93 84 128 52H160"/>
-      <text class="d-testo" x="132" y="46">s 3</text>
-      <path class="d-quota" d="M97.2 172.8 116 156H126" marker-start="url(#punta-chiara)"/>
-      <text class="d-testo" x="118" y="150">R 2</text>
-      <path class="d-quota" d="M96 94A80 80 0 0 1 176 174" marker-start="url(#punta-chiara)" marker-end="url(#punta-chiara)"/>
-      <text class="d-testo" x="162" y="108">90°</text>
-    </symbol>
-    <!-- Fig. 3 · Stampaggio: piastra tranciata, vista dall'alto -->
-    <symbol id="d3-pezzo" viewBox="0 0 320 240">
-      <rect class="d-profilo" x="72" y="56" width="176" height="128" rx="12"/>
-      <circle class="d-profilo" cx="96" cy="80" r="6.5"/>
-      <circle class="d-profilo" cx="224" cy="80" r="6.5"/>
-      <circle class="d-profilo" cx="96" cy="160" r="6.5"/>
-      <circle class="d-profilo" cx="224" cy="160" r="6.5"/>
-      <circle class="d-profilo" cx="160" cy="120" r="24"/>
-      <path class="d-asse" d="M86 80H106M96 70V90M214 80H234M224 70V90M86 160H106M96 150V170M214 160H234M224 150V170M130 120H190M160 90V150"/>
-    </symbol>
-    <symbol id="d3-quote" viewBox="0 0 320 240">
-      <path class="d-quota" d="M228.6 75.4 252 44H316" marker-start="url(#punta-chiara)"/>
-      <text class="d-testo" x="316" y="38" text-anchor="end">4 × Ø 6,5</text>
-      <path class="d-quota" d="M72 188V212M248 188V212"/>
-      <path class="d-quota" d="M72 206H248" marker-start="url(#punta-chiara)" marker-end="url(#punta-chiara)"/>
-      <text class="d-testo" x="160" y="200" text-anchor="middle">88</text>
-    </symbol>
-    <!-- Fig. 4 · Carpenteria: giunto a T in sezione, saldato dai due lati -->
-    <symbol id="d4-pezzo" viewBox="0 0 320 240">
-      <path class="d-sezione" d="M56 164H264V184H56Z"/>
-      <path class="d-sezione d-sezione-inversa" d="M150 52H170V164H150Z"/>
-      <path class="d-sottile" d="M150 164V150L136 164ZM170 164V150L184 164Z"/>
-    </symbol>
-    <symbol id="d4-quote" viewBox="0 0 320 240">
-      <path class="d-quota" d="M143 157 112 108H40" marker-start="url(#punta-chiara)"/>
-      <path class="d-quota" d="M64 108V96L76 108ZM64 108V120L76 108Z"/>
-      <text class="d-testo" x="60" y="104" text-anchor="end">a5</text>
-      <text class="d-testo" x="60" y="127" text-anchor="end">a5</text>
-    </symbol>
   </svg>
 
   <a class="salta" href="#contenuto">Contenuto principale</a>
@@ -441,24 +382,6 @@
             <ul class="settore-servizi" aria-label="Servizi per la manifattura">
               <li>Siti tecnici</li><li>Google</li><li>CRM e follow-up</li><li>Automazioni</li><li>Manutenzione</li>
             </ul>
-            <ul class="settore-lavorazioni" aria-label="Le pagine per lavorazione">
-              <li><a class="settore-lav" href="/tornitura/">
-                <span class="pannello-mini" aria-hidden="true"><span class="trama trama-tornitura"></span><svg class="disegno-lavorazione mini-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d1-pezzo"/><use href="#d1-quote"/></svg></span>
-                <span class="settore-lav-nome">Tornitura<svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></span>
-              </a></li>
-              <li><a class="settore-lav" href="/lamiera/">
-                <span class="pannello-mini" aria-hidden="true"><span class="trama trama-lamiera"></span><svg class="disegno-lavorazione mini-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d2-pezzo"/><use href="#d2-quote"/></svg></span>
-                <span class="settore-lav-nome">Lamiera<svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></span>
-              </a></li>
-              <li><a class="settore-lav" href="/stampaggio/">
-                <span class="pannello-mini" aria-hidden="true"><span class="trama trama-stampaggio"></span><svg class="disegno-lavorazione mini-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d3-pezzo"/><use href="#d3-quote"/></svg></span>
-                <span class="settore-lav-nome">Stampaggio<svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></span>
-              </a></li>
-              <li><a class="settore-lav" href="/carpenteria/">
-                <span class="pannello-mini" aria-hidden="true"><span class="trama trama-carpenteria"></span><svg class="disegno-lavorazione mini-disegno" viewBox="0 0 320 240" focusable="false"><use href="#d4-pezzo"/><use href="#d4-quote"/></svg></span>
-                <span class="settore-lav-nome">Carpenteria e saldatura<svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></span>
-              </a></li>
-            </ul>
           </li>
           <li class="settore-riga settore-aperto" data-entra>
             <div class="settore-intesta">
@@ -762,6 +685,8 @@
              Su un altro hosting: cambiate action con l'indirizzo di Formspree (vedi README). -->
         <form class="modulo" id="richiesta" name="richiesta" method="POST" action="/grazie.html" data-netlify="true" data-netlify-honeypot="altro">
           <input type="hidden" name="form-name" value="richiesta">
+          <!-- da quale percorso arriva la richiesta (lo compila main.js, vedi le pagine di settore) -->
+          <input type="hidden" name="percorso" value="">
           <p hidden><label>Non compilate questo campo <input name="altro" tabindex="-1" autocomplete="off"></label></p>
           <div class="campo">
             <label for="campo-azienda">Azienda o sito</label>
