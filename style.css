@@ -1731,7 +1731,7 @@ html.menu-aperto { overflow: hidden; }
    Il ciclo di lavoro (lo stesso della pagina principale), il check-up come punto di partenza,
    i servizi componibili, i collegamenti servizio → canone (le due tessere del marchio) e i cinque servizi. */
 .metodo-titolo { font-size: min(10.5vw, 76px); }
-/* Qui il ciclo ha tre fasi: il check-up completo è a scelta e sta nella sezione del check-up */
+/* Il ciclo in tre fasi (pagina Metodo e principale): il check-up completo è a scelta e sta nella sezione del check-up */
 @media (min-width: 1024px) {
   .ciclo-tre { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
