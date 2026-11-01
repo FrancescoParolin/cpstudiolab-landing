@@ -209,8 +209,10 @@ main:focus { outline: none; }
 .servizio-pos, .settore-num, .fase-num, .mock-url, .mock-nota, .tavola, .mirino-valore { font-variant-numeric: tabular-nums; }
 
 /* Segnaposto ancora da compilare: ben visibili di proposito.
-   Quando compilate un dato, togliete il <mark class="da-compilare"> che lo avvolge. */
-mark.da-compilare {
+   Quando compilate un dato, togliete il <mark class="da-compilare"> che lo avvolge.
+   «da-definire» ha lo stesso aspetto ma va online: sono le note lasciate in vista di proposito
+   (pagina Metodo: canone e sotto-servizi, finché i servizi non sono definiti). */
+mark.da-compilare, mark.da-definire {
   background: var(--segnaposto);
   color: var(--testo);
   outline: var(--linea-forte) dashed var(--segnaposto-bordo);
@@ -702,6 +704,8 @@ html.menu-aperto { overflow: hidden; }
 .js .apertura-statica .apertura-scena { transform: none; will-change: auto; }
 /* le righe tagliano in verticale per l'animazione: un po' d'aria sotto, per le lettere con la gamba (g, p) */
 .apertura-statica .riga { padding-bottom: .14em; margin-bottom: -.14em; }
+/* un filo più d'interlinea: la gamba della p e la virgola non toccano le lettere alte della riga sotto */
+.apertura-statica .apertura-titolo { line-height: 1; }
 /* Pagina principale: titolo su due righe, così la striscia dei settori arriva presto */
 .apertura-studio .apertura-titolo { font-size: min(10.5vw, 76px); }
 .apertura-studio .apertura-piede { padding-top: var(--s5); }
@@ -1205,6 +1209,7 @@ html.menu-aperto { overflow: hidden; }
 }
 .fase h3 { margin-top: var(--s2); font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
 .fase p { max-width: var(--misura-stretta); color: var(--tenue); }
+.ciclo-azioni { margin-top: var(--s5); }
 
 @media (min-width: 1024px) {
   .ciclo { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s3); padding: var(--s8) 0 0; }
@@ -1720,6 +1725,87 @@ html.menu-aperto { overflow: hidden; }
 .moto .studio-chiusura .contatto-testa:not(.visibile) { opacity: 1; transform: none; }
 @media (min-width: 1024px) {
   .studio-chiusura .contatto-griglia > .recapiti { grid-column: 8 / -1; grid-row: 1; align-self: end; }
+}
+
+/* ══ Pagina Il metodo ══════════════════════════════════════════════
+   Il ciclo di lavoro (lo stesso della pagina principale), il check-up come punto di partenza,
+   i servizi componibili, i collegamenti servizio → canone (le due tessere del marchio) e i cinque servizi. */
+.metodo-titolo { font-size: min(10.5vw, 76px); }
+/* Qui il ciclo ha tre fasi: il check-up completo è a scelta e sta nella sezione del check-up */
+@media (min-width: 1024px) {
+  .ciclo-tre { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+/* Il check-up: la porta d'ingresso, sul verde appena accennato */
+.checkup { display: grid; gap: var(--s1); justify-items: start; align-content: start; margin-bottom: var(--s3); padding: var(--s4); border-radius: var(--r); background: var(--velo); }
+.checkup h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
+.checkup p:not(.micro) { max-width: var(--misura); color: var(--tenue); }
+.checkup .link-freccia { margin-top: var(--s1); }
+.checkup-passi { display: grid; gap: var(--s2); margin-bottom: var(--s3); }
+.checkup-passi .checkup { margin-bottom: 0; }
+.checkup-completo { background: var(--superficie); border: var(--linea) solid var(--accento); }
+/* L'etichetta come un bottone: contornata per il gratuito, piena per il completo, che è l'opportunità */
+.checkup-etichetta {
+  margin-bottom: var(--s1);
+  padding: var(--s1) var(--s2);
+  border: var(--linea-forte) solid var(--accento);
+  border-radius: var(--r);
+  background: var(--superficie);
+  color: var(--accento);
+}
+.checkup-completo .checkup-etichetta { background: var(--accento); color: var(--crema); }
+/* su telefono le due parti vanno una sotto l'altra, senza il punto; da 600px in fila */
+.checkup-etichetta span { display: block; }
+.checkup-etichetta .checkup-sep { display: none; }
+@media (min-width: 600px) {
+  .checkup-etichetta span, .checkup-etichetta .checkup-sep { display: inline; }
+  .checkup-sep { white-space: pre; }
+}
+@media (min-width: 900px) {
+  .checkup-passi { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+/* Servizi componibili: tre esempi di combinazione nate dal check-up, ogni servizio una tessera */
+.combinazioni { display: grid; gap: var(--s2); }
+.combinazione { display: grid; gap: var(--s2); align-content: start; padding: var(--s4); border: var(--linea) solid var(--bordo-forte); border-radius: var(--r); background: var(--superficie); }
+.combinazione .micro { color: var(--accento); }
+.combinazione h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
+.combo-pezzi { display: grid; gap: var(--s1); }
+.combo-pezzi li { display: flex; gap: var(--s2); align-items: center; padding: var(--s1) var(--s2) var(--s1) var(--s1); border-radius: var(--r); background: var(--velo); font-weight: var(--peso-medio); }
+.combo-pezzi .combo-canone { background: transparent; border: var(--linea) dashed var(--accento); }
+.combo-pezzi .tessera { width: var(--s3); height: var(--s3); }
+.combo-legenda { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s2); align-items: center; margin-top: var(--s3); font-size: var(--t-piccolo); color: var(--tenue); }
+.combo-legenda .tessera { width: var(--s2); height: var(--s2); }
+@media (min-width: 900px) {
+  .combinazioni { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+/* A ogni servizio il suo canone: tessera piena → linea → tessera aperta, come nel marchio */
+.collegamenti { display: grid; border-top: var(--linea) solid var(--bordo-forte); }
+.collegamento { display: grid; gap: var(--s1); align-items: center; padding: var(--s3) 0; border-bottom: var(--linea) solid var(--bordo-forte); }
+.coll-servizio, .coll-canone { display: flex; gap: var(--s2); align-items: center; }
+.coll-servizio > span, .coll-canone > span { display: grid; gap: 2px; }
+.coll-servizio strong { font-size: var(--t-h3); font-weight: var(--peso-forte); letter-spacing: var(--ls-voce); }
+.coll-canone strong { font-weight: var(--peso-forte); }
+.coll-canone small { font-size: var(--t-piccolo); color: var(--tenue); }
+.tessera { width: var(--s4); height: var(--s4); flex: none; }
+.tessera-piena rect { fill: var(--accento); }
+.tessera-aperta rect { fill: none; stroke: var(--accento); stroke-width: 3; }
+.coll-linea { display: none; height: var(--linea-forte); background: var(--accento); }
+@media (min-width: 768px) {
+  .collegamento { grid-template-columns: minmax(0, 1fr) var(--s10) minmax(0, 1.4fr); gap: var(--s3); }
+  .coll-linea { display: block; }
+}
+/* I cinque servizi, con lo spazio per i sotto-servizi di ogni settore */
+.servizi-metodo { display: grid; gap: var(--s2); }
+.servizio-metodo { display: grid; gap: var(--s1); align-content: start; padding: var(--s3); border: var(--linea) solid var(--bordo-forte); border-radius: var(--r); background: var(--superficie); }
+.servizio-metodo .micro:first-child { color: var(--accento); }
+.servizio-metodo h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
+.servizio-metodo > p:not(.comprende) { color: var(--tenue); }
+.comprende { margin-top: var(--s1); padding-top: var(--s2); border-top: var(--linea) solid var(--bordo); }
+.percorsi-link { margin-top: var(--s4); }
+@media (min-width: 768px) {
+  .servizi-metodo { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1200px) {
+  .servizi-metodo { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 /* ══ 9. Piè di pagina: un cartiglio ═════════════════════════════ */
