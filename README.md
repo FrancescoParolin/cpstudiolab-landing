@@ -45,6 +45,8 @@ per la versione online `prepara.sh` la toglie. Quando i dati ci sono: segnaposto
 
 Il controllo prima della pubblicazione lo fa `prepara.sh`: se fuori dalle bozze resta un segnaposto giallo
 (`class="da-compilare"`) o un esempio da sostituire (`data-segnaposto`), si ferma e Netlify lascia online la versione di prima.
+Fa eccezione `<mark class="da-definire">`: stesso giallo, ma va online di proposito. Lo usa la pagina Metodo per le
+condizioni del canone e i sotto-servizi, finché non sono definiti tutti i servizi.
 I commenti `DA COMPILARE` (P.IVA, privacy) non si vedono in pagina: si trovano con
 
 ```bash
