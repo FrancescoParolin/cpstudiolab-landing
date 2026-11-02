@@ -25,11 +25,20 @@ Ogni valore sta nei token in `:root` di `style.css`. La versione completa, con l
   `.calibro` (passa/non passa), `.clienti` (striscia dei loghi: righe da un bordo all'altro dello schermo, crocini
   agli incroci, loghi in grigio), `.recensione` (le parole del cliente con la frase chiave in verde, le iniziali in una
   tessera, nome e ruolo, poi il piccolo cartiglio `.recensione-firma` con azienda e servizi),
-  `.percorsi` + `.percorso` (pagine di settore: tre situazioni, ognuna con il suo ciclo di lavoro `.percorso-ciclo`;
+  `.percorsi` + `.percorso` (pagine di settore: tre situazioni, ognuna con i suoi moduli in fila `.percorso-ciclo`,
+  con i codici della pagina Servizi, e il prezzo di partenza `.percorso-prezzo`;
   il caso più frequente su foglio verde, `.percorso-evidenza`; il link porta al modulo con i servizi già spuntati),
   `.lav-*` (le pagine dei segmenti, `/manifattura/<segmento>/`: apertura con il disegno della lavorazione, «Dove si
-  perdono i clienti» e «Cosa mettiamo sul vostro sito», poi `.lav-percorsi`: i tre percorsi A, B e C, ognuno con le fasi
-  numerate come nel metodo e spiegate per quella lavorazione; il consigliato è un foglio verde, `.lav-percorso-consigliato`).
+  perdono i clienti» e «Cosa mettiamo sul vostro sito», poi `.lav-percorsi`: i tre percorsi A, B e C, ognuno con i moduli
+  (codici 1.1, 2.1…) spiegati per quella lavorazione e il prezzo `.lav-percorso-prezzo`; il consigliato è un foglio verde, `.lav-percorso-consigliato`).
+  Pagina `/servizi/`: `.distinta` (tutti i moduli in una pagina, come la distinta base: codice, nome, prezzo, tempi;
+  ogni riga porta alla sua scheda), `.famiglia` (un servizio e i suoi moduli), `.scheda-modulo` (codice, promessa,
+  per chi, il cartiglio `.sm-cartiglio` con tempi, prezzo, canone e cosa misuriamo, poi «Comprende» e «Non comprende»
+  `.sm-escluso`, con il trattino grigio; «Da voi» e «Finito quando» in `.sm-dettagli`, che si apre a richiesta: il + diventa ×),
+  `.scheda-canone` (i canoni, a bordo tratteggiato come la tessera aperta del Metodo), `.scheda-stagione` (una proposta a
+  tempo, bordo verde pieno), `.canoni-patti` (condizioni dei canoni e formula a canone, sul foglio verde), `.regole` +
+  `.regola` (le regole di tutti i lavori: note numerate N.1, N.2… come le domande). Codici dei moduli: 0 check-up,
+  1-4 i servizi, 5 i canoni; `.combo-codice` li mostra accanto ai nomi nella pagina Metodo.
   Alle pagine dei segmenti si arriva dalla pagina Manifattura, non dalla pagina principale.
   Ogni pagina racconta in tre parti: `.lav-cambia` («Cosa cambia»: oggi → con noi, la freccia è una linea di quota che si
   traccia), `.lav-passi` («Dalla ricerca all'ordine»: quattro passi uniti da una linea come il ciclo del metodo, numerati
