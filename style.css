@@ -211,7 +211,7 @@ main:focus { outline: none; }
 /* Segnaposto ancora da compilare: ben visibili di proposito.
    Quando compilate un dato, togliete il <mark class="da-compilare"> che lo avvolge.
    «da-definire» ha lo stesso aspetto ma va online: sono le note lasciate in vista di proposito
-   (pagina Metodo: canone e sotto-servizi, finché i servizi non sono definiti). */
+   (oggi nessuna: le note del Metodo sono diventate i moduli della pagina Servizi). */
 mark.da-compilare, mark.da-definire {
   background: var(--segnaposto);
   color: var(--testo);
@@ -369,7 +369,9 @@ mark.da-compilare, mark.da-definire {
   min-height: var(--testata);
 }
 /* Logo del kit F: tessere + «CP Studio» + «Lab» nella pillola. Proporzioni (em) dal logo.html del kit.
-   Regole del kit: spazio libero intorno pari all'altezza della pillola, almeno 120px di larghezza. */
+   Regole del kit: spazio libero intorno pari all'altezza della pillola, almeno 120px di larghezza.
+   Nell'HTML tra «CP Studio» e «Lab» c'è uno spazio: nel flex non si vede, ma il testo letto diventa «CP Studio Lab»,
+   lo stesso nome del link (aria-label). Serve a chi comanda il computer con la voce. */
 .logo {
   display: inline-flex;
   align-items: center;
@@ -1412,15 +1414,16 @@ html.menu-aperto { overflow: hidden; }
 
 /* ══ 7. Domande: tutte aperte, a tutta larghezza ════════════════ */
 .domande-titolo { margin-bottom: var(--s3); }
-.domande { display: grid; column-gap: var(--s3); border-top: var(--linea) solid var(--bordo-forte); counter-reset: nota; }
-.domanda {
+/* Le regole della pagina Servizi sono note numerate come le domande */
+.domande, .regole { display: grid; column-gap: var(--s3); border-top: var(--linea) solid var(--bordo-forte); counter-reset: nota; }
+.domanda, .regola {
   display: grid;
   gap: var(--s1);
   align-content: start;
   padding: var(--s4) 0;
   border-bottom: var(--linea) solid var(--bordo-forte);
 }
-.domanda::before {
+.domanda::before, .regola::before {
   counter-increment: nota;
   content: 'N.' counter(nota);
   content: 'N.' counter(nota) / '';
@@ -1428,11 +1431,11 @@ html.menu-aperto { overflow: hidden; }
   letter-spacing: var(--ls-micro);
   color: var(--accento);
 }
-.domanda h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); text-wrap: balance; }
-.domanda p { max-width: var(--misura-stretta); color: var(--tenue); }
+:is(.domanda, .regola) h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); text-wrap: balance; }
+:is(.domanda, .regola) p { max-width: var(--misura-stretta); color: var(--tenue); }
 
 @media (min-width: 768px) {
-  .domande { grid-template-columns: 1fr 1fr; }
+  .domande, .regole { grid-template-columns: 1fr 1fr; }
 }
 
 /* ══ 7b. Calibro passa / non passa ══════════════════════════════
@@ -1730,7 +1733,7 @@ html.menu-aperto { overflow: hidden; }
 /* ══ Pagina Il metodo ══════════════════════════════════════════════
    Il ciclo di lavoro (lo stesso della pagina principale), il check-up come punto di partenza,
    i servizi componibili, i collegamenti servizio → canone (le due tessere del marchio) e i cinque servizi. */
-.metodo-titolo { font-size: min(10.5vw, 76px); }
+.metodo-titolo, .servizi-titolo { font-size: min(10.5vw, 76px); }
 /* Il ciclo in tre fasi (pagina Metodo e principale): il check-up completo è a scelta e sta nella sezione del check-up */
 @media (min-width: 1024px) {
   .ciclo-tre { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -1800,12 +1803,158 @@ html.menu-aperto { overflow: hidden; }
 .servizio-metodo h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
 .servizio-metodo > p:not(.comprende) { color: var(--tenue); }
 .comprende { margin-top: var(--s1); padding-top: var(--s2); border-top: var(--linea) solid var(--bordo); }
-.percorsi-link { margin-top: var(--s4); }
+.percorsi-link, .metodo-collegamenti, .servizi-azioni { margin-top: var(--s4); }
 @media (min-width: 768px) {
   .servizi-metodo { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (min-width: 1200px) {
   .servizi-metodo { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+/* I codici dei moduli (1.1, 2.1…) accanto ai nomi, nelle combinazioni e in «Cosa comprende» */
+.combo-codice { margin-right: var(--s1); font: var(--peso-medio) var(--t-micro)/1 var(--mono); letter-spacing: var(--ls-micro); color: var(--accento); }
+.comprende .link { font-weight: var(--peso-medio); }
+
+/* ══ Pagina Servizi ═════════════════════════════════════════════════
+   La distinta (tutti i moduli in una pagina, come la distinta base di un disegno) e una scheda per ogni
+   modulo: codice, promessa, il cartiglio (tempi, prezzo, canone, cosa misuriamo), cosa comprende e cosa no.
+   «Da voi» e «Finito quando» si aprono a richiesta. I canoni hanno il bordo tratteggiato, come la tessera
+   aperta della pagina Metodo; le regole sono note numerate, come le domande. */
+.distinta-sezione { background: var(--superficie); border-block: var(--linea) solid var(--bordo); }
+.distinta-intestazione { display: none; }
+.distinta-famiglia { padding: var(--s5) 0 var(--s1); color: var(--accento); }
+.distinta-famiglia:first-of-type { padding-top: 0; }
+.distinta-voci { border-top: var(--linea) solid var(--bordo-forte); }
+/* su telefono: il codice a sinistra, il nome sopra, prezzo e tempi sotto */
+.distinta-voci a {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px var(--s2);
+  padding: var(--s2) 0 var(--s2) calc(var(--s6) + var(--s2));
+  border-bottom: var(--linea) solid var(--bordo-forte);
+  text-decoration: none;
+}
+.distinta-codice {
+  position: absolute;
+  left: 0; top: var(--s2);
+  font: var(--peso-medio) var(--t-micro)/calc(var(--t-corpo) * var(--lh-corpo)) var(--mono);
+  letter-spacing: var(--ls-micro);
+  font-variant-numeric: tabular-nums;
+  color: var(--accento);
+}
+.distinta-nome { flex: 1 0 100%; font-weight: var(--peso-medio); }
+.distinta-voci a:hover .distinta-nome { text-decoration: underline; text-decoration-thickness: var(--linea); text-underline-offset: var(--scarto); }
+.distinta-prezzo, .distinta-tempi { font-size: var(--t-piccolo); font-variant-numeric: tabular-nums; }
+.distinta-tempi { color: var(--tenue); }
+.distinta-tempi::before { content: '·'; content: '·' / ''; margin-right: var(--s2); color: var(--tenue); }
+.distinta-nota { margin-top: var(--s4); max-width: var(--misura); font-size: var(--t-piccolo); color: var(--tenue); }
+@media (min-width: 768px) {
+  .distinta-intestazione, .distinta-voci a {
+    display: grid;
+    grid-template-columns: var(--s8) minmax(0, 1fr) calc(11 * var(--s2)) calc(12 * var(--s2));   /* in px: l'intestazione ha un corpo più piccolo */
+    column-gap: var(--s3);
+    align-items: baseline;
+    padding: var(--s2) 0;
+  }
+  .distinta-intestazione { padding: 0 0 var(--s2); }
+  .distinta-codice { position: static; }
+  .distinta-tempi::before { content: none; }
+}
+
+/* Le famiglie di moduli, una dopo l'altra, e le schede */
+.famiglia + .famiglia { margin-top: var(--s12); }
+.famiglia-testa { display: grid; gap: var(--s2); max-width: var(--misura); margin-bottom: var(--s5); }
+.famiglia-testa .micro { color: var(--accento); }
+.famiglia-titolo { font-size: var(--t-voce); line-height: var(--lh-voce); letter-spacing: var(--ls-titolo); text-wrap: balance; }
+.famiglia-testa p:not(.micro) { font-size: var(--t-lead); color: var(--tenue); }
+.schede-moduli { display: grid; gap: var(--s3); }
+.scheda-modulo {
+  display: grid;
+  gap: var(--s4);
+  padding: var(--s4) var(--s3);
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  background: var(--superficie);
+}
+.sm-testa, .sm-corpo { display: grid; gap: var(--s3); align-content: start; }
+.sm-testa { gap: var(--s2); }
+.sm-codice { color: var(--accento); }
+.sm-testa h3 { margin-top: calc(-1 * var(--s1)); font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); text-wrap: balance; }
+.sm-promessa { font-size: var(--t-lead); }
+.sm-per-chi { color: var(--tenue); }
+.sm-per-chi .micro { display: block; margin-bottom: var(--scarto); }
+/* Il cartiglio: le voci in un riquadro, come quello in basso a destra di un disegno */
+.sm-cartiglio {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: var(--s1);
+  border-top: var(--linea) solid var(--bordo-forte);
+  border-left: var(--linea) solid var(--bordo-forte);
+}
+.sm-cartiglio > div {
+  display: grid;
+  gap: var(--scarto);
+  align-content: start;
+  padding: var(--s1) var(--s2) var(--s2);
+  border-right: var(--linea) solid var(--bordo-forte);
+  border-bottom: var(--linea) solid var(--bordo-forte);
+}
+.sm-cartiglio dd { font-size: var(--t-piccolo); font-weight: var(--peso-medio); font-variant-numeric: tabular-nums; overflow-wrap: break-word; }
+.sm-confini, .sm-dettagli-corpo { display: grid; gap: var(--s3); }
+.sm-confini .micro, .sm-dettagli-corpo .micro { margin-bottom: var(--s1); }
+/* Cosa non comprende: lo stesso trattino, in grigio */
+.sm-escluso li { color: var(--tenue); }
+.sm-escluso li::before { background: var(--tenue); }
+/* «Da voi» e «Finito quando», a richiesta: il segno + diventa × (solo transform) */
+.sm-dettagli { border-top: var(--linea) solid var(--bordo); }
+.sm-dettagli summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  min-height: var(--s6);
+  font-weight: var(--peso-medio);
+  cursor: pointer;
+  list-style: none;
+}
+.sm-dettagli summary::-webkit-details-marker { display: none; }
+.sm-dettagli summary:hover { color: var(--accento); }
+.sm-dettagli summary::after {
+  content: '';
+  flex: none;
+  width: var(--s2);
+  height: var(--s2);
+  background:
+    linear-gradient(var(--accento) 0 0) center / 100% var(--linea-forte) no-repeat,
+    linear-gradient(var(--accento) 0 0) center / var(--linea-forte) 100% no-repeat;
+  transition: transform var(--breve) var(--curva);
+}
+.sm-dettagli[open] summary::after { transform: rotate(45deg); }
+.sm-dettagli-corpo { padding-bottom: var(--s1); }
+/* I canoni: la tessera aperta, a bordo tratteggiato. La proposta a tempo: il bordo verde pieno */
+.scheda-canone { border-style: dashed; border-color: var(--accento); }
+.scheda-stagione { margin-top: var(--s5); border: var(--linea-forte) solid var(--accento); }
+/* Condizioni dei canoni e formula a canone: valgono per tutti e quattro */
+.canoni-patti { display: grid; gap: var(--s3); margin-top: var(--s5); }
+.canoni-patto { display: grid; gap: var(--s2); align-content: start; padding: var(--s4) var(--s3); border-radius: var(--r); background: var(--velo); }
+.canoni-patto .micro { color: var(--accento); }
+.canoni-patto h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
+/* la formula sul foglio verde: crema 8,5:1, crema tenue 5,3:1 */
+.canoni-formula { background: var(--accento); color: var(--crema); }
+.canoni-formula .micro { color: var(--crema-tenue); }
+.canoni-esempio { padding-top: var(--s2); border-top: var(--linea) solid var(--linea-verde); }
+.canoni-esempio .micro { display: block; margin-bottom: var(--scarto); }
+.percorsi-nota { margin-top: var(--s3); font-size: var(--t-piccolo); color: var(--tenue); }
+@media (min-width: 768px) {
+  .sm-confini, .sm-dettagli-corpo { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s4); }
+}
+@media (min-width: 900px) {
+  .canoni-patti { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1024px) {
+  .scheda-modulo { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--s6); padding: var(--s5); }
+  .canoni-patto { padding: var(--s5); }
 }
 
 /* ══ 9. Piè di pagina: un cartiglio ═════════════════════════════ */
@@ -2061,9 +2210,9 @@ html.menu-aperto { overflow: hidden; }
 .documento .link-blocco { margin-top: var(--s3); }
 
 /* ══ Percorsi (pagine di settore) ═══════════════════════════════
-   Tre situazioni, ognuna con il suo ciclo di lavoro: le fasi in fila (10, 20, 30…) lungo una linea, come nel ciclo
-   di lavorazione. Il percorso più frequente sta sul foglio verde. Affiancati, i percorsi tengono allineate le stesse
-   righe (titolo, situazione, ciclo, risultato, link). */
+   Tre situazioni, ognuna con i suoi moduli in fila lungo una linea, come nel ciclo di lavorazione, con i codici
+   della pagina Servizi (1.1, 2.1…: 10-20-30 restano alle fasi del metodo). Il percorso più frequente sta sul foglio
+   verde. Affiancati, i percorsi tengono allineate le stesse righe (titolo, situazione, moduli, risultato, link). */
 .percorsi-elenco { display: grid; gap: var(--s3); }
 .percorso {
   display: flex;
@@ -2081,6 +2230,8 @@ html.menu-aperto { overflow: hidden; }
 .percorso-ciclo li { display: flex; align-items: baseline; gap: var(--s2); font-weight: var(--peso-medio); }
 .percorso-fase { flex: none; min-width: 2ch; font: var(--peso-medio) var(--t-micro)/1 var(--mono); letter-spacing: var(--ls-micro); font-variant-numeric: tabular-nums; color: var(--accento); }
 .percorso-esito .micro { display: block; margin-bottom: var(--scarto); }
+.percorso-prezzo, .lav-percorso-prezzo { font-size: var(--t-piccolo); font-weight: var(--peso-medio); font-variant-numeric: tabular-nums; }
+.percorso-prezzo { display: block; margin-top: var(--s1); }
 .percorso .link-freccia { margin-top: auto; align-self: flex-start; justify-self: start; }
 /* Il percorso più frequente, sul foglio verde: crema 8,5:1, crema tenue 5,3:1 */
 .percorso-evidenza { border-color: var(--accento); background: var(--accento); color: var(--crema); }
@@ -2265,10 +2416,15 @@ html.menu-aperto { overflow: hidden; }
   .moto .percorso-ciclo li:nth-child(3) { transition-delay: calc(6 * var(--sfalsa)); }
   .moto .percorso-ciclo li:nth-child(4) { transition-delay: calc(7 * var(--sfalsa)); }
 
-  /* Domande e contatto: salgono quando entrano */
-  .moto :is(.domanda, .contatto-testa) { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
-  .moto :is(.domanda, .contatto-testa):not(.visibile) { opacity: 0; transform: translateY(var(--s3)); }
-  .moto .domanda:nth-child(2n) { transition-delay: var(--sfalsa); }
+  /* Domande, regole e contatto: salgono quando entrano */
+  .moto :is(.domanda, .regola, .contatto-testa) { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
+  .moto :is(.domanda, .regola, .contatto-testa):not(.visibile) { opacity: 0; transform: translateY(var(--s3)); }
+  .moto :is(.domanda, .regola):nth-child(2n) { transition-delay: var(--sfalsa); }
+
+  /* Servizi: le schede dei moduli e i riquadri dei canoni salgono quando entrano */
+  .moto :is(.scheda-modulo, .canoni-patto) { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
+  .moto :is(.scheda-modulo, .canoni-patto):not(.visibile) { opacity: 0; transform: translateY(var(--s3)); }
+  .moto .canoni-patto:nth-child(2) { transition-delay: var(--sfalsa); }
 }
 @media screen and (prefers-reduced-motion: no-preference) and (min-width: 1024px) {
   .moto .ciclo::after { transform: scaleX(var(--avanzamento, 0)); }
@@ -2345,7 +2501,10 @@ html.menu-aperto { overflow: hidden; }
   :is(.sintomi, .sintomi li, .recapiti, .recapiti div) { border-color: var(--bordo-forte); }
   .metodo { background: none; }
   .quota::after { background: none; }
-  .servizio, .settore-riga, .risultati li, .fase, .domanda, .mock, .dato, .cliente, .recensione, .percorso, .lav-passo, .lav-cambia li, .lav-percorso { break-inside: avoid; }
+  .servizio, .settore-riga, .risultati li, .fase, .domanda, .mock, .dato, .cliente, .recensione, .percorso, .lav-passo, .lav-cambia li, .lav-percorso,
+  .scheda-modulo, .canoni-patto, .regola { break-inside: avoid; }
+  .canoni-formula { background: none; color: var(--testo); border: var(--linea) solid var(--bordo-forte); }
+  .canoni-formula .micro { color: var(--tenue); }
   .dato-grande { background: none; color: var(--testo); border-color: var(--bordo-forte); }
   .dato-grande .dato-valore { color: var(--accento); }
   .percorso-evidenza { background: none; color: var(--testo); border-color: var(--bordo-forte); }

@@ -120,10 +120,10 @@
     <div class="contenitore testata-riga">
       <a class="logo" href="/" aria-label="CP Studio Lab, pagina principale">
         <svg aria-hidden="true" focusable="false"><use href="#marchio"/></svg>
-        <span>CP Studio</span><span class="logo-lab">Lab</span>
+        <span>CP Studio</span> <span class="logo-lab">Lab</span>
       </a>
       <nav class="nav" aria-label="Sezioni della pagina">
-        <a href="/#servizi">Servizi</a>
+        <a href="/servizi/">Servizi</a>
         <a href="/#settori">Settori</a>
         <a href="/metodo/">Metodo</a>
         <a href="/studio/">Lo studio</a>
@@ -149,7 +149,7 @@
       <div class="contenitore menu-testa">
         <span class="logo" role="img" aria-label="CP Studio Lab">
           <svg aria-hidden="true" focusable="false"><use href="#marchio"/></svg>
-          <span>CP Studio</span><span class="logo-lab">Lab</span>
+          <span>CP Studio</span> <span class="logo-lab">Lab</span>
         </span>
         <button class="menu-chiudi" type="button">
           <span class="menu-apri-testo">Chiudi</span>
@@ -159,7 +159,7 @@
       <div class="contenitore menu-corpo">
         <nav class="menu-nav" aria-label="Sezioni della pagina">
           <ol class="menu-voci">
-            <li><a href="/#servizi"><span class="menu-num" aria-hidden="true">01</span><span class="menu-etichetta">Servizi</span></a></li>
+            <li><a href="/servizi/"><span class="menu-num" aria-hidden="true">01</span><span class="menu-etichetta">Servizi</span></a></li>
             <li><a href="/#settori"><span class="menu-num" aria-hidden="true">02</span><span class="menu-etichetta">Settori</span></a></li>
             <li><a href="/metodo/"><span class="menu-num" aria-hidden="true">03</span><span class="menu-etichetta">Metodo</span></a></li>
             <li><a href="/studio/"><span class="menu-num" aria-hidden="true">04</span><span class="menu-etichetta">Lo studio</span></a></li>
@@ -397,18 +397,18 @@
         <div class="sezione-testa">
           <p class="micro">Percorsi</p>
           <h2 class="titolo-sezione" id="titolo-percorsi">Da dove partite?</h2>
-          <p class="sezione-sotto">Tre situazioni che troviamo nelle officine. Ognuna ha il suo ciclo di lavoro.</p>
+          <p class="sezione-sotto">Tre situazioni che troviamo nelle officine. Ognuna ha i suoi moduli, in ordine.</p>
         </div>
         <ol class="percorsi-elenco">
           <li class="percorso" data-entra>
             <p class="micro percorso-num">Percorso A</p>
             <h3>Da zero</h3>
             <p class="percorso-chi">Non avete un sito, oppure è fermo da anni.</p>
-            <ol class="percorso-ciclo" aria-label="Ciclo di lavoro del percorso A">
-              <li><span class="percorso-fase">10</span> Sito tecnico</li>
-              <li><span class="percorso-fase">20</span> Google</li>
+            <ol class="percorso-ciclo" aria-label="I moduli del percorso A">
+              <li><span class="percorso-fase">1.1</span> Sito tecnico</li>
+              <li><span class="percorso-fase">2.1</span> Scheda Google dell’azienda</li>
             </ol>
-            <p class="percorso-esito"><span class="micro">Cosa cambia</span>Chi vi cerca vi trova, e capisce subito cosa lavorate.</p>
+            <p class="percorso-esito"><span class="micro">Cosa cambia</span>Chi vi cerca vi trova, e capisce subito cosa lavorate.<span class="percorso-prezzo">Da 3.350&nbsp;€ + IVA</span></p>
             <a class="link-freccia" href="/?percorso=da-zero#contatto">
               Partiamo da qui<span class="nascosto">: percorso A, da zero</span>
               <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
@@ -418,13 +418,13 @@
             <p class="micro percorso-num">Percorso B</p>
             <h3>Il sito c’è, le richieste no</h3>
             <p class="percorso-chi">Il sito esiste, ma i clienti nuovi arrivano ancora solo dal passaparola.</p>
-            <ol class="percorso-ciclo" aria-label="Ciclo di lavoro del percorso B">
-              <li><span class="percorso-fase">10</span> Analisi del sito</li>
-              <li><span class="percorso-fase">20</span> Sito rifatto</li>
-              <li><span class="percorso-fase">30</span> Google</li>
-              <li><span class="percorso-fase">40</span> CRM e follow-up</li>
+            <ol class="percorso-ciclo" aria-label="I moduli del percorso B">
+              <li><span class="percorso-fase">0.2</span> Check-up completo</li>
+              <li><span class="percorso-fase">1.1</span> Sito tecnico</li>
+              <li><span class="percorso-fase">2.1</span> Scheda Google dell’azienda</li>
+              <li><span class="percorso-fase">3.1</span> Elenco delle richieste</li>
             </ol>
-            <p class="percorso-esito"><span class="micro">Cosa cambia</span>Le richieste arrivano, e nessuna resta senza risposta.</p>
+            <p class="percorso-esito"><span class="micro">Cosa cambia</span>Le richieste arrivano, e nessuna resta senza risposta.<span class="percorso-prezzo">Da 3.600 a 4.850&nbsp;€ + IVA</span></p>
             <a class="link-freccia" href="/?percorso=richieste#contatto">
               Partiamo da qui<span class="nascosto">: percorso B, il sito c’è, le richieste no</span>
               <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
@@ -434,18 +434,22 @@
             <p class="micro percorso-num">Percorso C</p>
             <h3>Nuovi clienti, anche all’estero</h3>
             <p class="percorso-chi">Volete lavorare per clienti fuori zona, o fuori Italia.</p>
-            <ol class="percorso-ciclo" aria-label="Ciclo di lavoro del percorso C">
-              <li><span class="percorso-fase">10</span> Sito in più lingue</li>
-              <li><span class="percorso-fase">20</span> Google per l’estero</li>
-              <li><span class="percorso-fase">30</span> Follow-up delle richieste</li>
+            <ol class="percorso-ciclo" aria-label="I moduli del percorso C">
+              <li><span class="percorso-fase">1.5</span> Versione per l’estero</li>
+              <li><span class="percorso-fase">2.2</span> Pagine per lavorazione, in inglese</li>
+              <li><span class="percorso-fase">3.1</span> Elenco delle richieste</li>
             </ol>
-            <p class="percorso-esito"><span class="micro">Cosa cambia</span>Vi trovano i buyer che oggi non sanno che esistete.</p>
+            <p class="percorso-esito"><span class="micro">Cosa cambia</span>Vi trovano i buyer che oggi non sanno che esistete.<span class="percorso-prezzo">Da 3.600&nbsp;€ + IVA</span></p>
             <a class="link-freccia" href="/?percorso=estero#contatto">
               Partiamo da qui<span class="nascosto">: percorso C, nuovi clienti, anche all’estero</span>
               <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
             </a>
           </li>
         </ol>
+        <a class="link-freccia percorsi-link" href="/servizi/#distinta">
+          Cosa comprende ogni modulo
+          <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+        </a>
       </div>
     </section>
 
@@ -474,7 +478,7 @@
         <div>
           <div class="logo" role="img" aria-label="CP Studio Lab">
             <svg aria-hidden="true" focusable="false"><use href="#marchio"/></svg>
-            <span>CP Studio</span><span class="logo-lab">Lab</span>
+            <span>CP Studio</span> <span class="logo-lab">Lab</span>
           </div>
           <p class="piede-sotto">Studio digitale per le PMI</p>
         </div>
