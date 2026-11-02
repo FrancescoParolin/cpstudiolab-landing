@@ -32,7 +32,8 @@ Ogni valore sta nei token in `:root` di `style.css`. La versione completa, con l
   numerate come nel metodo e spiegate per quella lavorazione; il consigliato è un foglio verde, `.lav-percorso-consigliato`).
   Alle pagine dei segmenti si arriva dalla pagina Manifattura, non dalla pagina principale.
   Ogni pagina racconta in tre parti: `.lav-cambia` («Cosa cambia»: oggi → con noi, la freccia è una linea di quota che si
-  traccia), `.lav-passi` («Dalla ricerca all'ordine»: quattro passi uniti da una linea come il ciclo del metodo, ognuno con
+  traccia), `.lav-passi` («Dalla ricerca all'ordine»: quattro passi uniti da una linea come il ciclo del metodo, numerati
+  1-4 perché sono i passi del buyer, mentre 10-20-30 restano le fasi del metodo; ognuno con
   un esempio che si muove: la ricerca, il sito, la richiesta con il disegno, il CRM), poi i tre percorsi che entrano in
   fila. Nell'apertura il disegno si compone come al tornio. `.lavorazioni-tavola` (pagina Manifattura, subito dopo l'apertura: su schermo largo cinque schede
   a sinistra con una quota che scorre sulla scelta e il disegno grande a destra che si compone, prima il pezzo e poi le
