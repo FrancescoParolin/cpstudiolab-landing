@@ -369,7 +369,9 @@ mark.da-compilare, mark.da-definire {
   min-height: var(--testata);
 }
 /* Logo del kit F: tessere + «CP Studio» + «Lab» nella pillola. Proporzioni (em) dal logo.html del kit.
-   Regole del kit: spazio libero intorno pari all'altezza della pillola, almeno 120px di larghezza. */
+   Regole del kit: spazio libero intorno pari all'altezza della pillola, almeno 120px di larghezza.
+   Nell'HTML tra «CP Studio» e «Lab» c'è uno spazio: nel flex non si vede, ma il testo letto diventa «CP Studio Lab»,
+   lo stesso nome del link (aria-label). Serve a chi comanda il computer con la voce. */
 .logo {
   display: inline-flex;
   align-items: center;
