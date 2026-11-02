@@ -5,7 +5,8 @@ set -e
 cd "$(dirname "$0")"
 rm -rf dist
 mkdir -p dist/fonts
-cp index.html privacy.html grazie.html style.css main.js robots.txt sitemap.xml site.webmanifest \
+# 404.html: Netlify la mostra da sola per ogni indirizzo che non esiste
+cp index.html privacy.html grazie.html 404.html style.css main.js robots.txt sitemap.xml site.webmanifest \
    favicon.ico favicon-32.png apple-touch-icon.png icon-192.png icon-512.png og-image.png dist/
 cp fonts/*.woff2 fonts/*.txt dist/fonts/
 # pagina di settore con i suoi segmenti (/manifattura/<segmento>/), le pagine dei contatti, dello studio e del metodo, il sito d’esempio
