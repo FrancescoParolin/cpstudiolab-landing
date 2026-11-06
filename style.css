@@ -1539,17 +1539,28 @@ html.menu-aperto { overflow: hidden; }
 .contatto :focus-visible { outline-color: var(--crema); }
 .contatto-griglia { display: grid; gap: var(--s8); }
 .contatto-testa > p:not(.micro) { margin-top: var(--s3); font-size: var(--t-lead); color: var(--crema-tenue); }
-/* Il logo in alto a destra sul foglio verde delle chiusure, come il marchio nell'angolo della tavola:
-   centrato sulla riga di «Contatto», più grande da 1024px. È un segno, non un link: i lettori di schermo
-   lo saltano, il nome dello studio lo trovano nel piè di pagina subito sotto. */
-.contatto > .contenitore { position: relative; }
+/* Il logo su tutti i fogli verdi del contatto, come il marchio nel cartiglio della tavola. È un segno, non un link:
+   i lettori di schermo lo saltano, il nome dello studio lo trovano nel piè di pagina subito sotto.
+   Su telefono e tablet sta in alto a destra, centrato sulla riga di «Contatto», al corpo della testata:
+   lì il titolo occupa tutta la riga, e un logo più grande gli arriverebbe addosso.
+   Da 1024px riempie le colonne 8-12 della griglia, in alto alla pari di «Contatto»: il logo è largo circa 8em,
+   quindi il corpo è la larghezza delle cinque colonne diviso 8 (61px con la griglia piena da 1200px).
+   Lo spazio libero (l'altezza della pillola, 0,9em) resta: il testo sta nelle colonne 1-6, la 7 è vuota. */
+.contatto > .contenitore { position: relative; container-type: inline-size; }
 .contatto-logo {
   position: absolute;
   top: calc((var(--t-micro) * var(--lh-voce) - 1.3em) / 2);
   right: var(--gutter);
 }
 @media (min-width: 1024px) {
-  .contatto-logo { font-size: calc(var(--logo) * 1.4); }
+  .contatto { --logo-chiusura: calc(((100cqi - 11 * var(--s3)) * 5 / 12 + 4 * var(--s3)) / 8); }
+  .contatto-logo { top: 0; font-size: var(--logo-chiusura); }
+  /* Pagina principale: il modulo scende sotto il logo, con lo spazio libero della pillola (1,3em + 0,9em) */
+  .contatto-logo ~ .modulo { margin-top: calc(var(--logo-chiusura) * 2.2); }
+  /* Manifattura e lavorazioni: come nelle altre chiusure il testo sta nelle colonne 1-6, il logo nelle 8-12 */
+  .lav-chiusura:not(.studio-chiusura) > .contenitore > :not(.contatto-logo) {
+    max-width: calc((100cqi - 11 * var(--s3)) * 6 / 12 + 5 * var(--s3));
+  }
 }
 
 /* Modulo di richiesta: due campi e le scelte, nessun JavaScript (i messaggi d'errore con il voi li aggiunge main.js) */
