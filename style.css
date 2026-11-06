@@ -1816,7 +1816,8 @@ html.menu-aperto { overflow: hidden; }
 
 /* ══ Pagina Servizi ═════════════════════════════════════════════════
    La distinta (tutti i moduli in una pagina, come la distinta base di un disegno) e una scheda per ogni
-   modulo: codice, promessa, il cartiglio (tempi, prezzo, canone, cosa misuriamo), cosa comprende e cosa no.
+   modulo: codice, promessa, il cartiglio (tempi, canone, cosa misuriamo), cosa comprende e cosa no. Niente prezzi:
+   il prezzo sta nel preventivo scritto.
    «Da voi» e «Finito quando» si aprono a richiesta. I canoni hanno il bordo tratteggiato, come la tessera
    aperta della pagina Metodo; le regole sono note numerate, come le domande. */
 .distinta-sezione { background: var(--superficie); border-block: var(--linea) solid var(--bordo); }
@@ -1824,7 +1825,7 @@ html.menu-aperto { overflow: hidden; }
 .distinta-famiglia { padding: var(--s5) 0 var(--s1); color: var(--accento); }
 .distinta-famiglia:first-of-type { padding-top: 0; }
 .distinta-voci { border-top: var(--linea) solid var(--bordo-forte); }
-/* su telefono: il codice a sinistra, il nome sopra, prezzo e tempi sotto */
+/* su telefono: il codice a sinistra, il nome sopra, i tempi sotto */
 .distinta-voci a {
   position: relative;
   display: flex;
@@ -1845,21 +1846,18 @@ html.menu-aperto { overflow: hidden; }
 }
 .distinta-nome { flex: 1 0 100%; font-weight: var(--peso-medio); }
 .distinta-voci a:hover .distinta-nome { text-decoration: underline; text-decoration-thickness: var(--linea); text-underline-offset: var(--scarto); }
-.distinta-prezzo, .distinta-tempi { font-size: var(--t-piccolo); font-variant-numeric: tabular-nums; }
-.distinta-tempi { color: var(--tenue); }
-.distinta-tempi::before { content: '·'; content: '·' / ''; margin-right: var(--s2); color: var(--tenue); }
+.distinta-tempi { font-size: var(--t-piccolo); font-variant-numeric: tabular-nums; color: var(--tenue); }
 .distinta-nota { margin-top: var(--s4); max-width: var(--misura); font-size: var(--t-piccolo); color: var(--tenue); }
 @media (min-width: 768px) {
   .distinta-intestazione, .distinta-voci a {
     display: grid;
-    grid-template-columns: var(--s8) minmax(0, 1fr) calc(11 * var(--s2)) calc(12 * var(--s2));   /* in px: l'intestazione ha un corpo più piccolo */
+    grid-template-columns: var(--s8) minmax(0, 1fr) calc(12 * var(--s2));   /* in px: l'intestazione ha un corpo più piccolo */
     column-gap: var(--s3);
     align-items: baseline;
     padding: var(--s2) 0;
   }
   .distinta-intestazione { padding: 0 0 var(--s2); }
   .distinta-codice { position: static; }
-  .distinta-tempi::before { content: none; }
 }
 
 /* Le famiglie di moduli, una dopo l'altra, e le schede */
@@ -1900,6 +1898,7 @@ html.menu-aperto { overflow: hidden; }
   border-right: var(--linea) solid var(--bordo-forte);
   border-bottom: var(--linea) solid var(--bordo-forte);
 }
+.sm-cartiglio > div:last-child:nth-child(odd) { grid-column: 1 / -1; }   /* voci dispari: l'ultima prende tutta la riga */
 .sm-cartiglio dd { font-size: var(--t-piccolo); font-weight: var(--peso-medio); font-variant-numeric: tabular-nums; overflow-wrap: break-word; }
 .sm-confini, .sm-dettagli-corpo { display: grid; gap: var(--s3); }
 .sm-confini .micro, .sm-dettagli-corpo .micro { margin-bottom: var(--s1); }
@@ -1935,22 +1934,14 @@ html.menu-aperto { overflow: hidden; }
 /* I canoni: la tessera aperta, a bordo tratteggiato. La proposta a tempo: il bordo verde pieno */
 .scheda-canone { border-style: dashed; border-color: var(--accento); }
 .scheda-stagione { margin-top: var(--s5); border: var(--linea-forte) solid var(--accento); }
-/* Condizioni dei canoni e formula a canone: valgono per tutti e quattro */
+/* Condizioni dei canoni: valgono per tutti e quattro */
 .canoni-patti { display: grid; gap: var(--s3); margin-top: var(--s5); }
 .canoni-patto { display: grid; gap: var(--s2); align-content: start; padding: var(--s4) var(--s3); border-radius: var(--r); background: var(--velo); }
 .canoni-patto .micro { color: var(--accento); }
 .canoni-patto h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
-/* la formula sul foglio verde: crema 8,5:1, crema tenue 5,3:1 */
-.canoni-formula { background: var(--accento); color: var(--crema); }
-.canoni-formula .micro { color: var(--crema-tenue); }
-.canoni-esempio { padding-top: var(--s2); border-top: var(--linea) solid var(--linea-verde); }
-.canoni-esempio .micro { display: block; margin-bottom: var(--scarto); }
 .percorsi-nota { margin-top: var(--s3); font-size: var(--t-piccolo); color: var(--tenue); }
 @media (min-width: 768px) {
   .sm-confini, .sm-dettagli-corpo { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s4); }
-}
-@media (min-width: 900px) {
-  .canoni-patti { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (min-width: 1024px) {
   .scheda-modulo { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--s6); padding: var(--s5); }
@@ -2230,8 +2221,6 @@ html.menu-aperto { overflow: hidden; }
 .percorso-ciclo li { display: flex; align-items: baseline; gap: var(--s2); font-weight: var(--peso-medio); }
 .percorso-fase { flex: none; min-width: 2ch; font: var(--peso-medio) var(--t-micro)/1 var(--mono); letter-spacing: var(--ls-micro); font-variant-numeric: tabular-nums; color: var(--accento); }
 .percorso-esito .micro { display: block; margin-bottom: var(--scarto); }
-.percorso-prezzo, .lav-percorso-prezzo { font-size: var(--t-piccolo); font-weight: var(--peso-medio); font-variant-numeric: tabular-nums; }
-.percorso-prezzo { display: block; margin-top: var(--s1); }
 .percorso .link-freccia { margin-top: auto; align-self: flex-start; justify-self: start; }
 /* Il percorso più frequente, sul foglio verde: crema 8,5:1, crema tenue 5,3:1 */
 .percorso-evidenza { border-color: var(--accento); background: var(--accento); color: var(--crema); }
@@ -2424,7 +2413,6 @@ html.menu-aperto { overflow: hidden; }
   /* Servizi: le schede dei moduli e i riquadri dei canoni salgono quando entrano */
   .moto :is(.scheda-modulo, .canoni-patto) { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
   .moto :is(.scheda-modulo, .canoni-patto):not(.visibile) { opacity: 0; transform: translateY(var(--s3)); }
-  .moto .canoni-patto:nth-child(2) { transition-delay: var(--sfalsa); }
 }
 @media screen and (prefers-reduced-motion: no-preference) and (min-width: 1024px) {
   .moto .ciclo::after { transform: scaleX(var(--avanzamento, 0)); }
@@ -2503,8 +2491,6 @@ html.menu-aperto { overflow: hidden; }
   .quota::after { background: none; }
   .servizio, .settore-riga, .risultati li, .fase, .domanda, .mock, .dato, .cliente, .recensione, .percorso, .lav-passo, .lav-cambia li, .lav-percorso,
   .scheda-modulo, .canoni-patto, .regola { break-inside: avoid; }
-  .canoni-formula { background: none; color: var(--testo); border: var(--linea) solid var(--bordo-forte); }
-  .canoni-formula .micro { color: var(--tenue); }
   .dato-grande { background: none; color: var(--testo); border-color: var(--bordo-forte); }
   .dato-grande .dato-valore { color: var(--accento); }
   .percorso-evidenza { background: none; color: var(--testo); border-color: var(--bordo-forte); }
