@@ -13,6 +13,7 @@ Nessun build, nessuna libreria, nessuna richiesta a server esterni. Online su Ne
 - Pubblico: titolare o commerciale di una PMI metalmeccanica o di subfornitura. Si dà del **voi**.
 - Poche parole, concrete: frasi brevi ma intere. Le loro parole: preventivo, lavorazioni, disegno allegato, conto terzi.
 - Niente inglese dove c'è l'italiano, niente parole da agenzia («soluzioni», «innovativo», «engagement»).
+- Niente prezzi, ore comprese o condizioni di pagamento fisse: importi e scadenze stanno nel preventivo (il listino è interno).
 - Mai clienti, numeri, lavori o recensioni inventati. Gli esempi si dichiarano «Esempio».
 - Lo studio vende servizi digitali; l'analisi è solo la fase 10 del metodo.
 
