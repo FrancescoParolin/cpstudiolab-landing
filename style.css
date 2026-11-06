@@ -495,9 +495,11 @@ html.menu-aperto { overflow: hidden; }
 .menu.aperto .menu-foglio { transform: none; }
 .menu.chiude .menu-foglio { transform: translateY(-100%); }
 .menu-testa { display: flex; align-items: center; justify-content: space-between; gap: var(--s2); min-height: var(--testata); }
-.menu .logo { min-height: var(--s3); color: var(--crema); }
-.menu .logo svg { color: var(--crema); }
-.menu .logo-lab { background: var(--crema); color: var(--accento); }
+.menu .logo { min-height: var(--s3); }
+/* Il logo sul verde (menu e chiusure) è il «logo su verde» del kit: tutto crema, «Lab» verde nella pillola */
+.menu .logo, .contatto-logo { color: var(--crema); }
+.menu .logo svg, .contatto-logo svg { color: var(--crema); }
+.menu .logo-lab, .contatto-logo .logo-lab { background: var(--crema); color: var(--accento); }
 .menu-chiudi { border-color: var(--linea-verde); color: var(--crema); }
 .menu-chiudi:hover { border-color: var(--crema); }
 .menu-corpo { flex: 1; display: grid; gap: var(--s6); align-content: center; padding-block: var(--s6); }
@@ -1537,6 +1539,18 @@ html.menu-aperto { overflow: hidden; }
 .contatto :focus-visible { outline-color: var(--crema); }
 .contatto-griglia { display: grid; gap: var(--s8); }
 .contatto-testa > p:not(.micro) { margin-top: var(--s3); font-size: var(--t-lead); color: var(--crema-tenue); }
+/* Il logo in alto a destra sul foglio verde delle chiusure, come il marchio nell'angolo della tavola:
+   centrato sulla riga di «Contatto», più grande da 1024px. È un segno, non un link: i lettori di schermo
+   lo saltano, il nome dello studio lo trovano nel piè di pagina subito sotto. */
+.contatto > .contenitore { position: relative; }
+.contatto-logo {
+  position: absolute;
+  top: calc((var(--t-micro) * var(--lh-voce) - 1.3em) / 2);
+  right: var(--gutter);
+}
+@media (min-width: 1024px) {
+  .contatto-logo { font-size: calc(var(--logo) * 1.4); }
+}
 
 /* Modulo di richiesta: due campi e le scelte, nessun JavaScript (i messaggi d'errore con il voi li aggiunge main.js) */
 .modulo { display: grid; gap: var(--s3); align-content: start; }
@@ -2486,6 +2500,10 @@ html.menu-aperto { overflow: hidden; }
   .sezione, .punto, .contatto { padding: var(--s6) 0; }
   .punto, .contatto { background: none; color: var(--testo); border-radius: 0; }
   :is(.punto, .contatto) :is(.micro, .contatto-testa > p, .recapiti dt) { color: var(--tenue); }
+  /* sulla carta bianca il logo delle chiusure torna verde, come in testata */
+  .contatto-logo { color: var(--testo); }
+  .contatto-logo svg { color: var(--accento); }
+  .contatto-logo .logo-lab { background: var(--accento); color: var(--crema); }
   :is(.sintomi, .sintomi li, .recapiti, .recapiti div) { border-color: var(--bordo-forte); }
   .metodo { background: none; }
   .quota::after { background: none; }

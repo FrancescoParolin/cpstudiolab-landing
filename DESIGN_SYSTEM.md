@@ -59,6 +59,9 @@ Ogni valore sta nei token in `:root` di `style.css`. La versione completa, con l
 - **Marchio:** `#marchio` è il simbolo del kit trasformato in path: non si modifica. Corpo `--logo` 18/20px, cioè 143/159px
   di larghezza (minimo 120px; sotto, l'icona «cp»). Spazio libero = altezza della pillola «Lab». Verde su chiaro, crema
   su verde; mai deformato, ruotato o ricolorato; sempre «CP Studio Lab». In stampa il logo resta intero, pillola compresa.
+  Sul foglio verde delle chiusure il logo «su verde» del kit sta in alto a destra (`.contatto-logo`), centrato sulla riga
+  di «Contatto» e più grande da 1024px: è un segno, non un link. Non c'è nella pagina principale (lì c'è il modulo) né
+  nella pagina Contatti (il foglio verde è in cima, sotto la testata).
 - **Contenuti:** voi, poche parole, le parole delle officine; esempi sempre dichiarati «Esempio»; niente clienti,
   numeri o recensioni inventati. Recensioni e loghi solo di clienti veri, con il loro permesso scritto: finché mancano,
   la sezione resta in bozza (`<!-- bozza -->`) e online non c'è. Gli esempi al loro posto sono dichiarati («Esempio»,
