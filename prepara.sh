@@ -9,6 +9,9 @@ mkdir -p dist/fonts
 cp index.html privacy.html grazie.html 404.html style.css main.js robots.txt sitemap.xml site.webmanifest \
    favicon.ico favicon-32.png apple-touch-icon.png icon-192.png icon-512.png og-image.png dist/
 cp fonts/*.woff2 fonts/*.txt dist/fonts/
+# le immagini (WebP già pronte: le prepara immagini-originali/prepara-immagini.py). Originali e prove restano fuori
+mkdir -p dist/immagini
+cp immagini/*.webp dist/immagini/
 # pagina dei servizi, pagina di settore con i suoi segmenti (/manifattura/<segmento>/), le pagine dei contatti, dello studio e del metodo, il sito d’esempio
 for cartella in servizi manifattura manifattura/tornitura manifattura/fresatura-cnc manifattura/carpenteria-saldatura \
                 manifattura/lamiera manifattura/stampaggio contatti studio metodo esempio; do
@@ -18,6 +21,18 @@ done
 cp esempio/officina.css dist/esempio/
 # loghi dei clienti, quando ci sono
 if [ -d clienti ]; then mkdir -p dist/clienti && cp clienti/* dist/clienti/; fi
+
+# I ritratti dei soci, tra le righe <!-- ritratti --> e <!-- /ritratti --> di index.html: foto vere, mai generate.
+# Quando in immagini/ ci sono tutte e due, i riquadri si accendono da soli (via i commenti «foto» attorno agli <img>).
+# Finché ne manca una, online il blocco non c'è; nelle anteprime i due riquadri restano, vuoti.
+if [ -f immagini/socio-tommaso.jpg ] && [ -f immagini/socio-francesco.jpg ]; then
+  cp immagini/socio-tommaso.jpg immagini/socio-francesco.jpg dist/immagini/
+  sed 's/<!-- foto \(<img[^>]*>\) -->/\1/' dist/index.html > dist/index.tmp
+  mv dist/index.tmp dist/index.html
+elif [ "$CONTEXT" != "deploy-preview" ] && [ -z "$ANTEPRIMA" ]; then
+  sed '/<!-- ritratti -->/,/<!-- \/ritratti -->/d' dist/index.html > dist/index.tmp
+  mv dist/index.tmp dist/index.html
+fi
 
 # Le parti in bozza, tra le righe <!-- bozza --> e <!-- /bozza --> di index.html, si vedono solo nelle anteprime:
 # Netlify mette CONTEXT=deploy-preview in quelle delle pull request; a mano: ANTEPRIMA=1 sh prepara.sh.

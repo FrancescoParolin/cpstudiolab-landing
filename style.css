@@ -139,6 +139,9 @@
   --media: .6s;
   --lunga: 1s;
   --sfalsa: .1s;               /* passo dei ritardi in sequenza */
+  --ingresso: .5s;             /* le immagini entrano: opacità e 16px, con una curva che frena presto */
+  --curva-ingresso: cubic-bezier(.32, .72, 0, 1);
+  --materia: .4;               /* quanto si vede la carta verde (campo-verde) sopra il verde pieno */
 
   /* La quota sopra «Precisi»: distanza dalla parola e altezza delle maiuscole (Inter, interlinea .9) */
   --quota-distanza: 24px;
@@ -166,7 +169,7 @@
 @media (min-width: 768px) {
   :root {
     --gutter: 32px;
-    --sezione: 144px;
+    --sezione: 128px;            /* tra sezioni solo tre valori: 96, 128 e 160 (il fondo de «Il punto») */
     --t-lead: 20px;
     --logo: 20px;
     --t-display: clamp(48px, 10.4vw, 152px);
@@ -271,7 +274,7 @@ mark.da-compilare, mark.da-definire {
 .sezione-testa { margin-bottom: var(--s8); }
 
 @media (min-width: 1024px) {
-  .sezione-testa { margin-bottom: var(--s12); }
+  .sezione-testa { margin-bottom: var(--s10); }
 }
 
 /* ── Pulsanti e link ── */
@@ -350,6 +353,37 @@ mark.da-compilare, mark.da-definire {
   left: 0; top: calc(var(--lh-corpo) * .5em);
   width: var(--s2); height: var(--linea);
   background: var(--accento);
+}
+
+/* ── Immagini: carta e cartoncino fotografati, dentro una cornice a tacche ──
+   Bordo e raggio dei riquadri «Esempio». Agli angoli quattro tacche da 1px, come le linee di riferimento di una quota:
+   sono un SVG grande quanto la cornice, che disegna fuori dai suoi bordi (overflow visibile). File in immagini/. */
+.cornice { position: relative; margin: 0; }
+/* la misura la dà la cornice (aspect-ratio): l'immagine la riempie, ritagliata al centro */
+.cornice img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  background: var(--superficie-2);
+}
+.tacche {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  fill: none;
+  stroke: var(--accento);
+  stroke-width: var(--linea);
+}
+/* Pagine interne: la testata, larga quanto il contenitore */
+.testata-figura { aspect-ratio: 21 / 9; margin-top: var(--s6); }
+@media (min-width: 1024px) {
+  .testata-figura { margin-top: var(--s8); }
 }
 
 /* ── Testata ── */
@@ -562,6 +596,12 @@ html.menu-aperto { overflow: hidden; }
 @media (max-width: 479px) {
   .menu-apri .menu-apri-testo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 }
+/* Da 1100px le quattro voci stanno in linea nella testata, tra il logo e «Contatti diretti»:
+   chi arriva da computer vede subito che quelle pagine esistono. Il bottone «Menu» resta sotto questa soglia. */
+@media (min-width: 1100px) {
+  .menu-pronto .nav { display: flex; }
+  .menu-pronto .menu-apri { display: none; }
+}
 @media (min-width: 1024px) {
   .menu-corpo { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s3); align-items: end; }
   .menu-nav { grid-column: 1 / 9; }
@@ -713,6 +753,30 @@ html.menu-aperto { overflow: hidden; }
 /* Pagina principale: titolo su due righe, così la striscia dei settori arriva presto */
 .apertura-studio .apertura-titolo { font-size: min(10.5vw, 76px); }
 .apertura-studio .apertura-piede { padding-top: var(--s5); }
+/* L'immagine dell'apertura. Sotto i 1100px sta dopo testo e bottoni, mai sopra, ritagliata più bassa (4:3).
+   Da 1100px l'apertura va su due colonne: titolo, testo e bottoni a sinistra, l'immagine a destra, quadrata:
+   è alta quanto la colonna di sinistra, e la striscia dei settori resta nella prima schermata. */
+.apertura-figura { width: min(100%, 560px); aspect-ratio: 4 / 3; margin-top: var(--s6); }
+.apertura-figura img { object-position: 50% 56%; }
+@media (min-width: 1100px) {
+  .apertura-studio .apertura-scena > .contenitore {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: auto auto 1fr;
+    column-gap: var(--s3);
+  }
+  .apertura-studio .apertura-meta { grid-column: 1 / -1; }
+  .apertura-studio :is(.apertura-titolo, .apertura-piede) { grid-column: 1 / 8; }
+  .apertura-studio .apertura-piede { display: block; margin-top: 0; }
+  .apertura-figura {
+    grid-column: 8 / -1;
+    grid-row: 2 / 4;
+    align-self: start;
+    width: 100%;
+    aspect-ratio: 1;
+    margin-top: clamp(var(--s3), 5svh, var(--s8));
+  }
+}
 
 /* ══ 1b. Striscia dei settori: subito sotto l'apertura, una porta per ogni settore ══ */
 .striscia-settori { background: var(--superficie); border-block: var(--linea) solid var(--bordo); }
@@ -754,6 +818,19 @@ html.menu-aperto { overflow: hidden; }
   padding: var(--s12) 0 var(--s16);
 }
 .punto .micro { color: var(--crema-tenue); }
+/* I fogli verdi («Il punto», il metodo, il contatto) hanno la materia della carta: campo-verde sopra il verde pieno,
+   poco visibile (--materia). L'immagine non ha zone chiare: i testi secondari restano almeno a 4,8:1. */
+:is(.punto, .metodo-verde, .contatto)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: url('immagini/campo-verde-1440.webp') center / cover no-repeat;
+  opacity: var(--materia);
+  pointer-events: none;
+}
+.metodo-verde, .contatto { position: relative; }
+:is(.punto, .metodo-verde) > .contenitore { position: relative; }
 .punto-griglia { display: grid; gap: var(--s6); justify-items: start; }
 .sintomi { justify-self: stretch; border-top: var(--linea) solid var(--linea-verde); }
 .sintomi li {
@@ -829,6 +906,17 @@ html.menu-aperto { overflow: hidden; }
   /* «Siti tecnici» apre la distinta: l'esempio prende tutta la larghezza */
   .servizio:first-child .servizio-testo { grid-column: 2 / 8; }
   .servizio:first-child .mock { grid-column: 2 / -1; font-size: var(--t-corpo); }
+}
+/* Da 1200px il ritmo si alterna: testo da un lato, esempio dall'altro, e le voci pari si specchiano
+   (esempio a sinistra, numero e testo a destra). Anche la prima voce sta su due colonne. Gli esempi sono gli stessi. */
+@media (min-width: 1200px) {
+  .servizio { padding: var(--s4) 0; }
+  .servizio:first-child .servizio-testo { grid-column: 2 / 7; }
+  .servizio:first-child .mock { grid-column: 7 / -1; font-size: var(--t-piccolo); }
+  .servizio:nth-child(even) > * { grid-row: 1; }
+  .servizio:nth-child(even) .mock { grid-column: 1 / 7; }
+  .servizio:nth-child(even) .servizio-pos { grid-column: 7 / 8; justify-self: end; }
+  .servizio:nth-child(even) .servizio-testo { grid-column: 8 / -1; }
 }
 
 /* Gli esempi: piccole schermate fatte in HTML. «Esempio» sta sul bordo, come la legenda di un riquadro */
@@ -1074,8 +1162,8 @@ html.menu-aperto { overflow: hidden; }
 .risultato-lettera { grid-row: span 2; font: var(--peso-leggero) var(--t-h3)/1 var(--mono); color: var(--accento); }
 .risultati h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
 .risultati p { color: var(--tenue); }
-.settori-lista { margin-top: var(--s12); border-bottom: var(--linea) solid var(--bordo-forte); }
-.settore-riga { display: grid; gap: var(--s4); padding: var(--s6) 0; border-top: var(--linea) solid var(--bordo-forte); }
+.settori-lista { margin-top: var(--s8); border-bottom: var(--linea) solid var(--bordo-forte); }
+.settore-riga { display: grid; gap: var(--s4); padding: var(--s4) 0; border-top: var(--linea) solid var(--bordo-forte); }
 .settore-intesta { display: grid; grid-template-columns: var(--s8) minmax(0, 1fr); gap: var(--s2); align-items: baseline; }
 .settore-num { font: var(--peso-leggero) var(--t-voce)/var(--lh-voce) var(--mono); color: var(--accento); }
 .settore-intesta h3 { font-size: var(--t-voce); line-height: var(--lh-voce); letter-spacing: var(--ls-titolo); }
@@ -1173,6 +1261,22 @@ html.menu-aperto { overflow: hidden; }
   border-top: var(--linea) solid var(--bordo);
   border-bottom: var(--linea) solid var(--bordo);
 }
+/* Pagina principale: il ciclo sta su un foglio verde a metà pagina, con gli angoli de «Il punto».
+   Numeri, linea e testi in crema (16,5:1 i titoli, 5,3:1 i testi secondari). */
+.metodo-verde {
+  --sottolineatura: var(--crema-tenue);
+  border: 0;
+  border-radius: var(--r-foglio);
+  background: var(--accento);
+  color: var(--crema);
+}
+.metodo-verde :is(.micro, .sezione-sotto, .fase p) { color: var(--crema-tenue); }
+.metodo-verde .fase-num { color: var(--crema); }
+.metodo-verde .ciclo::before { background: var(--linea-verde); }
+.metodo-verde .ciclo::after { background: var(--crema); }
+.metodo-verde .fase-segno { border-color: var(--crema); background: var(--accento); }
+.metodo-verde .fase-segno::after { background: var(--crema); }
+.metodo-verde :focus-visible { outline-color: var(--crema); }
 .ciclo { position: relative; display: grid; gap: var(--s6); padding-left: var(--s8); }
 .ciclo::before, .ciclo::after {
   content: '';
@@ -1288,6 +1392,11 @@ html.menu-aperto { overflow: hidden; }
 .qualita h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
 .qualita p { max-width: var(--misura-stretta); color: var(--tenue); }
 .chi-firma { margin-top: var(--s4); }
+/* I ritratti dei soci, sotto la riga con i nomi: due riquadri 4:5 con il bordo dei riquadri «Esempio».
+   Aspettano le foto vere: finché mancano, online non ci sono (prepara.sh, DA_FORNIRE.md) */
+.ritratti { display: grid; grid-template-columns: repeat(2, minmax(0, calc(var(--s16) + var(--s6)))); gap: var(--s3); margin-top: var(--s4); }   /* 176px l'uno */
+.ritratto { position: relative; margin: 0; aspect-ratio: 4 / 5; overflow: hidden; border: var(--linea) solid var(--bordo-forte); border-radius: var(--r); background: var(--superficie-2); }
+.ritratto img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
 .chi-azioni { margin-top: var(--s4); }
 
 @media (min-width: 1024px) {
@@ -2275,6 +2384,8 @@ html.menu-aperto { overflow: hidden; }
   .quota::before { animation: traccia var(--lunga) var(--curva-precisa) calc(5 * var(--sfalsa)) backwards; }
   .quota::after { animation: compare-quota var(--media) var(--curva) calc(12 * var(--sfalsa)) backwards; }
   .apertura-testo { animation: compare var(--lunga) var(--curva) calc(4 * var(--sfalsa)) backwards; }
+  /* l'immagine entra dopo il testo: opacità e 16px */
+  .apertura-figura, .testata-figura { animation: entra-figura var(--ingresso) var(--curva-ingresso) calc(6 * var(--sfalsa)) backwards; }
 
   /* La tavola si compone come al tornio: l'asse, poi il pezzo cresce dall'asse, poi le quote una a una */
   .tavola-asse, .tavola-pezzo { transform-box: fill-box; }
@@ -2492,6 +2603,7 @@ html.menu-aperto { overflow: hidden; }
 @keyframes tornisce { from { transform: scaleY(0); } }
 @keyframes compare { from { opacity: 0; transform: translateY(var(--s1)); } }
 @keyframes compone { from { opacity: 0; transform: scale(.94); } }
+@keyframes entra-figura { from { opacity: 0; transform: translateY(var(--s2)); } }
 @keyframes compare-quota { from { opacity: 0; transform: translate(-50%, 0); } }
 @keyframes lampeggia { 50% { opacity: 0; } }
 
@@ -2510,6 +2622,7 @@ html.menu-aperto { overflow: hidden; }
   .apertura-scena { min-height: 0; padding: 0 0 var(--s4); background: none; }
   .sezione, .punto, .contatto { padding: var(--s6) 0; }
   .punto, .contatto { background: none; color: var(--testo); border-radius: 0; }
+  :is(.punto, .metodo-verde, .contatto)::before { display: none; }
   :is(.punto, .contatto) :is(.micro, .contatto-testa > p, .recapiti dt) { color: var(--tenue); }
   /* sulla carta bianca il logo delle chiusure torna verde, come in testata */
   .contatto-logo { color: var(--testo); }
@@ -2517,6 +2630,11 @@ html.menu-aperto { overflow: hidden; }
   .contatto-logo .logo-lab { background: var(--accento); color: var(--crema); }
   :is(.sintomi, .sintomi li, .recapiti, .recapiti div) { border-color: var(--bordo-forte); }
   .metodo { background: none; }
+  .metodo-verde { color: var(--testo); border-radius: 0; }
+  .metodo-verde :is(.micro, .sezione-sotto, .fase p) { color: var(--tenue); }
+  .metodo-verde .fase-num { color: var(--accento); }
+  .metodo-verde .fase-segno { border-color: var(--accento); background: none; }
+  .metodo-verde .fase-segno::after, .metodo-verde .ciclo::after { background: var(--accento); }
   .quota::after { background: none; }
   .servizio, .settore-riga, .risultati li, .fase, .domanda, .mock, .dato, .cliente, .recensione, .percorso, .lav-passo, .lav-cambia li, .lav-percorso,
   .scheda-modulo, .canoni-patto, .regola { break-inside: avoid; }

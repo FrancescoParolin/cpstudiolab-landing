@@ -29,6 +29,10 @@
   <!-- Font serviti da questa cartella: nessuna richiesta a Google -->
   <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/geist-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- L'immagine dell'apertura si precarica: su schermo largo è nella prima schermata, su telefono ci entra per metà -->
+  <link rel="preload" as="image" type="image/webp" href="immagini/hero-972.webp"
+        imagesrcset="immagini/hero-486.webp 486w, immagini/hero-972.webp 972w"
+        imagesizes="(min-width: 1100px) 486px, (min-width: 600px) 560px, calc(100vw - 32px)">
   <!-- Movimento e messaggi del modulo: solo miglioramenti, senza JavaScript la pagina è completa -->
   <script src="main.js" defer></script>
   <link rel="stylesheet" href="style.css">
@@ -170,6 +174,21 @@
               </div>
             </div>
           </div>
+
+          <!-- L'immagine dell'apertura: da 1100px riempie la colonna destra, sotto sta dopo testo e bottoni.
+               Cornice a tacche di quota (quattro segni da 1px agli angoli). File e misure: IMMAGINI.md -->
+          <figure class="cornice apertura-figura">
+            <img src="immagini/hero-972.webp" srcset="immagini/hero-486.webp 486w, immagini/hero-972.webp 972w"
+                 sizes="(min-width: 1100px) 486px, (min-width: 600px) 560px, calc(100vw - 32px)"
+                 width="972" height="972" fetchpriority="high" decoding="async"
+                 alt="Fogli di carta millimetrata e da lucido sovrapposti, con due tessere di cartoncino al centro.">
+            <svg class="tacche" aria-hidden="true" focusable="false">
+              <path d="M-12 .5H-4M.5-12V-4"/>
+              <svg x="100%" overflow="visible"><path d="M4 .5H12M-.5-12V-4"/></svg>
+              <svg y="100%" overflow="visible"><path d="M-12-.5H-4M.5 4V12"/></svg>
+              <svg x="100%" y="100%" overflow="visible"><path d="M4-.5H12M-.5 4V12"/></svg>
+            </svg>
+          </figure>
         </div>
       </div>
     </section>
@@ -345,6 +364,10 @@
           </li>
         </ol>
         <div class="azioni servizi-azioni">
+          <a class="btn" href="#contatto">
+            Chiedeteci un preventivo
+            <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+          </a>
           <a class="link-freccia" href="/servizi/">
             Tutti i moduli, per filo e per segno
             <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
@@ -407,7 +430,7 @@
     </section>
 
     <!-- ── 5. Metodo: il ciclo di lavoro ── -->
-    <section class="sezione metodo" id="metodo" aria-labelledby="titolo-metodo">
+    <section class="sezione metodo metodo-verde" id="metodo" aria-labelledby="titolo-metodo">
       <div class="contenitore">
         <div class="sezione-testa">
           <p class="micro">Metodo · ciclo di lavoro</p>
@@ -493,7 +516,22 @@
             <li><span class="qualita-num" aria-hidden="true">03</span><h3>Chiaro</h3><p>Chi entra capisce subito cosa fate e come chiedervi un’offerta.</p></li>
           </ol>
           <p class="micro chi-firma">Tommaso Campagnolo e Francesco Parolin · Bassano del Grappa</p>
+          <!-- ritratti -->
+          <!-- I ritratti dei soci: due riquadri 4:5 che aspettano le foto vere (indicazioni in DA_FORNIRE.md).
+               Mai ritratti generati o di repertorio. Quando in immagini/ ci sono socio-tommaso.jpg e
+               socio-francesco.jpg, prepara.sh toglie i commenti «foto» qui sotto e i riquadri vanno online da soli.
+               Finché ne manca anche solo una, online il blocco tra la riga «ritratti» e la riga «/ritratti» non c'è:
+               si vede, vuoto, solo in locale e nelle anteprime. -->
+          <div class="ritratti">
+            <figure class="ritratto"><!-- foto <img src="immagini/socio-tommaso.jpg" width="800" height="1000" loading="lazy" decoding="async" alt="Ritratto di Tommaso Campagnolo."> --></figure>
+            <figure class="ritratto"><!-- foto <img src="immagini/socio-francesco.jpg" width="800" height="1000" loading="lazy" decoding="async" alt="Ritratto di Francesco Parolin."> --></figure>
+          </div>
+          <!-- /ritratti -->
           <div class="azioni chi-azioni">
+            <a class="btn" href="#contatto">
+              Chiedeteci un preventivo
+              <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+            </a>
             <a class="link-freccia" href="/studio/">
               Conoscete lo studio
               <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
