@@ -851,7 +851,7 @@ html.menu-aperto { overflow: hidden; }
    Da 1100px l'apertura va su due colonne: titolo, testo e bottoni a sinistra, l'immagine a destra, quadrata:
    è alta quanto la colonna di sinistra, e la striscia dei settori resta nella prima schermata. */
 .apertura-figura { width: min(100%, 560px); aspect-ratio: 4 / 3; margin-top: var(--s6); }
-.apertura-figura img { object-position: 50% 56%; }
+.apertura-figura :is(img, video) { object-position: 50% 56%; }   /* stesso ritaglio per immagine e video, o al cambio si vede uno scatto */
 /* Il video dell'apertura (lo mette main.js, a pagina caricata) sta sopra l'immagine da cui parte, con lo stesso bordo.
    Compare quando comincia a girare (.gira); a video finito resta fermo sull'ultimo fotogramma. */
 .apertura-figura video {

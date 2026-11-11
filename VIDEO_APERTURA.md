@@ -168,11 +168,14 @@ File in `immagini/`:
 
 Come si comporta (`index.html`, `main.js`, `style.css`):
 
-- **Computer da 1100px, movimento non ridotto**: si vede subito l'immagine di partenza. A pagina caricata `main.js`
-  scarica il video e lo mette sopra; quando comincia a girare compare. Gira **una volta sola** e resta fermo
-  sull'ultimo fotogramma. Dura meno di 5 secondi, quindi non serve un tasto di pausa.
-- **Telefono, tablet stretto, «riduci movimento»**: solo l'immagine finale. Il video non viene nemmeno scaricato.
-- **Chi ha chiesto di risparmiare dati, o senza JavaScript**: resta l'immagine (di partenza su computer, finale altrove).
+- **Computer e telefono, movimento non ridotto**: si vede subito l'immagine di partenza. A pagina caricata, quando il
+  riquadro è vicino allo schermo, `main.js` scarica il video; quando il riquadro è in vista per almeno metà, il video
+  parte e compare sopra l'immagine. Gira **una volta sola** e resta fermo sull'ultimo fotogramma. Dura meno di
+  5 secondi, quindi non serve un tasto di pausa. Su telefono il riquadro sta sotto titolo e bottoni: il video
+  parte quando ci si arriva scorrendo. (Fino all'11 novembre 2026 il video c'era solo da 1100px; su telefono l'ha
+  chiesto Paro lo stesso giorno, a sito già online.)
+- **«Riduci movimento»**: solo l'immagine finale. Il video non viene nemmeno scaricato.
+- **Chi ha chiesto di risparmiare dati, o senza JavaScript**: resta l'immagine di partenza.
 - Se il browser non fa partire il video, resta l'immagine: nessun riquadro vuoto.
 - L'immagine ha il testo alternativo; il video è nascosto ai lettori di schermo, perché dice la stessa cosa.
 
@@ -193,8 +196,14 @@ python3 immagini-originali/colore-video.py immagine immagini-originali/varianti/
 L'immagine di carta che c'era prima nell'apertura (`hero-486.webp`, `hero-972.webp`) è rimasta in `immagini/` ma non
 è più usata: si può riusare altrove o togliere.
 
-Lighthouse mobile in locale, sulla versione da pubblicare: 93-94 · 100 · 100 · 100, come prima del video
-(su telefono il video non si carica). Da rimisurare su Netlify.
+Lighthouse mobile, 11 novembre 2026:
+
+- sul sito online, prima del video su telefono: 99 · 100 · 100 · 100;
+- in locale, con il video anche su telefono: 88-89 · 100 · 100 · 100. La versione online, misurata in locale nello
+  stesso momento, dà gli stessi 88-89: in locale i numeri sono più bassi perché il server di prova non comprime i file.
+  Il video non toglie punti: parte dopo il caricamento della pagina;
+- cambia il peso: su telefono la pagina principale passa da 424 a 1.080 KB, perché ora il video (657 KB) si scarica
+  anche lì. Chi ha attivato il risparmio dati non lo scarica. Da rimisurare su Netlify dopo la pubblicazione.
 
 ## Fonti delle guide
 

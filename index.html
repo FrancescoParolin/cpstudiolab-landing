@@ -31,15 +31,16 @@
   <link rel="preload" href="fonts/geist-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/archivo-largo-latin.woff2" as="font" type="font/woff2" crossorigin media="(min-width: 1100px)">
   <!-- L'immagine dell'apertura si precarica: su schermo largo è nella prima schermata, su telefono ci entra per metà.
-       Sono due, una per caso: dove poi parte il video (schermo da 1100px, movimento non ridotto) l'immagine da cui
-       parte; altrove quella su cui finisce. Le condizioni sono le stesse del <picture> nell'apertura. -->
+       Sono due, una per caso: dove poi parte il video (movimento non ridotto) l'immagine da cui parte;
+       con «riduci movimento» quella su cui finisce. Le condizioni sono le stesse del <picture> nell'apertura. -->
   <link rel="preload" as="image" type="image/webp" href="immagini/apertura-inizio-972.webp"
-        imagesrcset="immagini/apertura-inizio-486.webp 486w, immagini/apertura-inizio-720.webp 720w, immagini/apertura-inizio-972.webp 972w" imagesizes="486px"
-        media="(min-width: 1100px) and (prefers-reduced-motion: no-preference)">
+        imagesrcset="immagini/apertura-inizio-486.webp 486w, immagini/apertura-inizio-720.webp 720w, immagini/apertura-inizio-972.webp 972w"
+        imagesizes="(min-width: 1100px) 486px, (min-width: 600px) 560px, calc(100vw - 32px)"
+        media="(prefers-reduced-motion: no-preference)">
   <link rel="preload" as="image" type="image/webp" href="immagini/apertura-fine-972.webp"
         imagesrcset="immagini/apertura-fine-486.webp 486w, immagini/apertura-fine-720.webp 720w, immagini/apertura-fine-972.webp 972w"
         imagesizes="(min-width: 1100px) 486px, (min-width: 600px) 560px, calc(100vw - 32px)"
-        media="(max-width: 1099.98px), (prefers-reduced-motion: reduce)">
+        media="(prefers-reduced-motion: reduce)">
   <!-- Movimento e messaggi del modulo: solo miglioramenti, senza JavaScript la pagina è completa -->
   <script src="main.js" defer></script>
   <link rel="stylesheet" href="style.css">
@@ -266,14 +267,16 @@
 
           <!-- L'apertura ha un modellino di cartoncino dello studio: da 1100px riempie la colonna destra, sotto sta dopo
                testo e bottoni. Cornice a tacche di quota (quattro segni da 1px agli angoli).
-               Da 1100px, se il movimento non è ridotto, a pagina caricata main.js ci mette sopra il video di data-video:
+               Se il movimento non è ridotto, main.js ci mette sopra il video di data-video, anche su telefono:
                5 secondi, una volta sola, senza audio, dall'alto fin dentro la casetta; poi resta fermo sull'ultima immagine.
-               Per questo lì l'immagine è quella da cui il video parte, altrove quella su cui finisce.
-               Senza JavaScript restano le immagini. File, prompt e preparazione: VIDEO_APERTURA.md -->
+               Parte quando il riquadro è in vista per almeno metà. Per questo l'immagine è quella da cui il video parte;
+               con «riduci movimento» è quella su cui finisce. Senza JavaScript restano le immagini.
+               File, prompt e preparazione: VIDEO_APERTURA.md -->
           <figure class="cornice apertura-figura" data-video="immagini/apertura.mp4">
             <picture>
-              <source type="image/webp" media="(min-width: 1100px) and (prefers-reduced-motion: no-preference)"
-                      srcset="immagini/apertura-inizio-486.webp 486w, immagini/apertura-inizio-720.webp 720w, immagini/apertura-inizio-972.webp 972w" sizes="486px">
+              <source type="image/webp" media="(prefers-reduced-motion: no-preference)"
+                      srcset="immagini/apertura-inizio-486.webp 486w, immagini/apertura-inizio-720.webp 720w, immagini/apertura-inizio-972.webp 972w"
+                      sizes="(min-width: 1100px) 486px, (min-width: 600px) 560px, calc(100vw - 32px)">
               <img src="immagini/apertura-fine-972.webp" srcset="immagini/apertura-fine-486.webp 486w, immagini/apertura-fine-720.webp 720w, immagini/apertura-fine-972.webp 972w"
                    sizes="(min-width: 1100px) 486px, (min-width: 600px) 560px, calc(100vw - 32px)"
                    width="972" height="972" fetchpriority="high" decoding="async"
