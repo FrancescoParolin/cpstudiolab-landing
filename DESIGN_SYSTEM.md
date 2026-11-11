@@ -17,7 +17,7 @@ Ogni valore sta nei token in `:root` di `style.css`. La versione completa, con l
   Un'ombra sola, `--ombra`, solo sugli esempi dei servizi; `--ombra-banner`, leggera, solo sugli elementi sollevati sopra la pagina:
   il banner del calibro e le tendine della testata.
 - **Terzo carattere, solo per il menu:** Archivo nella forma larga e nera (`--menu`, peso `--peso-nero` 800), per le voci
-  della testata, i titoli delle tendine e le voci del menu a schermo intero. Scelto da Paro il 12 novembre 2026 tra
+  della testata, i titoli delle tendine e le voci del menu a schermo intero. Scelto da Paro il 11 novembre 2026 tra
   quattro alternative, perché Inter nel menu era «il più classico dei classici». Un file da 14 KB in `fonts/`, licenza OFL.
   Non va usato per titoli e testi: lì resta Inter.
 - **Componenti:** `.logo`, `.micro`, `.titolo-sezione`, `.btn`, `.link`, `.link-freccia`, `.elenco-tratto`, `.quota`,
@@ -32,8 +32,8 @@ Ogni valore sta nei token in `:root` di `style.css`. La versione completa, con l
   `.servizi-banco` + `.servizio-colonna` + `.modulo-tessera` (Servizi in pagina principale: i cinque servizi in colonna,
   sotto ognuno i moduli di base, solo codice e nome; vedi SERVIZI_BASE.md),
   `.cornice` + `.tacche` (immagine con bordo e tacche di quota agli angoli: apertura e testate), il video dell'apertura
-  (`.apertura-figura[data-video]`: da 1100px e senza «riduci movimento» un video di 5 secondi gira una volta sopra
-  l'immagine e si ferma; altrove resta l'immagine. È l'unico video del sito, mai in ciclo, mai con audio), `.ritratti` + `.ritratto`
+  (`.apertura-figura[data-video]`: senza «riduci movimento», su ogni larghezza, un video di 5 secondi parte quando
+  il riquadro è in vista, gira una volta sopra l'immagine e si ferma; con «riduci movimento» resta l'immagine. È l'unico video del sito, mai in ciclo, mai con audio), `.ritratti` + `.ritratto`
   (i riquadri 4:5 dei soci, spenti finché mancano le foto vere), `.metodo-verde` (Metodo sul foglio verde),
   `.menu` (menu a schermo intero, dialogo modale), `.targa` + `.dato` (dati di targa: solo cifre verificabili),
   `.risultati` + `.settori-lista` (settori in distinta, il primo con le lavorazioni), `.qualita` (su misura, collaudato, chiaro: in «Lo studio» e nella pagina Contatti),

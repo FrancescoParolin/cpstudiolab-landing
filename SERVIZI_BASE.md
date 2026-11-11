@@ -2,7 +2,7 @@
 
 Otto moduli sono quelli che valgono per ogni azienda, non solo per la manifattura. Oggi si vedono nella tendina
 «Servizi» della testata, sotto i cinque servizi. Nella sezione «Servizi» della pagina principale sono stati provati il
-12 novembre e poi tolti: lì Paro ha voluto di nuovo i testi del sito online.
+11 novembre e poi tolti: lì Paro ha voluto di nuovo i testi del sito online.
 Scelti l'11 novembre 2026 con Paro. Questa nota li aggancia alla **Banca Dati** (`~/CP STUDIO/banca-dati`).
 
 Legenda, la stessa della Banca Dati: 📊 dato con fonte · 🔸 stima con il metodo · ⬜ da verificare.
@@ -101,7 +101,7 @@ chiude il giro «richiesta → bozza → preventivo → risposta del cliente». 
 
 ## L'invito del sito: il check-up gratuito
 
-Dal 12 novembre 2026 ogni bottone che porta al modulo dice «Check-up gratuito», e così il titolo della
+Dal 11 novembre 2026 ogni bottone che porta al modulo dice «Check-up gratuito», e così il titolo della
 sezione con il modulo. Deciso da Paro: «è il nostro cavallo di battaglia». L'aggancio alla Banca Dati:
 
 - Appunti del 10 novembre: «Lead Magnet usato: check-up gratuito per agganciare clienti tramite mail […] oppure in

@@ -47,28 +47,51 @@
     $$('main section').forEach((sezione) => io.observe(sezione));
   }
 
-  // ── Apertura: il video del modellino. Solo da 1100px, se il movimento non è ridotto e se nessuno ha chiesto
-  //    di risparmiare dati (le stesse condizioni dell'immagine di partenza, nel <picture>). Si carica a pagina
-  //    finita, per non rallentarla; compare quando comincia a girare, sopra l'immagine da cui parte; gira una
-  //    volta sola, senza audio, e resta fermo sull'ultima immagine. Se il browser non lo fa partire, resta l'immagine. ──
+  // ── Apertura: il video del modellino. A ogni larghezza, se il movimento non è ridotto e se nessuno ha chiesto
+  //    di risparmiare dati (le stesse condizioni dell'immagine di partenza, nel <picture>). Si scarica a pagina
+  //    finita e solo quando il riquadro è vicino allo schermo; parte quando se ne vede almeno metà, sopra
+  //    l'immagine da cui comincia; gira una volta sola, senza audio, e resta fermo sull'ultima immagine.
+  //    Se il browser non lo fa partire (per esempio con il risparmio energetico del telefono), resta l'immagine. ──
   const figuraVideo = document.querySelector('.apertura-figura[data-video]');
-  if (figuraVideo && !(navigator.connection && navigator.connection.saveData)
-      && window.matchMedia('(min-width: 1100px) and (prefers-reduced-motion: no-preference)').matches) {
+  if (figuraVideo && !ridotto && 'IntersectionObserver' in window
+      && !(navigator.connection && navigator.connection.saveData)) {
     const avviaVideo = () => {
-      const video = document.createElement('video');
-      video.muted = true;
-      video.playsInline = true;
-      video.setAttribute('muted', '');
-      video.setAttribute('playsinline', '');
-      video.setAttribute('aria-hidden', 'true');   // l'immagine sotto ha già il testo alternativo
-      video.preload = 'auto';
-      video.addEventListener('playing', () => video.classList.add('gira'), { once: true });
-      video.addEventListener('canplaythrough', () => {
+      let video = null;
+      let pronto = false;
+      let inVista = false;
+      let partito = false;
+      const parti = () => {
+        if (partito || !pronto || !inVista) return;
+        partito = true;
+        guardaVista.disconnect();
         const partenza = video.play();
         if (partenza) partenza.catch(() => {});
-      }, { once: true });
-      video.src = figuraVideo.dataset.video;
-      figuraVideo.querySelector('picture').after(video);
+      };
+      const prepara = () => {
+        video = document.createElement('video');
+        video.muted = true;
+        video.playsInline = true;
+        video.setAttribute('muted', '');
+        video.setAttribute('playsinline', '');
+        video.setAttribute('aria-hidden', 'true');   // l'immagine sotto ha già il testo alternativo
+        video.preload = 'auto';
+        video.addEventListener('playing', () => video.classList.add('gira'), { once: true });
+        video.addEventListener('canplaythrough', () => { pronto = true; parti(); }, { once: true });
+        video.src = figuraVideo.dataset.video;
+        figuraVideo.querySelector('picture').after(video);
+      };
+      // vicino allo schermo: si scarica. In vista per metà: parte.
+      const guardaVicino = new IntersectionObserver((voci) => {
+        if (!voci.some((v) => v.isIntersecting)) return;
+        guardaVicino.disconnect();
+        prepara();
+      }, { rootMargin: '50% 0px' });
+      const guardaVista = new IntersectionObserver((voci) => {
+        inVista = voci.some((v) => v.intersectionRatio >= 0.5);
+        parti();
+      }, { threshold: 0.5 });
+      guardaVicino.observe(figuraVideo);
+      guardaVista.observe(figuraVideo);
     };
     if (document.readyState === 'complete') avviaVideo();
     else window.addEventListener('load', avviaVideo, { once: true });

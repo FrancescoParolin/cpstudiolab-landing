@@ -1,6 +1,6 @@
-# Resoconto: cosa è cambiato nel sito (11-12 novembre 2026)
+# Resoconto: cosa è cambiato nel sito (11 novembre 2026)
 
-Per Campa. Lavoro fatto da Paro con Claude in due giorni, pubblicato il 12 novembre 2026.
+Per Campa. Lavoro fatto da Paro con Claude tra la notte e il pomeriggio dell'11 novembre 2026, pubblicato lo stesso giorno.
 Questo file è la versione lunga: quella breve te l'ha mandata Paro su WhatsApp.
 
 Legenda: ✅ deciso da Paro · ⬜ da decidere insieme · ⚠️ da sapere.
@@ -23,9 +23,11 @@ Legenda: ✅ deciso da Paro · ⬜ da decidere insieme · ⚠️ da sapere.
 - Carattere delle voci: **Archivo largo**, al posto di Inter. Solo nel menu. ✅
 
 ### Apertura
-- A destra, su computer, il **video di 5 secondi**: dall'alto verso una casetta di cartoncino, dentro la porta, fermo su
-  due figure al computer (una verde, una crema). Parte una volta, senza audio, e si ferma.
-- Su telefono e con «riduci movimento» si vede solo l'immagine finale. Dettagli e prompt: `VIDEO_APERTURA.md`.
+- A destra su computer, sotto titolo e bottoni su telefono, il **video di 5 secondi**: dall'alto verso una casetta di
+  cartoncino, dentro la porta, fermo su due figure al computer (una verde, una crema). Parte una volta, senza audio,
+  quando il riquadro è in vista, e si ferma.
+- Con «riduci movimento» si vede solo l'immagine finale. Su telefono il video è arrivato con una seconda
+  pubblicazione, lo stesso 11 novembre: nella prima c'era solo l'immagine. Dettagli e prompt: `VIDEO_APERTURA.md`.
 - Il bottone ora dice «Check-up gratuito».
 
 ### Calibro
