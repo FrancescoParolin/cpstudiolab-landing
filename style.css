@@ -56,6 +56,7 @@
   --bordo-forte: #D6D3CC;
   --velo: #EDF1EE;             /* verde appena accennato: pezzo della tavola, «Fatto», primo risultato */
   --velo-forte: #CAD7CF;       /* barre del resoconto */
+  --velo-finestra: rgba(31, 77, 63, .55);   /* dietro la finestra del calibro: il verde al 55% */
   /* Sul verde: testi secondari (5,3:1), linee e trame */
   --crema-tenue: #B9C4BC;
   --linea-verde: rgba(244, 241, 234, .2);
@@ -70,6 +71,8 @@
   --segnaposto-bordo: #8A5A12;
   /* Un'ombra sola, per gli esempi dei servizi */
   --ombra: 0 1px 2px rgba(22, 22, 26, .04), 0 32px 64px -40px rgba(31, 77, 63, .4);
+  /* e una leggera per il banner del calibro, l'unico elemento sollevato sopra la pagina */
+  --ombra-banner: 0 1px 2px rgba(22, 22, 26, .06), 0 12px 32px -8px rgba(22, 22, 26, .18);
   /* Sottolineatura dei link: grigia su chiaro, crema tenue sul verde (vedi .punto e .contatto) */
   --sottolineatura: var(--tenue);
 
@@ -89,6 +92,7 @@
   --t-h3: 24px;
   --t-citazione: clamp(18px, 1.5vw, 22px);   /* le parole dei clienti nelle recensioni */
   --t-voce: clamp(28px, 3.4vw, 48px);
+  --t-domanda: clamp(24px, 3.2vw, 36px);     /* la domanda a schermo nella finestra del calibro */
   --t-h2: clamp(36px, 5.2vw, 72px);
   --t-cifra: clamp(64px, 8vw, 128px);
   --t-display: min(15.5vw, 88px);
@@ -119,6 +123,9 @@
   --misura: 36em;              /* righe di testo leggibili */
   --misura-stretta: 26em;
   --misura-documento: 720px;
+  --finestra: 760px;           /* larghezza massima della finestra del calibro */
+  --banner: 360px;             /* larghezza del banner del calibro su schermo largo */
+  --tocco: 44px;               /* area di tocco delle ✕ (banner del calibro, riepilogo nel modulo) */
   --logo: 18px;                /* corpo del logo: spazio libero ≥ altezza della pillola */
   /* Raggi e linee */
   --r: 10px;                   /* stesso rapporto delle tessere del logo */
@@ -135,7 +142,10 @@
   /* Movimento: ogni sezione entra a modo suo, sempre solo con transform e opacity */
   --curva: cubic-bezier(.2, .7, .2, 1);
   --curva-precisa: cubic-bezier(.65, 0, .35, 1);
+  --curva-foglio: cubic-bezier(.32, .72, 0, 1);   /* finestra e banner del calibro: partono svelti, si posano piano */
   --breve: .2s;
+  --passo: .25s;               /* da una domanda del calibro alla successiva */
+  --ingresso: .3s;             /* finestra e banner del calibro */
   --media: .6s;
   --lunga: 1s;
   --sfalsa: .1s;               /* passo dei ritardi in sequenza */
@@ -464,7 +474,7 @@ mark.da-compilare, mark.da-definire {
 .testata-contatto { gap: var(--s1); white-space: nowrap; }
 .testata-contatto .tel-icona { color: currentColor; }
 .menu-pronto .nav { display: none; }
-.menu-apri, .menu-chiudi {
+.menu-apri, .menu-chiudi, .finestra-chiudi {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -480,7 +490,7 @@ mark.da-compilare, mark.da-definire {
   cursor: pointer;
 }
 .menu-apri[hidden] { display: none; }
-.menu-apri:hover { border-color: var(--testo); }
+:is(.menu-apri, .finestra-chiudi):hover { border-color: var(--testo); }
 /* l'icona: due tratti; nel bottone «Chiudi» si incrociano */
 .menu-icona { position: relative; display: block; flex: none; width: var(--s2); height: var(--s1); }
 .menu-icona span { position: absolute; left: 0; right: 0; height: var(--linea-forte); border-radius: var(--linea); background: currentColor; }
@@ -1635,6 +1645,338 @@ html.menu-aperto { overflow: hidden; }
   .calibro-esito { grid-column: 9 / -1; }
 }
 
+/* ── Con JavaScript (main.js): nella pagina resta una fascia, le domande stanno in una finestra.
+   Senza, valgono le regole qui sopra: le otto domande in fila. ── */
+/* La fascia: una scheda tutta cliccabile, come le porte «Per settore». Il bottone è la freccia,
+   il suo ::after copre la scheda: un solo bersaglio, un solo fuoco. */
+.calibro-fascia { padding: var(--s3) 0; }
+.calibro-fascia .calibro-griglia { display: none; }
+.calibro-fascia .sezione-testa {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "occhiello occhiello" "titolo titolo" "sotto sotto" "strumento freccia";
+  align-items: end;
+  gap: var(--s2) var(--s3);
+  margin-bottom: 0;
+  padding: var(--s3);
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  transition: border-color var(--breve) var(--curva);
+}
+.calibro-fascia .sezione-testa:hover { border-color: var(--accento); }
+.calibro-fascia .sezione-testa .micro { grid-area: occhiello; }
+.calibro-fascia .titolo-sezione { grid-area: titolo; margin-top: 0; font-size: var(--t-voce); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
+.calibro-fascia .sezione-sotto { grid-area: sotto; margin-top: 0; max-width: var(--misura); font-size: var(--t-corpo); }
+.calibro-fascia .comparatore { grid-area: strumento; width: calc(var(--s12) + var(--s2)); margin-top: var(--s1); }
+.calibro-fascia .comparatore text { display: none; }   /* su telefono lo strumento è piccolo: le cifre non si leggerebbero */
+.calibro-apri {
+  grid-area: freccia;
+  display: grid;
+  place-items: center;
+  width: var(--s5); height: var(--s5);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--testo);
+  cursor: pointer;
+}
+.calibro-apri::after { content: ''; position: absolute; inset: calc(-1 * var(--linea)); border-radius: var(--r); }
+.calibro-fascia .sezione-testa:hover .calibro-apri { color: var(--accento); }
+.calibro-fascia .sezione-testa:hover .freccia { transform: translateX(var(--scarto)); }
+.calibro-apri:active::after { background: var(--griglia); }
+.calibro-apri:focus-visible { outline: none; }
+.calibro-apri:focus-visible::after { outline: var(--linea-forte) solid var(--accento); outline-offset: var(--fuoco-distanza); }
+/* le tacche: spente finché la domanda non ha una risposta; a calibro finito, nella fascia, tutte accese */
+:is(.calibro-fascia, .calibro-finestra) .comparatore-tacche { stroke: var(--bordo-forte); }
+.comparatore-accese { stroke-width: 2.5; }
+.comparatore-accese path { opacity: 0; }
+.comparatore-accese .accesa { opacity: 1; }
+.calibro-completato .comparatore-tacche { stroke: var(--accento); stroke-width: 2.5; }
+
+@media (max-width: 359px) {
+  .calibro-fascia .sezione-testa { padding: var(--s2); }
+}
+@media (min-width: 768px) {
+  .calibro-fascia .sezione-testa {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-areas: "occhiello strumento freccia" "titolo strumento freccia" "sotto strumento freccia";
+    align-items: center;
+    align-content: center;
+    column-gap: var(--s4);
+    min-height: calc(var(--s16) + var(--s12));
+    padding: var(--s4);
+  }
+  .calibro-fascia .sezione-sotto { font-size: var(--t-lead); }
+  .calibro-fascia .comparatore { width: calc(var(--s16) + var(--s4)); margin-top: 0; }
+  .calibro-fascia .comparatore text { display: inline; }
+}
+@media (min-width: 1024px) {
+  .calibro-fascia .sezione-testa { column-gap: var(--s5); padding: var(--s5); }
+  .calibro-fascia .comparatore { width: calc(var(--s16) + var(--s8)); }
+}
+
+/* La finestra (<dialog> aperto con showModal): si apre solo con un clic sulla fascia o sul banner.
+   Su telefono è a tutto schermo, come il menu: strumento in alto, domanda al centro, «Sì» e «No» in basso,
+   a portata di pollice. Da 640px domanda e strumento stanno affiancati; da 768px la finestra sta al centro
+   su un velo verde. Le otto domande sono impilate nella stessa cella: si vede solo quella attuale,
+   e passando dall'una all'altra niente cambia posto. */
+html.finestra-aperta { overflow: hidden; scrollbar-gutter: stable; }
+.calibro-finestra {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--superficie);
+  color: var(--testo);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.calibro-finestra[open] { display: flex; flex-direction: column; }
+/* nei browser meno recenti ::backdrop non eredita i token di :root: da qui il valore di riserva */
+.calibro-finestra::backdrop { background: var(--velo-finestra, rgba(31, 77, 63, .55)); }
+.finestra-testa {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  min-height: var(--testata);
+  padding: var(--s1) var(--gutter);
+  border-bottom: var(--linea) solid var(--bordo);
+}
+.finestra-corpo {
+  position: relative;
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto 1fr auto auto auto 1fr;
+  grid-template-areas: "strumento" "testo" "." "intro" "riga" "domande" ".";
+  /* in fondo, il posto di «Sì» e «No» */
+  padding: var(--s2) var(--gutter) calc(var(--s7) + var(--s4) + env(safe-area-inset-bottom, 0px));
+}
+.finestra-intro { grid-area: intro; margin-bottom: var(--s2); }
+.finestra-titolo { font-size: var(--t-h3); font-weight: var(--peso-leggero); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); text-wrap: balance; }
+.finestra-sotto { margin-top: var(--s1); font-size: var(--t-piccolo); color: var(--tenue); }
+.calibro-finestra .comparatore { grid-area: strumento; justify-self: center; width: calc(var(--s16) + var(--s4)); }
+.calibro-finestra .calibro-testo { grid-area: testo; margin-top: var(--s1); text-align: center; text-wrap: balance; }
+/* finché si risponde, sotto lo strumento c'è la sua lettura: una nota a margine */
+.calibro-finestra[data-stato="domande"] .calibro-punteggio {
+  font: var(--peso-medio) var(--t-micro)/var(--lh-voce) var(--mono);
+  letter-spacing: var(--ls-micro);
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: var(--tenue);
+}
+.finestra-riga { grid-area: riga; display: flex; align-items: center; gap: var(--s2); min-height: var(--s5); margin-bottom: var(--s1); }
+.finestra-indietro {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--s5); height: var(--s5);
+  padding: 0;
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  background: none;
+  color: var(--testo);
+  cursor: pointer;
+}
+.finestra-indietro .freccia { transform: scaleX(-1); }
+.finestra-indietro:hover { border-color: var(--testo); }
+.finestra-indietro:hover .freccia { transform: scaleX(-1) translateX(var(--scarto)); }
+.finestra-indietro:disabled { display: none; }
+.finestra-contatore { font: var(--peso-medio) var(--t-piccolo)/1 var(--mono); letter-spacing: var(--ls-micro); font-variant-numeric: tabular-nums; color: var(--accento); }
+.calibro-finestra .calibro-domande { grid-area: domande; display: grid; border: 0; }
+.calibro-finestra .calibro-domande li { grid-area: 1 / 1; min-width: 0; border: 0; }
+.calibro-finestra .calibro-domanda { padding: 0; visibility: hidden; }
+.calibro-finestra .calibro-domanda.attuale { visibility: visible; }
+.calibro-finestra .calibro-domanda legend {
+  font-size: var(--t-domanda);
+  font-weight: var(--peso-forte);
+  letter-spacing: var(--ls-voce);
+  text-wrap: balance;
+}
+.calibro-finestra .calibro-num { display: none; }
+.calibro-finestra .calibro-scelte {
+  position: absolute;
+  left: var(--gutter); right: var(--gutter);
+  bottom: calc(var(--s2) + env(safe-area-inset-bottom, 0px));
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.calibro-finestra .calibro-scelte label { justify-content: center; min-height: var(--s7); font-size: var(--t-lead); font-weight: var(--peso-medio); }
+/* al tocco il «passaggio del mouse» resta sul bottone anche quando la domanda è cambiata: vale solo dove c'è un mouse */
+@media not (hover: hover) {
+  .calibro-finestra .calibro-scelte label:not(:has(:checked)):hover { border-color: var(--bordo-forte); }
+}
+.calibro-finestra .calibro-porta { grid-area: porta; justify-content: space-between; min-height: var(--s7); font-weight: var(--peso-forte); }
+.calibro-finestra[data-stato="domande"] .calibro-porta,
+.calibro-finestra[data-stato="esito"] :is(.calibro-domande, .finestra-contatore) { display: none; }
+/* il risultato: la prima frase in grande, poi il consiglio e il bottone */
+.calibro-finestra[data-stato="esito"] .finestra-corpo {
+  grid-template-rows: auto 1fr auto auto 1fr auto;
+  grid-template-areas: "strumento" "." "riga" "testo" "." "porta";
+  padding-bottom: calc(var(--s2) + env(safe-area-inset-bottom, 0px));
+}
+.calibro-finestra[data-stato="esito"] .calibro-testo { margin: 0 0 var(--s3); text-align: left; }
+.calibro-finestra[data-stato="esito"] .calibro-punteggio { font-size: var(--t-voce); }
+.calibro-finestra[data-stato="esito"] .calibro-consiglio { margin-top: var(--s2); font-size: var(--t-lead); }
+
+@media (max-width: 639px), (max-height: 479px) {
+  /* su telefono titolo e sottotitolo accompagnano solo la prima domanda: poi lo spazio è della domanda */
+  .calibro-finestra:not([data-passo="1"]) .finestra-intro { display: none; }
+}
+@media (min-width: 640px) {
+  .finestra-corpo {
+    grid-template-columns: minmax(0, 1fr) calc(var(--s16) + var(--s8));
+    grid-template-rows: auto auto auto auto 1fr;
+    grid-template-areas: "intro intro" "riga strumento" "domande strumento" "domande testo" "domande .";
+    column-gap: var(--s5);
+    padding: var(--s4) var(--s5) var(--s5);
+  }
+  .finestra-intro { margin-bottom: var(--s3); padding-bottom: var(--s3); border-bottom: var(--linea) solid var(--bordo); }
+  .calibro-finestra .comparatore { align-self: start; width: 100%; }
+  .calibro-finestra .calibro-domande li { display: grid; }
+  .calibro-finestra .calibro-domanda { grid-template-rows: 1fr auto; gap: var(--s4); }
+  .calibro-finestra .calibro-scelte { position: static; }
+  .calibro-finestra[data-stato="esito"] .finestra-corpo {
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas: "intro intro" "riga strumento" "testo strumento" "porta .";
+    padding-bottom: var(--s5);
+  }
+}
+/* telefono in orizzontale: margini stretti, così «Sì» e «No» restano a schermo */
+@media (min-width: 640px) and (max-height: 479px) {
+  .finestra-corpo, .calibro-finestra[data-stato="esito"] .finestra-corpo { padding: var(--s2) var(--s4) var(--s3); }
+  .finestra-intro { margin-bottom: var(--s2); padding-bottom: var(--s2); }
+  .calibro-finestra .calibro-domanda { gap: var(--s2); }
+}
+@media (min-width: 768px) and (min-height: 600px) {
+  .calibro-finestra {
+    width: min(100% - 2 * var(--s3), var(--finestra));
+    height: fit-content;
+    max-height: calc(100dvh - 2 * var(--s3));
+    margin: auto;
+    border-radius: var(--r);
+  }
+  .finestra-corpo { min-height: calc(var(--s16) * 3); }
+}
+
+/* Il banner del calibro: un riquadro non modale, la pagina sotto resta leggibile e usabile.
+   Su telefono una barra bassa (al massimo 76px) a 12px dai bordi; da 768px una scheda in basso a destra.
+   Tutta la scheda apre la finestra (il ::after della freccia la copre); la ✕ la chiude per 30 giorni.
+   Quando compare e quando no lo decide main.js (.visibile); con il menu o la finestra aperti non c'è mai.
+   È fisso e si muove solo con transform e opacity: entrando non sposta niente nella pagina. */
+.calibro-banner {
+  position: fixed;
+  z-index: 15;
+  left: calc(var(--s1) + var(--scarto));
+  right: calc(var(--s1) + var(--scarto));
+  bottom: calc(var(--s1) + var(--scarto) + env(safe-area-inset-bottom, 0px));
+  display: grid;
+  grid-template-columns: var(--s5) minmax(0, 1fr) auto auto;
+  grid-template-areas: "strumento titolo freccia chiudi";
+  align-items: center;
+  column-gap: var(--s1);
+  max-height: calc(var(--s8) + var(--s1) + var(--scarto));
+  padding: calc(var(--s1) + var(--scarto)) var(--scarto) calc(var(--s1) + var(--scarto)) calc(var(--s1) + var(--scarto));
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  background: var(--superficie);
+  box-shadow: var(--ombra-banner);
+  opacity: 0;
+  visibility: hidden;
+}
+.calibro-banner.visibile { opacity: 1; visibility: visible; }
+html:is(.menu-aperto, .finestra-aperta) .calibro-banner { opacity: 0; visibility: hidden; }
+.calibro-banner .micro { grid-area: occhiello; display: none; }
+.banner-titolo {
+  grid-area: titolo;
+  margin-left: var(--scarto);
+  font-size: clamp(var(--t-piccolo), 4.1vw, var(--t-corpo));
+  font-weight: var(--peso-forte);
+  line-height: var(--lh-voce);
+  letter-spacing: var(--ls-voce);
+  text-wrap: balance;
+}
+/* lo strumento in miniatura: solo arco e lancetta, con tratti più spessi */
+.comparatore-mini { grid-area: strumento; width: var(--s5); }
+.comparatore-mini :is(text, .comparatore-tacche) { display: none; }
+.comparatore-mini :is(.comparatore-arco, .comparatore-passa) { stroke-width: 16; }
+.comparatore-mini .lancetta { stroke-width: 10; }
+.comparatore-mini .comparatore-perno { transform-origin: 100px 100px; transform: scale(2); }
+.banner-apri {
+  grid-area: freccia;
+  display: grid;
+  place-items: center;
+  width: var(--s3); height: var(--s3);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--testo);
+  cursor: pointer;
+}
+.banner-apri::after { content: ''; position: absolute; inset: calc(-1 * var(--linea)); border: var(--linea) solid transparent; border-radius: var(--r); }
+.banner-apri:hover { color: var(--accento); }
+.banner-apri:hover::after { border-color: var(--accento); }
+.banner-apri:hover .freccia { transform: translateX(var(--scarto)); }
+.banner-apri:active::after { background: var(--griglia); }
+.banner-apri:focus-visible { outline: none; }
+.banner-apri:focus-visible::after { outline: var(--linea-forte) solid var(--accento); outline-offset: var(--fuoco-distanza); }
+.banner-chiudi, .modulo-calibro-togli {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: var(--tocco); height: var(--tocco);
+  padding: 0;
+  border: 0;
+  border-radius: var(--r);
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+.banner-chiudi { grid-area: chiudi; color: var(--testo); }
+.banner-chiudi:hover { background: var(--superficie-2); }
+@media (min-width: 768px) {
+  .calibro-banner {
+    left: auto;
+    right: var(--s3);
+    bottom: calc(var(--s3) + env(safe-area-inset-bottom, 0px));
+    width: var(--banner);
+    max-height: none;
+    grid-template-columns: var(--s5) minmax(0, 1fr) var(--s3);
+    grid-template-areas: "strumento occhiello occhiello" "strumento titolo freccia";
+    align-items: start;
+    gap: var(--s1) var(--s2);
+    padding: var(--s3) var(--s2);
+  }
+  /* a destra dell'occhiello, il posto della ✕ */
+  .calibro-banner .micro { display: block; padding-right: var(--s5); }
+  .banner-titolo { margin-left: 0; font-size: var(--t-lead); }
+  .comparatore-mini { margin-top: var(--scarto); }
+  .banner-apri { align-self: end; }
+  .banner-chiudi { position: absolute; top: var(--scarto); right: var(--scarto); }
+}
+
+/* Il risultato del calibro portato nel modulo: le stesse due frasi sopra i campi, con una ✕ per toglierle */
+.modulo-calibro {
+  position: relative;
+  display: grid;
+  gap: var(--s1);
+  padding: var(--s2) calc(var(--tocco) + var(--s1)) var(--s2) var(--s2);
+  border: var(--linea) solid var(--linea-verde);
+  border-radius: var(--r);
+}
+.modulo-calibro-punteggio { font-size: var(--t-h3); font-weight: var(--peso-forte); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
+.modulo-calibro-consiglio { max-width: var(--misura-stretta); color: var(--crema-tenue); }
+.modulo-calibro-togli { position: absolute; top: var(--scarto); right: var(--scarto); }
+.modulo-calibro-togli:hover { background: var(--linea-verde); }
+
 /* ══ 8. Contatto ══════════════════════════════════════════════════
    Il secondo foglio verde. Su telefono: titolo, modulo, poi i recapiti. */
 .contatto {
@@ -2475,6 +2817,22 @@ html.menu-aperto { overflow: hidden; }
 
   /* Calibro: la lancetta ruota fino al punteggio */
   .lancetta { transition: transform var(--lunga) var(--curva-precisa); }
+  /* La finestra del calibro compare salendo appena, il velo dietro si scurisce; la chiusura è immediata.
+     Le tacche si accendono, la domanda nuova entra da 12px (da sopra, tornando indietro). */
+  .calibro-finestra[open] { animation: sale-appena var(--ingresso) var(--curva-foglio) backwards; }
+  /* Il banner entra una volta sola, da 16px più in basso (.entra, main.js), poi resta fermo.
+     Quando deve farsi da parte e quando torna, cambia solo l'opacità; con menu o finestra sparisce subito. */
+  .calibro-banner { transition: opacity var(--breve) var(--curva), visibility 0s linear var(--breve); }
+  .calibro-banner.visibile { transition-delay: 0s; }
+  .calibro-banner.entra { animation: sale-appena var(--ingresso) var(--curva-foglio) backwards; }
+  /* Il riepilogo nel modulo compare come gli altri ingressi */
+  .modulo-calibro { animation: compare var(--media) var(--curva) backwards; }
+  .calibro-finestra[open]::backdrop { animation: dissolve var(--ingresso, .3s) ease-out backwards; }
+  .comparatore-accese path { transition: opacity var(--media) var(--curva); }
+  .calibro-finestra .entra legend,
+  .calibro-finestra[data-stato="esito"] :is(.calibro-testo, .calibro-porta) { animation: domanda-entra var(--passo) var(--curva) backwards; }
+  .calibro-finestra .rientra legend { animation: domanda-rientra var(--passo) var(--curva) backwards; }
+  .calibro-finestra :is(.entra, .rientra) .calibro-scelte { animation: dissolve var(--passo) var(--curva) backwards; }
 
   /* Settori: i risultati e le righe dei settori salgono quando entrano */
   .moto :is(.risultati li, .settore-riga) { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
@@ -2606,6 +2964,10 @@ html.menu-aperto { overflow: hidden; }
 @keyframes entra-figura { from { opacity: 0; transform: translateY(var(--s2)); } }
 @keyframes compare-quota { from { opacity: 0; transform: translate(-50%, 0); } }
 @keyframes lampeggia { 50% { opacity: 0; } }
+@keyframes sale-appena { from { opacity: 0; transform: translateY(var(--s2)); } }
+@keyframes domanda-entra { from { opacity: 0; transform: translateY(calc(var(--s1) + var(--scarto))); } }
+@keyframes domanda-rientra { from { opacity: 0; transform: translateY(calc(-1 * (var(--s1) + var(--scarto)))); } }
+@keyframes dissolve { from { opacity: 0; } }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -2614,7 +2976,7 @@ html.menu-aperto { overflow: hidden; }
 
 /* ══ Stampa: nero su bianco, niente fogli verdi, testata e modulo, niente pagine spezzate a metà voce ══ */
 @media print {
-  .salta, .mirino, .nav, .testata .btn, .menu-apri, .modulo, .calibro, .tavola-cartiglio, .pannello-mini { display: none; }
+  .salta, .mirino, .nav, .testata .btn, .menu-apri, .modulo, .calibro, .calibro-banner, .tavola-cartiglio, .pannello-mini { display: none; }
   /* il logo resta intero (pillola compresa) e la quota resta disegnata anche senza «grafica di sfondo» */
   .testata { position: static; background: none; border: 0; }
   .logo-lab, .quota, .fase-segno, .simbolo-componibile { -webkit-print-color-adjust: exact; print-color-adjust: exact; }

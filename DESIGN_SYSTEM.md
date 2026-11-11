@@ -14,7 +14,8 @@ Ogni valore sta nei token in `:root` di `style.css`. La versione completa, con l
   Scala: da `--t-micro` (12px) a `--t-display` (fino a 152px). `--t-tavola` e `--t-scena` sono in unità del disegno:
   cambiano con la larghezza perché a schermo i testi dei disegni restino tra 12 e 15px.
 - **Spazi:** multipli di 8px (`--s1`…`--s16`); `--scarto` (4px) per i piccoli scarti. Raggio 10px come le tessere del logo, fogli verdi 40px.
-  Un'ombra sola, `--ombra`, solo sugli esempi dei servizi.
+  Un'ombra sola, `--ombra`, solo sugli esempi dei servizi; `--ombra-banner`, leggera, solo sul banner del calibro
+  (l'unico elemento sollevato sopra la pagina).
 - **Componenti:** `.logo`, `.micro`, `.titolo-sezione`, `.btn`, `.link`, `.link-freccia`, `.elenco-tratto`, `.quota`,
   `.tavola`, `.mirino`, `.servizio` + `.mock-*` (esempi), `.settore` + `.trama-*` + `.disegno-lavorazione`, `.fase`,
   `.simbolo-componibile` + `.richiamo`, `.socio-tessera`, `.domande`, `.modulo` + `.campo` + `.scelte`, `.cartiglio-piede`,
@@ -22,7 +23,11 @@ Ogni valore sta nei token in `:root` di `style.css`. La versione completa, con l
   `.risultati` + `.settori-lista` (settori in distinta, il primo con le lavorazioni), `.qualita` (su misura, collaudato, chiaro: in «Lo studio» e nella pagina Contatti),
   `.testata-contatto` (icona del telefono e «Contatti diretti», senza freccia: porta alla pagina Contatti; su telefono «Contatti»), `.apertura-statica` (apertura ferma, alta quanto il contenuto: pagina principale e pagine di settore; `.apertura-studio` per il titolo su due righe della pagina principale), `.striscia-settori` (sotto l'apertura, una porta per ogni settore), `.scheda-studio` (la scheda dello studio nella pagina Lo studio: testata verde, voci in righe), `.principi` + `.principio` (i principi dello studio, due per riga), `.tavola-marchio` (il marchio disegnato con quote, richiami e cartiglio), `.soci` + `.socio` (i partner: iniziali in una tessera verde), `.contatti-diretto`
   (il foglio verde in cima alla pagina Contatti: si vede subito, senza ingresso animato),
-  `.calibro` (passa/non passa), `.clienti` (striscia dei loghi: righe da un bordo all'altro dello schermo, crocini
+  `.calibro` (passa/non passa: con JavaScript nella pagina resta `.calibro-fascia`, una scheda tutta cliccabile con lo
+  strumento `.comparatore`; le otto domande stanno in `.calibro-finestra`, un `<dialog>` che si apre solo al clic, una
+  domanda alla volta, a tutto schermo su telefono; `.calibro-banner` lo propone dopo «Il punto», non modale, mai sopra
+  il modulo né insieme a menu e finestra; `.modulo-calibro` è il risultato portato sopra i campi del modulo. I testi
+  sono solo quelli della sezione `#calibro`), `.clienti` (striscia dei loghi: righe da un bordo all'altro dello schermo, crocini
   agli incroci, loghi in grigio), `.recensione` (le parole del cliente con la frase chiave in verde, le iniziali in una
   tessera, nome e ruolo, poi il piccolo cartiglio `.recensione-firma` con azienda e servizi),
   `.percorsi` + `.percorso` (pagine di settore: tre situazioni, ognuna con i suoi moduli in fila `.percorso-ciclo`,
