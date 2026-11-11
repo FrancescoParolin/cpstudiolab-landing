@@ -123,7 +123,10 @@
   //    La finestra si apre solo con un clic. La lancetta segna quante risposte passano, le tacche quante
   //    domande hanno una risposta; a domande finite, il primo lavoro consigliato.
   //    Le risposte restano in sessionStorage: chiudendo a metà si riprende da dove si era.
-  //    Su document partono gli eventi calibro:aperto, calibro:risposta, calibro:completato, calibro:portato. ──
+  //    Dopo «Il punto» un banner non modale lo propone; il risultato si può portare nel modulo.
+  //    Per le misure future, su document partono gli eventi: calibro:banner-visto, calibro:banner-chiuso,
+  //    calibro:aperto (detail.origine: fascia o banner), calibro:risposta (detail.domanda),
+  //    calibro:completato (detail.punteggio), calibro:portato. Nessuno strumento li ascolta, per ora. ──
   const CHIAVE_CALIBRO = 'cpsl-calibro';
   const memoria = {
     leggi() { try { return JSON.parse(sessionStorage.getItem(CHIAVE_CALIBRO)) || {}; } catch (e) { return {}; } },
@@ -184,11 +187,27 @@
       consiglio.textContent = `Primo lavoro consigliato: ${consigliato}. ${perche[consigliato]}`;
       porta.hidden = false;
     };
-    // il risultato passa al modulo: la scelta consigliata è già spuntata
+    const esito = () => ({ passa: passano, totale: domande.length, servizio: consigliato, frasi: [punteggio.textContent, consiglio.textContent] });
+    const salva = () => {
+      const stato = memoria.leggi();
+      stato.r = domande.map((d) => { const s = d.querySelector('input:checked'); return s ? s.value : null; });
+      stato.esito = completo ? esito() : null;
+      if (!completo) stato.portato = false;
+      memoria.scrivi(stato);
+    };
+    // Le risposte della sessione tornano al loro posto
+    (memoria.leggi().r || []).forEach((valore, i) => {
+      const scelta = valore && domande[i] && domande[i].querySelector(`input[value="${valore}"]`);
+      if (scelta) scelta.checked = true;
+    });
+    // il risultato passa al modulo: la scelta consigliata è già spuntata, sopra i campi compare il riepilogo
     const portaAlModulo = () => {
       const casella = document.querySelector(`.scelte input[value="${consigliato}"]`);
       if (casella) casella.checked = true;
-      avvisa('portato', { punteggio: passano, consiglio: consigliato });
+      const stato = memoria.leggi();
+      stato.portato = true;
+      memoria.scrivi(stato);
+      avvisa('portato', { punteggio: passano, consiglio: consigliato, esito: esito() });
       setTimeout(() => {
         const campo = document.getElementById('campo-azienda');
         if (campo) campo.focus({ preventScroll: true });
@@ -237,27 +256,13 @@
       corpo.append(elenco, porta);
       document.body.appendChild(finestra);
 
-      // Le risposte della sessione tornano al loro posto
-      const salvate = memoria.leggi().r || [];
-      domande.forEach((d, i) => {
-        const scelta = salvate[i] && d.querySelector(`input[value="${salvate[i]}"]`);
-        if (scelta) scelta.checked = true;
-      });
-      const salva = () => {
-        const stato = memoria.leggi();
-        stato.r = domande.map((d) => { const s = d.querySelector('input:checked'); return s ? s.value : null; });
-        stato.esito = completo
-          ? { passa: passano, totale: domande.length, servizio: consigliato, frasi: [punteggio.textContent, consiglio.textContent] }
-          : null;
-        memoria.scrivi(stato);
-      };
-
       let indice = 0;                               // la domanda a schermo; domande.length è il risultato
       let passaggio = 0;
       let apertoDa = null;
       let portato = false;
       let annunciato = '';                          // l'ultimo risultato già segnalato con calibro:completato
-      const aSchermo = (el) => el && el.isConnected && el.getClientRects().length > 0 && getComputedStyle(el).visibility !== 'hidden';
+      let aggiornaBanner = () => {};                // lo definisce il banner, se in questa pagina è acceso
+      const aSchermo = (el) => el && el.isConnected && el.getClientRects().length > 0 && !el.closest('.calibro-banner:not(.visibile)');
       const primaLibera = () => {
         const i = domande.findIndex((d) => !d.querySelector('input:checked'));
         return i < 0 ? domande.length : i;
@@ -295,9 +300,9 @@
         clearTimeout(passaggio);
         passaggio = setTimeout(() => {
           mostra(i + 1, 1, true);
-          const esito = completo ? `${passano}|${consigliato}` : '';
-          if (i + 1 === domande.length && esito && esito !== annunciato) {
-            annunciato = esito;
+          const chiave = completo ? `${passano}|${consigliato}` : '';
+          if (i + 1 === domande.length && chiave && chiave !== annunciato) {
+            annunciato = chiave;
             avvisa('completato', { punteggio: passano, consiglio: consigliato });
           }
         }, 300);
@@ -337,6 +342,7 @@
         clearTimeout(passaggio);
         radice.classList.remove('finestra-aperta');
         aggiornaFascia();
+        aggiornaBanner();
         if (!portato) (aSchermo(apertoDa) ? apertoDa : apriFascia).focus({ preventScroll: true });
         portato = false;
       });
@@ -368,10 +374,76 @@
       valuta();
       if (completo) annunciato = `${passano}|${consigliato}`;
       aggiornaFascia();
+
+      // Il banner: un riquadro non modale, in basso, che propone il calibro. La pagina resta leggibile e usabile.
+      // Si accende con l'attributo data-calibro-banner sull'elemento dopo il quale deve comparire (nella home «Il punto»):
+      // compare quando la fine di quell'elemento è uscita dallo schermo, mai prima e mai a tempo.
+      // Non c'è mentre la fascia o un modulo sono a schermo, a calibro finito, con menu o finestra aperti (style.css),
+      // e per 30 giorni dopo la ✕ (localStorage). In un'altra pagina serve anche il blocco #calibro, da cui prende testi e domande.
+      const CHIAVE_BANNER = 'cpsl-calibro-banner';
+      const TRENTA_GIORNI = 30 * 24 * 60 * 60 * 1000;
+      const innesco = document.querySelector('[data-calibro-banner]');
+      let chiusoDaPoco = false;
+      try { chiusoDaPoco = Date.now() - Number(localStorage.getItem(CHIAVE_BANNER) || 0) < TRENTA_GIORNI; } catch (e) { /* senza memoria il banner si comporta come la prima volta */ }
+      if (innesco && 'IntersectionObserver' in window && !chiusoDaPoco) {
+        const banner = document.createElement('aside');
+        banner.className = 'calibro-banner';
+        banner.setAttribute('aria-labelledby', 'titolo-banner-calibro');
+        banner.innerHTML = `
+          <p class="micro"></p>
+          <p class="banner-titolo" id="titolo-banner-calibro"></p>
+          <button class="banner-apri" type="button" aria-labelledby="titolo-banner-calibro" aria-haspopup="dialog"><svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></button>
+          <button class="banner-chiudi" type="button"><span class="nascosto">Chiudi</span><span class="menu-icona menu-icona-x" aria-hidden="true"><span></span><span></span></span></button>`;
+        banner.querySelector('.micro').textContent = occhiello.textContent;
+        banner.querySelector('.banner-titolo').textContent = titolo.textContent;
+        const mini = copia.cloneNode(true);
+        mini.classList.add('comparatore-mini');
+        banner.prepend(mini);
+        const apriBanner = banner.querySelector('.banner-apri');
+        document.body.appendChild(banner);
+
+        let superato = false;                       // la fine dell'innesco è uscita dallo schermo, in alto
+        let visto = false;
+        const daEvitare = new Set();                // la fascia e i moduli a schermo: il banner non li copre mai
+        aggiornaBanner = () => {
+          const mostra = superato && !daEvitare.size && !completo && !chiusoDaPoco;
+          banner.classList.toggle('visibile', mostra);
+          if (!mostra || visto) return;
+          visto = true;
+          banner.classList.add('entra');            // l'ingresso con lo spostamento avviene una volta sola
+          avvisa('banner-visto');
+        };
+        // L'innesco si osserva con il margine inferiore allungato fino in fondo alla pagina: così «non interseca»
+        // vuol dire soltanto «è tutto sopra lo schermo», anche dopo un salto con un link (tornando su, il banner sparisce).
+        const osservaInnesco = new IntersectionObserver((voci) => {
+          superato = !voci[voci.length - 1].isIntersecting;
+          aggiornaBanner();
+        }, { rootMargin: '0px 0px 999999px 0px' });
+        osservaInnesco.observe(innesco);
+        const osserva = new IntersectionObserver((voci) => {
+          voci.forEach((v) => {
+            if (v.isIntersecting) daEvitare.add(v.target);
+            else daEvitare.delete(v.target);
+          });
+          aggiornaBanner();
+        });
+        [calibro, ...$$('.contatto, .modulo')].forEach((el) => osserva.observe(el));
+
+        apriBanner.addEventListener('click', () => apri('banner', apriBanner));
+        banner.querySelector('.banner-chiudi').addEventListener('click', () => {
+          chiusoDaPoco = true;
+          try { localStorage.setItem(CHIAVE_BANNER, String(Date.now())); } catch (e) { /* resta chiuso almeno fino al prossimo caricamento */ }
+          aggiornaBanner();
+          osserva.disconnect();
+          osservaInnesco.disconnect();
+          avvisa('banner-chiuso');
+        });
+      }
     } else {
       // senza <dialog> il calibro resta nella pagina, con le otto domande in fila
-      calibro.addEventListener('change', valuta);
+      calibro.addEventListener('change', () => { valuta(); salva(); });
       porta.addEventListener('click', portaAlModulo);
+      valuta();
     }
     calibro.hidden = false;
   }
@@ -400,6 +472,50 @@
       nota.textContent = `Dal percorso «${scelto.nome}»: i servizi sono già spuntati, cambiateli pure.`;
       legenda.after(nota);
     }
+  }
+
+  // ── Il risultato del calibro nel modulo: sopra i campi le stesse due frasi, con una ✕ per toglierle;
+  //    punteggio e consiglio partono con la richiesta nel campo nascosto «calibro» («percorso» non si tocca).
+  //    Vale in ogni pagina che ha il modulo: il risultato portato resta per la sessione (sessionStorage). ──
+  if (modulo) {
+    const campoCalibro = modulo.querySelector('input[name="calibro"]');
+    let riepilogo = null;
+    const togliRiepilogo = () => {
+      if (riepilogo) riepilogo.remove();
+      riepilogo = null;
+      if (campoCalibro) campoCalibro.value = '';
+    };
+    const mostraRiepilogo = (esito) => {
+      togliRiepilogo();
+      if (!esito || !esito.frasi) return;
+      riepilogo = document.createElement('div');
+      riepilogo.className = 'modulo-calibro';
+      riepilogo.innerHTML = '<p class="modulo-calibro-punteggio"></p><p class="modulo-calibro-consiglio"></p>'
+        + '<button class="modulo-calibro-togli" type="button"><span class="nascosto">Chiudi</span><span class="menu-icona menu-icona-x" aria-hidden="true"><span></span><span></span></span></button>';
+      riepilogo.children[0].textContent = esito.frasi[0];
+      riepilogo.children[1].textContent = esito.frasi[1];
+      riepilogo.lastElementChild.addEventListener('click', () => {
+        const stato = memoria.leggi();
+        stato.portato = false;
+        memoria.scrivi(stato);
+        togliRiepilogo();
+        const primo = modulo.querySelector('.campo input');
+        if (primo) primo.focus({ preventScroll: true });
+      });
+      (modulo.querySelector('.campo') || modulo.firstElementChild).before(riepilogo);
+      if (campoCalibro) campoCalibro.value = esito.frasi.join(' ');
+      const casella = modulo.querySelector(`input[name="servizi[]"][value="${esito.servizio}"]`);
+      if (casella) casella.checked = true;
+    };
+    document.addEventListener('calibro:portato', (e) => mostraRiepilogo(e.detail.esito));
+    // una risposta cambiata dopo aver portato il risultato: il riepilogo segue il risultato nuovo
+    document.addEventListener('calibro:risposta', () => {
+      if (!riepilogo) return;
+      const stato = memoria.leggi();
+      mostraRiepilogo(stato.portato ? stato.esito : null);
+    });
+    const stato = memoria.leggi();
+    if (stato.portato) mostraRiepilogo(stato.esito);
   }
 
   // ── Manifattura: la tavola delle cinque lavorazioni. Su schermo largo è un gruppo di schede (tab):

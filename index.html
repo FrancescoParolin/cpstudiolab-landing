@@ -191,8 +191,9 @@
       </div>
     </nav>
 
-    <!-- ── 2. Il punto ── -->
-    <section class="punto" aria-labelledby="titolo-punto">
+    <!-- ── 2. Il punto ── data-calibro-banner: quando la fine di questa sezione esce dallo schermo
+         compare il banner del calibro (main.js). Per ora è acceso solo in questa pagina. -->
+    <section class="punto" aria-labelledby="titolo-punto" data-calibro-banner>
       <div class="contenitore punto-griglia">
         <h2 class="micro" id="titolo-punto">Il punto</h2>
         <ul class="sintomi">
@@ -611,8 +612,10 @@
       </div>
     </section>
 
-    <!-- ── 7b. Calibro passa / non passa: un controllo del sito fatto da voi, tutto nella pagina.
-         Non si invia niente. Senza JavaScript la sezione resta nascosta (main.js toglie hidden). -->
+    <!-- ── 7b. Calibro passa / non passa: un controllo del sito fatto da voi. Non si invia niente.
+         Con JavaScript qui resta una fascia tutta cliccabile: main.js sposta le otto domande in una finestra
+         (<dialog>), una alla volta, e dopo «Il punto» le propone con un banner. I testi di fascia, banner e
+         finestra sono questi: si cambiano qui. Senza JavaScript la sezione resta nascosta (main.js toglie hidden). -->
     <section class="sezione calibro" id="calibro" aria-labelledby="titolo-calibro" hidden>
       <div class="contenitore">
         <div class="sezione-testa">
@@ -699,6 +702,8 @@
           <input type="hidden" name="form-name" value="richiesta">
           <!-- da quale percorso arriva la richiesta (lo compila main.js, vedi le pagine di settore) -->
           <input type="hidden" name="percorso" value="">
+          <!-- il risultato del calibro, se è stato portato nella richiesta (lo compila main.js) -->
+          <input type="hidden" name="calibro" value="">
           <p hidden><label>Non compilate questo campo <input name="altro" tabindex="-1" autocomplete="off"></label></p>
           <div class="campo">
             <label for="campo-azienda">Azienda o sito</label>
