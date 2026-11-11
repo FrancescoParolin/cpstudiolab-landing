@@ -40,6 +40,17 @@
   font-display: swap;
   src: url('fonts/geist-mono-latin.woff2') format('woff2');
 }
+/* Archivo nella sua forma larga e nera (larghezza 125, peso 800): solo per le voci del menu, dove serve un
+   carattere con più presenza di Inter. Un taglio solo, 14 KB, servito da questa cartella (licenza OFL in fonts/).
+   Il browser lo scarica solo dove una di quelle voci si vede: su telefono, finché il menu resta chiuso, non parte. */
+@font-face {
+  font-family: 'Archivo largo';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('fonts/archivo-largo-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 :root {
   /* Colori del kit F (sito/colori.css) */
@@ -56,6 +67,7 @@
   --bordo-forte: #D6D3CC;
   --velo: #EDF1EE;             /* verde appena accennato: pezzo della tavola, «Fatto», primo risultato */
   --velo-forte: #CAD7CF;       /* barre del resoconto */
+  --velo-finestra: rgba(31, 77, 63, .55);   /* dietro la finestra del calibro: il verde al 55% */
   /* Sul verde: testi secondari (5,3:1), linee e trame */
   --crema-tenue: #B9C4BC;
   --linea-verde: rgba(244, 241, 234, .2);
@@ -70,6 +82,8 @@
   --segnaposto-bordo: #8A5A12;
   /* Un'ombra sola, per gli esempi dei servizi */
   --ombra: 0 1px 2px rgba(22, 22, 26, .04), 0 32px 64px -40px rgba(31, 77, 63, .4);
+  /* e una leggera per il banner del calibro, l'unico elemento sollevato sopra la pagina */
+  --ombra-banner: 0 1px 2px rgba(22, 22, 26, .06), 0 12px 32px -8px rgba(22, 22, 26, .18);
   /* Sottolineatura dei link: grigia su chiaro, crema tenue sul verde (vedi .punto e .contatto) */
   --sottolineatura: var(--tenue);
 
@@ -77,10 +91,13 @@
      Accenti con il peso leggero, mai con il corsivo */
   --sans: 'Inter', 'Inter riserva', system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: 'Cifre', 'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  /* Archivo largo: solo per le voci del menu (testata, tendine, menu a schermo intero). Se non arriva, resta Inter */
+  --menu: 'Archivo largo', var(--sans);
   --peso-leggero: 300;
   --peso-normale: 400;
   --peso-medio: 500;
   --peso-forte: 600;
+  --peso-nero: 800;            /* il solo peso di Archivo largo */
   /* Scala tipografica: una sola */
   --t-micro: 12px;
   --t-piccolo: 14px;
@@ -89,6 +106,7 @@
   --t-h3: 24px;
   --t-citazione: clamp(18px, 1.5vw, 22px);   /* le parole dei clienti nelle recensioni */
   --t-voce: clamp(28px, 3.4vw, 48px);
+  --t-domanda: clamp(24px, 3.2vw, 36px);     /* la domanda a schermo nella finestra del calibro */
   --t-h2: clamp(36px, 5.2vw, 72px);
   --t-cifra: clamp(64px, 8vw, 128px);
   --t-display: min(15.5vw, 88px);
@@ -119,6 +137,9 @@
   --misura: 36em;              /* righe di testo leggibili */
   --misura-stretta: 26em;
   --misura-documento: 720px;
+  --finestra: 760px;           /* larghezza massima della finestra del calibro */
+  --banner: 360px;             /* larghezza del banner del calibro su schermo largo */
+  --tocco: 44px;               /* area di tocco delle ✕ (banner del calibro, riepilogo nel modulo) */
   --logo: 18px;                /* corpo del logo: spazio libero ≥ altezza della pillola */
   /* Raggi e linee */
   --r: 10px;                   /* stesso rapporto delle tessere del logo */
@@ -135,10 +156,16 @@
   /* Movimento: ogni sezione entra a modo suo, sempre solo con transform e opacity */
   --curva: cubic-bezier(.2, .7, .2, 1);
   --curva-precisa: cubic-bezier(.65, 0, .35, 1);
+  --curva-foglio: cubic-bezier(.32, .72, 0, 1);   /* finestra e banner del calibro: partono svelti, si posano piano */
   --breve: .2s;
+  --passo: .25s;               /* da una domanda del calibro alla successiva */
+  --ingresso: .3s;             /* finestra e banner del calibro */
   --media: .6s;
   --lunga: 1s;
   --sfalsa: .1s;               /* passo dei ritardi in sequenza */
+  --ingresso-figura: .5s;      /* le immagini entrano: opacità e 16px, con una curva che frena presto */
+  --curva-ingresso: cubic-bezier(.32, .72, 0, 1);
+  --materia: .4;               /* quanto si vede la carta verde (campo-verde) sopra il verde pieno */
 
   /* La quota sopra «Precisi»: distanza dalla parola e altezza delle maiuscole (Inter, interlinea .9) */
   --quota-distanza: 24px;
@@ -166,7 +193,7 @@
 @media (min-width: 768px) {
   :root {
     --gutter: 32px;
-    --sezione: 144px;
+    --sezione: 128px;            /* tra sezioni solo tre valori: 96, 128 e 160 (il fondo de «Il punto») */
     --t-lead: 20px;
     --logo: 20px;
     --t-display: clamp(48px, 10.4vw, 152px);
@@ -271,7 +298,7 @@ mark.da-compilare, mark.da-definire {
 .sezione-testa { margin-bottom: var(--s8); }
 
 @media (min-width: 1024px) {
-  .sezione-testa { margin-bottom: var(--s12); }
+  .sezione-testa { margin-bottom: var(--s10); }
 }
 
 /* ── Pulsanti e link ── */
@@ -352,6 +379,37 @@ mark.da-compilare, mark.da-definire {
   background: var(--accento);
 }
 
+/* ── Immagini: carta e cartoncino fotografati, dentro una cornice a tacche ──
+   Bordo e raggio dei riquadri «Esempio». Agli angoli quattro tacche da 1px, come le linee di riferimento di una quota:
+   sono un SVG grande quanto la cornice, che disegna fuori dai suoi bordi (overflow visibile). File in immagini/. */
+.cornice { position: relative; margin: 0; }
+/* la misura la dà la cornice (aspect-ratio): l'immagine la riempie, ritagliata al centro */
+.cornice img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  background: var(--superficie-2);
+}
+.tacche {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  fill: none;
+  stroke: var(--accento);
+  stroke-width: var(--linea);
+}
+/* Pagine interne: la testata, larga quanto il contenitore */
+.testata-figura { aspect-ratio: 21 / 9; margin-top: var(--s6); }
+@media (min-width: 1024px) {
+  .testata-figura { margin-top: var(--s8); }
+}
+
 /* ── Testata ── */
 .testata {
   position: sticky;
@@ -392,15 +450,19 @@ mark.da-compilare, mark.da-definire {
   padding: .222em .5em .25em;
 }
 .testata .logo { min-height: var(--s3); }
+/* Le quattro voci (.nav-voce > a). Sotto ognuna c'è la sua tendina, che si vede solo da 1100px (più giù). */
 .nav { display: none; gap: var(--s3); }
-.nav a {
+.nav-voce > a {
   position: relative;
-  font-size: var(--t-piccolo);
-  color: var(--tenue);
+  font-family: var(--menu);
+  font-size: var(--t-corpo);
+  font-weight: var(--peso-nero);
+  letter-spacing: var(--ls-voce);
+  color: var(--testo);
   text-decoration: none;
   padding: var(--s1) 0;
 }
-.nav a::after {
+.nav-voce > a::after {
   content: '';
   position: absolute;
   left: 0; right: 0; bottom: 0;
@@ -410,8 +472,10 @@ mark.da-compilare, mark.da-definire {
   transform-origin: left;
   transition: transform var(--media) var(--curva);
 }
-.nav a:hover, .nav a.corrente { color: var(--testo); }
-.nav a.corrente::after { transform: scaleX(1); }
+.nav-voce > a:hover { color: var(--accento); }
+/* la riga verde sotto la voce: la sezione in cui ci si trova (.corrente, main.js) o la pagina aperta */
+.nav-voce > a:is(.corrente, [aria-current])::after { transform: scaleX(1); }
+.nav-tendina { display: none; }
 
 @media (min-width: 768px) {
   .nav { display: flex; }
@@ -430,7 +494,7 @@ mark.da-compilare, mark.da-definire {
 .testata-contatto { gap: var(--s1); white-space: nowrap; }
 .testata-contatto .tel-icona { color: currentColor; }
 .menu-pronto .nav { display: none; }
-.menu-apri, .menu-chiudi {
+.menu-apri, .menu-chiudi, .finestra-chiudi {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -446,7 +510,7 @@ mark.da-compilare, mark.da-definire {
   cursor: pointer;
 }
 .menu-apri[hidden] { display: none; }
-.menu-apri:hover { border-color: var(--testo); }
+:is(.menu-apri, .finestra-chiudi):hover { border-color: var(--testo); }
 /* l'icona: due tratti; nel bottone «Chiudi» si incrociano */
 .menu-icona { position: relative; display: block; flex: none; width: var(--s2); height: var(--s1); }
 .menu-icona span { position: absolute; left: 0; right: 0; height: var(--linea-forte); border-radius: var(--linea); background: currentColor; }
@@ -529,10 +593,11 @@ html.menu-aperto { overflow: hidden; }
 .menu-etichetta {
   display: block;
   overflow: hidden;
+  font-family: var(--menu);
   font-size: var(--t-menu);
-  font-weight: var(--peso-forte);
+  font-weight: var(--peso-nero);
   line-height: 1.1;
-  letter-spacing: var(--ls-titolo);
+  letter-spacing: var(--ls-voce);
 }
 @supports (overflow: clip) {
   .menu-etichetta { overflow: visible clip; }
@@ -561,6 +626,75 @@ html.menu-aperto { overflow: hidden; }
 }
 @media (max-width: 479px) {
   .menu-apri .menu-apri-testo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
+/* Da 1100px le quattro voci stanno in linea nella testata, tra il logo e «Contatti diretti»:
+   chi arriva da computer vede subito che quelle pagine esistono. Il bottone «Menu» resta sotto questa soglia. */
+@media (min-width: 1100px) {
+  .menu-pronto .nav { display: flex; }
+  .menu-pronto .menu-apri { display: none; }
+
+  /* Le tendine: sotto ogni voce si apre l'elenco di quello che la voce contiene. Solo CSS: al passaggio del mouse
+     (dove c'è un mouse) e con il fuoco da tastiera; la voce resta un link e si clicca come prima.
+     Esc e il clic su una riga la chiudono (.chiusa, main.js). Sotto i 1100px non ci sono: le stesse destinazioni
+     stanno nel menu a schermo intero e nella pagina. La voce è alta quanto la testata e il foglio parte dal suo
+     bordo, così il mouse scende senza uscire. I testi sono quelli che il sito ha già. */
+  .nav { align-self: stretch; }
+  .nav-voce { position: relative; display: flex; align-items: center; }
+  .nav-tendina {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: calc(-1 * (var(--s3) + var(--linea)));   /* le righe del foglio partono a filo della voce */
+    padding-top: var(--s1);
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .nav-foglio {
+    width: max-content;
+    min-width: calc(2 * var(--s16) + var(--s4));    /* 288px */
+    max-width: calc(3 * var(--s16));                /* 384px */
+    padding: var(--s1);
+    border: var(--linea) solid var(--bordo-forte);
+    border-radius: var(--r);
+    background: var(--superficie);
+    box-shadow: var(--ombra-banner);
+  }
+  .nav-foglio ul { margin: 0; padding: 0; list-style: none; }
+  .nav-foglio li a, .nav-gruppo-nome {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s2);
+    padding: var(--s1) var(--s2);
+    border-radius: var(--r-xs);
+    color: var(--testo);
+    text-decoration: none;
+  }
+  .nav-foglio li a:hover, .nav-gruppo-nome:hover { background: var(--superficie-2); }
+  .nav-foglio li a:hover .nav-titolo, .nav-gruppo-nome:hover .nav-titolo { color: var(--accento); }
+  /* Tre gradini, per non avere righe tutte uguali: il titolo della riga è grande e forte; la frase che lo spiega,
+     piccola e tenue; numeri e codici in mono. I moduli stanno sotto il loro servizio, più leggeri. */
+  .nav-titolo { display: block; font-family: var(--menu); font-size: var(--t-lead); font-weight: var(--peso-nero); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
+  .nav-foglio small { display: block; margin-top: var(--scarto); font-size: var(--t-piccolo); font-weight: var(--peso-normale); line-height: var(--lh-corpo); color: var(--tenue); }
+  .nav-num, .nav-codice { font: var(--peso-medio) var(--t-micro)/1 var(--mono); letter-spacing: var(--ls-micro); color: var(--accento); }
+  .nav-codice { min-width: var(--s3); color: var(--tenue); }
+  /* Servizi: i cinque servizi su due colonne, sotto ognuno i suoi moduli */
+  .nav-foglio-largo { max-width: none; }
+  .nav-gruppi { columns: 2; column-gap: var(--s2); width: calc(4 * var(--s16) + var(--s8)); }   /* 576px */
+  .nav-gruppo { break-inside: avoid; padding-bottom: var(--s2); }
+  .nav-gruppo li a { padding-left: calc(var(--s2) + var(--s3) + var(--s1)); font-size: var(--t-piccolo); color: var(--tenue); }   /* a filo del nome del servizio */
+  .nav-gruppo li a:hover { color: var(--testo); }
+  /* «per intero»: il link alla pagina, sotto una riga */
+  .nav-foglio > :is(ul, .nav-gruppi):not(:last-child) { padding-bottom: var(--s1); border-bottom: var(--linea) solid var(--bordo); }
+  .nav-foglio .link-freccia { margin: var(--s2) var(--s2) var(--s1); font-size: var(--t-piccolo); }
+
+  .nav-voce:has(:focus-visible) > .nav-tendina { visibility: visible; opacity: 1; pointer-events: auto; }
+  .nav-voce:has(:focus-visible) > a { color: var(--testo); }
+  @media (hover: hover) and (pointer: fine) {
+    .nav-voce:hover > .nav-tendina { visibility: visible; opacity: 1; pointer-events: auto; }
+    .nav-voce:hover > a { color: var(--testo); }
+  }
+  .nav-voce.chiusa > .nav-tendina { visibility: hidden; opacity: 0; pointer-events: none; }
 }
 @media (min-width: 1024px) {
   .menu-corpo { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s3); align-items: end; }
@@ -713,6 +847,45 @@ html.menu-aperto { overflow: hidden; }
 /* Pagina principale: titolo su due righe, così la striscia dei settori arriva presto */
 .apertura-studio .apertura-titolo { font-size: min(10.5vw, 76px); }
 .apertura-studio .apertura-piede { padding-top: var(--s5); }
+/* L'immagine dell'apertura. Sotto i 1100px sta dopo testo e bottoni, mai sopra, ritagliata più bassa (4:3).
+   Da 1100px l'apertura va su due colonne: titolo, testo e bottoni a sinistra, l'immagine a destra, quadrata:
+   è alta quanto la colonna di sinistra, e la striscia dei settori resta nella prima schermata. */
+.apertura-figura { width: min(100%, 560px); aspect-ratio: 4 / 3; margin-top: var(--s6); }
+.apertura-figura img { object-position: 50% 56%; }
+/* Il video dell'apertura (lo mette main.js, a pagina caricata) sta sopra l'immagine da cui parte, con lo stesso bordo.
+   Compare quando comincia a girare (.gira); a video finito resta fermo sull'ultimo fotogramma. */
+.apertura-figura video {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  opacity: 0;
+  transition: opacity var(--breve) var(--curva);
+}
+.apertura-figura video.gira { opacity: 1; }
+@media (min-width: 1100px) {
+  .apertura-studio .apertura-scena > .contenitore {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: auto auto 1fr;
+    column-gap: var(--s3);
+  }
+  .apertura-studio .apertura-meta { grid-column: 1 / -1; }
+  .apertura-studio :is(.apertura-titolo, .apertura-piede) { grid-column: 1 / 8; }
+  .apertura-studio .apertura-piede { display: block; margin-top: 0; }
+  .apertura-figura {
+    grid-column: 8 / -1;
+    grid-row: 2 / 4;
+    align-self: start;
+    width: 100%;
+    aspect-ratio: 1;
+    margin-top: clamp(var(--s3), 5svh, var(--s8));
+  }
+}
 
 /* ══ 1b. Striscia dei settori: subito sotto l'apertura, una porta per ogni settore ══ */
 .striscia-settori { background: var(--superficie); border-block: var(--linea) solid var(--bordo); }
@@ -754,6 +927,19 @@ html.menu-aperto { overflow: hidden; }
   padding: var(--s12) 0 var(--s16);
 }
 .punto .micro { color: var(--crema-tenue); }
+/* I fogli verdi («Il punto», il metodo, il contatto) hanno la materia della carta: campo-verde sopra il verde pieno,
+   poco visibile (--materia). L'immagine non ha zone chiare: i testi secondari restano almeno a 4,8:1. */
+:is(.punto, .metodo-verde, .contatto)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: url('immagini/campo-verde-1440.webp') center / cover no-repeat;
+  opacity: var(--materia);
+  pointer-events: none;
+}
+.metodo-verde, .contatto { position: relative; }
+:is(.punto, .metodo-verde) > .contenitore { position: relative; }
 .punto-griglia { display: grid; gap: var(--s6); justify-items: start; }
 .sintomi { justify-self: stretch; border-top: var(--linea) solid var(--linea-verde); }
 .sintomi li {
@@ -787,7 +973,44 @@ html.menu-aperto { overflow: hidden; }
   .punto-griglia > .micro { grid-column: 1 / 3; grid-row: 1; padding-top: var(--s3); }
 }
 
-/* ══ 3. Servizi: la distinta, con un esempio per ogni voce ══════
+/* ══ 3. Servizi: il banco ═══════════════════════════════════════
+   I cinque servizi, uno per colonna; sotto ognuno i moduli che valgono per ogni azienda (otto in tutto).
+   Solo codice e nome: la spiegazione sta nella pagina Servizi, dove ogni tessera porta. Su telefono i servizi
+   stanno uno sotto l'altro, da 600px su due colonne, da 1024px tutti e cinque in fila. */
+.servizi-banco { display: grid; gap: var(--s5) var(--s3); padding-top: var(--s4); border-top: var(--linea) solid var(--bordo-forte); }
+.servizio-colonna h3 { display: grid; gap: var(--s1); font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
+.servizio-colonna .servizio-pos { font: var(--peso-medio) var(--t-micro)/1 var(--mono); letter-spacing: var(--ls-micro); }
+.moduli-voci { display: grid; gap: var(--s1); margin-top: var(--s3); }
+.modulo-tessera {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: var(--s2);
+  min-height: var(--s8);
+  padding: var(--s2);
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  background: var(--superficie);
+  color: var(--testo);
+  font-weight: var(--peso-medio);
+  line-height: var(--lh-voce);
+  text-decoration: none;
+}
+.modulo-codice { font: var(--peso-medio) var(--t-micro)/1 var(--mono); letter-spacing: var(--ls-micro); color: var(--tenue); }
+.modulo-tessera .freccia { align-self: center; color: var(--tenue); }
+.modulo-tessera:hover { border-color: var(--accento); color: var(--accento); }
+.modulo-tessera:hover .freccia { color: currentColor; transform: translateX(var(--scarto)); }
+@media (min-width: 600px) {
+  .servizi-banco { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1024px) {
+  .servizi-banco { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  /* i nomi lunghi vanno su due righe: tutte le intestazioni tengono lo stesso spazio, così le tessere partono alla pari */
+  .servizio-colonna h3 { grid-template-rows: auto calc(2 * var(--lh-voce) * 1em); font-size: var(--t-lead); }
+}
+
+/* La versione di prima, con una spiegazione e un esempio per servizio: le regole restano, per ora non usate.
+   ══ Servizi: la distinta, con un esempio per ogni voce ══
    Posizione, servizio, esempio. Ogni riga si traccia da sinistra quando entra. */
 .servizi { border-bottom: var(--linea) solid var(--bordo-forte); }
 .servizio {
@@ -829,6 +1052,17 @@ html.menu-aperto { overflow: hidden; }
   /* «Siti tecnici» apre la distinta: l'esempio prende tutta la larghezza */
   .servizio:first-child .servizio-testo { grid-column: 2 / 8; }
   .servizio:first-child .mock { grid-column: 2 / -1; font-size: var(--t-corpo); }
+}
+/* Da 1200px il ritmo si alterna: testo da un lato, esempio dall'altro, e le voci pari si specchiano
+   (esempio a sinistra, numero e testo a destra). Anche la prima voce sta su due colonne. Gli esempi sono gli stessi. */
+@media (min-width: 1200px) {
+  .servizio { padding: var(--s4) 0; }
+  .servizio:first-child .servizio-testo { grid-column: 2 / 7; }
+  .servizio:first-child .mock { grid-column: 7 / -1; font-size: var(--t-piccolo); }
+  .servizio:nth-child(even) > * { grid-row: 1; }
+  .servizio:nth-child(even) .mock { grid-column: 1 / 7; }
+  .servizio:nth-child(even) .servizio-pos { grid-column: 7 / 8; justify-self: end; }
+  .servizio:nth-child(even) .servizio-testo { grid-column: 8 / -1; }
 }
 
 /* Gli esempi: piccole schermate fatte in HTML. «Esempio» sta sul bordo, come la legenda di un riquadro */
@@ -1074,8 +1308,8 @@ html.menu-aperto { overflow: hidden; }
 .risultato-lettera { grid-row: span 2; font: var(--peso-leggero) var(--t-h3)/1 var(--mono); color: var(--accento); }
 .risultati h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
 .risultati p { color: var(--tenue); }
-.settori-lista { margin-top: var(--s12); border-bottom: var(--linea) solid var(--bordo-forte); }
-.settore-riga { display: grid; gap: var(--s4); padding: var(--s6) 0; border-top: var(--linea) solid var(--bordo-forte); }
+.settori-lista { margin-top: var(--s8); border-bottom: var(--linea) solid var(--bordo-forte); }
+.settore-riga { display: grid; gap: var(--s4); padding: var(--s4) 0; border-top: var(--linea) solid var(--bordo-forte); }
 .settore-intesta { display: grid; grid-template-columns: var(--s8) minmax(0, 1fr); gap: var(--s2); align-items: baseline; }
 .settore-num { font: var(--peso-leggero) var(--t-voce)/var(--lh-voce) var(--mono); color: var(--accento); }
 .settore-intesta h3 { font-size: var(--t-voce); line-height: var(--lh-voce); letter-spacing: var(--ls-titolo); }
@@ -1173,6 +1407,22 @@ html.menu-aperto { overflow: hidden; }
   border-top: var(--linea) solid var(--bordo);
   border-bottom: var(--linea) solid var(--bordo);
 }
+/* Pagina principale: il ciclo sta su un foglio verde a metà pagina, con gli angoli de «Il punto».
+   Numeri, linea e testi in crema (16,5:1 i titoli, 5,3:1 i testi secondari). */
+.metodo-verde {
+  --sottolineatura: var(--crema-tenue);
+  border: 0;
+  border-radius: var(--r-foglio);
+  background: var(--accento);
+  color: var(--crema);
+}
+.metodo-verde :is(.micro, .sezione-sotto, .fase p) { color: var(--crema-tenue); }
+.metodo-verde .fase-num { color: var(--crema); }
+.metodo-verde .ciclo::before { background: var(--linea-verde); }
+.metodo-verde .ciclo::after { background: var(--crema); }
+.metodo-verde .fase-segno { border-color: var(--crema); background: var(--accento); }
+.metodo-verde .fase-segno::after { background: var(--crema); }
+.metodo-verde :focus-visible { outline-color: var(--crema); }
 .ciclo { position: relative; display: grid; gap: var(--s6); padding-left: var(--s8); }
 .ciclo::before, .ciclo::after {
   content: '';
@@ -1288,6 +1538,11 @@ html.menu-aperto { overflow: hidden; }
 .qualita h3 { font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
 .qualita p { max-width: var(--misura-stretta); color: var(--tenue); }
 .chi-firma { margin-top: var(--s4); }
+/* I ritratti dei soci, sotto la riga con i nomi: due riquadri 4:5 con il bordo dei riquadri «Esempio».
+   Aspettano le foto vere: finché mancano, online non ci sono (prepara.sh, DA_FORNIRE.md) */
+.ritratti { display: grid; grid-template-columns: repeat(2, minmax(0, calc(var(--s16) + var(--s6)))); gap: var(--s3); margin-top: var(--s4); }   /* 176px l'uno */
+.ritratto { position: relative; margin: 0; aspect-ratio: 4 / 5; overflow: hidden; border: var(--linea) solid var(--bordo-forte); border-radius: var(--r); background: var(--superficie-2); }
+.ritratto img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
 .chi-azioni { margin-top: var(--s4); }
 
 @media (min-width: 1024px) {
@@ -1526,6 +1781,345 @@ html.menu-aperto { overflow: hidden; }
   .calibro-esito { grid-column: 9 / -1; }
 }
 
+/* ── Con JavaScript (main.js): nella pagina resta una fascia, le domande stanno in una finestra.
+   Senza, valgono le regole qui sopra: le otto domande in fila. ── */
+/* La fascia: una scheda tutta cliccabile, come le porte «Per settore». Il bottone è la freccia,
+   il suo ::after copre la scheda: un solo bersaglio, un solo fuoco. */
+.calibro-fascia { padding: var(--s3) 0; }
+.calibro-fascia .calibro-griglia { display: none; }
+.calibro-fascia .sezione-testa {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "occhiello occhiello" "titolo titolo" "sotto sotto" "strumento freccia";
+  align-items: end;
+  gap: var(--s2) var(--s3);
+  margin-bottom: 0;
+  padding: var(--s3);
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  transition: border-color var(--breve) var(--curva);
+}
+.calibro-fascia .sezione-testa:hover { border-color: var(--accento); }
+.calibro-fascia .sezione-testa .micro { grid-area: occhiello; }
+.calibro-fascia .titolo-sezione { grid-area: titolo; margin-top: 0; font-size: var(--t-voce); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
+.calibro-fascia .sezione-sotto { grid-area: sotto; margin-top: 0; max-width: var(--misura); font-size: var(--t-corpo); }
+.calibro-fascia .comparatore { grid-area: strumento; width: calc(var(--s12) + var(--s2)); margin-top: var(--s1); }
+.calibro-fascia .comparatore text { display: none; }   /* su telefono lo strumento è piccolo: le cifre non si leggerebbero */
+.calibro-apri {
+  grid-area: freccia;
+  display: grid;
+  place-items: center;
+  width: var(--s5); height: var(--s5);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--testo);
+  cursor: pointer;
+}
+.calibro-apri::after { content: ''; position: absolute; inset: calc(-1 * var(--linea)); border-radius: var(--r); }
+.calibro-fascia .sezione-testa:hover .calibro-apri { color: var(--accento); }
+.calibro-fascia .sezione-testa:hover .freccia { transform: translateX(var(--scarto)); }
+.calibro-apri:active::after { background: var(--griglia); }
+.calibro-apri:focus-visible { outline: none; }
+.calibro-apri:focus-visible::after { outline: var(--linea-forte) solid var(--accento); outline-offset: var(--fuoco-distanza); }
+/* le tacche: spente finché la domanda non ha una risposta; a calibro finito, nella fascia, tutte accese */
+:is(.calibro-fascia, .calibro-finestra) .comparatore-tacche { stroke: var(--bordo-forte); }
+.comparatore-accese { stroke-width: 2.5; }
+.comparatore-accese path { opacity: 0; }
+.comparatore-accese .accesa { opacity: 1; }
+.calibro-completato .comparatore-tacche { stroke: var(--accento); stroke-width: 2.5; }
+
+@media (max-width: 359px) {
+  .calibro-fascia .sezione-testa { padding: var(--s2); }
+}
+@media (min-width: 768px) {
+  .calibro-fascia .sezione-testa {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-areas: "occhiello strumento freccia" "titolo strumento freccia" "sotto strumento freccia";
+    align-items: center;
+    align-content: center;
+    column-gap: var(--s4);
+    min-height: calc(var(--s16) + var(--s12));
+    padding: var(--s4);
+  }
+  .calibro-fascia .sezione-sotto { font-size: var(--t-lead); }
+  .calibro-fascia .comparatore { width: calc(var(--s16) + var(--s4)); margin-top: 0; }
+  .calibro-fascia .comparatore text { display: inline; }
+}
+@media (min-width: 1024px) {
+  .calibro-fascia .sezione-testa { column-gap: var(--s5); padding: var(--s5); }
+  .calibro-fascia .comparatore { width: calc(var(--s16) + var(--s8)); }
+}
+
+/* La finestra (<dialog> aperto con showModal): si apre solo con un clic sulla fascia o sul banner.
+   Su telefono è a tutto schermo, come il menu: strumento in alto, domanda al centro, «Sì» e «No» in basso,
+   a portata di pollice. Da 640px domanda e strumento stanno affiancati; da 768px la finestra sta al centro
+   su un velo verde. Le otto domande sono impilate nella stessa cella: si vede solo quella attuale,
+   e passando dall'una all'altra niente cambia posto. */
+html.finestra-aperta { overflow: hidden; scrollbar-gutter: stable; }
+.calibro-finestra {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--superficie);
+  color: var(--testo);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.calibro-finestra[open] { display: flex; flex-direction: column; }
+/* nei browser meno recenti ::backdrop non eredita i token di :root: da qui il valore di riserva */
+.calibro-finestra::backdrop { background: var(--velo-finestra, rgba(31, 77, 63, .55)); }
+.finestra-testa {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  min-height: var(--testata);
+  padding: var(--s1) var(--gutter);
+  border-bottom: var(--linea) solid var(--bordo);
+}
+/* la ✕ della finestra: solo il segno, in un quadrato come la freccia «indietro».
+   Il nome «Chiudi» resta per i lettori di schermo (.nascosto, main.js). */
+.finestra-chiudi { padding: var(--s1); }
+.finestra-corpo {
+  position: relative;
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto 1fr auto auto auto 1fr;
+  grid-template-areas: "strumento" "testo" "." "intro" "riga" "domande" ".";
+  /* in fondo, il posto di «Sì» e «No» */
+  padding: var(--s2) var(--gutter) calc(var(--s7) + var(--s4) + env(safe-area-inset-bottom, 0px));
+}
+.finestra-intro { grid-area: intro; margin-bottom: var(--s2); }
+.finestra-titolo { font-size: var(--t-h3); font-weight: var(--peso-leggero); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); text-wrap: balance; }
+.finestra-sotto { margin-top: var(--s1); font-size: var(--t-piccolo); color: var(--tenue); }
+.calibro-finestra .comparatore { grid-area: strumento; justify-self: center; width: calc(var(--s16) + var(--s4)); }
+.calibro-finestra .calibro-testo { grid-area: testo; margin-top: var(--s1); text-align: center; text-wrap: balance; }
+/* finché si risponde, sotto lo strumento c'è la sua lettura: una nota a margine */
+.calibro-finestra[data-stato="domande"] .calibro-punteggio {
+  font: var(--peso-medio) var(--t-micro)/var(--lh-voce) var(--mono);
+  letter-spacing: var(--ls-micro);
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: var(--tenue);
+}
+.finestra-riga { grid-area: riga; display: flex; align-items: center; gap: var(--s2); min-height: var(--s5); margin-bottom: var(--s1); }
+.finestra-indietro {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--s5); height: var(--s5);
+  padding: 0;
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  background: none;
+  color: var(--testo);
+  cursor: pointer;
+}
+.finestra-indietro .freccia { transform: scaleX(-1); }
+.finestra-indietro:hover { border-color: var(--testo); }
+.finestra-indietro:hover .freccia { transform: scaleX(-1) translateX(var(--scarto)); }
+.finestra-indietro:disabled { display: none; }
+.finestra-contatore { font: var(--peso-medio) var(--t-piccolo)/1 var(--mono); letter-spacing: var(--ls-micro); font-variant-numeric: tabular-nums; color: var(--accento); }
+.calibro-finestra .calibro-domande { grid-area: domande; display: grid; border: 0; }
+/* le otto voci sono impilate nella stessa cella: senza pointer-events l'ultima copre «Sì» e «No» delle altre
+   e, da 640px, il clic del mouse non arriva alla risposta. Riceve il puntatore solo la domanda a schermo. */
+.calibro-finestra .calibro-domande li { grid-area: 1 / 1; min-width: 0; border: 0; pointer-events: none; }
+.calibro-finestra .calibro-domanda { padding: 0; visibility: hidden; }
+.calibro-finestra .calibro-domanda.attuale { visibility: visible; pointer-events: auto; }
+.calibro-finestra .calibro-domanda legend {
+  font-size: var(--t-domanda);
+  font-weight: var(--peso-forte);
+  letter-spacing: var(--ls-voce);
+  text-wrap: balance;
+}
+.calibro-finestra .calibro-num { display: none; }
+.calibro-finestra .calibro-scelte {
+  position: absolute;
+  left: var(--gutter); right: var(--gutter);
+  bottom: calc(var(--s2) + env(safe-area-inset-bottom, 0px));
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.calibro-finestra .calibro-scelte label { justify-content: center; min-height: var(--s7); font-size: var(--t-lead); font-weight: var(--peso-medio); }
+/* al tocco il «passaggio del mouse» resta sul bottone anche quando la domanda è cambiata: vale solo dove c'è un mouse */
+@media not (hover: hover) {
+  .calibro-finestra .calibro-scelte label:not(:has(:checked)):hover { border-color: var(--bordo-forte); }
+}
+.calibro-finestra .calibro-porta { grid-area: porta; justify-content: space-between; min-height: var(--s7); font-weight: var(--peso-forte); }
+.calibro-finestra[data-stato="domande"] .calibro-porta,
+.calibro-finestra[data-stato="esito"] :is(.calibro-domande, .finestra-contatore) { display: none; }
+/* il risultato: la prima frase in grande, poi il consiglio e il bottone */
+.calibro-finestra[data-stato="esito"] .finestra-corpo {
+  grid-template-rows: auto 1fr auto auto 1fr auto;
+  grid-template-areas: "strumento" "." "riga" "testo" "." "porta";
+  padding-bottom: calc(var(--s2) + env(safe-area-inset-bottom, 0px));
+}
+.calibro-finestra[data-stato="esito"] .calibro-testo { margin: 0 0 var(--s3); text-align: left; }
+.calibro-finestra[data-stato="esito"] .calibro-punteggio { font-size: var(--t-voce); }
+.calibro-finestra[data-stato="esito"] .calibro-consiglio { margin-top: var(--s2); font-size: var(--t-lead); }
+
+@media (max-width: 639px), (max-height: 479px) {
+  /* su telefono titolo e sottotitolo accompagnano solo la prima domanda: poi lo spazio è della domanda */
+  .calibro-finestra:not([data-passo="1"]) .finestra-intro { display: none; }
+}
+@media (min-width: 640px) {
+  .finestra-corpo {
+    grid-template-columns: minmax(0, 1fr) calc(var(--s16) + var(--s8));
+    grid-template-rows: auto auto auto auto 1fr;
+    grid-template-areas: "intro intro" "riga strumento" "domande strumento" "domande testo" "domande .";
+    column-gap: var(--s5);
+    padding: var(--s4) var(--s5) var(--s5);
+  }
+  .finestra-intro { margin-bottom: var(--s3); padding-bottom: var(--s3); border-bottom: var(--linea) solid var(--bordo); }
+  .calibro-finestra .comparatore { align-self: start; width: 100%; }
+  .calibro-finestra .calibro-domande li { display: grid; }
+  .calibro-finestra .calibro-domanda { grid-template-rows: 1fr auto; gap: var(--s4); }
+  /* la riga è dichiarata: in Safari la domanda (legend) resta fuori dalla griglia, e «Sì» e «No»
+     finirebbero nella riga elastica, alti il doppio e attaccati alla domanda */
+  .calibro-finestra .calibro-scelte { position: static; grid-row: 2; }
+  .calibro-finestra[data-stato="esito"] .finestra-corpo {
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas: "intro intro" "riga strumento" "testo strumento" "porta .";
+    padding-bottom: var(--s5);
+  }
+}
+/* telefono in orizzontale: margini stretti, così «Sì» e «No» restano a schermo */
+@media (min-width: 640px) and (max-height: 479px) {
+  .finestra-corpo, .calibro-finestra[data-stato="esito"] .finestra-corpo { padding: var(--s2) var(--s4) var(--s3); }
+  .finestra-intro { margin-bottom: var(--s2); padding-bottom: var(--s2); }
+  .calibro-finestra .calibro-domanda { gap: var(--s2); }
+}
+@media (min-width: 768px) and (min-height: 600px) {
+  .calibro-finestra {
+    width: min(100% - 2 * var(--s3), var(--finestra));
+    height: fit-content;
+    max-height: calc(100dvh - 2 * var(--s3));
+    margin: auto;
+    border-radius: var(--r);
+  }
+  .finestra-corpo { min-height: calc(var(--s16) * 3); }
+}
+
+/* Il banner del calibro: un riquadro non modale, la pagina sotto resta leggibile e usabile.
+   Su telefono una barra bassa (al massimo 76px) a 12px dai bordi; da 768px una scheda in basso a destra.
+   Tutta la scheda apre la finestra (il ::after della freccia la copre); la ✕ la chiude per 30 giorni.
+   Quando compare e quando no lo decide main.js (.visibile); con il menu o la finestra aperti non c'è mai.
+   È fisso e si muove solo con transform e opacity: entrando non sposta niente nella pagina. */
+.calibro-banner {
+  position: fixed;
+  z-index: 9;                  /* sotto la testata (10): su schermi bassi una tendina aperta passa sopra il banner, non sotto */
+  left: calc(var(--s1) + var(--scarto));
+  right: calc(var(--s1) + var(--scarto));
+  bottom: calc(var(--s1) + var(--scarto) + env(safe-area-inset-bottom, 0px));
+  display: grid;
+  grid-template-columns: var(--s5) minmax(0, 1fr) auto auto;
+  grid-template-areas: "strumento titolo freccia chiudi";
+  align-items: center;
+  column-gap: var(--s1);
+  max-height: calc(var(--s8) + var(--s1) + var(--scarto));
+  padding: calc(var(--s1) + var(--scarto)) var(--scarto) calc(var(--s1) + var(--scarto)) calc(var(--s1) + var(--scarto));
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  background: var(--superficie);
+  box-shadow: var(--ombra-banner);
+  opacity: 0;
+  visibility: hidden;
+}
+.calibro-banner.visibile { opacity: 1; visibility: visible; }
+html:is(.menu-aperto, .finestra-aperta) .calibro-banner { opacity: 0; visibility: hidden; }
+.calibro-banner .micro { grid-area: occhiello; display: none; }
+.banner-titolo {
+  grid-area: titolo;
+  margin-left: var(--scarto);
+  font-size: clamp(var(--t-piccolo), 4.1vw, var(--t-corpo));
+  font-weight: var(--peso-forte);
+  line-height: var(--lh-voce);
+  letter-spacing: var(--ls-voce);
+  text-wrap: balance;
+}
+/* lo strumento in miniatura: solo arco e lancetta, con tratti più spessi */
+.comparatore-mini { grid-area: strumento; width: var(--s5); }
+.comparatore-mini :is(text, .comparatore-tacche) { display: none; }
+.comparatore-mini :is(.comparatore-arco, .comparatore-passa) { stroke-width: 16; }
+.comparatore-mini .lancetta { stroke-width: 10; }
+.comparatore-mini .comparatore-perno { transform-origin: 100px 100px; transform: scale(2); }
+.banner-apri {
+  grid-area: freccia;
+  display: grid;
+  place-items: center;
+  width: var(--s3); height: var(--s3);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--testo);
+  cursor: pointer;
+}
+.banner-apri::after { content: ''; position: absolute; inset: calc(-1 * var(--linea)); border: var(--linea) solid transparent; border-radius: var(--r); }
+.banner-apri:hover { color: var(--accento); }
+.banner-apri:hover::after { border-color: var(--accento); }
+.banner-apri:hover .freccia { transform: translateX(var(--scarto)); }
+.banner-apri:active::after { background: var(--griglia); }
+.banner-apri:focus-visible { outline: none; }
+.banner-apri:focus-visible::after { outline: var(--linea-forte) solid var(--accento); outline-offset: var(--fuoco-distanza); }
+.banner-chiudi, .modulo-calibro-togli {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: var(--tocco); height: var(--tocco);
+  padding: 0;
+  border: 0;
+  border-radius: var(--r);
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+.banner-chiudi { grid-area: chiudi; color: var(--testo); }
+.banner-chiudi:hover { background: var(--superficie-2); }
+@media (min-width: 768px) {
+  .calibro-banner {
+    left: auto;
+    right: var(--s3);
+    bottom: calc(var(--s3) + env(safe-area-inset-bottom, 0px));
+    width: var(--banner);
+    max-height: none;
+    grid-template-columns: var(--s5) minmax(0, 1fr) var(--s3);
+    grid-template-areas: "strumento occhiello occhiello" "strumento titolo freccia";
+    align-items: start;
+    gap: var(--s1) var(--s2);
+    padding: var(--s3) var(--s2);
+  }
+  /* a destra dell'occhiello, il posto della ✕ */
+  .calibro-banner .micro { display: block; padding-right: var(--s5); }
+  .banner-titolo { margin-left: 0; font-size: var(--t-lead); }
+  .comparatore-mini { margin-top: var(--scarto); }
+  .banner-apri { align-self: end; }
+  .banner-chiudi { position: absolute; top: var(--scarto); right: var(--scarto); }
+}
+
+/* Il risultato del calibro portato nel modulo: le stesse due frasi sopra i campi, con una ✕ per toglierle */
+.modulo-calibro {
+  position: relative;
+  display: grid;
+  gap: var(--s1);
+  padding: var(--s2) calc(var(--tocco) + var(--s1)) var(--s2) var(--s2);
+  border: var(--linea) solid var(--linea-verde);
+  border-radius: var(--r);
+}
+.modulo-calibro-punteggio { font-size: var(--t-h3); font-weight: var(--peso-forte); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
+.modulo-calibro-consiglio { max-width: var(--misura-stretta); color: var(--crema-tenue); }
+.modulo-calibro-togli { position: absolute; top: var(--scarto); right: var(--scarto); }
+.modulo-calibro-togli:hover { background: var(--linea-verde); }
+
 /* ══ 8. Contatto ══════════════════════════════════════════════════
    Il secondo foglio verde. Su telefono: titolo, modulo, poi i recapiti. */
 .contatto {
@@ -1633,6 +2227,72 @@ html.menu-aperto { overflow: hidden; }
 .modulo .btn { justify-content: space-between; width: 100%; min-height: var(--s7); font-weight: var(--peso-forte); }
 .modulo-nota { font-size: var(--t-piccolo); color: var(--crema-tenue); }
 
+/* Il modulo è un foglio di carta sul verde. In questa sezione è la cosa da fare, e si deve vedere per prima:
+   fondo crema, campi bianchi, scelte che diventano verdi, bottone verde pieno. Parole e campi sono quelli di
+   prima, cambia solo il vestito. Vale in tutte le pagine che hanno il modulo. Le regole qui sopra (campi
+   trasparenti sul verde) restano la base: queste le vestono per il foglio. */
+.modulo {
+  --sottolineatura: var(--tenue);
+  padding: var(--s2);            /* stretto su telefono: le sei scelte restano su tre righe */
+  border-radius: var(--r);
+  background: var(--crema);
+  color: var(--testo);
+}
+/* il bordo dei campi è il grigio dei testi secondari: sul bianco si vede bene (5:1), un grigio più chiaro no */
+.modulo .campo input { border-color: var(--tenue); background: var(--superficie); color: var(--testo); }
+.modulo .campo input:focus { border-color: var(--accento); }
+.modulo .campo input:-webkit-autofill { -webkit-text-fill-color: var(--testo); caret-color: var(--testo); box-shadow: inset 0 0 0 var(--s16) var(--superficie); }
+.modulo :is(.campo-nota, .modulo-percorso, .modulo-nota) { color: var(--tenue); }
+.modulo .scelte label { border-color: var(--bordo-forte); background: var(--superficie); }
+.modulo .scelte label:hover { border-color: var(--accento); }
+.modulo .scelte label:has(:checked) { border-color: var(--accento); background: var(--accento); color: var(--crema); }
+.modulo .btn-chiaro { background: var(--accento); color: var(--crema); }
+.modulo .btn-chiaro::before { background: var(--accento-scuro); }
+.modulo :focus-visible, .modulo .scelte label:has(:focus-visible) { outline-color: var(--accento); }
+/* il risultato del calibro, quando è stato portato nel modulo: un riquadro bianco dentro il foglio */
+.modulo .modulo-calibro { border-color: var(--bordo-forte); background: var(--superficie); }
+.modulo .modulo-calibro-consiglio { color: var(--tenue); }
+.modulo .modulo-calibro-togli:hover { background: var(--superficie-2); }
+@media (min-width: 768px) {
+  .modulo { padding: var(--s4); }
+}
+/* Due campi e un bottone: deve sembrare una cosa da trenta secondi. Etichette e bottone più grandi,
+   e agli angoli del foglio le stesse tacche di quota delle immagini (qui disegnate con otto piccoli fondi:
+   il modulo è uguale in otto pagine e non serve altro HTML). */
+.modulo { position: relative; }
+.modulo::before {
+  --tacca: linear-gradient(var(--crema-tenue), var(--crema-tenue));
+  --fuori: calc(var(--s1) + var(--scarto));       /* 12px: quanto le tacche stanno fuori dal foglio */
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--fuori));
+  pointer-events: none;
+  background:
+    var(--tacca) left 0 top var(--fuori) / var(--s1) var(--linea),
+    var(--tacca) left var(--fuori) top 0 / var(--linea) var(--s1),
+    var(--tacca) right 0 top var(--fuori) / var(--s1) var(--linea),
+    var(--tacca) right var(--fuori) top 0 / var(--linea) var(--s1),
+    var(--tacca) left 0 bottom var(--fuori) / var(--s1) var(--linea),
+    var(--tacca) left var(--fuori) bottom 0 / var(--linea) var(--s1),
+    var(--tacca) right 0 bottom var(--fuori) / var(--s1) var(--linea),
+    var(--tacca) right var(--fuori) bottom 0 / var(--linea) var(--s1);
+  background-repeat: no-repeat;
+}
+.modulo .campo label { font-size: var(--t-corpo); }
+.modulo .btn { min-height: var(--s8); font-size: var(--t-lead); }
+
+/* Sotto il titolo del check-up: quando arriva e come. Due voci in riga, con le parole del modulo 0.1 */
+.checkup-dati { display: flex; flex-wrap: wrap; gap: var(--s3) var(--s6); margin: var(--s5) 0 0; }
+.checkup-dati div { display: grid; gap: var(--scarto); }
+.checkup-dati dd { margin: 0; font-size: var(--t-lead); font-weight: var(--peso-medio); }
+
+/* I recapiti sono la seconda strada: nel foglio del contatto il numero conta più del nome
+   (da 560px, dove nome e numero stanno su una riga senza andare a capo) */
+.contatto .recapiti dd { font-weight: var(--peso-medio); }
+@media (min-width: 560px) {
+  .contatto .recapiti dd { font-size: var(--t-lead); }
+}
+
 .recapiti { border-top: var(--linea) solid var(--linea-verde); }
 .recapiti div {
   display: grid;
@@ -1652,8 +2312,9 @@ html.menu-aperto { overflow: hidden; }
   .contatto { padding: var(--s16) 0; }
   .contatto-griglia { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s3); }
   .contatto-testa { grid-column: 1 / 7; grid-row: 1; }
-  .contatto-griglia > .recapiti { grid-column: 1 / 7; grid-row: 2; align-self: start; }
-  .modulo { grid-column: 8 / -1; grid-row: 1 / 3; }
+  /* i recapiti stanno in basso, alla pari del fondo del foglio: a sinistra il titolo in alto e le alternative in fondo */
+  .contatto-griglia > .recapiti { grid-column: 1 / 7; grid-row: 2; align-self: end; }
+  .modulo { grid-column: 8 / -1; grid-row: 1 / 3; align-self: start; }   /* il foglio è alto quanto i suoi due campi, non quanto la colonna accanto */
 }
 
 /* ══ Pagina Contatti ═══════════════════════════════════════════════
@@ -1870,7 +2531,9 @@ html.menu-aperto { overflow: hidden; }
   color: var(--accento);
 }
 .distinta-nome { flex: 1 0 100%; font-weight: var(--peso-medio); }
-.distinta-voci a:hover .distinta-nome { text-decoration: underline; text-decoration-thickness: var(--linea); text-underline-offset: var(--scarto); }
+/* la riga si sottolinea solo se porta da qualche parte: per ora le schede dei moduli non ci sono, e le righe sono voci */
+.distinta-voci a[href]:hover .distinta-nome { text-decoration: underline; text-decoration-thickness: var(--linea); text-underline-offset: var(--scarto); }
+.distinta-voci a:not([href]) { color: inherit; }
 .distinta-tempi { font-size: var(--t-piccolo); font-variant-numeric: tabular-nums; color: var(--tenue); }
 .distinta-nota { margin-top: var(--s4); max-width: var(--misura); font-size: var(--t-piccolo); color: var(--tenue); }
 @media (min-width: 768px) {
@@ -2019,8 +2682,13 @@ html.menu-aperto { overflow: hidden; }
 .lav-chiusura { border-radius: var(--r-foglio) var(--r-foglio) 0 0; }
 .lav-azioni { margin-top: var(--s5); }
 .lav-azioni .link-freccia { color: var(--crema); }
-.lav-altre-titolo { margin-top: var(--s10); }
+/* La chiusura ospita il modulo della pagina principale, nella stessa griglia (.contatto-griglia): testo a sinistra,
+   modulo sotto il logo. «Le altre lavorazioni» viene dopo il modulo: su telefono in fondo al foglio,
+   da 1024px sotto il testo, in basso alla pari del modulo (il posto che nella pagina principale hanno i recapiti). */
 .lav-altre { display: flex; flex-wrap: wrap; gap: 0 var(--s4); margin-top: var(--s1); }
+@media (min-width: 1024px) {
+  .contatto-griglia > .lav-altre-blocco { grid-column: 1 / 7; grid-row: 2; align-self: end; }
+}
 /* I tre percorsi di ogni lavorazione: schede affiancate con le fasi numerate come nel ciclo del metodo.
    Quella consigliata per la lavorazione è un foglio verde. */
 .lav-sotto { max-width: var(--misura-stretta); font-size: var(--t-lead); color: var(--tenue); }
@@ -2275,6 +2943,8 @@ html.menu-aperto { overflow: hidden; }
   .quota::before { animation: traccia var(--lunga) var(--curva-precisa) calc(5 * var(--sfalsa)) backwards; }
   .quota::after { animation: compare-quota var(--media) var(--curva) calc(12 * var(--sfalsa)) backwards; }
   .apertura-testo { animation: compare var(--lunga) var(--curva) calc(4 * var(--sfalsa)) backwards; }
+  /* l'immagine entra dopo il testo: opacità e 16px */
+  .apertura-figura, .testata-figura { animation: entra-figura var(--ingresso-figura) var(--curva-ingresso) calc(6 * var(--sfalsa)) backwards; }
 
   /* La tavola si compone come al tornio: l'asse, poi il pezzo cresce dall'asse, poi le quote una a una */
   .tavola-asse, .tavola-pezzo { transform-box: fill-box; }
@@ -2364,6 +3034,22 @@ html.menu-aperto { overflow: hidden; }
 
   /* Calibro: la lancetta ruota fino al punteggio */
   .lancetta { transition: transform var(--lunga) var(--curva-precisa); }
+  /* La finestra del calibro compare salendo appena, il velo dietro si scurisce; la chiusura è immediata.
+     Le tacche si accendono, la domanda nuova entra da 12px (da sopra, tornando indietro). */
+  .calibro-finestra[open] { animation: sale-appena var(--ingresso) var(--curva-foglio) backwards; }
+  /* Il banner entra una volta sola, da 16px più in basso (.entra, main.js), poi resta fermo.
+     Quando deve farsi da parte e quando torna, cambia solo l'opacità; con menu o finestra sparisce subito. */
+  .calibro-banner { transition: opacity var(--breve) var(--curva), visibility 0s linear var(--breve); }
+  .calibro-banner.visibile { transition-delay: 0s; }
+  .calibro-banner.entra { animation: sale-appena var(--ingresso) var(--curva-foglio) backwards; }
+  /* Il riepilogo nel modulo compare come gli altri ingressi */
+  .modulo-calibro { animation: compare var(--media) var(--curva) backwards; }
+  .calibro-finestra[open]::backdrop { animation: dissolve var(--ingresso, .3s) ease-out backwards; }
+  .comparatore-accese path { transition: opacity var(--media) var(--curva); }
+  .calibro-finestra .entra legend,
+  .calibro-finestra[data-stato="esito"] :is(.calibro-testo, .calibro-porta) { animation: domanda-entra var(--passo) var(--curva) backwards; }
+  .calibro-finestra .rientra legend { animation: domanda-rientra var(--passo) var(--curva) backwards; }
+  .calibro-finestra :is(.entra, .rientra) .calibro-scelte { animation: dissolve var(--passo) var(--curva) backwards; }
 
   /* Settori: i risultati e le righe dei settori salgono quando entrano */
   .moto :is(.risultati li, .settore-riga) { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
@@ -2445,6 +3131,20 @@ html.menu-aperto { overflow: hidden; }
 /* Il menu: il foglio sale (e chiudendo esce in alto), poi le voci salgono una dopo l'altra.
    Al passaggio del mouse le lettere scorrono in su e la loro copia (text-shadow) prende il posto. */
 @media screen and (prefers-reduced-motion: no-preference) {
+  /* Tendine della testata: compaiono subito; chiudendo restano un istante, così il mouse può scendere in diagonale */
+  .nav-tendina { transition: opacity var(--breve) var(--curva), visibility 0s linear var(--breve); }
+  .nav-voce:hover > .nav-tendina { transition-delay: 0s; }
+  .nav-voce:has(:focus-visible) > .nav-tendina { transition-delay: 0s; }
+  .nav-voce.chiusa > .nav-tendina { transition: none; }
+
+  /* Servizi: le cinque colonne salgono una dopo l'altra */
+  .moto .servizio-colonna { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
+  .moto .servizio-colonna:not(.visibile) { opacity: 0; transform: translateY(var(--s3)); }
+  .moto .servizio-colonna:nth-child(2) { transition-delay: var(--sfalsa); }
+  .moto .servizio-colonna:nth-child(3) { transition-delay: calc(2 * var(--sfalsa)); }
+  .moto .servizio-colonna:nth-child(4) { transition-delay: calc(3 * var(--sfalsa)); }
+  .moto .servizio-colonna:nth-child(5) { transition-delay: calc(4 * var(--sfalsa)); }
+
   .menu-foglio { transition: transform var(--lunga) var(--curva-precisa); }
   .menu-lettere { transition: transform var(--lunga) var(--curva); }
   .menu:not(.aperto) .menu-lettere { transform: translateY(105%); }
@@ -2492,8 +3192,13 @@ html.menu-aperto { overflow: hidden; }
 @keyframes tornisce { from { transform: scaleY(0); } }
 @keyframes compare { from { opacity: 0; transform: translateY(var(--s1)); } }
 @keyframes compone { from { opacity: 0; transform: scale(.94); } }
+@keyframes entra-figura { from { opacity: 0; transform: translateY(var(--s2)); } }
 @keyframes compare-quota { from { opacity: 0; transform: translate(-50%, 0); } }
 @keyframes lampeggia { 50% { opacity: 0; } }
+@keyframes sale-appena { from { opacity: 0; transform: translateY(var(--s2)); } }
+@keyframes domanda-entra { from { opacity: 0; transform: translateY(calc(var(--s1) + var(--scarto))); } }
+@keyframes domanda-rientra { from { opacity: 0; transform: translateY(calc(-1 * (var(--s1) + var(--scarto)))); } }
+@keyframes dissolve { from { opacity: 0; } }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -2502,7 +3207,7 @@ html.menu-aperto { overflow: hidden; }
 
 /* ══ Stampa: nero su bianco, niente fogli verdi, testata e modulo, niente pagine spezzate a metà voce ══ */
 @media print {
-  .salta, .mirino, .nav, .testata .btn, .menu-apri, .modulo, .calibro, .tavola-cartiglio, .pannello-mini { display: none; }
+  .salta, .mirino, .nav, .testata .btn, .menu-apri, .modulo, .calibro, .calibro-banner, .tavola-cartiglio, .pannello-mini { display: none; }
   /* il logo resta intero (pillola compresa) e la quota resta disegnata anche senza «grafica di sfondo» */
   .testata { position: static; background: none; border: 0; }
   .logo-lab, .quota, .fase-segno, .simbolo-componibile { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -2510,6 +3215,7 @@ html.menu-aperto { overflow: hidden; }
   .apertura-scena { min-height: 0; padding: 0 0 var(--s4); background: none; }
   .sezione, .punto, .contatto { padding: var(--s6) 0; }
   .punto, .contatto { background: none; color: var(--testo); border-radius: 0; }
+  :is(.punto, .metodo-verde, .contatto)::before { display: none; }
   :is(.punto, .contatto) :is(.micro, .contatto-testa > p, .recapiti dt) { color: var(--tenue); }
   /* sulla carta bianca il logo delle chiusure torna verde, come in testata */
   .contatto-logo { color: var(--testo); }
@@ -2517,6 +3223,11 @@ html.menu-aperto { overflow: hidden; }
   .contatto-logo .logo-lab { background: var(--accento); color: var(--crema); }
   :is(.sintomi, .sintomi li, .recapiti, .recapiti div) { border-color: var(--bordo-forte); }
   .metodo { background: none; }
+  .metodo-verde { color: var(--testo); border-radius: 0; }
+  .metodo-verde :is(.micro, .sezione-sotto, .fase p) { color: var(--tenue); }
+  .metodo-verde .fase-num { color: var(--accento); }
+  .metodo-verde .fase-segno { border-color: var(--accento); background: none; }
+  .metodo-verde .fase-segno::after, .metodo-verde .ciclo::after { background: var(--accento); }
   .quota::after { background: none; }
   .servizio, .settore-riga, .risultati li, .fase, .domanda, .mock, .dato, .cliente, .recensione, .percorso, .lav-passo, .lav-cambia li, .lav-percorso,
   .scheda-modulo, .canoni-patto, .regola { break-inside: avoid; }

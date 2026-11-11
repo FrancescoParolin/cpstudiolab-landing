@@ -19,7 +19,7 @@ privacy.html          informativa privacy (BOZZA da compilare e far verificare)
 grazie.html           pagina dopo l'invio del modulo (noindex)
 style.css             stile: token in :root, poi una sezione per blocco della pagina, il movimento in fondo
 main.js               movimento legato allo scorrimento e mirino CAD (miglioramento progressivo, ~7 KB)
-fonts/                Inter e Geist Mono, variabili 100–900, woff2 subset latin, licenza OFL
+fonts/                Inter e Geist Mono, variabili 100–900, woff2 subset latin, licenza OFL; Archivo largo 800 (solo menu)
 favicon.ico, favicon-32.png, apple-touch-icon.png, icon-192.png, icon-512.png, site.webmanifest   icone «cp» del kit
 og-image.png          anteprima 1200×630 per i link condivisi (WhatsApp, LinkedIn, email)
 robots.txt, sitemap.xml
@@ -58,8 +58,8 @@ Gli esempi dei servizi sono dichiarati «Esempio»; «Officina Esempio» e la ta
 
 ## Il modulo di richiesta
 
-Due campi obbligatori (azienda o sito, email o telefono) e le scelte facoltative «Cosa vi serve» (`servizi[]`),
-nessun JavaScript. Il `mailto:` resta come alternativa,
+Due campi obbligatori (azienda o sito, email o telefono), nessun JavaScript. È la richiesta del check-up gratuito:
+le scelte «Cosa vi serve» (`servizi[]`) sono state tolte il 12 novembre 2026. Il `mailto:` resta come alternativa,
 perché su molti PC (Gmail o Outlook web) il clic su un `mailto:` non apre niente.
 
 - **Su Netlify** funziona così com'è (Netlify Forms: `data-netlify="true"`, campo trappola anti-spam `altro`
@@ -67,6 +67,10 @@ perché su molti PC (Gmail o Outlook web) il clic su un `mailto:` non apre nient
   Le richieste arrivano nel pannello Netlify → Forms; da lì si attiva la notifica email.
 - **Altrove**: create un modulo su Formspree e mettete il suo indirizzo in `action`
   (`action="https://formspree.io/f/XXXX"`); togliete `data-netlify` e `netlify-honeypot`.
+
+Il modulo sta in otto pagine, identico: pagina principale, `/contatti/`, `/manifattura/` e le cinque lavorazioni.
+Per Netlify è un modulo solo, «richiesta», perché nome e campi sono gli stessi: se cambia un campo, va cambiato in
+tutte e otto. I campi nascosti `percorso` e `calibro` li compila `main.js`.
 
 In locale il modulo non invia nulla: porta solo a `grazie.html`.
 
@@ -82,7 +86,7 @@ In locale il modulo non invia nulla: porta solo a `grazie.html`.
   Netlify è collegato con la sua app GitHub: pubblica `main` a ogni merge e fa l'anteprima di ogni pull request.
 - **Cosa si pubblica:** `prepara.sh` copia in `dist/` solo i file del sito (niente `.md`); `netlify.toml` dice a Netlify
   di eseguirlo e di pubblicare `dist/`, con gli header di sicurezza e la cache lunga per i font.
-- **Modulo:** Netlify Forms, modulo «richiesta». Le richieste arrivano in Netlify → Forms.
+- **Modulo:** Netlify Forms, modulo «richiesta», lo stesso in otto pagine. Le richieste arrivano in Netlify → Forms.
 
 ## Lavorare in due
 

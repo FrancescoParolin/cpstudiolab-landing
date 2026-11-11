@@ -22,5 +22,11 @@ In pagina i dati mancanti non si vedono: sono nei commenti `DA COMPILARE` di ind
 - [ ] **Recensioni dei primi 2 clienti**: per ciascuno il testo con le sue parole (2-3 frasi), nome e cognome, ruolo,
       azienda e città, il logo (meglio SVG) e il **permesso scritto** a pubblicarli. Finché mancano, «Recensioni»
       resta in bozza: si vede nelle anteprime, online no
+- [ ] **Ritratti dei due soci** per «Lo studio» nella pagina principale, sotto la riga con i nomi. Foto vere: mai
+      generate, mai di repertorio. Per lo scatto: luce naturale laterale (accanto a una finestra, senza flash),
+      fondo neutro chiaro, mezzo busto, verticale. Stessa luce, stesso fondo e stessa distanza per tutti e due,
+      meglio nello stesso giorno. Nel sito vanno due file ritagliati 4:5, 800×1000px, sotto i 150 KB l'uno:
+      `immagini/socio-tommaso.jpg` e `immagini/socio-francesco.jpg`. Finché ne manca anche solo uno i riquadri
+      online non ci sono; quando ci sono tutti e due compaiono da soli (`prepara.sh`)
 - [ ] Lavori veri, quando ci saranno (mai inventarli)
 - [ ] Verifica del marchio su UIBM o TMview, classi 35 e 42

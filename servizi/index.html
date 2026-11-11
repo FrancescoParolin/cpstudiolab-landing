@@ -19,6 +19,7 @@
   <link rel="manifest" href="/site.webmanifest">
   <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/geist-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/archivo-largo-latin.woff2" as="font" type="font/woff2" crossorigin media="(min-width: 1100px)">
   <script src="/main.js" defer></script>
   <link rel="stylesheet" href="/style.css">
 </head>
@@ -39,11 +40,93 @@
         <svg aria-hidden="true" focusable="false"><use href="#marchio"/></svg>
         <span>CP Studio</span> <span class="logo-lab">Lab</span>
       </a>
+      <!-- Le quattro voci. Da 1100px, al passaggio del mouse o con il tasto Tab, sotto ogni voce si apre la sua
+           tendina (.nav-tendina, solo CSS; Esc la chiude, main.js). I testi delle tendine esistono già nel sito:
+           se cambiano là, vanno cambiati anche qui, in tutte le pagine. -->
       <nav class="nav" aria-label="Sezioni della pagina">
-        <a href="/servizi/" aria-current="page">Servizi</a>
-        <a href="/#settori">Settori</a>
-        <a href="/metodo/">Metodo</a>
-        <a href="/studio/">Lo studio</a>
+        <div class="nav-voce">
+          <a href="/servizi/" aria-current="page">Servizi</a>
+          <div class="nav-tendina">
+            <div class="nav-foglio nav-foglio-largo">
+              <div class="nav-gruppi">
+                <div class="nav-gruppo">
+                  <a class="nav-gruppo-nome" href="/servizi/#distinta"><span class="nav-num" aria-hidden="true">01</span><span class="nav-titolo">Sito</span></a>
+                  <ul>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">1.1</span><span>Sito tecnico</span></a></li>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">1.2</span><span>Richiesta di preventivo</span></a></li>
+                  </ul>
+                </div>
+                <div class="nav-gruppo">
+                  <a class="nav-gruppo-nome" href="/servizi/#distinta"><span class="nav-num" aria-hidden="true">02</span><span class="nav-titolo">Google</span></a>
+                  <ul>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">2.1</span><span>Scheda Google dell’azienda</span></a></li>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">2.2</span><span>Pagine per servizio</span></a></li>
+                  </ul>
+                </div>
+                <div class="nav-gruppo">
+                  <a class="nav-gruppo-nome" href="/servizi/#distinta"><span class="nav-num" aria-hidden="true">03</span><span class="nav-titolo">CRM e follow-up</span></a>
+                  <ul>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">3.1</span><span>Elenco delle richieste</span></a></li>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">3.2</span><span>Clienti che non ordinano più</span></a></li>
+                  </ul>
+                </div>
+                <div class="nav-gruppo">
+                  <a class="nav-gruppo-nome" href="/servizi/#distinta"><span class="nav-num" aria-hidden="true">04</span><span class="nav-titolo">Automazioni</span></a>
+                  <ul>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">4.1</span><span>Bozza di preventivo dalla richiesta</span></a></li>
+                  </ul>
+                </div>
+                <div class="nav-gruppo">
+                  <a class="nav-gruppo-nome" href="/servizi/#distinta"><span class="nav-num" aria-hidden="true">05</span><span class="nav-titolo">Manutenzione e crescita</span></a>
+                  <ul>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">5.1</span><span>Ottimizzazione e manutenzione</span></a></li>
+                  </ul>
+                </div>
+              </div>
+              <a class="link-freccia" href="/servizi/">Tutti i moduli, per filo e per segno <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-voce">
+          <a href="/#settori">Settori</a>
+          <div class="nav-tendina">
+            <div class="nav-foglio">
+              <ul>
+                <li><a href="/manifattura/"><span><span class="nav-titolo">Manifattura e subfornitura</span><small>Tornitura, lamiera, stampaggio, carpenteria</small></span></a></li>
+                <li><a href="/#contatto"><span><span class="nav-titolo">Il vostro settore?</span><small>Raccontateci cosa fate: vi diciamo se possiamo esservi utili</small></span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="nav-voce">
+          <a href="/metodo/">Metodo</a>
+          <div class="nav-tendina">
+            <div class="nav-foglio">
+              <ul>
+                <li><a href="/metodo/#ciclo"><span><span class="nav-titolo">Il ciclo di lavoro</span><small>Ogni servizio segue lo stesso ciclo.</small></span></a></li>
+                <li><a href="/metodo/#check-up"><span><span class="nav-titolo">Il punto di partenza</span><small>Il problema, nero su bianco.</small></span></a></li>
+                <li><a href="/metodo/#componibili"><span><span class="nav-titolo">Servizi componibili</span><small>Dal problema, la combinazione.</small></span></a></li>
+                <li><a href="/metodo/#collegamenti"><span><span class="nav-titolo">I servizi si collegano</span><small>A ogni servizio, il suo canone.</small></span></a></li>
+              </ul>
+              <a class="link-freccia" href="/metodo/">Il metodo per intero <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-voce">
+          <a href="/studio/">Lo studio</a>
+          <div class="nav-tendina">
+            <div class="nav-foglio">
+              <ul>
+                <li><a href="/studio/#principi"><span><span class="nav-titolo">Perché «studio»</span><small>Chi firma il lavoro, ne risponde.</small></span></a></li>
+                <li><a href="/studio/#marchio-spiegato"><span><span class="nav-titolo">Il marchio</span><small>Due tessere che si incastrano.</small></span></a></li>
+                <li><a href="/studio/#soci"><span><span class="nav-titolo">I partner</span><small>Due partner alla pari, un solo interlocutore per voi.</small></span></a></li>
+                <li><a href="/studio/#strumenti"><span><span class="nav-titolo">Gli strumenti</span><small>Usiamo quello che costruiamo.</small></span></a></li>
+                <li><a href="/studio/#impegni"><span><span class="nav-titolo">Impegni scritti</span><small>Quello che vi promettiamo, in cifre.</small></span></a></li>
+              </ul>
+              <a class="link-freccia" href="/studio/">Conoscete lo studio <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></a>
+            </div>
+          </div>
+        </div>
       </nav>
       <div class="testata-azioni">
         <a class="btn btn-piccolo testata-contatto" href="/contatti/">
@@ -85,7 +168,7 @@
         </nav>
         <div class="menu-lato">
           <a class="btn btn-chiaro" href="/#contatto">
-            Chiedeteci un preventivo
+            Check-up gratuito
             <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
           </a>
           <dl class="recapiti">
@@ -129,12 +212,28 @@
               </div>
             </div>
           </div>
+
+          <!-- La testata: un'immagine 21:9 sotto titolo, testo e bottoni, nella cornice a tacche. File e misure: IMMAGINI.md -->
+          <figure class="cornice testata-figura">
+            <img src="/immagini/testata-servizi-1200.webp" srcset="/immagini/testata-servizi-1200.webp 1200w, /immagini/testata-servizi-2400.webp 2400w"
+                 sizes="(min-width: 1296px) 1200px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)"
+                 width="2400" height="1029" loading="lazy" decoding="async"
+                 alt="Cinque cartoncini di misure diverse in fila, uno verde.">
+            <svg class="tacche" aria-hidden="true" focusable="false">
+              <path d="M-12 .5H-4M.5-12V-4"/>
+              <svg x="100%" overflow="visible"><path d="M4 .5H12M-.5-12V-4"/></svg>
+              <svg y="100%" overflow="visible"><path d="M-12-.5H-4M.5 4V12"/></svg>
+              <svg x="100%" y="100%" overflow="visible"><path d="M4-.5H12M-.5 4V12"/></svg>
+            </svg>
+          </figure>
         </div>
       </div>
     </section>
 
     <!-- ── 2. La distinta: tutti i moduli in un colpo d'occhio, come la distinta base di un disegno, senza prezzi
-         (il prezzo è nel preventivo). Ogni riga porta alla sua scheda. Codici: 0 check-up, 1-4 i servizi, 5 i canoni ── -->
+         (il prezzo è nel preventivo). Le righe non sono collegamenti: le schede sono state tolte (vedi più giù) e torneranno.
+         Per questo ogni riga è un <a> senza href: quando le schede tornano, basta rimettere l'indirizzo.
+         Codici: 0 check-up, 1-4 i servizi, 5 i canoni ── -->
     <section class="sezione distinta-sezione" id="distinta" aria-labelledby="titolo-distinta">
       <div class="contenitore">
         <div class="sezione-testa">
@@ -148,839 +247,52 @@
 
           <h3 class="micro distinta-famiglia" id="d-check-up">00 · Check-up</h3>
           <ol class="distinta-voci" aria-labelledby="d-check-up">
-            <li><a href="#m-0-1"><span class="distinta-codice">0.1</span> <span class="distinta-nome">Check-up gratuito</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>2 giorni lavorativi</span></a></li>
-            <li><a href="#m-0-2"><span class="distinta-codice">0.2</span> <span class="distinta-nome">Check-up completo</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>5 giorni lavorativi</span></a></li>
+            <li><a><span class="distinta-codice">0.1</span> <span class="distinta-nome">Check-up gratuito</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>2 giorni lavorativi</span></a></li>
+            <li><a><span class="distinta-codice">0.2</span> <span class="distinta-nome">Check-up completo</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>5 giorni lavorativi</span></a></li>
           </ol>
 
           <h3 class="micro distinta-famiglia" id="d-sito">01 · Sito</h3>
           <ol class="distinta-voci" aria-labelledby="d-sito">
-            <li><a href="#m-1-1"><span class="distinta-codice">1.1</span> <span class="distinta-nome">Sito tecnico</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>2-6 settimane</span></a></li>
-            <li><a href="#m-1-2"><span class="distinta-codice">1.2</span> <span class="distinta-nome">Richiesta di preventivo con disegno</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>1-2 settimane</span></a></li>
-            <li><a href="#m-1-3"><span class="distinta-codice">1.3</span> <span class="distinta-nome">Scheda fornitore</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>2 settimane</span></a></li>
-            <li><a href="#m-1-4"><span class="distinta-codice">1.4</span> <span class="distinta-nome">Lavora con noi</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>1-2 settimane</span></a></li>
-            <li><a href="#m-1-5"><span class="distinta-codice">1.5</span> <span class="distinta-nome">Versione per l’estero</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>2-3 settimane</span></a></li>
+            <li><a><span class="distinta-codice">1.1</span> <span class="distinta-nome">Sito tecnico</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>2-6 settimane</span></a></li>
+            <li><a><span class="distinta-codice">1.2</span> <span class="distinta-nome">Richiesta di preventivo con disegno</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>1-2 settimane</span></a></li>
+            <li><a><span class="distinta-codice">1.3</span> <span class="distinta-nome">Scheda fornitore</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>2 settimane</span></a></li>
+            <li><a><span class="distinta-codice">1.4</span> <span class="distinta-nome">Lavora con noi</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>1-2 settimane</span></a></li>
+            <li><a><span class="distinta-codice">1.5</span> <span class="distinta-nome">Versione per l’estero</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>2-3 settimane</span></a></li>
           </ol>
 
           <h3 class="micro distinta-famiglia" id="d-google">02 · Google</h3>
           <ol class="distinta-voci" aria-labelledby="d-google">
-            <li><a href="#m-2-1"><span class="distinta-codice">2.1</span> <span class="distinta-nome">Scheda Google dell’azienda</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>1 settimana</span></a></li>
-            <li><a href="#m-2-2"><span class="distinta-codice">2.2</span> <span class="distinta-nome">Pagine per lavorazione</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>3 settimane</span></a></li>
+            <li><a><span class="distinta-codice">2.1</span> <span class="distinta-nome">Scheda Google dell’azienda</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>1 settimana</span></a></li>
+            <li><a><span class="distinta-codice">2.2</span> <span class="distinta-nome">Pagine per lavorazione</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>3 settimane</span></a></li>
           </ol>
 
           <h3 class="micro distinta-famiglia" id="d-crm">03 · CRM e follow-up</h3>
           <ol class="distinta-voci" aria-labelledby="d-crm">
-            <li><a href="#m-3-1"><span class="distinta-codice">3.1</span> <span class="distinta-nome">Elenco delle richieste</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>3 settimane</span></a></li>
-            <li><a href="#m-3-2"><span class="distinta-codice">3.2</span> <span class="distinta-nome">Clienti che non ordinano più</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>5 settimane</span></a></li>
+            <li><a><span class="distinta-codice">3.1</span> <span class="distinta-nome">Elenco delle richieste</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>3 settimane</span></a></li>
+            <li><a><span class="distinta-codice">3.2</span> <span class="distinta-nome">Clienti che non ordinano più</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>5 settimane</span></a></li>
           </ol>
 
           <h3 class="micro distinta-famiglia" id="d-automazioni">04 · Automazioni</h3>
           <ol class="distinta-voci" aria-labelledby="d-automazioni">
-            <li><a href="#m-4-1"><span class="distinta-codice">4.1</span> <span class="distinta-nome">Bozza di preventivo dalla richiesta</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>3 settimane</span></a></li>
-            <li><a href="#m-4-2"><span class="distinta-codice">4.2</span> <span class="distinta-nome">Richieste nel gestionale</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>1-2 settimane</span></a></li>
+            <li><a><span class="distinta-codice">4.1</span> <span class="distinta-nome">Bozza di preventivo dalla richiesta</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>3 settimane</span></a></li>
+            <li><a><span class="distinta-codice">4.2</span> <span class="distinta-nome">Richieste nel gestionale</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>1-2 settimane</span></a></li>
           </ol>
 
           <h3 class="micro distinta-famiglia" id="d-canoni">05 · Manutenzione e crescita: i canoni</h3>
           <ol class="distinta-voci" aria-labelledby="d-canoni">
-            <li><a href="#m-5-1"><span class="distinta-codice">5.1</span> <span class="distinta-nome">Ottimizzazione e manutenzione</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>ogni mese</span></a></li>
-            <li><a href="#m-5-2"><span class="distinta-codice">5.2</span> <span class="distinta-nome">Ricerche seguite</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>ogni mese</span></a></li>
-            <li><a href="#m-5-3"><span class="distinta-codice">5.3</span> <span class="distinta-nome">Assistenza al CRM</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>ogni mese</span></a></li>
-            <li><a href="#m-5-4"><span class="distinta-codice">5.4</span> <span class="distinta-nome">Controllo e migliorie</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>ogni mese</span></a></li>
+            <li><a><span class="distinta-codice">5.1</span> <span class="distinta-nome">Ottimizzazione e manutenzione</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>ogni mese</span></a></li>
+            <li><a><span class="distinta-codice">5.2</span> <span class="distinta-nome">Ricerche seguite</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>ogni mese</span></a></li>
+            <li><a><span class="distinta-codice">5.3</span> <span class="distinta-nome">Assistenza al CRM</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>ogni mese</span></a></li>
+            <li><a><span class="distinta-codice">5.4</span> <span class="distinta-nome">Controllo e migliorie</span> <span class="distinta-tempi"><span class="nascosto">tempi: </span>ogni mese</span></a></li>
           </ol>
         </div>
         <p class="distinta-nota">Il prezzo ve lo diciamo nel preventivo scritto, prima di cominciare. Il lavoro che non è in nessuna scheda si fa a parte, sempre con un preventivo scritto prima.</p>
       </div>
     </section>
 
-    <!-- ── 3. Le schede dei moduli, servizio per servizio. Ogni scheda: codice, promessa, il cartiglio
-         (tempi, canone, cosa misuriamo), cosa comprende e cosa no; «Da voi» e «Finito quando» a richiesta ── -->
-    <div class="sezione catalogo">
-      <div class="contenitore">
-
-        <!-- 00 · Check-up -->
-        <section class="famiglia" id="check-up" aria-labelledby="titolo-check-up">
-          <div class="famiglia-testa">
-            <p class="micro">00 · Il punto di partenza</p>
-            <h2 class="famiglia-titolo" id="titolo-check-up">Check-up</h2>
-            <p>Prima di proporvi qualcosa, vi facciamo vedere cosa non funziona, con il vostro sito davanti.</p>
-          </div>
-          <div class="schede-moduli">
-            <article class="scheda-modulo" id="m-0-1" aria-labelledby="t-0-1" data-entra>
-              <div class="sm-testa">
-                <p class="micro sm-codice">0.1</p>
-                <h3 id="t-0-1">Check-up gratuito</h3>
-                <p class="sm-promessa">I tre punti che oggi vi fanno perdere più richieste, per iscritto.</p>
-                <p class="sm-per-chi"><span class="micro">Per chi</span>Avete un sito. Se non c’è, al suo posto: una telefonata di 15 minuti e un controllo su Google.</p>
-                <dl class="sm-cartiglio">
-                  <div><dt class="micro">Tempi</dt><dd>2 giorni lavorativi</dd></div>
-                  <div><dt class="micro">Come arriva</dt><dd>per email, da uno di noi</dd></div>
-                  <div><dt class="micro">Quanti</dt><dd>uno ogni 6 mesi</dd></div>
-                </dl>
-              </div>
-              <div class="sm-corpo">
-                <div class="sm-confini">
-                  <div>
-                    <p class="micro">Comprende</p>
-                    <ul class="elenco-tratto">
-                      <li>Il controllo del sito sui 13 punti che guarda un buyer, riletto da uno di noi</li>
-                      <li>I 3 punti più pesanti: cosa abbiamo visto, perché vi fa perdere richieste, come si sistema</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p class="micro">Non comprende</p>
-                    <ul class="elenco-tratto sm-escluso">
-                      <li>La soluzione progettata</li>
-                      <li>I punti oltre i primi tre: sono nel check-up completo</li>
-                      <li>Una telefonata obbligatoria</li>
-                    </ul>
-                  </div>
-                </div>
-                <details class="sm-dettagli">
-                  <summary>Cosa serve da voi, e quando è finito</summary>
-                  <div class="sm-dettagli-corpo">
-                    <div><p class="micro">Da voi</p><ul class="elenco-tratto"><li>L’indirizzo del sito</li></ul></div>
-                    <div><p class="micro">Finito quando</p><ul class="elenco-tratto"><li>L’email è partita da uno di noi, mai in automatico</li></ul></div>
-                  </div>
-                </details>
-              </div>
-            </article>
-
-            <article class="scheda-modulo" id="m-0-2" aria-labelledby="t-0-2" data-entra>
-              <div class="sm-testa">
-                <p class="micro sm-codice">0.2</p>
-                <h3 id="t-0-2">Check-up completo</h3>
-                <p class="sm-promessa">Tutto il vostro sito, punto per punto: cosa sistemare, in che ordine e perché.</p>
-                <p class="sm-per-chi"><span class="micro">Per chi</span>Avete visto i tre punti e volete capire di più, prima di spendere.</p>
-                <dl class="sm-cartiglio">
-                  <div><dt class="micro">Tempi</dt><dd>5 giorni lavorativi</dd></div>
-                  <div><dt class="micro">Come arriva</dt><dd>un PDF e una call di 45 minuti</dd></div>
-                </dl>
-              </div>
-              <div class="sm-corpo">
-                <div class="sm-confini">
-                  <div>
-                    <p class="micro">Comprende</p>
-                    <ul class="elenco-tratto">
-                      <li>I 13 punti, uno per uno, con le immagini</li>
-                      <li>Velocità e accessibilità da telefono, misurate con gli strumenti di Google</li>
-                      <li>Tre ricerche «lavorazione + materiale + provincia», e chi esce</li>
-                      <li>Lo stesso controllo su tre concorrenti della vostra zona</li>
-                      <li>Dieci azioni in ordine, ognuna con il suo modulo</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p class="micro">Non comprende</p>
-                    <ul class="elenco-tratto sm-escluso">
-                      <li>Fare le azioni</li>
-                      <li>Vendite, prezzi e conti dell’azienda</li>
-                      <li>Più di tre concorrenti</li>
-                    </ul>
-                  </div>
-                </div>
-                <details class="sm-dettagli">
-                  <summary>Cosa serve da voi, e quando è finito</summary>
-                  <div class="sm-dettagli-corpo">
-                    <div><p class="micro">Da voi</p><ul class="elenco-tratto"><li>Le lavorazioni principali</li><li>I concorrenti, se li conoscete</li><li>L’accesso a Search Console, se c’è</li></ul></div>
-                    <div><p class="micro">Finito quando</p><ul class="elenco-tratto"><li>Il PDF è consegnato e spiegato in call</li><li>Ogni azione ha il codice di un modulo</li></ul></div>
-                  </div>
-                </details>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        <!-- 01 · Sito -->
-        <section class="famiglia" id="sito" aria-labelledby="titolo-sito">
-          <div class="famiglia-testa">
-            <p class="micro">01 · Servizio</p>
-            <h2 class="famiglia-titolo" id="titolo-sito">Sito</h2>
-            <p>Una pagina per ogni cosa che fate e una richiesta di preventivo con gli allegati giusti.</p>
-          </div>
-          <div class="schede-moduli">
-            <article class="scheda-modulo" id="m-1-1" aria-labelledby="t-1-1" data-entra>
-              <div class="sm-testa">
-                <p class="micro sm-codice">1.1</p>
-                <h3 id="t-1-1">Sito tecnico</h3>
-                <p class="sm-promessa">Chi vi cerca capisce in un minuto cosa lavorate, e vi manda il disegno.</p>
-                <p class="sm-per-chi"><span class="micro">Per chi</span>Non avete un sito, o è fermo da anni, o è fatto solo di foto.</p>
-                <p class="sm-per-chi"><span class="micro">Due misure</span>Pagina unica, a sezioni. Oppure sito completo, di 6-8 pagine.</p>
-                <dl class="sm-cartiglio">
-                  <div><dt class="micro">Tempi</dt><dd>2 settimane · 4-6 settimane</dd></div>
-                  <div><dt class="micro">Canone</dt><dd><a class="link" href="#m-5-1">5.1</a>, se volete</dd></div>
-                  <div><dt class="micro">Misuriamo</dt><dd>le richieste dal sito, ogni mese</dd></div>
-                </dl>
-              </div>
-              <div class="sm-corpo">
-                <div class="sm-confini">
-                  <div>
-                    <p class="micro">Comprende</p>
-                    <ul class="elenco-tratto">
-                      <li>Testi scritti da noi, con i vostri dati e le parole dei buyer</li>
-                      <li>Nel sito completo: home, lavorazioni, macchine e qualità, settori, chi siamo, contatti</li>
-                      <li>La richiesta di preventivo con il disegno (<a class="link" href="#m-1-2">1.2</a>)</li>
-                      <li>Versione da telefono e pagine veloci</li>
-                      <li>Titoli per Google, sitemap e Search Console</li>
-                      <li>P.IVA, privacy e cookie in fondo a ogni pagina</li>
-                      <li>Due giri di modifiche</li>
-                      <li>Online sul vostro dominio; se non c’è, dominio ed email a vostro nome</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p class="micro">Non comprende</p>
-                    <ul class="elenco-tratto sm-escluso">
-                      <li>Foto: le vostre, o un fotografo a parte</li>
-                      <li>Logo nuovo e testi legali</li>
-                      <li>Pagine oltre le 8: a preventivo</li>
-                      <li>Altre lingue (<a class="link" href="#m-1-5">1.5</a>)</li>
-                      <li>Area riservata, e-commerce, gestionale</li>
-                      <li>I costi del dominio e dello spazio online</li>
-                    </ul>
-                  </div>
-                </div>
-                <details class="sm-dettagli">
-                  <summary>Cosa serve da voi, e quando è finito</summary>
-                  <div class="sm-dettagli-corpo">
-                    <div><p class="micro">Da voi</p><ul class="elenco-tratto"><li>Lavorazioni con materiali, dimensioni, tolleranze e lotti</li><li>L’elenco delle macchine e i certificati in PDF</li><li>10-20 foto vere e il logo</li><li>L’accesso al dominio e alla casella delle richieste</li></ul></div>
-                    <div><p class="micro">Finito quando</p><ul class="elenco-tratto"><li>Ogni pagina è provata su telefono e computer</li><li>Una richiesta di prova con allegato arriva alla casella giusta, con la conferma al buyer</li><li>La velocità da telefono è almeno 90 su 100</li><li>Nessun link è rotto, e gli accessi sono scritti nell’email di consegna</li></ul></div>
-                  </div>
-                </details>
-              </div>
-            </article>
-
-            <article class="scheda-modulo" id="m-1-2" aria-labelledby="t-1-2" data-entra>
-              <div class="sm-testa">
-                <p class="micro sm-codice">1.2</p>
-                <h3 id="t-1-2">Richiesta di preventivo con disegno</h3>
-                <p class="sm-promessa">Il buyer vi manda il disegno dal sito, con quello che serve per quotare.</p>
-                <p class="sm-per-chi"><span class="micro">Per chi</span>Il sito regge, ma per chiedere un preventivo c’è solo «nome, email, messaggio».</p>
-                <dl class="sm-cartiglio">
-                  <div><dt class="micro">Tempi</dt><dd>1-2 settimane</dd></div>
-                  <div><dt class="micro">Canone</dt><dd><a class="link" href="#m-5-1">5.1</a>, se volete</dd></div>
-                  <div><dt class="micro">Misuriamo</dt><dd>le richieste dal modulo, ogni mese</dd></div>
-                </dl>
-              </div>
-              <div class="sm-corpo">
-                <div class="sm-confini">
-                  <div>
-                    <p class="micro">Comprende</p>
-                    <ul class="elenco-tratto">
-                      <li>Il modulo sul sito che avete: lavorazione, materiale, quantità e lotti, tolleranze, data, note</li>
-                      <li>Fino a 3 allegati: PDF, DXF, DWG, STEP, foto</li>
-                      <li>La conferma automatica al buyer, con i vostri tempi di risposta</li>
-                      <li>Un’email ordinata a voi, con gli allegati</li>
-                      <li>La protezione dallo spam, senza servizi esterni</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p class="micro">Non comprende</p>
-                    <ul class="elenco-tratto sm-escluso">
-                      <li>Rifare il sito (<a class="link" href="#m-1-1">1.1</a>)</li>
-                      <li>Altre lingue (<a class="link" href="#m-1-5">1.5</a>)</li>
-                      <li>L’elenco delle richieste e i promemoria (<a class="link" href="#m-3-1">3.1</a>)</li>
-                      <li>Il collegamento al gestionale (<a class="link" href="#m-4-2">4.2</a>)</li>
-                    </ul>
-                  </div>
-                </div>
-                <details class="sm-dettagli">
-                  <summary>Cosa serve da voi, e quando è finito</summary>
-                  <div class="sm-dettagli-corpo">
-                    <div><p class="micro">Da voi</p><ul class="elenco-tratto"><li>L’accesso al sito, o il contatto di chi lo gestisce</li><li>Lavorazioni e materiali per gli elenchi del modulo</li><li>La casella che riceve le richieste</li></ul></div>
-                    <div><p class="micro">Finito quando</p><ul class="elenco-tratto"><li>Tre invii di prova sono arrivati: con allegato, senza, e uno da telefono</li><li>Se manca qualcosa, il modulo lo dice chiaro</li><li>Il modulo si usa anche da tastiera</li></ul></div>
-                  </div>
-                </details>
-              </div>
-            </article>
-
-            <article class="scheda-modulo" id="m-1-3" aria-labelledby="t-1-3" data-entra>
-              <div class="sm-testa">
-                <p class="micro sm-codice">1.3</p>
-                <h3 id="t-1-3">Scheda fornitore</h3>
-                <p class="sm-promessa">L’ufficio acquisti trova in una pagina tutto quello che chiede per qualificarvi.</p>
-                <p class="sm-per-chi"><span class="micro">Per chi</span>Compilate questionari di qualifica, o volete entrare negli albi fornitori.</p>
-                <dl class="sm-cartiglio">
-                  <div><dt class="micro">Tempi</dt><dd>2 settimane</dd></div>
-                  <div><dt class="micro">Canone</dt><dd><a class="link" href="#m-5-1">5.1</a>, se volete</dd></div>
-                  <div><dt class="micro">Misuriamo</dt><dd>le richieste dal sito, ogni mese</dd></div>
-                </dl>
-              </div>
-              <div class="sm-corpo">
-                <div class="sm-confini">
-                  <div>
-                    <p class="micro">Comprende</p>
-                    <ul class="elenco-tratto">
-                      <li>La pagina «Qualità e macchine»: lavorazioni, macchine con le capacità, materiali, tolleranze</li>
-                      <li>Le certificazioni con norma, ente e scadenza, e il PDF del certificato</li>
-                      <li>Settori serviti, lotti e tempi medi</li>
-                      <li>La stessa scheda in un PDF di 2 pagine, in italiano e in inglese</li>
-                      <li>Le certificazioni anche in home</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p class="micro">Non comprende</p>
-                    <ul class="elenco-tratto sm-escluso">
-                      <li>Le foto</li>
-                      <li>Lingue oltre l’inglese</li>
-                      <li>Compilare i questionari dei vostri clienti</li>
-                      <li>Gli aggiornamenti dopo la consegna (<a class="link" href="#m-5-1">5.1</a>)</li>
-                    </ul>
-                  </div>
-                </div>
-                <details class="sm-dettagli">
-                  <summary>Cosa serve da voi, e quando è finito</summary>
-                  <div class="sm-dettagli-corpo">
-                    <div><p class="micro">Da voi</p><ul class="elenco-tratto"><li>L’elenco delle macchine, con i dati</li><li>I certificati validi, in PDF</li><li>Materiali e tolleranze tipiche</li><li>5-10 foto vere</li></ul></div>
-                    <div><p class="micro">Finito quando</p><ul class="elenco-tratto"><li>Ogni dato è confermato da voi per email</li><li>Nessun certificato è scaduto</li><li>Il PDF si stampa bene in A4</li></ul></div>
-                  </div>
-                </details>
-              </div>
-            </article>
-
-            <article class="scheda-modulo" id="m-1-4" aria-labelledby="t-1-4" data-entra>
-              <div class="sm-testa">
-                <p class="micro sm-codice">1.4</p>
-                <h3 id="t-1-4">Lavora con noi</h3>
-                <p class="sm-promessa">Chi cerca lavoro come tornitore o saldatore nella vostra zona trova le vostre offerte.</p>
-                <p class="sm-per-chi"><span class="micro">Per chi</span>Cercate operai e non li trovate.</p>
-                <dl class="sm-cartiglio">
-                  <div><dt class="micro">Tempi</dt><dd>1-2 settimane</dd></div>
-                  <div><dt class="micro">Canone</dt><dd><a class="link" href="#m-5-1">5.1</a>, per aggiornare gli annunci</dd></div>
-                  <div><dt class="micro">Misuriamo</dt><dd>le candidature, ogni mese</dd></div>
-                </dl>
-              </div>
-              <div class="sm-corpo">
-                <div class="sm-confini">
-                  <div>
-                    <p class="micro">Comprende</p>
-                    <ul class="elenco-tratto">
-                      <li>Una pagina con fino a 3 posizioni: mansione, macchine, turni, zona</li>
-                      <li>Un modulo di candidatura fatto per il telefono</li>
-                      <li>Gli annunci preparati per le offerte di lavoro di Google</li>
-                      <li>Le candidature in un posto solo, con un promemoria per rispondere a tutti</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p class="micro">Non comprende</p>
-                    <ul class="elenco-tratto sm-escluso">
-                      <li>Selezione e colloqui</li>
-                      <li>Portali e annunci a pagamento</li>
-                      <li>L’informativa privacy per i candidati</li>
-                      <li>Promettere candidati, o il primo posto su Google</li>
-                    </ul>
-                  </div>
-                </div>
-                <details class="sm-dettagli">
-                  <summary>Cosa serve da voi, e quando è finito</summary>
-                  <div class="sm-dettagli-corpo">
-                    <div><p class="micro">Da voi</p><ul class="elenco-tratto"><li>Le posizioni aperte, vere</li><li>Chi legge le candidature</li><li>Le foto del reparto</li></ul></div>
-                    <div><p class="micro">Finito quando</p><ul class="elenco-tratto"><li>Gli annunci rispettano i divieti di legge: niente sesso, età o situazione familiare</li><li>Gli annunci passano il test di Google</li><li>Una candidatura di prova è arrivata</li></ul></div>
-                  </div>
-                </details>
-              </div>
-            </article>
-
-            <article class="scheda-modulo" id="m-1-5" aria-labelledby="t-1-5" data-entra>
-              <div class="sm-testa">
-                <p class="micro sm-codice">1.5</p>
-                <h3 id="t-1-5">Versione per l’estero</h3>
-                <p class="sm-promessa">Il vostro sito parla anche ai buyer esteri, con i termini tecnici giusti.</p>
-                <p class="sm-per-chi"><span class="micro">Per chi</span>Lavorate, o volete lavorare, con clienti esteri, e il sito in italiano regge.</p>
-                <p class="sm-per-chi"><span class="micro">Due misure</span>Inglese. Oppure inglese e tedesco, riletto da un madrelingua.</p>
-                <dl class="sm-cartiglio">
-                  <div><dt class="micro">Tempi</dt><dd>2 settimane · 3 settimane</dd></div>
-                  <div><dt class="micro">Canone</dt><dd><a class="link" href="#m-5-1">5.1</a>, se volete</dd></div>
-                  <div><dt class="micro">Misuriamo</dt><dd>le richieste dall’estero, ogni mese</dd></div>
-                </dl>
-              </div>
-              <div class="sm-corpo">
-                <div class="sm-confini">
-                  <div>
-                    <p class="micro">Comprende</p>
-                    <ul class="elenco-tratto">
-                      <li>Fino a 6 pagine per lingua: home, lavorazioni, materiali e tolleranze, qualità, chi siamo, contatti</li>
-                      <li>Un glossario tecnico: misure, norme e tolleranze restano esatte</li>
-                      <li>Modulo e conferma tradotti</li>
-                      <li>Indirizzi /en/ e /de/, con titoli e descrizioni per Google in ogni lingua</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p class="micro">Non comprende</p>
-                    <ul class="elenco-tratto sm-escluso">
-                      <li>Cataloghi e PDF: a pagina</li>
-                      <li>Testi legali</li>
-                      <li>Altre lingue</li>
-                      <li>Rispondere ai buyer</li>
-                    </ul>
-                  </div>
-                </div>
-                <details class="sm-dettagli">
-                  <summary>Cosa serve da voi, e quando è finito</summary>
-                  <div class="sm-dettagli-corpo">
-                    <div><p class="micro">Da voi</p><ul class="elenco-tratto"><li>L’accesso al sito</li><li>La conferma di termini, norme e certificazioni</li><li>Chi risponde in inglese o in tedesco</li></ul></div>
-                    <div><p class="micro">Finito quando</p><ul class="elenco-tratto"><li>Ogni pagina è riletta; il tedesco da un madrelingua</li><li>Una richiesta di prova in ogni lingua riceve la conferma nella sua lingua</li></ul></div>
-                  </div>
-                </details>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        <!-- 02 · Google -->
-        <section class="famiglia" id="google" aria-labelledby="titolo-google">
-          <div class="famiglia-testa">
-            <p class="micro">02 · Servizio</p>
-            <h2 class="famiglia-titolo" id="titolo-google">Google</h2>
-            <p>Farsi trovare da chi cerca quello che fate: la scheda dell’azienda e le ricerche delle vostre lavorazioni.</p>
-          </div>
-          <div class="schede-moduli">
-            <article class="scheda-modulo" id="m-2-1" aria-labelledby="t-2-1" data-entra>
-              <div class="sm-testa">
-                <p class="micro sm-codice">2.1</p>
-                <h3 id="t-2-1">Scheda Google dell’azienda</h3>
-                <p class="sm-promessa">Chi vi cerca su Google Maps trova una scheda completa, con foto vere e recensioni.</p>
-                <p class="sm-per-chi"><span class="micro">Per chi</span>La scheda manca, è incompleta, o nessuno l’ha mai curata.</p>
-                <dl class="sm-cartiglio">
-                  <div><dt class="micro">Tempi</dt><dd>1 settimana dalla verifica</dd></div>
-                  <div><dt class="micro">Canone</dt><dd><a class="link" href="#m-5-2">5.2</a>, se volete</dd></div>
-                  <div><dt class="micro">Misuriamo</dt><dd>chiamate e clic dalla scheda</dd></div>
-                </dl>
-              </div>
-              <div class="sm-corpo">
-                <div class="sm-confini">
-                  <div>
-                    <p class="micro">Comprende</p>
-                    <ul class="elenco-tratto">
-                      <li>Categorie giuste, lavorazioni, descrizione, orari e zona</li>
-                      <li>Almeno 10 foto vere</li>
-                      <li>I link al sito e alla richiesta di preventivo</li>
-                      <li>Un link e un QR per chiedere le recensioni, e tre risposte tipo</li>
-                      <li>Le istruzioni per chiedere una recensione a chi ritira i pezzi</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p class="micro">Non comprende</p>
-                    <ul class="elenco-tratto sm-escluso">
-                      <li>La verifica della scheda: Google la chiede al titolare, e vi guidiamo noi</li>
-                      <li>Parole aggiunte al nome dell’azienda: Google può sospendere la scheda</li>
-                      <li>Recensioni comprate, scambiate o scritte da noi</li>
-                      <li>Annunci a pagamento</li>
-                    </ul>
-                  </div>
-                </div>
-                <details class="sm-dettagli">
-                  <summary>Cosa serve da voi, e quando è finito</summary>
-                  <div class="sm-dettagli-corpo">
-                    <div><p class="micro">Da voi</p><ul class="elenco-tratto"><li>L’accesso alla scheda: noi entriamo come gestori</li><li>Foto, orari e lavorazioni</li></ul></div>
-                    <div><p class="micro">Finito quando</p><ul class="elenco-tratto"><li>La scheda è verificata e pubblica, con tutte le voci</li><li>Link e QR sono provati da telefono</li></ul></div>
-                  </div>
-                </details>
-              </div>
-            </article>
-
-            <article class="scheda-modulo" id="m-2-2" aria-labelledby="t-2-2" data-entra>
-              <div class="sm-testa">
-                <p class="micro sm-codice">2.2</p>
-                <h3 id="t-2-2">Pagine per lavorazione</h3>
-                <p class="sm-promessa">Chi cerca la vostra lavorazione nella vostra provincia trova una pagina che parla proprio di quella.</p>
-                <p class="sm-per-chi"><span class="micro">Per chi</span>Il sito regge, ma cercando lavorazione, materiale e provincia escono gli altri.</p>
-                <dl class="sm-cartiglio">
-                  <div><dt class="micro">Tempi</dt><dd>3 settimane</dd></div>
-                  <div><dt class="micro">Canone</dt><dd><a class="link" href="#m-5-2">5.2</a>, se volete</dd></div>
-                  <div><dt class="micro">Misuriamo</dt><dd>ricerche e richieste da quelle pagine</dd></div>
-                </dl>
-              </div>
-              <div class="sm-corpo">
-                <div class="sm-confini">
-                  <div>
-                    <p class="micro">Comprende</p>
-                    <ul class="elenco-tratto">
-                      <li>3 pagine, una per ogni lavorazione e materiale che fate davvero</li>
-                      <li>Titoli e testi scritti sulle ricerche vere dei buyer</li>
-                      <li>I collegamenti dalle altre pagine del sito</li>
-                      <li>Search Console collegata</li>
-                      <li>Un controllo dopo 30 giorni: quali ricerche cominciano a mostrarle</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p class="micro">Non comprende</p>
-                    <ul class="elenco-tratto sm-escluso">
-                      <li>Pagine oltre le 3: a preventivo</li>
-                      <li>Articoli e blog</li>
-                      <li>Una pagina per ogni paese: Google la tratta come spam</li>
-                      <li>Link comprati da altri siti, e annunci</li>
-                    </ul>
-                  </div>
-                </div>
-                <details class="sm-dettagli">
-                  <summary>Cosa serve da voi, e quando è finito</summary>
-                  <div class="sm-dettagli-corpo">
-                    <div><p class="micro">Da voi</p><ul class="elenco-tratto"><li>Per ogni lavorazione: materiali, dimensioni, tolleranze e lotti</li><li>3-5 foto e un esempio di pezzo, anche senza il nome del cliente</li></ul></div>
-                    <div><p class="micro">Finito quando</p><ul class="elenco-tratto"><li>Le pagine sono online, collegate e inviate a Google</li><li>Il controllo a 30 giorni vi è arrivato</li></ul></div>
-                  </div>
-                </details>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        <!-- 03 · CRM e follow-up -->
-        <section class="famiglia" id="crm" aria-labelledby="titolo-crm">
-          <div class="famiglia-testa">
-            <p class="micro">03 · Servizio</p>
-            <h2 class="famiglia-titolo" id="titolo-crm">CRM e follow-up</h2>
-            <p>Ogni richiesta in un posto solo, con chi risponde e quando richiamare.</p>
-          </div>
-          <div class="schede-moduli">
-            <article class="scheda-modulo" id="m-3-1" aria-labelledby="t-3-1" data-entra>
-              <div class="sm-testa">
-                <p class="micro sm-codice">3.1</p>
-                <h3 id="t-3-1">Elenco delle richieste</h3>
-                <p class="sm-promessa">Nessun preventivo perso: ogni richiesta ha chi risponde e quando sollecitare.</p>
-                <p class="sm-per-chi"><span class="micro">Per chi</span>Le richieste arrivano da email, telefono e sito, e si seguono a memoria o su Excel.</p>
-                <dl class="sm-cartiglio">
-                  <div><dt class="micro">Tempi</dt><dd>3 settimane, poi 30 giorni di assistenza</dd></div>
-                  <div><dt class="micro">Canone</dt><dd><a class="link" href="#m-5-3">5.3</a>, se volete</dd></div>
-                  <div><dt class="micro">Misuriamo</dt><dd>tempo di risposta e preventivi sollecitati</dd></div>
-                </dl>
-              </div>
-              <div class="sm-corpo">
-                <div class="sm-confini">
-                  <div>
-                    <p class="micro">Comprende</p>
-                    <ul class="elenco-tratto">
-                      <li>Un CRM semplice, intestato a voi</li>
-                      <li>Le vostre fasi: nuova richiesta, disegno ricevuto, preventivo inviato, sollecito, ordine o perso</li>
-                      <li>Il modulo del sito e una casella email collegati</li>
-                      <li>I promemoria per i solleciti, e il motivo di ogni preventivo perso</li>
-                      <li>I preventivi aperti importati da Excel, fino a 200 righe</li>
-                      <li>Un riepilogo ogni mese: richieste, preventivi, ordini, tempo di risposta</li>
-                      <li>Due incontri di formazione e 30 giorni di assistenza</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p class="micro">Non comprende</p>
-                    <ul class="elenco-tratto sm-escluso">
-                      <li>Le licenze del CRM: le pagate voi, direttamente</li>
-                      <li>Più di 5 utenti</li>
-                      <li>Lo storico completo</li>
-                      <li>Il collegamento al gestionale (<a class="link" href="#m-4-2">4.2</a>)</li>
-                    </ul>
-                  </div>
-                </div>
-                <details class="sm-dettagli">
-                  <summary>Cosa serve da voi, e quando è finito</summary>
-                  <div class="sm-dettagli-corpo">
-                    <div><p class="micro">Da voi</p><ul class="elenco-tratto"><li>Chi lo userà</li><li>Come va oggi un preventivo, passo per passo</li><li>L’Excel dei preventivi aperti</li></ul></div>
-                    <div><p class="micro">Finito quando</p><ul class="elenco-tratto"><li>Una richiesta di prova dal sito e una da email entrano da sole nell’elenco</li><li>Un promemoria arriva alla persona giusta</li><li>Ognuno di voi ha fatto da solo il giro: richiesta, preventivo, ordine</li></ul></div>
-                  </div>
-                </details>
-              </div>
-            </article>
-
-            <article class="scheda-modulo" id="m-3-2" aria-labelledby="t-3-2" data-entra>
-              <div class="sm-testa">
-                <p class="micro sm-codice">3.2</p>
-                <h3 id="t-3-2">Clienti che non ordinano più</h3>
-                <p class="sm-promessa">Richiamiamo insieme i clienti che non ordinano da uno o due anni.</p>
-                <p class="sm-per-chi"><span class="micro">Per chi</span>Avete tanti clienti storici nel gestionale, e poco tempo per richiamarli.</p>
-                <dl class="sm-cartiglio">
-                  <div><dt class="micro">Tempi</dt><dd>1 settimana, poi 30 giorni di giro</dd></div>
-                  <div><dt class="micro">Canone</dt><dd>nessuno</dd></div>
-                  <div><dt class="micro">Misuriamo</dt><dd>risposte, richieste e ordini in 30 giorni</dd></div>
-                </dl>
-              </div>
-              <div class="sm-corpo">
-                <div class="sm-confini">
-                  <div>
-                    <p class="micro">Comprende</p>
-                    <ul class="elenco-tratto">
-                      <li>Dal gestionale, i clienti fermi da 12-24 mesi: fino a 100</li>
-                      <li>Un’email personale del titolare, scritta da noi e mandata dalla vostra casella</li>
-                      <li>In ogni email, la possibilità di dire no</li>
-                      <li>La traccia per la telefonata del commerciale</li>
-                      <li>Risposte segnate e promemoria per richiamare dopo 7 giorni</li>
-                      <li>Un resoconto a 30 giorni</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p class="micro">Non comprende</p>
-                    <ul class="elenco-tratto sm-escluso">
-                      <li>Le telefonate: le fa il vostro commerciale</li>
-                      <li>Liste di contatti comprate</li>
-                      <li>Chi ha chiesto solo un preventivo, senza mai comprare: lo vieta il Garante della privacy</li>
-                    </ul>
-                  </div>
-                </div>
-                <details class="sm-dettagli">
-                  <summary>Cosa serve da voi, e quando è finito</summary>
-                  <div class="sm-dettagli-corpo">
-                    <div><p class="micro">Da voi</p><ul class="elenco-tratto"><li>L’elenco dal gestionale: cliente, ultimo ordine, cosa ha comprato, contatto</li><li>Chi telefona</li></ul></div>
-                    <div><p class="micro">Finito quando</p><ul class="elenco-tratto"><li>L’elenco rispetta le regole della privacy</li><li>Avete approvato l’email</li><li>Il resoconto a 30 giorni vi è arrivato</li></ul></div>
-                  </div>
-                </details>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        <!-- 04 · Automazioni -->
-        <section class="famiglia" id="automazioni" aria-labelledby="titolo-automazioni">
-          <div class="famiglia-testa">
-            <p class="micro">04 · Servizio</p>
-            <h2 class="famiglia-titolo" id="titolo-automazioni">Automazioni</h2>
-            <p>Il lavoro ripetitivo lo fa il computer. Le decisioni e i prezzi restano vostri.</p>
-          </div>
-          <div class="schede-moduli">
-            <article class="scheda-modulo" id="m-4-1" aria-labelledby="t-4-1" data-entra>
-              <div class="sm-testa">
-                <p class="micro sm-codice">4.1</p>
-                <h3 id="t-4-1">Bozza di preventivo dalla richiesta</h3>
-                <p class="sm-promessa">Dalla richiesta alla bozza di preventivo, che controllate voi.</p>
-                <p class="sm-per-chi"><span class="micro">Per chi</span>Ricevete tante richieste da quotare in fretta. Prima serve <a class="link" href="#m-1-2">1.2</a> o <a class="link" href="#m-3-1">3.1</a>.</p>
-                <dl class="sm-cartiglio">
-                  <div><dt class="micro">Tempi</dt><dd>3 settimane</dd></div>
-                  <div><dt class="micro">Canone</dt><dd><a class="link" href="#m-5-4">5.4</a></dd></div>
-                  <div><dt class="micro">Misuriamo</dt><dd>ore dalla richiesta alla risposta</dd></div>
-                </dl>
-              </div>
-              <div class="sm-corpo">
-                <div class="sm-confini">
-                  <div>
-                    <p class="micro">Comprende</p>
-                    <ul class="elenco-tratto">
-                      <li>Ogni richiesta letta: materiale, quantità, tolleranze, scadenza</li>
-                      <li>L’elenco dei dati che mancano per quotare</li>
-                      <li>La bozza della risposta al buyer, con le domande</li>
-                      <li>La bozza del preventivo nel vostro modello, con i prezzi vuoti</li>
-                      <li>Una prova su 10 richieste vere, prima di accenderla</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p class="micro">Non comprende</p>
-                    <ul class="elenco-tratto sm-escluso">
-                      <li>I prezzi: li mettete sempre voi</li>
-                      <li>L’invio: lo fa sempre una persona</li>
-                      <li>Le quote lette dal disegno</li>
-                      <li>I disegni negli strumenti di intelligenza artificiale, senza il vostro consenso scritto</li>
-                    </ul>
-                  </div>
-                </div>
-                <details class="sm-dettagli">
-                  <summary>Cosa serve da voi, e quando è finito</summary>
-                  <div class="sm-dettagli-corpo">
-                    <div><p class="micro">Da voi</p><ul class="elenco-tratto"><li>Il vostro modello di preventivo</li><li>10 richieste vere, anche senza nomi</li><li>Chi controlla le bozze</li></ul></div>
-                    <div><p class="micro">Finito quando</p><ul class="elenco-tratto"><li>Sulle 10 richieste di prova avete controllato i dati letti, uno per uno</li><li>Non parte nessun invio automatico</li></ul></div>
-                  </div>
-                </details>
-              </div>
-            </article>
-
-            <article class="scheda-modulo" id="m-4-2" aria-labelledby="t-4-2" data-entra>
-              <div class="sm-testa">
-                <p class="micro sm-codice">4.2</p>
-                <h3 id="t-4-2">Richieste nel gestionale</h3>
-                <p class="sm-promessa">Le richieste del sito entrano nel gestionale da sole.</p>
-                <p class="sm-per-chi"><span class="micro">Per chi</span>Ricopiate a mano le richieste nel gestionale, o in un foglio.</p>
-                <dl class="sm-cartiglio">
-                  <div><dt class="micro">Tempi</dt><dd>1-2 settimane</dd></div>
-                  <div><dt class="micro">Canone</dt><dd><a class="link" href="#m-5-4">5.4</a>, se volete</dd></div>
-                  <div><dt class="micro">Misuriamo</dt><dd>richieste ricopiate a mano: zero</dd></div>
-                </dl>
-              </div>
-              <div class="sm-corpo">
-                <div class="sm-confini">
-                  <div>
-                    <p class="micro">Comprende</p>
-                    <ul class="elenco-tratto">
-                      <li>Una verifica gratuita di 30 minuti: il gestionale lo permette?</li>
-                      <li>Il collegamento dal modulo al gestionale, o al foglio</li>
-                      <li>Una prova su 5 richieste, e le istruzioni</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p class="micro">Non comprende</p>
-                    <ul class="elenco-tratto sm-escluso">
-                      <li>Modifiche al gestionale</li>
-                      <li>Collegamenti nei due sensi</li>
-                      <li>Le licenze dello strumento di collegamento</li>
-                    </ul>
-                  </div>
-                </div>
-                <details class="sm-dettagli">
-                  <summary>Cosa serve da voi, e quando è finito</summary>
-                  <div class="sm-dettagli-corpo">
-                    <div><p class="micro">Da voi</p><ul class="elenco-tratto"><li>Chi conosce il gestionale</li><li>L’accesso per la prova</li></ul></div>
-                    <div><p class="micro">Finito quando</p><ul class="elenco-tratto"><li>5 richieste di prova arrivano con tutti i campi</li><li>Se il collegamento si rompe, arriva un avviso</li></ul></div>
-                  </div>
-                </details>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        <!-- 05 · I canoni: bordo tratteggiato, come la tessera aperta della pagina Metodo -->
-        <section class="famiglia" id="canoni" aria-labelledby="titolo-canoni">
-          <div class="famiglia-testa">
-            <p class="micro">05 · Servizio</p>
-            <h2 class="famiglia-titolo" id="titolo-canoni">Manutenzione e crescita: i canoni</h2>
-            <p>Dopo la consegna il lavoro non si ferma. Un canone per servizio: copre solo quello, e si sceglie alla consegna.</p>
-          </div>
-          <div class="schede-moduli">
-            <article class="scheda-modulo scheda-canone" id="m-5-1" aria-labelledby="t-5-1" data-entra>
-              <div class="sm-testa">
-                <p class="micro sm-codice">5.1</p>
-                <h3 id="t-5-1">Ottimizzazione e manutenzione</h3>
-                <p class="sm-promessa">Il sito resta acceso, sicuro e aggiornato, e ogni mese sapete quante richieste sono arrivate.</p>
-                <p class="sm-per-chi"><span class="micro">Prima serve</span>Un modulo del Sito, o un sito che abbiamo controllato.</p>
-                <dl class="sm-cartiglio">
-                  <div><dt class="micro">Modifiche</dt><dd>le ore concordate</dd></div>
-                  <div><dt class="micro">Report</dt><dd>entro il 5 del mese</dd></div>
-                  <div><dt class="micro">Urgenze</dt><dd>entro 4 ore lavorative</dd></div>
-                </dl>
-              </div>
-              <div class="sm-corpo">
-                <div class="sm-confini">
-                  <div>
-                    <p class="micro">Ogni mese</p>
-                    <ul class="elenco-tratto">
-                      <li>Controllo che il sito sia raggiungibile, sicuro e con il dominio in regola</li>
-                      <li>La prova del modulo, con un invio dichiarato come prova</li>
-                      <li>Velocità da telefono e copia di sicurezza</li>
-                      <li>Piccole modifiche: testi, foto, una macchina, una certificazione, gli annunci</li>
-                      <li>Un report di una pagina: richieste del mese, controlli, modifiche</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p class="micro">Non comprende</p>
-                    <ul class="elenco-tratto sm-escluso">
-                      <li>Pagine o funzioni nuove</li>
-                      <li>Le ore oltre quelle concordate: vi avvisiamo prima</li>
-                      <li>Le ore non usate: non si accumulano</li>
-                      <li>Lo spazio online, se ha un costo</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <article class="scheda-modulo scheda-canone" id="m-5-2" aria-labelledby="t-5-2" data-entra>
-              <div class="sm-testa">
-                <p class="micro sm-codice">5.2</p>
-                <h3 id="t-5-2">Ricerche seguite</h3>
-                <p class="sm-promessa">Ogni mese un passo in più su Google: la scheda curata e una pagina nuova o migliorata.</p>
-                <p class="sm-per-chi"><span class="micro">Prima serve</span><a class="link" href="#m-2-1">2.1</a> o <a class="link" href="#m-2-2">2.2</a>.</p>
-                <dl class="sm-cartiglio">
-                  <div><dt class="micro">Pagine</dt><dd>una al mese, nuova o migliorata</dd></div>
-                  <div><dt class="micro">Report</dt><dd>entro il 5 del mese</dd></div>
-                  <div><dt class="micro">Misuriamo</dt><dd>ricerche e richieste</dd></div>
-                </dl>
-              </div>
-              <div class="sm-corpo">
-                <div class="sm-confini">
-                  <div>
-                    <p class="micro">Ogni mese</p>
-                    <ul class="elenco-tratto">
-                      <li>La scheda Google aggiornata: un post, foto nuove, bozze di risposta alle recensioni</li>
-                      <li>Search Console controllata: ricerche ed errori</li>
-                      <li>Una pagina nuova o migliorata per una lavorazione, con i vostri dati</li>
-                      <li>Il report</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p class="micro">Non comprende</p>
-                    <ul class="elenco-tratto sm-escluso">
-                      <li>Annunci a pagamento</li>
-                      <li>Link comprati da altri siti</li>
-                      <li>Articoli che non parlano delle vostre lavorazioni</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <article class="scheda-modulo scheda-canone" id="m-5-3" aria-labelledby="t-5-3" data-entra>
-              <div class="sm-testa">
-                <p class="micro sm-codice">5.3</p>
-                <h3 id="t-5-3">Assistenza al CRM</h3>
-                <p class="sm-promessa">L’elenco delle richieste resta in ordine, e c’è chi vi aiuta quando serve.</p>
-                <p class="sm-per-chi"><span class="micro">Prima serve</span><a class="link" href="#m-3-1">3.1</a>.</p>
-                <dl class="sm-cartiglio">
-                  <div><dt class="micro">Modifiche</dt><dd>le ore concordate</dd></div>
-                  <div><dt class="micro">Risposte</dt><dd>entro 2 giorni lavorativi</dd></div>
-                  <div><dt class="micro">Misuriamo</dt><dd>preventivi persi, e perché</dd></div>
-                </dl>
-              </div>
-              <div class="sm-corpo">
-                <div class="sm-confini">
-                  <div>
-                    <p class="micro">Ogni mese</p>
-                    <ul class="elenco-tratto">
-                      <li>Modifiche: campi, viste, fasi, utenti</li>
-                      <li>Aiuto per email</li>
-                      <li>Il controllo dell’elenco: richieste senza un prossimo passo, preventivi da sollecitare</li>
-                      <li>Il riepilogo, con i preventivi persi e il perché</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p class="micro">Non comprende</p>
-                    <ul class="elenco-tratto sm-escluso">
-                      <li>Le licenze del CRM</li>
-                      <li>La formazione di persone nuove</li>
-                      <li>Collegamenti nuovi (<a class="link" href="#m-4-2">4.2</a>)</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <article class="scheda-modulo scheda-canone" id="m-5-4" aria-labelledby="t-5-4" data-entra>
-              <div class="sm-testa">
-                <p class="micro sm-codice">5.4</p>
-                <h3 id="t-5-4">Controllo e migliorie</h3>
-                <p class="sm-promessa">Le automazioni controllate ogni mese, e sistemate se qualcosa cambia.</p>
-                <p class="sm-per-chi"><span class="micro">Prima serve</span><a class="link" href="#m-4-1">4.1</a> o <a class="link" href="#m-4-2">4.2</a>.</p>
-                <dl class="sm-cartiglio">
-                  <div><dt class="micro">Migliorie</dt><dd>una piccola al mese, se serve</dd></div>
-                  <div><dt class="micro">Report</dt><dd>entro il 5 del mese</dd></div>
-                  <div><dt class="micro">Costi d’uso</dt><dd>degli strumenti, a carico vostro</dd></div>
-                </dl>
-              </div>
-              <div class="sm-corpo">
-                <div class="sm-confini">
-                  <div>
-                    <p class="micro">Ogni mese</p>
-                    <ul class="elenco-tratto">
-                      <li>Il controllo che le automazioni girino: errori, richieste non lette</li>
-                      <li>La sistemazione, se cambia uno strumento collegato</li>
-                      <li>Il report</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <p class="micro">Non comprende</p>
-                    <ul class="elenco-tratto sm-escluso">
-                      <li>Automazioni nuove</li>
-                      <li>I costi d’uso degli strumenti</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-
-          <!-- Le condizioni dei canoni: valgono per tutti e quattro -->
-          <div class="canoni-patti">
-            <div class="canoni-patto" data-entra>
-              <p class="micro">Per tutti i canoni</p>
-              <h3>Senza vincoli.</h3>
-              <ul class="elenco-tratto">
-                <li>Si disdice per email, con 30 giorni di preavviso</li>
-                <li>Alla disdetta vi consegniamo accessi, codice e dati entro 10 giorni lavorativi, senza costi</li>
-                <li>Se per 3 mesi di fila servono più ore, rivediamo il canone insieme</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-      </div>
-    </div>
+    <!-- ── 3. Le schede dei moduli, servizio per servizio, sono state tolte il 12 novembre 2026: per ora la pagina
+         mostra solo il catalogo. Le spiegazioni torneranno più avanti; il testo di prima è nella storia di git
+         (commit 9dc8a46, servizi/index.html). ── -->
 
     <!-- ── 4. Combinazioni pronte: i percorsi della manifattura, con i codici dei moduli ── -->
     <section class="sezione percorsi" id="combinazioni" aria-labelledby="titolo-combinazioni">

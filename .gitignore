@@ -1,3 +1,7 @@
 dist/
 .netlify/
 .DS_Store
+# immagini: le prove e gli originali di Higgsfield (PNG da 5-8 MB) restano in locale, vedi IMMAGINI.md
+immagini/prove/
+immagini-originali/*.png
+immagini-originali/varianti/

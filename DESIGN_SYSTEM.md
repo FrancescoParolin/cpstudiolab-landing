@@ -14,15 +14,36 @@ Ogni valore sta nei token in `:root` di `style.css`. La versione completa, con l
   Scala: da `--t-micro` (12px) a `--t-display` (fino a 152px). `--t-tavola` e `--t-scena` sono in unità del disegno:
   cambiano con la larghezza perché a schermo i testi dei disegni restino tra 12 e 15px.
 - **Spazi:** multipli di 8px (`--s1`…`--s16`); `--scarto` (4px) per i piccoli scarti. Raggio 10px come le tessere del logo, fogli verdi 40px.
-  Un'ombra sola, `--ombra`, solo sugli esempi dei servizi.
+  Un'ombra sola, `--ombra`, solo sugli esempi dei servizi; `--ombra-banner`, leggera, solo sugli elementi sollevati sopra la pagina:
+  il banner del calibro e le tendine della testata.
+- **Terzo carattere, solo per il menu:** Archivo nella forma larga e nera (`--menu`, peso `--peso-nero` 800), per le voci
+  della testata, i titoli delle tendine e le voci del menu a schermo intero. Scelto da Paro il 12 novembre 2026 tra
+  quattro alternative, perché Inter nel menu era «il più classico dei classici». Un file da 14 KB in `fonts/`, licenza OFL.
+  Non va usato per titoli e testi: lì resta Inter.
 - **Componenti:** `.logo`, `.micro`, `.titolo-sezione`, `.btn`, `.link`, `.link-freccia`, `.elenco-tratto`, `.quota`,
   `.tavola`, `.mirino`, `.servizio` + `.mock-*` (esempi), `.settore` + `.trama-*` + `.disegno-lavorazione`, `.fase`,
   `.simbolo-componibile` + `.richiamo`, `.socio-tessera`, `.domande`, `.modulo` + `.campo` + `.scelte`, `.cartiglio-piede`,
+  `.nav-voce` + `.nav-tendina` + `.nav-foglio` (le voci della testata sono a 16px in peso forte; da 1100px sotto ognuna
+  si apre l'elenco di quello che contiene, al passaggio del mouse o con Tab, Esc lo chiude. Tre gradini: `.nav-titolo`
+  a 20px in peso forte, la frase sotto a 14px tenue, numeri e codici in mono; in «Servizi» i moduli stanno sotto il loro
+  servizio, `.nav-gruppo`. Solo testi che il sito ha già),
+  `.modulo` come foglio (il modulo di richiesta è un foglio crema sul verde: campi bianchi con bordo `--tenue`, scelte che
+  diventano verdi, bottone verde pieno; in tutte le pagine che lo hanno),
+  `.servizi-banco` + `.servizio-colonna` + `.modulo-tessera` (Servizi in pagina principale: i cinque servizi in colonna,
+  sotto ognuno i moduli di base, solo codice e nome; vedi SERVIZI_BASE.md),
+  `.cornice` + `.tacche` (immagine con bordo e tacche di quota agli angoli: apertura e testate), il video dell'apertura
+  (`.apertura-figura[data-video]`: da 1100px e senza «riduci movimento» un video di 5 secondi gira una volta sopra
+  l'immagine e si ferma; altrove resta l'immagine. È l'unico video del sito, mai in ciclo, mai con audio), `.ritratti` + `.ritratto`
+  (i riquadri 4:5 dei soci, spenti finché mancano le foto vere), `.metodo-verde` (Metodo sul foglio verde),
   `.menu` (menu a schermo intero, dialogo modale), `.targa` + `.dato` (dati di targa: solo cifre verificabili),
   `.risultati` + `.settori-lista` (settori in distinta, il primo con le lavorazioni), `.qualita` (su misura, collaudato, chiaro: in «Lo studio» e nella pagina Contatti),
   `.testata-contatto` (icona del telefono e «Contatti diretti», senza freccia: porta alla pagina Contatti; su telefono «Contatti»), `.apertura-statica` (apertura ferma, alta quanto il contenuto: pagina principale e pagine di settore; `.apertura-studio` per il titolo su due righe della pagina principale), `.striscia-settori` (sotto l'apertura, una porta per ogni settore), `.scheda-studio` (la scheda dello studio nella pagina Lo studio: testata verde, voci in righe), `.principi` + `.principio` (i principi dello studio, due per riga), `.tavola-marchio` (il marchio disegnato con quote, richiami e cartiglio), `.soci` + `.socio` (i partner: iniziali in una tessera verde), `.contatti-diretto`
   (il foglio verde in cima alla pagina Contatti: si vede subito, senza ingresso animato),
-  `.calibro` (passa/non passa), `.clienti` (striscia dei loghi: righe da un bordo all'altro dello schermo, crocini
+  `.calibro` (passa/non passa: con JavaScript nella pagina resta `.calibro-fascia`, una scheda tutta cliccabile con lo
+  strumento `.comparatore`; le otto domande stanno in `.calibro-finestra`, un `<dialog>` che si apre solo al clic, una
+  domanda alla volta, a tutto schermo su telefono; `.calibro-banner` lo propone dopo «Il punto», non modale, mai sopra
+  il modulo né insieme a menu e finestra; `.modulo-calibro` è il risultato portato sopra i campi del modulo. I testi
+  sono solo quelli della sezione `#calibro`), `.clienti` (striscia dei loghi: righe da un bordo all'altro dello schermo, crocini
   agli incroci, loghi in grigio), `.recensione` (le parole del cliente con la frase chiave in verde, le iniziali in una
   tessera, nome e ruolo, poi il piccolo cartiglio `.recensione-firma` con azienda e servizi),
   `.percorsi` + `.percorso` (pagine di settore: tre situazioni, ognuna con i suoi moduli in fila `.percorso-ciclo`,

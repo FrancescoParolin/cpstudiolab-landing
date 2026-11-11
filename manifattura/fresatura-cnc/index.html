@@ -19,6 +19,7 @@
   <link rel="manifest" href="/site.webmanifest">
   <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/geist-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/archivo-largo-latin.woff2" as="font" type="font/woff2" crossorigin media="(min-width: 1100px)">
   <script src="/main.js" defer></script>
   <link rel="stylesheet" href="/style.css">
 </head>
@@ -122,11 +123,93 @@
         <svg aria-hidden="true" focusable="false"><use href="#marchio"/></svg>
         <span>CP Studio</span> <span class="logo-lab">Lab</span>
       </a>
+      <!-- Le quattro voci. Da 1100px, al passaggio del mouse o con il tasto Tab, sotto ogni voce si apre la sua
+           tendina (.nav-tendina, solo CSS; Esc la chiude, main.js). I testi delle tendine esistono già nel sito:
+           se cambiano là, vanno cambiati anche qui, in tutte le pagine. -->
       <nav class="nav" aria-label="Sezioni della pagina">
-        <a href="/servizi/">Servizi</a>
-        <a href="/#settori">Settori</a>
-        <a href="/metodo/">Metodo</a>
-        <a href="/studio/">Lo studio</a>
+        <div class="nav-voce">
+          <a href="/servizi/">Servizi</a>
+          <div class="nav-tendina">
+            <div class="nav-foglio nav-foglio-largo">
+              <div class="nav-gruppi">
+                <div class="nav-gruppo">
+                  <a class="nav-gruppo-nome" href="/servizi/#distinta"><span class="nav-num" aria-hidden="true">01</span><span class="nav-titolo">Sito</span></a>
+                  <ul>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">1.1</span><span>Sito tecnico</span></a></li>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">1.2</span><span>Richiesta di preventivo</span></a></li>
+                  </ul>
+                </div>
+                <div class="nav-gruppo">
+                  <a class="nav-gruppo-nome" href="/servizi/#distinta"><span class="nav-num" aria-hidden="true">02</span><span class="nav-titolo">Google</span></a>
+                  <ul>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">2.1</span><span>Scheda Google dell’azienda</span></a></li>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">2.2</span><span>Pagine per servizio</span></a></li>
+                  </ul>
+                </div>
+                <div class="nav-gruppo">
+                  <a class="nav-gruppo-nome" href="/servizi/#distinta"><span class="nav-num" aria-hidden="true">03</span><span class="nav-titolo">CRM e follow-up</span></a>
+                  <ul>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">3.1</span><span>Elenco delle richieste</span></a></li>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">3.2</span><span>Clienti che non ordinano più</span></a></li>
+                  </ul>
+                </div>
+                <div class="nav-gruppo">
+                  <a class="nav-gruppo-nome" href="/servizi/#distinta"><span class="nav-num" aria-hidden="true">04</span><span class="nav-titolo">Automazioni</span></a>
+                  <ul>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">4.1</span><span>Bozza di preventivo dalla richiesta</span></a></li>
+                  </ul>
+                </div>
+                <div class="nav-gruppo">
+                  <a class="nav-gruppo-nome" href="/servizi/#distinta"><span class="nav-num" aria-hidden="true">05</span><span class="nav-titolo">Manutenzione e crescita</span></a>
+                  <ul>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">5.1</span><span>Ottimizzazione e manutenzione</span></a></li>
+                  </ul>
+                </div>
+              </div>
+              <a class="link-freccia" href="/servizi/">Tutti i moduli, per filo e per segno <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-voce">
+          <a href="/#settori">Settori</a>
+          <div class="nav-tendina">
+            <div class="nav-foglio">
+              <ul>
+                <li><a href="/manifattura/"><span><span class="nav-titolo">Manifattura e subfornitura</span><small>Tornitura, lamiera, stampaggio, carpenteria</small></span></a></li>
+                <li><a href="#contatto"><span><span class="nav-titolo">Il vostro settore?</span><small>Raccontateci cosa fate: vi diciamo se possiamo esservi utili</small></span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="nav-voce">
+          <a href="/metodo/">Metodo</a>
+          <div class="nav-tendina">
+            <div class="nav-foglio">
+              <ul>
+                <li><a href="/metodo/#ciclo"><span><span class="nav-titolo">Il ciclo di lavoro</span><small>Ogni servizio segue lo stesso ciclo.</small></span></a></li>
+                <li><a href="/metodo/#check-up"><span><span class="nav-titolo">Il punto di partenza</span><small>Il problema, nero su bianco.</small></span></a></li>
+                <li><a href="/metodo/#componibili"><span><span class="nav-titolo">Servizi componibili</span><small>Dal problema, la combinazione.</small></span></a></li>
+                <li><a href="/metodo/#collegamenti"><span><span class="nav-titolo">I servizi si collegano</span><small>A ogni servizio, il suo canone.</small></span></a></li>
+              </ul>
+              <a class="link-freccia" href="/metodo/">Il metodo per intero <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-voce">
+          <a href="/studio/">Lo studio</a>
+          <div class="nav-tendina">
+            <div class="nav-foglio">
+              <ul>
+                <li><a href="/studio/#principi"><span><span class="nav-titolo">Perché «studio»</span><small>Chi firma il lavoro, ne risponde.</small></span></a></li>
+                <li><a href="/studio/#marchio-spiegato"><span><span class="nav-titolo">Il marchio</span><small>Due tessere che si incastrano.</small></span></a></li>
+                <li><a href="/studio/#soci"><span><span class="nav-titolo">I partner</span><small>Due partner alla pari, un solo interlocutore per voi.</small></span></a></li>
+                <li><a href="/studio/#strumenti"><span><span class="nav-titolo">Gli strumenti</span><small>Usiamo quello che costruiamo.</small></span></a></li>
+                <li><a href="/studio/#impegni"><span><span class="nav-titolo">Impegni scritti</span><small>Quello che vi promettiamo, in cifre.</small></span></a></li>
+              </ul>
+              <a class="link-freccia" href="/studio/">Conoscete lo studio <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></a>
+            </div>
+          </div>
+        </div>
       </nav>
       <div class="testata-azioni">
         <a class="btn btn-piccolo testata-contatto" href="/contatti/">
@@ -167,8 +250,8 @@
           </ol>
         </nav>
         <div class="menu-lato">
-          <a class="btn btn-chiaro" href="/#contatto">
-            Chiedeteci un preventivo
+          <a class="btn btn-chiaro" href="#contatto">
+            Check-up gratuito
             <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
           </a>
           <dl class="recapiti">
@@ -191,8 +274,8 @@
           <h1 class="titolo-sezione" id="titolo-lav">Lavorate al centesimo. Il sito lo dice?</h1>
           <p class="sezione-sotto">Chi vi manda un file 3D vuole capire subito se lo sapete fare. Vi costruiamo il sito che mostra centri di lavoro e tolleranze, e un modulo che riceve il file in modo riservato.</p>
           <div class="azioni">
-            <a class="btn" href="/?percorso=richieste#contatto">
-              Chiedeteci un preventivo
+            <a class="btn" href="?percorso=richieste#contatto">
+              Check-up gratuito
               <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
             </a>
             <a class="link-freccia" href="#titolo-passi">
@@ -322,7 +405,7 @@
         <div class="sezione-testa">
           <p class="micro">Da dove partire</p>
           <h2 class="titolo-sezione" id="titolo-percorsi">Tre percorsi.</h2>
-          <p class="sezione-sotto">A seconda di dove siete oggi. Per un’officina di fresatura vi consigliamo di partire da B. Spesso si comincia da un modulo solo: la <a class="link" href="/servizi/#m-1-2">Richiesta di preventivo con disegno</a>, per i file 3D.</p>
+          <p class="sezione-sotto">A seconda di dove siete oggi. Per un’officina di fresatura vi consigliamo di partire da B. Spesso si comincia da un modulo solo: la <a class="link" href="/servizi/#distinta">Richiesta di preventivo con disegno</a>, per i file 3D.</p>
         </div>
         <ol class="lav-percorsi">
           <li class="lav-percorso" data-entra>
@@ -331,7 +414,7 @@
             <p class="lav-percorso-chi">Non avete un sito, o è fermo da anni.</p>
             <ol class="lav-ciclo" aria-label="I moduli del percorso A"><li><span class="lav-ciclo-num">1.1</span><span><strong>Sito tecnico</strong><span class="lav-fase-cosa">Assi, corse, materiali, tolleranze</span></span></li><li><span class="lav-ciclo-num">2.1</span><span><strong>Scheda Google dell’azienda</strong><span class="lav-fase-cosa">Il profilo su Google Maps, per chi cerca «fresatura CNC + provincia»</span></span></li></ol>
             <p class="lav-percorso-esito">Chi cerca un’officina di precisione vi trova.</p>
-            <a class="link-freccia" href="/?percorso=da-zero#contatto">
+            <a class="link-freccia" href="?percorso=da-zero#contatto">
               Partiamo da qui<span class="nascosto">: percorso A, da zero</span>
               <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
             </a>
@@ -342,7 +425,7 @@
             <p class="lav-percorso-chi">Il sito c’è, ma i preventivi si perdono per strada.</p>
             <ol class="lav-ciclo" aria-label="I moduli del percorso B"><li><span class="lav-ciclo-num">0.2</span><span><strong>Check-up completo</strong><span class="lav-fase-cosa">Dove si fermano le richieste con il file 3D</span></span></li><li><span class="lav-ciclo-num">1.1</span><span><strong>Sito tecnico</strong><span class="lav-fase-cosa">Richiesta con il file 3D e la riservatezza scritta</span></span></li><li><span class="lav-ciclo-num">2.1</span><span><strong>Scheda Google dell’azienda</strong><span class="lav-fase-cosa">Per chi cerca «fresatura 5 assi» o «prototipi meccanici» in zona</span></span></li><li><span class="lav-ciclo-num">3.1</span><span><strong>Elenco delle richieste</strong><span class="lav-fase-cosa">Ogni preventivo seguito: inviato, sollecitato, ordine o perso</span></span></li></ol>
             <p class="lav-percorso-esito">Ogni file 3D ha una risposta, e sapete quanti preventivi diventano ordini.</p>
-            <a class="link-freccia" href="/?percorso=richieste#contatto">
+            <a class="link-freccia" href="?percorso=richieste#contatto">
               Partiamo da qui<span class="nascosto">: percorso B, il sito c’è, le richieste no</span>
               <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
             </a>
@@ -353,7 +436,7 @@
             <p class="lav-percorso-chi">Lavorate già con l’estero, o lo volete.</p>
             <ol class="lav-ciclo" aria-label="I moduli del percorso C"><li><span class="lav-ciclo-num">1.5</span><span><strong>Versione per l’estero</strong><span class="lav-fase-cosa">Le stesse schede, anche in inglese</span></span></li><li><span class="lav-ciclo-num">2.2</span><span><strong>Pagine per lavorazione, in inglese</strong><span class="lav-fase-cosa">Le ricerche dei buyer stranieri, come «CNC machining Italy»</span></span></li><li><span class="lav-ciclo-num">3.1</span><span><strong>Elenco delle richieste</strong><span class="lav-fase-cosa">Risposte e solleciti anche in inglese</span></span></li></ol>
             <p class="lav-percorso-esito">Il buyer straniero capisce cosa fate e vi scrive.</p>
-            <a class="link-freccia" href="/?percorso=estero#contatto">
+            <a class="link-freccia" href="?percorso=estero#contatto">
               Partiamo da qui<span class="nascosto">: percorso C, nuovi clienti, anche all’estero</span>
               <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
             </a>
@@ -362,26 +445,62 @@
       </div>
     </section>
 
-    <section class="contatto lav-chiusura" aria-labelledby="titolo-chiusura">
-      <div class="contenitore">
+    <!-- Chiusura con il modulo di richiesta: lo stesso della pagina principale, identico (si tiene uguale a quello).
+         I link «Check-up gratuito» e «Partiamo da qui» di questa pagina portano qui; quelli con ?percorso=
+         spuntano i servizi del percorso e lo scrivono nel campo nascosto «percorso», senza cambiare pagina (main.js). -->
+    <section class="contatto lav-chiusura" id="contatto" aria-labelledby="titolo-chiusura">
+      <div class="contenitore contatto-griglia">
         <div class="logo contatto-logo" aria-hidden="true">
           <svg focusable="false"><use href="#marchio"/></svg>
           <span>CP Studio</span> <span class="logo-lab">Lab</span>
         </div>
-        <p class="micro">Contatto</p>
-        <h2 class="titolo-sezione" id="titolo-chiusura">Parliamo della vostra fresatura.</h2>
-        <div class="azioni lav-azioni">
-          <a class="btn btn-chiaro" href="/?percorso=richieste#contatto">
-            Chiedeteci un preventivo
-            <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
-          </a>
-          <a class="link-freccia" href="/contatti/">
-            Contatti diretti
-            <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
-          </a>
+        <div class="contatto-testa" data-entra>
+          <p class="micro">Contatto</p>
+          <h2 class="titolo-sezione" id="titolo-chiusura">Parliamo della vostra fresatura.</h2>
+          <div class="azioni lav-azioni">
+            <a class="btn btn-chiaro" href="?percorso=richieste#contatto">
+              Check-up gratuito
+              <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+            </a>
+            <a class="link-freccia" href="/contatti/">
+              Contatti diretti
+              <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+            </a>
+          </div>
         </div>
-        <p class="micro lav-altre-titolo">Le altre lavorazioni</p>
-        <ul class="lav-altre"><li><a class="link link-blocco" href="/manifattura/tornitura/">Tornitura</a></li><li><a class="link link-blocco" href="/manifattura/carpenteria-saldatura/">Carpenteria e saldatura</a></li><li><a class="link link-blocco" href="/manifattura/lamiera/">Lamiera</a></li><li><a class="link link-blocco" href="/manifattura/stampaggio/">Stampaggio</a></li></ul>
+
+        <!-- Modulo statico, senza JavaScript. Funziona così com'è su Netlify (Netlify Forms).
+             Su un altro hosting: cambiate action con l'indirizzo di Formspree (vedi README).
+             Lo stesso modulo, identico, sta anche in fondo a /contatti/, /manifattura/ e alle cinque pagine
+             delle lavorazioni: per Netlify è un modulo solo («richiesta»). Se cambia qui, va cambiato anche lì.
+             Due campi soli, per fare in fretta: le scelte «Cosa vi serve» sono state tolte il 12 novembre 2026.
+             I campi nascosti «percorso» e «calibro» li compila main.js. -->
+        <form class="modulo" id="richiesta" name="richiesta" method="POST" action="/grazie.html" data-netlify="true" data-netlify-honeypot="altro">
+          <input type="hidden" name="form-name" value="richiesta">
+          <!-- da quale percorso arriva la richiesta (lo compila main.js, vedi le pagine di settore) -->
+          <input type="hidden" name="percorso" value="">
+          <!-- il risultato del calibro, se è stato portato nella richiesta (lo compila main.js) -->
+          <input type="hidden" name="calibro" value="">
+          <p hidden><label>Non compilate questo campo <input name="altro" tabindex="-1" autocomplete="off"></label></p>
+          <div class="campo">
+            <label for="campo-azienda">Azienda o sito</label>
+            <input id="campo-azienda" name="azienda" type="text" autocomplete="organization" required data-errore="Scrivete il nome dell’azienda o l’indirizzo del sito.">
+          </div>
+          <div class="campo">
+            <label for="campo-recapito">Email o telefono</label>
+            <input id="campo-recapito" name="recapito" type="text" autocomplete="email" required data-errore="Lasciateci un’email o un telefono.">
+          </div>
+          <button class="btn btn-chiaro" type="submit">
+            Richiedi check-up
+            <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
+          </button>
+          <p class="modulo-nota">Usiamo questi dati solo per rispondervi. <a class="link" href="/privacy.html">Informativa privacy</a></p>
+        </form>
+
+        <div class="lav-altre-blocco">
+          <p class="micro lav-altre-titolo">Le altre lavorazioni</p>
+          <ul class="lav-altre"><li><a class="link link-blocco" href="/manifattura/tornitura/">Tornitura</a></li><li><a class="link link-blocco" href="/manifattura/carpenteria-saldatura/">Carpenteria e saldatura</a></li><li><a class="link link-blocco" href="/manifattura/lamiera/">Lamiera</a></li><li><a class="link link-blocco" href="/manifattura/stampaggio/">Stampaggio</a></li></ul>
+        </div>
       </div>
     </section>
   </main>
