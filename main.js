@@ -30,7 +30,7 @@
 
   // ── Navigazione: evidenzia la sezione in cui vi trovate, nella nav e nel menu (nessuna, se non è nel menu) ──
   const vociNav = new Map();
-  $$('.nav a[href^="#"], .menu-voci a[href^="#"]').forEach((a) => {
+  $$('.nav-voce > a[href^="#"], .menu-voci a[href^="#"]').forEach((a) => {
     const sezione = document.getElementById(a.getAttribute('href').slice(1));
     if (!sezione) return;
     if (!vociNav.has(sezione)) vociNav.set(sezione, []);
@@ -45,6 +45,59 @@
       });
     }, { rootMargin: '-50% 0px -50% 0px' });
     $$('main section').forEach((sezione) => io.observe(sezione));
+  }
+
+  // ── Apertura: il video del modellino. Solo da 1100px, se il movimento non è ridotto e se nessuno ha chiesto
+  //    di risparmiare dati (le stesse condizioni dell'immagine di partenza, nel <picture>). Si carica a pagina
+  //    finita, per non rallentarla; compare quando comincia a girare, sopra l'immagine da cui parte; gira una
+  //    volta sola, senza audio, e resta fermo sull'ultima immagine. Se il browser non lo fa partire, resta l'immagine. ──
+  const figuraVideo = document.querySelector('.apertura-figura[data-video]');
+  if (figuraVideo && !(navigator.connection && navigator.connection.saveData)
+      && window.matchMedia('(min-width: 1100px) and (prefers-reduced-motion: no-preference)').matches) {
+    const avviaVideo = () => {
+      const video = document.createElement('video');
+      video.muted = true;
+      video.playsInline = true;
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('aria-hidden', 'true');   // l'immagine sotto ha già il testo alternativo
+      video.preload = 'auto';
+      video.addEventListener('playing', () => video.classList.add('gira'), { once: true });
+      video.addEventListener('canplaythrough', () => {
+        const partenza = video.play();
+        if (partenza) partenza.catch(() => {});
+      }, { once: true });
+      video.src = figuraVideo.dataset.video;
+      figuraVideo.querySelector('picture').after(video);
+    };
+    if (document.readyState === 'complete') avviaVideo();
+    else window.addEventListener('load', avviaVideo, { once: true });
+  }
+
+  // ── Tendine della testata: le apre style.css, al passaggio del mouse o con il fuoco da tastiera.
+  //    Qui solo come si chiudono: con Esc, e dopo il clic su una riga che resta nella pagina (#…),
+  //    altrimenti il foglio resterebbe aperto sopra la sezione appena raggiunta. Tornano disponibili
+  //    appena il mouse o il fuoco escono dalla voce. ──
+  const vociTendina = $$('.nav-voce');
+  vociTendina.forEach((voce) => {
+    const riapri = () => voce.classList.remove('chiusa');
+    voce.addEventListener('pointerleave', riapri);
+    voce.addEventListener('focusout', (e) => { if (!voce.contains(e.relatedTarget)) riapri(); });
+    voce.addEventListener('click', (e) => {
+      const riga = e.target.closest('.nav-tendina a');
+      if (riga) { riga.blur(); voce.classList.add('chiusa'); }   // prima il fuoco via (riapre), poi si chiude
+    });
+  });
+  if (vociTendina.length) {
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      vociTendina.forEach((voce) => {
+        if (!voce.matches(':hover, :focus-within')) return;
+        // il fuoco era su una riga del foglio: torna alla voce, non si perde
+        if (document.activeElement.closest('.nav-tendina')) voce.querySelector('a').focus({ preventScroll: true });
+        voce.classList.add('chiusa');
+      });
+    });
   }
 
   // ── Menu a schermo intero: un dialogo modale. Mentre è aperto il resto della pagina è inerte,
@@ -220,14 +273,15 @@
       const titolo = calibro.querySelector('.titolo-sezione');
       const sotto = calibro.querySelector('.sezione-sotto');
 
-      // La finestra: in alto occhiello e «Chiudi», come nel menu; sotto titolo, strumento e una domanda alla volta
+      // La finestra: in alto l'occhiello e la ✕ (il nome «Chiudi» resta solo per i lettori di schermo, come nel banner);
+      // sotto titolo, strumento e una domanda alla volta
       const finestra = document.createElement('dialog');
       finestra.className = 'calibro-finestra';
       finestra.setAttribute('aria-labelledby', 'titolo-finestra-calibro');
       finestra.innerHTML = `
         <div class="finestra-testa">
           <p class="micro"></p>
-          <button class="finestra-chiudi" type="button"><span>Chiudi</span><span class="menu-icona menu-icona-x" aria-hidden="true"><span></span><span></span></span></button>
+          <button class="finestra-chiudi" type="button"><span class="nascosto">Chiudi</span><span class="menu-icona menu-icona-x" aria-hidden="true"><span></span><span></span></span></button>
         </div>
         <div class="finestra-corpo">
           <div class="finestra-intro"><h2 class="finestra-titolo" id="titolo-finestra-calibro"></h2><p class="finestra-sotto"></p></div>
@@ -458,30 +512,51 @@
     calibro.hidden = false;
   }
 
-  // ── Percorsi delle pagine di settore: il link porta qui con ?percorso=…
+  // ── Percorsi delle pagine di settore: il link porta al modulo con ?percorso=…
   //    Nel modulo spuntiamo i servizi del percorso e lo scriviamo nel campo nascosto «percorso»,
-  //    così nella richiesta si vede da quale percorso arriva. Le scelte restano modificabili. ──
+  //    così nella richiesta si vede da quale percorso arriva. Le scelte restano modificabili.
+  //    Dove il modulo è nella pagina (manifattura e lavorazioni) il link non la ricarica: compila e scorre. ──
   const percorsi = {
     'da-zero': { nome: 'Da zero', servizi: ['Sito', 'Google'] },
     'richieste': { nome: 'Il sito c’è, le richieste no', servizi: ['Sito', 'Google', 'CRM e follow-up'] },
     'estero': { nome: 'Nuovi clienti, anche all’estero', servizi: ['Sito', 'Google', 'CRM e follow-up'] },
   };
   const modulo = document.getElementById('richiesta');
-  const scelto = percorsi[new URLSearchParams(location.search).get('percorso')];
-  if (modulo && scelto) {
+  let spuntateDalPercorso = [];
+  const applicaPercorso = (chiave) => {
+    const scelto = percorsi[chiave];
+    if (!modulo || !scelto) return false;
+    // cambiando percorso si tolgono solo le spunte messe dal percorso di prima
+    spuntateDalPercorso.forEach((casella) => { casella.checked = false; });
+    spuntateDalPercorso = [];
     scelto.servizi.forEach((valore) => {
       const casella = modulo.querySelector(`input[name="servizi[]"][value="${valore}"]`);
-      if (casella) casella.checked = true;
+      if (casella && !casella.checked) { casella.checked = true; spuntateDalPercorso.push(casella); }
     });
     const campo = modulo.querySelector('input[name="percorso"]');
     if (campo) campo.value = scelto.nome;
     const legenda = modulo.querySelector('.scelte legend');
     if (legenda) {
-      const nota = document.createElement('p');
+      const nota = modulo.querySelector('.modulo-percorso') || document.createElement('p');
       nota.className = 'modulo-percorso';
       nota.textContent = `Dal percorso «${scelto.nome}»: i servizi sono già spuntati, cambiateli pure.`;
       legenda.after(nota);
     }
+    return true;
+  };
+  applicaPercorso(new URLSearchParams(location.search).get('percorso'));
+  if (modulo) {
+    $$('a[href^="?percorso="]').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const indirizzo = new URL(a.href);
+        if (!applicaPercorso(indirizzo.searchParams.get('percorso'))) return;
+        const arrivo = document.getElementById(indirizzo.hash.slice(1));
+        if (!arrivo) return;
+        e.preventDefault();
+        history.replaceState(null, '', indirizzo.search + indirizzo.hash);
+        arrivo.scrollIntoView();
+      });
+    });
   }
 
   // ── Il risultato del calibro nel modulo: sopra i campi le stesse due frasi, con una ✕ per toglierle;

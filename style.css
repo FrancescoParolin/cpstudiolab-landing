@@ -40,6 +40,17 @@
   font-display: swap;
   src: url('fonts/geist-mono-latin.woff2') format('woff2');
 }
+/* Archivo nella sua forma larga e nera (larghezza 125, peso 800): solo per le voci del menu, dove serve un
+   carattere con più presenza di Inter. Un taglio solo, 14 KB, servito da questa cartella (licenza OFL in fonts/).
+   Il browser lo scarica solo dove una di quelle voci si vede: su telefono, finché il menu resta chiuso, non parte. */
+@font-face {
+  font-family: 'Archivo largo';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('fonts/archivo-largo-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 :root {
   /* Colori del kit F (sito/colori.css) */
@@ -80,10 +91,13 @@
      Accenti con il peso leggero, mai con il corsivo */
   --sans: 'Inter', 'Inter riserva', system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: 'Cifre', 'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  /* Archivo largo: solo per le voci del menu (testata, tendine, menu a schermo intero). Se non arriva, resta Inter */
+  --menu: 'Archivo largo', var(--sans);
   --peso-leggero: 300;
   --peso-normale: 400;
   --peso-medio: 500;
   --peso-forte: 600;
+  --peso-nero: 800;            /* il solo peso di Archivo largo */
   /* Scala tipografica: una sola */
   --t-micro: 12px;
   --t-piccolo: 14px;
@@ -149,7 +163,7 @@
   --media: .6s;
   --lunga: 1s;
   --sfalsa: .1s;               /* passo dei ritardi in sequenza */
-  --ingresso: .5s;             /* le immagini entrano: opacità e 16px, con una curva che frena presto */
+  --ingresso-figura: .5s;      /* le immagini entrano: opacità e 16px, con una curva che frena presto */
   --curva-ingresso: cubic-bezier(.32, .72, 0, 1);
   --materia: .4;               /* quanto si vede la carta verde (campo-verde) sopra il verde pieno */
 
@@ -436,15 +450,19 @@ mark.da-compilare, mark.da-definire {
   padding: .222em .5em .25em;
 }
 .testata .logo { min-height: var(--s3); }
+/* Le quattro voci (.nav-voce > a). Sotto ognuna c'è la sua tendina, che si vede solo da 1100px (più giù). */
 .nav { display: none; gap: var(--s3); }
-.nav a {
+.nav-voce > a {
   position: relative;
-  font-size: var(--t-piccolo);
-  color: var(--tenue);
+  font-family: var(--menu);
+  font-size: var(--t-corpo);
+  font-weight: var(--peso-nero);
+  letter-spacing: var(--ls-voce);
+  color: var(--testo);
   text-decoration: none;
   padding: var(--s1) 0;
 }
-.nav a::after {
+.nav-voce > a::after {
   content: '';
   position: absolute;
   left: 0; right: 0; bottom: 0;
@@ -454,8 +472,10 @@ mark.da-compilare, mark.da-definire {
   transform-origin: left;
   transition: transform var(--media) var(--curva);
 }
-.nav a:hover, .nav a.corrente { color: var(--testo); }
-.nav a.corrente::after { transform: scaleX(1); }
+.nav-voce > a:hover { color: var(--accento); }
+/* la riga verde sotto la voce: la sezione in cui ci si trova (.corrente, main.js) o la pagina aperta */
+.nav-voce > a:is(.corrente, [aria-current])::after { transform: scaleX(1); }
+.nav-tendina { display: none; }
 
 @media (min-width: 768px) {
   .nav { display: flex; }
@@ -573,10 +593,11 @@ html.menu-aperto { overflow: hidden; }
 .menu-etichetta {
   display: block;
   overflow: hidden;
+  font-family: var(--menu);
   font-size: var(--t-menu);
-  font-weight: var(--peso-forte);
+  font-weight: var(--peso-nero);
   line-height: 1.1;
-  letter-spacing: var(--ls-titolo);
+  letter-spacing: var(--ls-voce);
 }
 @supports (overflow: clip) {
   .menu-etichetta { overflow: visible clip; }
@@ -611,6 +632,69 @@ html.menu-aperto { overflow: hidden; }
 @media (min-width: 1100px) {
   .menu-pronto .nav { display: flex; }
   .menu-pronto .menu-apri { display: none; }
+
+  /* Le tendine: sotto ogni voce si apre l'elenco di quello che la voce contiene. Solo CSS: al passaggio del mouse
+     (dove c'è un mouse) e con il fuoco da tastiera; la voce resta un link e si clicca come prima.
+     Esc e il clic su una riga la chiudono (.chiusa, main.js). Sotto i 1100px non ci sono: le stesse destinazioni
+     stanno nel menu a schermo intero e nella pagina. La voce è alta quanto la testata e il foglio parte dal suo
+     bordo, così il mouse scende senza uscire. I testi sono quelli che il sito ha già. */
+  .nav { align-self: stretch; }
+  .nav-voce { position: relative; display: flex; align-items: center; }
+  .nav-tendina {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: calc(-1 * (var(--s3) + var(--linea)));   /* le righe del foglio partono a filo della voce */
+    padding-top: var(--s1);
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .nav-foglio {
+    width: max-content;
+    min-width: calc(2 * var(--s16) + var(--s4));    /* 288px */
+    max-width: calc(3 * var(--s16));                /* 384px */
+    padding: var(--s1);
+    border: var(--linea) solid var(--bordo-forte);
+    border-radius: var(--r);
+    background: var(--superficie);
+    box-shadow: var(--ombra-banner);
+  }
+  .nav-foglio ul { margin: 0; padding: 0; list-style: none; }
+  .nav-foglio li a, .nav-gruppo-nome {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s2);
+    padding: var(--s1) var(--s2);
+    border-radius: var(--r-xs);
+    color: var(--testo);
+    text-decoration: none;
+  }
+  .nav-foglio li a:hover, .nav-gruppo-nome:hover { background: var(--superficie-2); }
+  .nav-foglio li a:hover .nav-titolo, .nav-gruppo-nome:hover .nav-titolo { color: var(--accento); }
+  /* Tre gradini, per non avere righe tutte uguali: il titolo della riga è grande e forte; la frase che lo spiega,
+     piccola e tenue; numeri e codici in mono. I moduli stanno sotto il loro servizio, più leggeri. */
+  .nav-titolo { display: block; font-family: var(--menu); font-size: var(--t-lead); font-weight: var(--peso-nero); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
+  .nav-foglio small { display: block; margin-top: var(--scarto); font-size: var(--t-piccolo); font-weight: var(--peso-normale); line-height: var(--lh-corpo); color: var(--tenue); }
+  .nav-num, .nav-codice { font: var(--peso-medio) var(--t-micro)/1 var(--mono); letter-spacing: var(--ls-micro); color: var(--accento); }
+  .nav-codice { min-width: var(--s3); color: var(--tenue); }
+  /* Servizi: i cinque servizi su due colonne, sotto ognuno i suoi moduli */
+  .nav-foglio-largo { max-width: none; }
+  .nav-gruppi { columns: 2; column-gap: var(--s2); width: calc(4 * var(--s16) + var(--s8)); }   /* 576px */
+  .nav-gruppo { break-inside: avoid; padding-bottom: var(--s2); }
+  .nav-gruppo li a { padding-left: calc(var(--s2) + var(--s3) + var(--s1)); font-size: var(--t-piccolo); color: var(--tenue); }   /* a filo del nome del servizio */
+  .nav-gruppo li a:hover { color: var(--testo); }
+  /* «per intero»: il link alla pagina, sotto una riga */
+  .nav-foglio > :is(ul, .nav-gruppi):not(:last-child) { padding-bottom: var(--s1); border-bottom: var(--linea) solid var(--bordo); }
+  .nav-foglio .link-freccia { margin: var(--s2) var(--s2) var(--s1); font-size: var(--t-piccolo); }
+
+  .nav-voce:has(:focus-visible) > .nav-tendina { visibility: visible; opacity: 1; pointer-events: auto; }
+  .nav-voce:has(:focus-visible) > a { color: var(--testo); }
+  @media (hover: hover) and (pointer: fine) {
+    .nav-voce:hover > .nav-tendina { visibility: visible; opacity: 1; pointer-events: auto; }
+    .nav-voce:hover > a { color: var(--testo); }
+  }
+  .nav-voce.chiusa > .nav-tendina { visibility: hidden; opacity: 0; pointer-events: none; }
 }
 @media (min-width: 1024px) {
   .menu-corpo { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s3); align-items: end; }
@@ -768,6 +852,21 @@ html.menu-aperto { overflow: hidden; }
    è alta quanto la colonna di sinistra, e la striscia dei settori resta nella prima schermata. */
 .apertura-figura { width: min(100%, 560px); aspect-ratio: 4 / 3; margin-top: var(--s6); }
 .apertura-figura img { object-position: 50% 56%; }
+/* Il video dell'apertura (lo mette main.js, a pagina caricata) sta sopra l'immagine da cui parte, con lo stesso bordo.
+   Compare quando comincia a girare (.gira); a video finito resta fermo sull'ultimo fotogramma. */
+.apertura-figura video {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  opacity: 0;
+  transition: opacity var(--breve) var(--curva);
+}
+.apertura-figura video.gira { opacity: 1; }
 @media (min-width: 1100px) {
   .apertura-studio .apertura-scena > .contenitore {
     display: grid;
@@ -874,7 +973,44 @@ html.menu-aperto { overflow: hidden; }
   .punto-griglia > .micro { grid-column: 1 / 3; grid-row: 1; padding-top: var(--s3); }
 }
 
-/* ══ 3. Servizi: la distinta, con un esempio per ogni voce ══════
+/* ══ 3. Servizi: il banco ═══════════════════════════════════════
+   I cinque servizi, uno per colonna; sotto ognuno i moduli che valgono per ogni azienda (otto in tutto).
+   Solo codice e nome: la spiegazione sta nella pagina Servizi, dove ogni tessera porta. Su telefono i servizi
+   stanno uno sotto l'altro, da 600px su due colonne, da 1024px tutti e cinque in fila. */
+.servizi-banco { display: grid; gap: var(--s5) var(--s3); padding-top: var(--s4); border-top: var(--linea) solid var(--bordo-forte); }
+.servizio-colonna h3 { display: grid; gap: var(--s1); font-size: var(--t-h3); line-height: var(--lh-voce); letter-spacing: var(--ls-voce); }
+.servizio-colonna .servizio-pos { font: var(--peso-medio) var(--t-micro)/1 var(--mono); letter-spacing: var(--ls-micro); }
+.moduli-voci { display: grid; gap: var(--s1); margin-top: var(--s3); }
+.modulo-tessera {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: var(--s2);
+  min-height: var(--s8);
+  padding: var(--s2);
+  border: var(--linea) solid var(--bordo-forte);
+  border-radius: var(--r);
+  background: var(--superficie);
+  color: var(--testo);
+  font-weight: var(--peso-medio);
+  line-height: var(--lh-voce);
+  text-decoration: none;
+}
+.modulo-codice { font: var(--peso-medio) var(--t-micro)/1 var(--mono); letter-spacing: var(--ls-micro); color: var(--tenue); }
+.modulo-tessera .freccia { align-self: center; color: var(--tenue); }
+.modulo-tessera:hover { border-color: var(--accento); color: var(--accento); }
+.modulo-tessera:hover .freccia { color: currentColor; transform: translateX(var(--scarto)); }
+@media (min-width: 600px) {
+  .servizi-banco { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1024px) {
+  .servizi-banco { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  /* i nomi lunghi vanno su due righe: tutte le intestazioni tengono lo stesso spazio, così le tessere partono alla pari */
+  .servizio-colonna h3 { grid-template-rows: auto calc(2 * var(--lh-voce) * 1em); font-size: var(--t-lead); }
+}
+
+/* La versione di prima, con una spiegazione e un esempio per servizio: le regole restano, per ora non usate.
+   ══ Servizi: la distinta, con un esempio per ogni voce ══
    Posizione, servizio, esempio. Ogni riga si traccia da sinistra quando entra. */
 .servizi { border-bottom: var(--linea) solid var(--bordo-forte); }
 .servizio {
@@ -1749,6 +1885,9 @@ html.finestra-aperta { overflow: hidden; scrollbar-gutter: stable; }
   padding: var(--s1) var(--gutter);
   border-bottom: var(--linea) solid var(--bordo);
 }
+/* la ✕ della finestra: solo il segno, in un quadrato come la freccia «indietro».
+   Il nome «Chiudi» resta per i lettori di schermo (.nascosto, main.js). */
+.finestra-chiudi { padding: var(--s1); }
 .finestra-corpo {
   position: relative;
   flex: 1 0 auto;
@@ -1791,9 +1930,11 @@ html.finestra-aperta { overflow: hidden; scrollbar-gutter: stable; }
 .finestra-indietro:disabled { display: none; }
 .finestra-contatore { font: var(--peso-medio) var(--t-piccolo)/1 var(--mono); letter-spacing: var(--ls-micro); font-variant-numeric: tabular-nums; color: var(--accento); }
 .calibro-finestra .calibro-domande { grid-area: domande; display: grid; border: 0; }
-.calibro-finestra .calibro-domande li { grid-area: 1 / 1; min-width: 0; border: 0; }
+/* le otto voci sono impilate nella stessa cella: senza pointer-events l'ultima copre «Sì» e «No» delle altre
+   e, da 640px, il clic del mouse non arriva alla risposta. Riceve il puntatore solo la domanda a schermo. */
+.calibro-finestra .calibro-domande li { grid-area: 1 / 1; min-width: 0; border: 0; pointer-events: none; }
 .calibro-finestra .calibro-domanda { padding: 0; visibility: hidden; }
-.calibro-finestra .calibro-domanda.attuale { visibility: visible; }
+.calibro-finestra .calibro-domanda.attuale { visibility: visible; pointer-events: auto; }
 .calibro-finestra .calibro-domanda legend {
   font-size: var(--t-domanda);
   font-weight: var(--peso-forte);
@@ -1842,7 +1983,9 @@ html.finestra-aperta { overflow: hidden; scrollbar-gutter: stable; }
   .calibro-finestra .comparatore { align-self: start; width: 100%; }
   .calibro-finestra .calibro-domande li { display: grid; }
   .calibro-finestra .calibro-domanda { grid-template-rows: 1fr auto; gap: var(--s4); }
-  .calibro-finestra .calibro-scelte { position: static; }
+  /* la riga è dichiarata: in Safari la domanda (legend) resta fuori dalla griglia, e «Sì» e «No»
+     finirebbero nella riga elastica, alti il doppio e attaccati alla domanda */
+  .calibro-finestra .calibro-scelte { position: static; grid-row: 2; }
   .calibro-finestra[data-stato="esito"] .finestra-corpo {
     grid-template-rows: auto auto 1fr auto;
     grid-template-areas: "intro intro" "riga strumento" "testo strumento" "porta .";
@@ -1873,7 +2016,7 @@ html.finestra-aperta { overflow: hidden; scrollbar-gutter: stable; }
    È fisso e si muove solo con transform e opacity: entrando non sposta niente nella pagina. */
 .calibro-banner {
   position: fixed;
-  z-index: 15;
+  z-index: 9;                  /* sotto la testata (10): su schermi bassi una tendina aperta passa sopra il banner, non sotto */
   left: calc(var(--s1) + var(--scarto));
   right: calc(var(--s1) + var(--scarto));
   bottom: calc(var(--s1) + var(--scarto) + env(safe-area-inset-bottom, 0px));
@@ -2084,6 +2227,72 @@ html:is(.menu-aperto, .finestra-aperta) .calibro-banner { opacity: 0; visibility
 .modulo .btn { justify-content: space-between; width: 100%; min-height: var(--s7); font-weight: var(--peso-forte); }
 .modulo-nota { font-size: var(--t-piccolo); color: var(--crema-tenue); }
 
+/* Il modulo è un foglio di carta sul verde. In questa sezione è la cosa da fare, e si deve vedere per prima:
+   fondo crema, campi bianchi, scelte che diventano verdi, bottone verde pieno. Parole e campi sono quelli di
+   prima, cambia solo il vestito. Vale in tutte le pagine che hanno il modulo. Le regole qui sopra (campi
+   trasparenti sul verde) restano la base: queste le vestono per il foglio. */
+.modulo {
+  --sottolineatura: var(--tenue);
+  padding: var(--s2);            /* stretto su telefono: le sei scelte restano su tre righe */
+  border-radius: var(--r);
+  background: var(--crema);
+  color: var(--testo);
+}
+/* il bordo dei campi è il grigio dei testi secondari: sul bianco si vede bene (5:1), un grigio più chiaro no */
+.modulo .campo input { border-color: var(--tenue); background: var(--superficie); color: var(--testo); }
+.modulo .campo input:focus { border-color: var(--accento); }
+.modulo .campo input:-webkit-autofill { -webkit-text-fill-color: var(--testo); caret-color: var(--testo); box-shadow: inset 0 0 0 var(--s16) var(--superficie); }
+.modulo :is(.campo-nota, .modulo-percorso, .modulo-nota) { color: var(--tenue); }
+.modulo .scelte label { border-color: var(--bordo-forte); background: var(--superficie); }
+.modulo .scelte label:hover { border-color: var(--accento); }
+.modulo .scelte label:has(:checked) { border-color: var(--accento); background: var(--accento); color: var(--crema); }
+.modulo .btn-chiaro { background: var(--accento); color: var(--crema); }
+.modulo .btn-chiaro::before { background: var(--accento-scuro); }
+.modulo :focus-visible, .modulo .scelte label:has(:focus-visible) { outline-color: var(--accento); }
+/* il risultato del calibro, quando è stato portato nel modulo: un riquadro bianco dentro il foglio */
+.modulo .modulo-calibro { border-color: var(--bordo-forte); background: var(--superficie); }
+.modulo .modulo-calibro-consiglio { color: var(--tenue); }
+.modulo .modulo-calibro-togli:hover { background: var(--superficie-2); }
+@media (min-width: 768px) {
+  .modulo { padding: var(--s4); }
+}
+/* Due campi e un bottone: deve sembrare una cosa da trenta secondi. Etichette e bottone più grandi,
+   e agli angoli del foglio le stesse tacche di quota delle immagini (qui disegnate con otto piccoli fondi:
+   il modulo è uguale in otto pagine e non serve altro HTML). */
+.modulo { position: relative; }
+.modulo::before {
+  --tacca: linear-gradient(var(--crema-tenue), var(--crema-tenue));
+  --fuori: calc(var(--s1) + var(--scarto));       /* 12px: quanto le tacche stanno fuori dal foglio */
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--fuori));
+  pointer-events: none;
+  background:
+    var(--tacca) left 0 top var(--fuori) / var(--s1) var(--linea),
+    var(--tacca) left var(--fuori) top 0 / var(--linea) var(--s1),
+    var(--tacca) right 0 top var(--fuori) / var(--s1) var(--linea),
+    var(--tacca) right var(--fuori) top 0 / var(--linea) var(--s1),
+    var(--tacca) left 0 bottom var(--fuori) / var(--s1) var(--linea),
+    var(--tacca) left var(--fuori) bottom 0 / var(--linea) var(--s1),
+    var(--tacca) right 0 bottom var(--fuori) / var(--s1) var(--linea),
+    var(--tacca) right var(--fuori) bottom 0 / var(--linea) var(--s1);
+  background-repeat: no-repeat;
+}
+.modulo .campo label { font-size: var(--t-corpo); }
+.modulo .btn { min-height: var(--s8); font-size: var(--t-lead); }
+
+/* Sotto il titolo del check-up: quando arriva e come. Due voci in riga, con le parole del modulo 0.1 */
+.checkup-dati { display: flex; flex-wrap: wrap; gap: var(--s3) var(--s6); margin: var(--s5) 0 0; }
+.checkup-dati div { display: grid; gap: var(--scarto); }
+.checkup-dati dd { margin: 0; font-size: var(--t-lead); font-weight: var(--peso-medio); }
+
+/* I recapiti sono la seconda strada: nel foglio del contatto il numero conta più del nome
+   (da 560px, dove nome e numero stanno su una riga senza andare a capo) */
+.contatto .recapiti dd { font-weight: var(--peso-medio); }
+@media (min-width: 560px) {
+  .contatto .recapiti dd { font-size: var(--t-lead); }
+}
+
 .recapiti { border-top: var(--linea) solid var(--linea-verde); }
 .recapiti div {
   display: grid;
@@ -2103,8 +2312,9 @@ html:is(.menu-aperto, .finestra-aperta) .calibro-banner { opacity: 0; visibility
   .contatto { padding: var(--s16) 0; }
   .contatto-griglia { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s3); }
   .contatto-testa { grid-column: 1 / 7; grid-row: 1; }
-  .contatto-griglia > .recapiti { grid-column: 1 / 7; grid-row: 2; align-self: start; }
-  .modulo { grid-column: 8 / -1; grid-row: 1 / 3; }
+  /* i recapiti stanno in basso, alla pari del fondo del foglio: a sinistra il titolo in alto e le alternative in fondo */
+  .contatto-griglia > .recapiti { grid-column: 1 / 7; grid-row: 2; align-self: end; }
+  .modulo { grid-column: 8 / -1; grid-row: 1 / 3; align-self: start; }   /* il foglio è alto quanto i suoi due campi, non quanto la colonna accanto */
 }
 
 /* ══ Pagina Contatti ═══════════════════════════════════════════════
@@ -2321,7 +2531,9 @@ html:is(.menu-aperto, .finestra-aperta) .calibro-banner { opacity: 0; visibility
   color: var(--accento);
 }
 .distinta-nome { flex: 1 0 100%; font-weight: var(--peso-medio); }
-.distinta-voci a:hover .distinta-nome { text-decoration: underline; text-decoration-thickness: var(--linea); text-underline-offset: var(--scarto); }
+/* la riga si sottolinea solo se porta da qualche parte: per ora le schede dei moduli non ci sono, e le righe sono voci */
+.distinta-voci a[href]:hover .distinta-nome { text-decoration: underline; text-decoration-thickness: var(--linea); text-underline-offset: var(--scarto); }
+.distinta-voci a:not([href]) { color: inherit; }
 .distinta-tempi { font-size: var(--t-piccolo); font-variant-numeric: tabular-nums; color: var(--tenue); }
 .distinta-nota { margin-top: var(--s4); max-width: var(--misura); font-size: var(--t-piccolo); color: var(--tenue); }
 @media (min-width: 768px) {
@@ -2470,8 +2682,13 @@ html:is(.menu-aperto, .finestra-aperta) .calibro-banner { opacity: 0; visibility
 .lav-chiusura { border-radius: var(--r-foglio) var(--r-foglio) 0 0; }
 .lav-azioni { margin-top: var(--s5); }
 .lav-azioni .link-freccia { color: var(--crema); }
-.lav-altre-titolo { margin-top: var(--s10); }
+/* La chiusura ospita il modulo della pagina principale, nella stessa griglia (.contatto-griglia): testo a sinistra,
+   modulo sotto il logo. «Le altre lavorazioni» viene dopo il modulo: su telefono in fondo al foglio,
+   da 1024px sotto il testo, in basso alla pari del modulo (il posto che nella pagina principale hanno i recapiti). */
 .lav-altre { display: flex; flex-wrap: wrap; gap: 0 var(--s4); margin-top: var(--s1); }
+@media (min-width: 1024px) {
+  .contatto-griglia > .lav-altre-blocco { grid-column: 1 / 7; grid-row: 2; align-self: end; }
+}
 /* I tre percorsi di ogni lavorazione: schede affiancate con le fasi numerate come nel ciclo del metodo.
    Quella consigliata per la lavorazione è un foglio verde. */
 .lav-sotto { max-width: var(--misura-stretta); font-size: var(--t-lead); color: var(--tenue); }
@@ -2727,7 +2944,7 @@ html:is(.menu-aperto, .finestra-aperta) .calibro-banner { opacity: 0; visibility
   .quota::after { animation: compare-quota var(--media) var(--curva) calc(12 * var(--sfalsa)) backwards; }
   .apertura-testo { animation: compare var(--lunga) var(--curva) calc(4 * var(--sfalsa)) backwards; }
   /* l'immagine entra dopo il testo: opacità e 16px */
-  .apertura-figura, .testata-figura { animation: entra-figura var(--ingresso) var(--curva-ingresso) calc(6 * var(--sfalsa)) backwards; }
+  .apertura-figura, .testata-figura { animation: entra-figura var(--ingresso-figura) var(--curva-ingresso) calc(6 * var(--sfalsa)) backwards; }
 
   /* La tavola si compone come al tornio: l'asse, poi il pezzo cresce dall'asse, poi le quote una a una */
   .tavola-asse, .tavola-pezzo { transform-box: fill-box; }
@@ -2914,6 +3131,20 @@ html:is(.menu-aperto, .finestra-aperta) .calibro-banner { opacity: 0; visibility
 /* Il menu: il foglio sale (e chiudendo esce in alto), poi le voci salgono una dopo l'altra.
    Al passaggio del mouse le lettere scorrono in su e la loro copia (text-shadow) prende il posto. */
 @media screen and (prefers-reduced-motion: no-preference) {
+  /* Tendine della testata: compaiono subito; chiudendo restano un istante, così il mouse può scendere in diagonale */
+  .nav-tendina { transition: opacity var(--breve) var(--curva), visibility 0s linear var(--breve); }
+  .nav-voce:hover > .nav-tendina { transition-delay: 0s; }
+  .nav-voce:has(:focus-visible) > .nav-tendina { transition-delay: 0s; }
+  .nav-voce.chiusa > .nav-tendina { transition: none; }
+
+  /* Servizi: le cinque colonne salgono una dopo l'altra */
+  .moto .servizio-colonna { transition: opacity var(--media) var(--curva), transform var(--media) var(--curva); }
+  .moto .servizio-colonna:not(.visibile) { opacity: 0; transform: translateY(var(--s3)); }
+  .moto .servizio-colonna:nth-child(2) { transition-delay: var(--sfalsa); }
+  .moto .servizio-colonna:nth-child(3) { transition-delay: calc(2 * var(--sfalsa)); }
+  .moto .servizio-colonna:nth-child(4) { transition-delay: calc(3 * var(--sfalsa)); }
+  .moto .servizio-colonna:nth-child(5) { transition-delay: calc(4 * var(--sfalsa)); }
+
   .menu-foglio { transition: transform var(--lunga) var(--curva-precisa); }
   .menu-lettere { transition: transform var(--lunga) var(--curva); }
   .menu:not(.aperto) .menu-lettere { transform: translateY(105%); }

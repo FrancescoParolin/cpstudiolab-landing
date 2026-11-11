@@ -29,10 +29,17 @@
   <!-- Font serviti da questa cartella: nessuna richiesta a Google -->
   <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/geist-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <!-- L'immagine dell'apertura si precarica: su schermo largo è nella prima schermata, su telefono ci entra per metà -->
-  <link rel="preload" as="image" type="image/webp" href="immagini/hero-972.webp"
-        imagesrcset="immagini/hero-486.webp 486w, immagini/hero-972.webp 972w"
-        imagesizes="(min-width: 1100px) 486px, (min-width: 600px) 560px, calc(100vw - 32px)">
+  <link rel="preload" href="fonts/archivo-largo-latin.woff2" as="font" type="font/woff2" crossorigin media="(min-width: 1100px)">
+  <!-- L'immagine dell'apertura si precarica: su schermo largo è nella prima schermata, su telefono ci entra per metà.
+       Sono due, una per caso: dove poi parte il video (schermo da 1100px, movimento non ridotto) l'immagine da cui
+       parte; altrove quella su cui finisce. Le condizioni sono le stesse del <picture> nell'apertura. -->
+  <link rel="preload" as="image" type="image/webp" href="immagini/apertura-inizio-972.webp"
+        imagesrcset="immagini/apertura-inizio-486.webp 486w, immagini/apertura-inizio-720.webp 720w, immagini/apertura-inizio-972.webp 972w" imagesizes="486px"
+        media="(min-width: 1100px) and (prefers-reduced-motion: no-preference)">
+  <link rel="preload" as="image" type="image/webp" href="immagini/apertura-fine-972.webp"
+        imagesrcset="immagini/apertura-fine-486.webp 486w, immagini/apertura-fine-720.webp 720w, immagini/apertura-fine-972.webp 972w"
+        imagesizes="(min-width: 1100px) 486px, (min-width: 600px) 560px, calc(100vw - 32px)"
+        media="(max-width: 1099.98px), (prefers-reduced-motion: reduce)">
   <!-- Movimento e messaggi del modulo: solo miglioramenti, senza JavaScript la pagina è completa -->
   <script src="main.js" defer></script>
   <link rel="stylesheet" href="style.css">
@@ -81,11 +88,93 @@
         <svg aria-hidden="true" focusable="false"><use href="#marchio"/></svg>
         <span>CP Studio</span> <span class="logo-lab">Lab</span>
       </a>
+      <!-- Le quattro voci. Da 1100px, al passaggio del mouse o con il tasto Tab, sotto ogni voce si apre la sua
+           tendina (.nav-tendina, solo CSS; Esc la chiude, main.js). I testi delle tendine esistono già nel sito:
+           se cambiano là, vanno cambiati anche qui, in tutte le pagine. -->
       <nav class="nav" aria-label="Sezioni della pagina">
-        <a href="/servizi/">Servizi</a>
-        <a href="#settori">Settori</a>
-        <a href="/metodo/">Metodo</a>
-        <a href="/studio/">Lo studio</a>
+        <div class="nav-voce">
+          <a href="/servizi/">Servizi</a>
+          <div class="nav-tendina">
+            <div class="nav-foglio nav-foglio-largo">
+              <div class="nav-gruppi">
+                <div class="nav-gruppo">
+                  <a class="nav-gruppo-nome" href="/servizi/#distinta"><span class="nav-num" aria-hidden="true">01</span><span class="nav-titolo">Sito</span></a>
+                  <ul>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">1.1</span><span>Sito tecnico</span></a></li>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">1.2</span><span>Richiesta di preventivo</span></a></li>
+                  </ul>
+                </div>
+                <div class="nav-gruppo">
+                  <a class="nav-gruppo-nome" href="/servizi/#distinta"><span class="nav-num" aria-hidden="true">02</span><span class="nav-titolo">Google</span></a>
+                  <ul>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">2.1</span><span>Scheda Google dell’azienda</span></a></li>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">2.2</span><span>Pagine per servizio</span></a></li>
+                  </ul>
+                </div>
+                <div class="nav-gruppo">
+                  <a class="nav-gruppo-nome" href="/servizi/#distinta"><span class="nav-num" aria-hidden="true">03</span><span class="nav-titolo">CRM e follow-up</span></a>
+                  <ul>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">3.1</span><span>Elenco delle richieste</span></a></li>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">3.2</span><span>Clienti che non ordinano più</span></a></li>
+                  </ul>
+                </div>
+                <div class="nav-gruppo">
+                  <a class="nav-gruppo-nome" href="/servizi/#distinta"><span class="nav-num" aria-hidden="true">04</span><span class="nav-titolo">Automazioni</span></a>
+                  <ul>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">4.1</span><span>Bozza di preventivo dalla richiesta</span></a></li>
+                  </ul>
+                </div>
+                <div class="nav-gruppo">
+                  <a class="nav-gruppo-nome" href="/servizi/#distinta"><span class="nav-num" aria-hidden="true">05</span><span class="nav-titolo">Manutenzione e crescita</span></a>
+                  <ul>
+                    <li><a href="/servizi/#distinta"><span class="nav-codice" aria-hidden="true">5.1</span><span>Ottimizzazione e manutenzione</span></a></li>
+                  </ul>
+                </div>
+              </div>
+              <a class="link-freccia" href="/servizi/">Tutti i moduli, per filo e per segno <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-voce">
+          <a href="#settori">Settori</a>
+          <div class="nav-tendina">
+            <div class="nav-foglio">
+              <ul>
+                <li><a href="/manifattura/"><span><span class="nav-titolo">Manifattura e subfornitura</span><small>Tornitura, lamiera, stampaggio, carpenteria</small></span></a></li>
+                <li><a href="#contatto"><span><span class="nav-titolo">Il vostro settore?</span><small>Raccontateci cosa fate: vi diciamo se possiamo esservi utili</small></span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="nav-voce">
+          <a href="/metodo/">Metodo</a>
+          <div class="nav-tendina">
+            <div class="nav-foglio">
+              <ul>
+                <li><a href="/metodo/#ciclo"><span><span class="nav-titolo">Il ciclo di lavoro</span><small>Ogni servizio segue lo stesso ciclo.</small></span></a></li>
+                <li><a href="/metodo/#check-up"><span><span class="nav-titolo">Il punto di partenza</span><small>Il problema, nero su bianco.</small></span></a></li>
+                <li><a href="/metodo/#componibili"><span><span class="nav-titolo">Servizi componibili</span><small>Dal problema, la combinazione.</small></span></a></li>
+                <li><a href="/metodo/#collegamenti"><span><span class="nav-titolo">I servizi si collegano</span><small>A ogni servizio, il suo canone.</small></span></a></li>
+              </ul>
+              <a class="link-freccia" href="/metodo/">Il metodo per intero <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-voce">
+          <a href="/studio/">Lo studio</a>
+          <div class="nav-tendina">
+            <div class="nav-foglio">
+              <ul>
+                <li><a href="/studio/#principi"><span><span class="nav-titolo">Perché «studio»</span><small>Chi firma il lavoro, ne risponde.</small></span></a></li>
+                <li><a href="/studio/#marchio-spiegato"><span><span class="nav-titolo">Il marchio</span><small>Due tessere che si incastrano.</small></span></a></li>
+                <li><a href="/studio/#soci"><span><span class="nav-titolo">I partner</span><small>Due partner alla pari, un solo interlocutore per voi.</small></span></a></li>
+                <li><a href="/studio/#strumenti"><span><span class="nav-titolo">Gli strumenti</span><small>Usiamo quello che costruiamo.</small></span></a></li>
+                <li><a href="/studio/#impegni"><span><span class="nav-titolo">Impegni scritti</span><small>Quello che vi promettiamo, in cifre.</small></span></a></li>
+              </ul>
+              <a class="link-freccia" href="/studio/">Conoscete lo studio <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></a>
+            </div>
+          </div>
+        </div>
       </nav>
       <div class="testata-azioni">
         <a class="btn btn-piccolo testata-contatto" href="/contatti/">
@@ -127,7 +216,7 @@
         </nav>
         <div class="menu-lato">
           <a class="btn btn-chiaro" href="#contatto">
-            Chiedeteci un preventivo
+            Check-up gratuito
             <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
           </a>
           <dl class="recapiti">
@@ -164,7 +253,7 @@
               <p class="apertura-sotto">Siti, Google, CRM e automazioni per le piccole e medie imprese. Misuriamo il lavoro in richieste di preventivo, non in visite.</p>
               <div class="azioni">
                 <a class="btn" href="#contatto">
-                  Chiedeteci un preventivo
+                  Check-up gratuito
                   <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
                 </a>
                 <a class="link-freccia" href="#servizi">
@@ -175,13 +264,21 @@
             </div>
           </div>
 
-          <!-- L'immagine dell'apertura: da 1100px riempie la colonna destra, sotto sta dopo testo e bottoni.
-               Cornice a tacche di quota (quattro segni da 1px agli angoli). File e misure: IMMAGINI.md -->
-          <figure class="cornice apertura-figura">
-            <img src="immagini/hero-972.webp" srcset="immagini/hero-486.webp 486w, immagini/hero-972.webp 972w"
-                 sizes="(min-width: 1100px) 486px, (min-width: 600px) 560px, calc(100vw - 32px)"
-                 width="972" height="972" fetchpriority="high" decoding="async"
-                 alt="Fogli di carta millimetrata e da lucido sovrapposti, con due tessere di cartoncino al centro.">
+          <!-- L'apertura ha un modellino di cartoncino dello studio: da 1100px riempie la colonna destra, sotto sta dopo
+               testo e bottoni. Cornice a tacche di quota (quattro segni da 1px agli angoli).
+               Da 1100px, se il movimento non è ridotto, a pagina caricata main.js ci mette sopra il video di data-video:
+               5 secondi, una volta sola, senza audio, dall'alto fin dentro la casetta; poi resta fermo sull'ultima immagine.
+               Per questo lì l'immagine è quella da cui il video parte, altrove quella su cui finisce.
+               Senza JavaScript restano le immagini. File, prompt e preparazione: VIDEO_APERTURA.md -->
+          <figure class="cornice apertura-figura" data-video="immagini/apertura.mp4">
+            <picture>
+              <source type="image/webp" media="(min-width: 1100px) and (prefers-reduced-motion: no-preference)"
+                      srcset="immagini/apertura-inizio-486.webp 486w, immagini/apertura-inizio-720.webp 720w, immagini/apertura-inizio-972.webp 972w" sizes="486px">
+              <img src="immagini/apertura-fine-972.webp" srcset="immagini/apertura-fine-486.webp 486w, immagini/apertura-fine-720.webp 720w, immagini/apertura-fine-972.webp 972w"
+                   sizes="(min-width: 1100px) 486px, (min-width: 600px) 560px, calc(100vw - 32px)"
+                   width="972" height="972" fetchpriority="high" decoding="async"
+                   alt="Modellino di cartoncino dello studio: una casetta sulla collina, dentro due figure al computer.">
+            </picture>
             <svg class="tacche" aria-hidden="true" focusable="false">
               <path d="M-12 .5H-4M.5-12V-4"/>
               <svg x="100%" overflow="visible"><path d="M4 .5H12M-.5-12V-4"/></svg>
@@ -366,7 +463,7 @@
         </ol>
         <div class="azioni servizi-azioni">
           <a class="btn" href="#contatto">
-            Chiedeteci un preventivo
+            Check-up gratuito
             <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
           </a>
           <a class="link-freccia" href="/servizi/">
@@ -530,7 +627,7 @@
           <!-- /ritratti -->
           <div class="azioni chi-azioni">
             <a class="btn" href="#contatto">
-              Chiedeteci un preventivo
+              Check-up gratuito
               <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
             </a>
             <a class="link-freccia" href="/studio/">
@@ -730,12 +827,22 @@
         </div>
         <div class="contatto-testa" data-entra>
           <p class="micro">Contatto</p>
-          <h2 class="titolo-sezione" id="titolo-contatto">Chiedeteci un <span class="leggero">preventivo</span>.</h2>
-          <p>Indicate cosa vi serve: vi rispondiamo entro 24 ore lavorative.</p>
+          <h2 class="titolo-sezione" id="titolo-contatto">Check-up <span class="leggero">gratuito</span>.</h2>
+          <p>I tre punti che oggi vi fanno perdere più richieste, per iscritto.</p>
+          <!-- frase e dati sono quelli del modulo 0.1 «Check-up gratuito» del catalogo (la sua scheda è stata tolta dalla
+               pagina Servizi il 12 novembre 2026, per ora): restano scritti qui -->
+          <dl class="checkup-dati">
+            <div><dt class="micro">Tempi</dt><dd>2 giorni lavorativi</dd></div>
+            <div><dt class="micro">Come arriva</dt><dd>per email, da uno di noi</dd></div>
+          </dl>
         </div>
 
         <!-- Modulo statico, senza JavaScript. Funziona così com'è su Netlify (Netlify Forms).
-             Su un altro hosting: cambiate action con l'indirizzo di Formspree (vedi README). -->
+             Su un altro hosting: cambiate action con l'indirizzo di Formspree (vedi README).
+             Lo stesso modulo, identico, sta anche in fondo a /contatti/, /manifattura/ e alle cinque pagine
+             delle lavorazioni: per Netlify è un modulo solo («richiesta»). Se cambia qui, va cambiato anche lì.
+             Due campi soli, per fare in fretta: le scelte «Cosa vi serve» sono state tolte il 12 novembre 2026.
+             I campi nascosti «percorso» e «calibro» li compila main.js. -->
         <form class="modulo" id="richiesta" name="richiesta" method="POST" action="/grazie.html" data-netlify="true" data-netlify-honeypot="altro">
           <input type="hidden" name="form-name" value="richiesta">
           <!-- da quale percorso arriva la richiesta (lo compila main.js, vedi le pagine di settore) -->
@@ -751,22 +858,11 @@
             <label for="campo-recapito">Email o telefono</label>
             <input id="campo-recapito" name="recapito" type="text" autocomplete="email" required data-errore="Lasciateci un’email o un telefono.">
           </div>
-          <fieldset class="scelte">
-            <legend>Cosa vi serve <span class="campo-nota">facoltativo</span></legend>
-            <div class="scelte-opzioni">
-              <label><input type="checkbox" name="servizi[]" value="Sito"> Sito</label>
-              <label><input type="checkbox" name="servizi[]" value="Google"> Google</label>
-              <label><input type="checkbox" name="servizi[]" value="CRM e follow-up"> CRM e follow-up</label>
-              <label><input type="checkbox" name="servizi[]" value="Automazioni"> Automazioni</label>
-              <label><input type="checkbox" name="servizi[]" value="Manutenzione"> Manutenzione</label>
-              <label><input type="checkbox" name="servizi[]" value="Non lo so ancora"> Non lo so ancora</label>
-            </div>
-          </fieldset>
           <button class="btn btn-chiaro" type="submit">
-            Inviate la richiesta
+            Richiedi check-up
             <svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>
           </button>
-          <p class="modulo-nota">Usiamo questi dati solo per rispondervi. <a class="link" href="privacy.html">Informativa privacy</a></p>
+          <p class="modulo-nota">Usiamo questi dati solo per rispondervi. <a class="link" href="/privacy.html">Informativa privacy</a></p>
         </form>
 
         <dl class="recapiti">

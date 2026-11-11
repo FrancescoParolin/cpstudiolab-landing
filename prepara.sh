@@ -9,9 +9,10 @@ mkdir -p dist/fonts
 cp index.html privacy.html grazie.html 404.html style.css main.js robots.txt sitemap.xml site.webmanifest \
    favicon.ico favicon-32.png apple-touch-icon.png icon-192.png icon-512.png og-image.png dist/
 cp fonts/*.woff2 fonts/*.txt dist/fonts/
-# le immagini (WebP già pronte: le prepara immagini-originali/prepara-immagini.py). Originali e prove restano fuori
+# le immagini (WebP già pronte: le prepara immagini-originali/prepara-immagini.py) e il video dell'apertura
+# (immagini-originali/prepara-video.swift). Originali e prove restano fuori
 mkdir -p dist/immagini
-cp immagini/*.webp dist/immagini/
+cp immagini/*.webp immagini/*.mp4 dist/immagini/
 # pagina dei servizi, pagina di settore con i suoi segmenti (/manifattura/<segmento>/), le pagine dei contatti, dello studio e del metodo, il sito d’esempio
 for cartella in servizi manifattura manifattura/tornitura manifattura/fresatura-cnc manifattura/carpenteria-saldatura \
                 manifattura/lamiera manifattura/stampaggio contatti studio metodo esempio; do

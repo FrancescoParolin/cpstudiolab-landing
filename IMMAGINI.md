@@ -5,6 +5,11 @@ dato il via libera lo stesso giorno: vanno online con la pull request del ramo `
 Mostrano la materia dello studio (carta millimetrata, carta da lucido, cartoncino), non l'officina del cliente.
 Niente testo, numeri, persone, mani, utensili o schermi.
 
+**Dall'11 novembre l'apertura non usa più l'immagine di carta**: al suo posto c'è il modellino di cartoncino dello
+studio, con un video di 5 secondi (idea di Campa). File, prompt e regole sono in `VIDEO_APERTURA.md`. Lì ci sono due
+figure a blocchi, senza volto: è l'unica eccezione a «niente persone». `hero-486.webp` e `hero-972.webp` restano nella
+cartella, non usate.
+
 I ritratti dei soci in «Lo studio» non fanno parte di questa serie: saranno foto vere, mai generate. I due riquadri
 sono pronti e restano spenti finché mancano i file (vedi `DA_FORNIRE.md`).
 
