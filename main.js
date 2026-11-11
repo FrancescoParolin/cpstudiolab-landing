@@ -48,24 +48,30 @@
   }
 
   // ── Apertura: il video del modellino. A ogni larghezza, se il movimento non è ridotto e se nessuno ha chiesto
-  //    di risparmiare dati (le stesse condizioni dell'immagine di partenza, nel <picture>). Si scarica a pagina
-  //    finita e solo quando il riquadro è vicino allo schermo; parte quando se ne vede almeno metà, sopra
-  //    l'immagine da cui comincia; gira una volta sola, senza audio, e resta fermo sull'ultima immagine.
-  //    Se il browser non lo fa partire (per esempio con il risparmio energetico del telefono), resta l'immagine. ──
+  //    di risparmiare dati (le stesse condizioni dell'immagine di partenza, nel <picture>). Si prepara a pagina
+  //    finita, quando il riquadro è vicino allo schermo; parte quando se ne vede almeno metà, sopra l'immagine
+  //    da cui comincia; gira una volta sola, senza audio, e resta fermo sull'ultima immagine.
+  //    Non si aspetta che sia scaricato per farlo partire: Safari su iPhone non scarica un video finché non parte,
+  //    e l'attesa non finirebbe mai. Compare solo quando gira davvero (evento «playing»).
+  //    Se il telefono rifiuta di farlo partire (iPhone in risparmio energetico), si mostra l'immagine finale. ──
   const figuraVideo = document.querySelector('.apertura-figura[data-video]');
   if (figuraVideo && !ridotto && 'IntersectionObserver' in window
       && !(navigator.connection && navigator.connection.saveData)) {
     const avviaVideo = () => {
       let video = null;
-      let pronto = false;
       let inVista = false;
       let partito = false;
+      const immagineFinale = () => {
+        // senza i <source> il <picture> torna all'immagine finale, che sta nello srcset dell'<img>
+        figuraVideo.querySelectorAll('source').forEach((s) => s.remove());
+        video.remove();
+      };
       const parti = () => {
-        if (partito || !pronto || !inVista) return;
+        if (partito || !video || !inVista) return;
         partito = true;
         guardaVista.disconnect();
         const partenza = video.play();
-        if (partenza) partenza.catch(() => {});
+        if (partenza) partenza.catch(immagineFinale);
       };
       const prepara = () => {
         video = document.createElement('video');
@@ -76,11 +82,11 @@
         video.setAttribute('aria-hidden', 'true');   // l'immagine sotto ha già il testo alternativo
         video.preload = 'auto';
         video.addEventListener('playing', () => video.classList.add('gira'), { once: true });
-        video.addEventListener('canplaythrough', () => { pronto = true; parti(); }, { once: true });
         video.src = figuraVideo.dataset.video;
         figuraVideo.querySelector('picture').after(video);
+        parti();
       };
-      // vicino allo schermo: si scarica. In vista per metà: parte.
+      // vicino allo schermo: si prepara. In vista per metà: parte.
       const guardaVicino = new IntersectionObserver((voci) => {
         if (!voci.some((v) => v.isIntersecting)) return;
         guardaVicino.disconnect();

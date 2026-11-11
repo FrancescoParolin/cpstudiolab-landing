@@ -169,14 +169,25 @@ File in `immagini/`:
 Come si comporta (`index.html`, `main.js`, `style.css`):
 
 - **Computer e telefono, movimento non ridotto**: si vede subito l'immagine di partenza. A pagina caricata, quando il
-  riquadro è vicino allo schermo, `main.js` scarica il video; quando il riquadro è in vista per almeno metà, il video
-  parte e compare sopra l'immagine. Gira **una volta sola** e resta fermo sull'ultimo fotogramma. Dura meno di
-  5 secondi, quindi non serve un tasto di pausa. Su telefono il riquadro sta sotto titolo e bottoni: il video
-  parte quando ci si arriva scorrendo. (Fino all'11 novembre 2026 il video c'era solo da 1100px; su telefono l'ha
-  chiesto Paro lo stesso giorno, a sito già online.)
+  riquadro è vicino allo schermo, `main.js` prepara il video; quando il riquadro è in vista per almeno metà, lo fa
+  partire, e il video compare sopra l'immagine appena gira davvero. Gira **una volta sola** e resta fermo sull'ultimo
+  fotogramma. Dura meno di 5 secondi, quindi non serve un tasto di pausa. Su telefono il riquadro sta sotto titolo e
+  bottoni: il video parte quando ci si arriva scorrendo.
 - **«Riduci movimento»**: solo l'immagine finale. Il video non viene nemmeno scaricato.
 - **Chi ha chiesto di risparmiare dati, o senza JavaScript**: resta l'immagine di partenza.
-- Se il browser non fa partire il video, resta l'immagine: nessun riquadro vuoto.
+- **iPhone in risparmio energetico** (batteria gialla): Safari rifiuta di far partire qualsiasi video da solo. In quel
+  caso si mostra l'immagine finale, quella con le due figure. Nessun riquadro vuoto.
+
+Storia, 11 novembre 2026. Tre pubblicazioni nello stesso giorno:
+
+1. video solo su computer (da 1100px), su telefono l'immagine finale: scelta di Claude, non discussa;
+2. video anche su telefono, chiesto da Paro. **Su iPhone non partiva**: il codice aspettava che il video fosse
+   scaricato (`canplaythrough`) prima di farlo partire, ma Safari su iPhone non scarica un video finché non parte.
+   Provato solo nel browser del computer a misura di telefono, dove il difetto non si vede;
+3. corretto: il video parte quando è in vista, senza aspettare. Provato su un iPhone simulato (Safari vero).
+
+Regola che ne esce: un video va provato in Safari su iPhone, vero o simulato (Xcode), non nel browser del computer
+rimpicciolito.
 - L'immagine ha il testo alternativo; il video è nascosto ai lettori di schermo, perché dice la stessa cosa.
 
 Colore: il video usciva con il fondo color pesca. `immagini-originali/colore-video.py` lo porta sulla crema del sito
