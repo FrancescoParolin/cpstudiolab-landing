@@ -118,12 +118,26 @@
     radice.classList.add('menu-pronto');
   }
 
-  // ── Calibro passa / non passa: tutto nella pagina, non si invia niente.
-  //    La lancetta segna quante risposte passano; a domande finite, il primo lavoro consigliato. ──
+  // ── Calibro passa / non passa: non si invia niente.
+  //    Nella pagina resta una fascia; le otto domande stanno in una finestra (<dialog>), una alla volta.
+  //    La finestra si apre solo con un clic. La lancetta segna quante risposte passano, le tacche quante
+  //    domande hanno una risposta; a domande finite, il primo lavoro consigliato.
+  //    Le risposte restano in sessionStorage: chiudendo a metà si riprende da dove si era.
+  //    Su document partono gli eventi calibro:aperto, calibro:risposta, calibro:completato, calibro:portato. ──
+  const CHIAVE_CALIBRO = 'cpsl-calibro';
+  const memoria = {
+    leggi() { try { return JSON.parse(sessionStorage.getItem(CHIAVE_CALIBRO)) || {}; } catch (e) { return {}; } },
+    scrivi(stato) { try { sessionStorage.setItem(CHIAVE_CALIBRO, JSON.stringify(stato)); } catch (e) { /* senza memoria si riparte da capo */ } },
+  };
+  const avvisa = (nome, dettaglio) => document.dispatchEvent(new CustomEvent('calibro:' + nome, { detail: dettaglio || {} }));
+
   const calibro = document.getElementById('calibro');
   if (calibro) {
     const domande = $$('.calibro-domanda');
+    const elenco = calibro.querySelector('.calibro-domande');
+    const strumento = calibro.querySelector('.comparatore');
     const lancetta = calibro.querySelector('.lancetta');
+    const testo = calibro.querySelector('.calibro-testo');
     const punteggio = calibro.querySelector('.calibro-punteggio');
     const consiglio = calibro.querySelector('.calibro-consiglio');
     const porta = calibro.querySelector('.calibro-porta');
@@ -136,20 +150,29 @@
       'Manutenzione': 'Per restare così basta una mano ogni mese.',
     };
     let consigliato = '';
+    let passano = 0;
+    let completo = false;
+    let tacche = [];                                // nella finestra: una tacca per domanda, si accende con la risposta
+    const inizio = punteggio.textContent;           // «Rispondete alle otto domande.»: resta finché non c'è una risposta
     const valuta = () => {
       let risposte = 0;
       let passa = 0;
       const mancanze = {};
-      domande.forEach((d) => {
+      domande.forEach((d, i) => {
         const scelta = d.querySelector('input:checked');
+        if (tacche[i + 1]) tacche[i + 1].classList.toggle('accesa', !!scelta);
         if (!scelta) return;
         risposte += 1;
         if (scelta.value === 'si') passa += 1;
         else mancanze[d.dataset.servizio] = (mancanze[d.dataset.servizio] || 0) + 1;
       });
+      passano = passa;
+      completo = risposte === domande.length;
       if (lancetta) lancetta.style.setProperty('--angolo', (passa / domande.length) * 180 + 'deg');
       if (risposte < domande.length) {
-        punteggio.textContent = `${passa} su ${domande.length} passano · ${domande.length - risposte} da rispondere`;
+        punteggio.textContent = risposte
+          ? `${passa} su ${domande.length} passano · ${domande.length - risposte} da rispondere`
+          : inizio;
         consiglio.textContent = '';
         porta.hidden = true;
         return;
@@ -161,16 +184,195 @@
       consiglio.textContent = `Primo lavoro consigliato: ${consigliato}. ${perche[consigliato]}`;
       porta.hidden = false;
     };
-    calibro.addEventListener('change', valuta);
     // il risultato passa al modulo: la scelta consigliata è già spuntata
-    porta.addEventListener('click', () => {
+    const portaAlModulo = () => {
       const casella = document.querySelector(`.scelte input[value="${consigliato}"]`);
       if (casella) casella.checked = true;
+      avvisa('portato', { punteggio: passano, consiglio: consigliato });
       setTimeout(() => {
         const campo = document.getElementById('campo-azienda');
         if (campo) campo.focus({ preventScroll: true });
       }, 50);
-    });
+    };
+
+    if (typeof HTMLDialogElement === 'function' && HTMLDialogElement.prototype.showModal) {
+      const due = (n) => String(n).padStart(2, '0');
+      const occhiello = calibro.querySelector('.sezione-testa .micro');
+      const titolo = calibro.querySelector('.titolo-sezione');
+      const sotto = calibro.querySelector('.sezione-sotto');
+
+      // La finestra: in alto occhiello e «Chiudi», come nel menu; sotto titolo, strumento e una domanda alla volta
+      const finestra = document.createElement('dialog');
+      finestra.className = 'calibro-finestra';
+      finestra.setAttribute('aria-labelledby', 'titolo-finestra-calibro');
+      finestra.innerHTML = `
+        <div class="finestra-testa">
+          <p class="micro"></p>
+          <button class="finestra-chiudi" type="button"><span>Chiudi</span><span class="menu-icona menu-icona-x" aria-hidden="true"><span></span><span></span></span></button>
+        </div>
+        <div class="finestra-corpo">
+          <div class="finestra-intro"><h2 class="finestra-titolo" id="titolo-finestra-calibro"></h2><p class="finestra-sotto"></p></div>
+          <div class="finestra-riga">
+            <button class="finestra-indietro" type="button" aria-label="Domanda precedente"><svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg></button>
+            <p class="finestra-contatore"></p>
+          </div>
+        </div>`;
+      const corpo = finestra.querySelector('.finestra-corpo');
+      const riga = finestra.querySelector('.finestra-riga');
+      const indietro = finestra.querySelector('.finestra-indietro');
+      const contatore = finestra.querySelector('.finestra-contatore');
+      finestra.querySelector('.finestra-testa .micro').textContent = occhiello.textContent;
+      finestra.querySelector('.finestra-titolo').textContent = titolo.textContent;
+      finestra.querySelector('.finestra-sotto').textContent = sotto.textContent;
+
+      // Nella pagina resta una copia dello strumento; quello vero, con le domande e il risultato, entra nella finestra
+      const copia = strumento.cloneNode(true);
+      const lancettaFascia = copia.querySelector('.lancetta');
+      const accese = strumento.querySelector('.comparatore-tacche').cloneNode(true);
+      accese.setAttribute('class', 'comparatore-accese');
+      strumento.querySelector('.comparatore-tacche').after(accese);
+      tacche = Array.from(accese.children);
+      if (tacche[0]) tacche[0].classList.add('accesa');   // lo zero è il punto di partenza
+      riga.before(strumento, testo);
+      corpo.append(elenco, porta);
+      document.body.appendChild(finestra);
+
+      // Le risposte della sessione tornano al loro posto
+      const salvate = memoria.leggi().r || [];
+      domande.forEach((d, i) => {
+        const scelta = salvate[i] && d.querySelector(`input[value="${salvate[i]}"]`);
+        if (scelta) scelta.checked = true;
+      });
+      const salva = () => {
+        const stato = memoria.leggi();
+        stato.r = domande.map((d) => { const s = d.querySelector('input:checked'); return s ? s.value : null; });
+        stato.esito = completo
+          ? { passa: passano, totale: domande.length, servizio: consigliato, frasi: [punteggio.textContent, consiglio.textContent] }
+          : null;
+        memoria.scrivi(stato);
+      };
+
+      let indice = 0;                               // la domanda a schermo; domande.length è il risultato
+      let passaggio = 0;
+      let apertoDa = null;
+      let portato = false;
+      let annunciato = '';                          // l'ultimo risultato già segnalato con calibro:completato
+      const aSchermo = (el) => el && el.isConnected && el.getClientRects().length > 0 && getComputedStyle(el).visibility !== 'hidden';
+      const primaLibera = () => {
+        const i = domande.findIndex((d) => !d.querySelector('input:checked'));
+        return i < 0 ? domande.length : i;
+      };
+      const mostra = (i, verso, fuoco) => {
+        indice = i;
+        const finito = i >= domande.length;
+        finestra.dataset.stato = finito ? 'esito' : 'domande';
+        finestra.dataset.passo = i + 1;
+        domande.forEach((d, j) => {
+          d.classList.toggle('attuale', j === i);
+          d.classList.toggle('entra', j === i && verso > 0);
+          d.classList.toggle('rientra', j === i && verso < 0);
+        });
+        contatore.textContent = finito ? '' : `${due(i + 1)} / ${due(domande.length)}`;
+        indietro.disabled = i === 0;
+        if (!fuoco) return;
+        const meta = finito ? porta : domande[i].querySelector('input:checked') || domande[i].querySelector('input');
+        if (meta) meta.focus({ preventScroll: true });
+      };
+      const aggiornaFascia = () => {
+        calibro.classList.toggle('calibro-completato', completo);
+        lancettaFascia.style.setProperty('--angolo', (completo ? (passano / domande.length) * 180 : 0) + 'deg');
+      };
+
+      // Una risposta: la scelta si evidenzia, poco dopo arriva la domanda successiva.
+      // Si ascolta il clic e non «change»: così, tornati indietro, la stessa risposta ridata fa proseguire.
+      elenco.addEventListener('click', (e) => {
+        const scelta = e.target.closest('input[type="radio"]');
+        if (!scelta) return;
+        const i = domande.indexOf(scelta.closest('.calibro-domanda'));
+        valuta();
+        salva();
+        avvisa('risposta', { domanda: i + 1 });
+        clearTimeout(passaggio);
+        passaggio = setTimeout(() => {
+          mostra(i + 1, 1, true);
+          const esito = completo ? `${passano}|${consigliato}` : '';
+          if (i + 1 === domande.length && esito && esito !== annunciato) {
+            annunciato = esito;
+            avvisa('completato', { punteggio: passano, consiglio: consigliato });
+          }
+        }, 300);
+      });
+      // Tastiera: le frecce spostano il fuoco tra «Sì» e «No» senza scegliere; scelgono Spazio o Invio
+      elenco.addEventListener('keydown', (e) => {
+        const scelta = e.target.closest('input[type="radio"]');
+        if (!scelta) return;
+        if (e.key === 'Enter') { e.preventDefault(); scelta.click(); return; }
+        if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) return;
+        e.preventDefault();
+        const coppia = Array.from(scelta.closest('.calibro-domanda').querySelectorAll('input[type="radio"]'));
+        coppia[(coppia.indexOf(scelta) + 1) % coppia.length].focus();
+      });
+      indietro.addEventListener('click', () => {
+        clearTimeout(passaggio);
+        mostra(Math.max(0, indice - 1), -1, true);
+      });
+
+      const apri = (origine, daDove) => {
+        if (finestra.open) return;
+        apertoDa = daDove;
+        mostra(primaLibera(), 0);
+        radice.classList.add('finestra-aperta');
+        finestra.showModal();
+        const meta = completo ? porta : domande[indice].querySelector('input:checked') || domande[indice].querySelector('input');
+        if (meta) meta.focus({ preventScroll: true });
+        avvisa('aperto', { origine });
+      };
+      const chiudi = () => {
+        clearTimeout(passaggio);
+        radice.classList.remove('finestra-aperta');
+        if (finestra.open) finestra.close();
+      };
+      // «close» arriva anche con Esc: il fuoco torna a chi ha aperto la finestra
+      finestra.addEventListener('close', () => {
+        clearTimeout(passaggio);
+        radice.classList.remove('finestra-aperta');
+        aggiornaFascia();
+        if (!portato) (aSchermo(apertoDa) ? apertoDa : apriFascia).focus({ preventScroll: true });
+        portato = false;
+      });
+      finestra.querySelector('.finestra-chiudi').addEventListener('click', chiudi);
+      // un clic sul velo, fuori dalla finestra, la chiude
+      let premutoFuori = false;
+      finestra.addEventListener('pointerdown', (e) => { premutoFuori = e.target === finestra; });
+      finestra.addEventListener('click', (e) => { if (premutoFuori && e.target === finestra) chiudi(); });
+
+      // «Portate il risultato nella richiesta»: la finestra si chiude, la pagina va al modulo, il fuoco al primo campo
+      porta.addEventListener('click', () => {
+        portato = true;
+        chiudi();
+        portaAlModulo();
+      });
+
+      // La fascia nella pagina: tutta cliccabile, apre la finestra
+      const testa = calibro.querySelector('.sezione-testa');
+      const apriFascia = document.createElement('button');
+      apriFascia.type = 'button';
+      apriFascia.className = 'calibro-apri';
+      apriFascia.setAttribute('aria-labelledby', titolo.id);
+      apriFascia.setAttribute('aria-haspopup', 'dialog');
+      apriFascia.innerHTML = '<svg class="freccia" aria-hidden="true" focusable="false"><use href="#freccia"/></svg>';
+      testa.append(copia, apriFascia);
+      apriFascia.addEventListener('click', () => apri('fascia', apriFascia));
+      calibro.classList.add('calibro-fascia');
+
+      valuta();
+      if (completo) annunciato = `${passano}|${consigliato}`;
+      aggiornaFascia();
+    } else {
+      // senza <dialog> il calibro resta nella pagina, con le otto domande in fila
+      calibro.addEventListener('change', valuta);
+      porta.addEventListener('click', portaAlModulo);
+    }
     calibro.hidden = false;
   }
 
