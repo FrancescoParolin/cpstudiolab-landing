@@ -1,6 +1,6 @@
-# Resoconto: cosa è cambiato nel sito (11-12 novembre 2026)
+# Resoconto: cosa è cambiato nel sito (11 novembre 2026)
 
-Per Campa. Lavoro fatto da Paro con Claude in due giorni, pubblicato il 12 novembre 2026.
+Per Campa. Lavoro fatto da Paro con Claude tra la notte e il pomeriggio dell'11 novembre 2026, pubblicato lo stesso giorno.
 Questo file è la versione lunga: quella breve te l'ha mandata Paro su WhatsApp.
 
 Legenda: ✅ deciso da Paro · ⬜ da decidere insieme · ⚠️ da sapere.

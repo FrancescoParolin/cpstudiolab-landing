@@ -59,7 +59,7 @@ Gli esempi dei servizi sono dichiarati «Esempio»; «Officina Esempio» e la ta
 ## Il modulo di richiesta
 
 Due campi obbligatori (azienda o sito, email o telefono), nessun JavaScript. È la richiesta del check-up gratuito:
-le scelte «Cosa vi serve» (`servizi[]`) sono state tolte il 12 novembre 2026. Il `mailto:` resta come alternativa,
+le scelte «Cosa vi serve» (`servizi[]`) sono state tolte il 11 novembre 2026. Il `mailto:` resta come alternativa,
 perché su molti PC (Gmail o Outlook web) il clic su un `mailto:` non apre niente.
 
 - **Su Netlify** funziona così com'è (Netlify Forms: `data-netlify="true"`, campo trappola anti-spam `altro`

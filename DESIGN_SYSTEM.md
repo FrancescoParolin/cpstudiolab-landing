@@ -17,7 +17,7 @@ Ogni valore sta nei token in `:root` di `style.css`. La versione completa, con l
   Un'ombra sola, `--ombra`, solo sugli esempi dei servizi; `--ombra-banner`, leggera, solo sugli elementi sollevati sopra la pagina:
   il banner del calibro e le tendine della testata.
 - **Terzo carattere, solo per il menu:** Archivo nella forma larga e nera (`--menu`, peso `--peso-nero` 800), per le voci
-  della testata, i titoli delle tendine e le voci del menu a schermo intero. Scelto da Paro il 12 novembre 2026 tra
+  della testata, i titoli delle tendine e le voci del menu a schermo intero. Scelto da Paro il 11 novembre 2026 tra
   quattro alternative, perché Inter nel menu era «il più classico dei classici». Un file da 14 KB in `fonts/`, licenza OFL.
   Non va usato per titoli e testi: lì resta Inter.
 - **Componenti:** `.logo`, `.micro`, `.titolo-sezione`, `.btn`, `.link`, `.link-freccia`, `.elenco-tratto`, `.quota`,

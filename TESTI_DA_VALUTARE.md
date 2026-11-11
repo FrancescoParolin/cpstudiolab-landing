@@ -3,7 +3,7 @@
 Punti in cui il layout chiederebbe di toccare un testo. La regola è non toccare il copy: i testi sono rimasti
 com'erano e qui c'è solo la segnalazione. Decide Paro.
 
-## 1. Il bottone nelle chiusure di `/manifattura/` e delle cinque lavorazioni (dal 12 novembre: «Check-up gratuito»)
+## 1. Il bottone nelle chiusure di `/manifattura/` e delle cinque lavorazioni (dal 11 novembre: «Check-up gratuito»)
 
 **Dove:** il foglio verde in fondo alla pagina («Raccontateci cosa lavorate.», «Parliamo della vostra tornitura.» e simili).
 
@@ -48,7 +48,7 @@ il modulo ha ancora il nome del catalogo.
 
 **Dove:** pagina principale, sezione «Servizi» («Dal primo contatto all'ordine.»).
 
-**Com'è ora (12 novembre 2026):** il contenuto è quello del sito online, lettera per lettera: per ognuno dei cinque
+**Com'è ora (11 novembre 2026):** il contenuto è quello del sito online, lettera per lettera: per ognuno dei cinque
 servizi il titolo, la frase, i tre punti e il riquadro «Esempio». Paro ha mandato la schermata del sito online con
 «così ma meglio». Il «meglio» è l'impaginazione: da 1200px testo ed esempio stanno affiancati e si alternano.
 
@@ -63,7 +63,7 @@ catalogo (`SERVIZI_BASE.md`).
 
 ## 6. Dopo il cambio in «Check-up gratuito»
 
-Il 12 novembre 2026 Paro ha chiesto tre cose, una dopo l'altra:
+Il 11 novembre 2026 Paro ha chiesto tre cose, una dopo l'altra:
 
 1. l'invito del sito non è più «Chiedeteci un preventivo» ma **«Check-up gratuito»**, senza «Chiedeteci»:
    38 bottoni e i 2 titoli della sezione con il modulo, in 11 pagine;
@@ -79,7 +79,7 @@ Testi rimasti com'erano, da guardare:
 
 | Dove | Testo | Nota |
 |---|---|---|
-| Bottone del modulo | «Richiedi check-up» | Deciso da Paro il 12 novembre: «richiedi, non richiedete». È l'unico punto del sito al tu: tutto il resto dà del voi («Raccontateci», «Scriveteci»), e così chiede anche `CLAUDE.md`. Scelta sua, lasciata com'è. |
+| Bottone del modulo | «Richiedi check-up» | Deciso da Paro il 11 novembre: «richiedi, non richiedete». È l'unico punto del sito al tu: tutto il resto dà del voi («Raccontateci», «Scriveteci»), e così chiede anche `CLAUDE.md`. Scelta sua, lasciata com'è. |
 | Sotto il bottone | «Usiamo questi dati solo per rispondervi.» | Va bene. |
 | Pagina «grazie» | «Vi rispondiamo entro 24 ore lavorative.» | La promessa delle 24 ore ora sta solo qui. Il check-up arriva in 2 giorni: sono due cose diverse (risposta e consegna), ma chi legge può confonderle. |
 | Apertura | «Più richieste di preventivo, dal vostro digitale.» | Va bene: parla dei preventivi del cliente, non del nostro. |
@@ -100,7 +100,7 @@ Da sapere:
 
 ## 7. Pagina Servizi: solo il catalogo, per ora
 
-Il 12 novembre 2026 Paro ha chiesto di non spiegare i servizi uno per uno: «metti solo il catalogo, dopo faremo
+Il 11 novembre 2026 Paro ha chiesto di non spiegare i servizi uno per uno: «metti solo il catalogo, dopo faremo
 delle spiegazioni». Dalla pagina `/servizi/` sono state tolte le 17 schede dei moduli (per chi, tempi, comprende,
 non comprende, da voi, finito quando). Resta la distinta «Tutti i moduli, in una pagina»: codice, nome e tempi.
 Il testo tolto è nella storia di git (commit `9dc8a46`, `servizi/index.html`): si rimette con un comando.
