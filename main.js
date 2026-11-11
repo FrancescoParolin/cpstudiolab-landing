@@ -377,7 +377,7 @@
 
       // Il banner: un riquadro non modale, in basso, che propone il calibro. La pagina resta leggibile e usabile.
       // Si accende con l'attributo data-calibro-banner sull'elemento dopo il quale deve comparire (nella home «Il punto»):
-      // compare quando la fine di quell'elemento è uscita dallo schermo, mai prima e mai a tempo.
+      // compare quando la fine di quell'elemento è uscita dallo schermo, mai prima, mai a tempo, mai all'arrivo.
       // Non c'è mentre la fascia o un modulo sono a schermo, a calibro finito, con menu o finestra aperti (style.css),
       // e per 30 giorni dopo la ✕ (localStorage). In un'altra pagina serve anche il blocco #calibro, da cui prende testi e domande.
       const CHIAVE_BANNER = 'cpsl-calibro-banner';
@@ -403,10 +403,11 @@
         document.body.appendChild(banner);
 
         let superato = false;                       // la fine dell'innesco è uscita dallo schermo, in alto
+        let mosso = false;                          // il visitatore ha scorso o toccato la pagina: mai all'arrivo
         let visto = false;
         const daEvitare = new Set();                // la fascia e i moduli a schermo: il banner non li copre mai
         aggiornaBanner = () => {
-          const mostra = superato && !daEvitare.size && !completo && !chiusoDaPoco;
+          const mostra = mosso && superato && !daEvitare.size && !completo && !chiusoDaPoco;
           banner.classList.toggle('visibile', mostra);
           if (!mostra || visto) return;
           visto = true;
@@ -428,6 +429,15 @@
           aggiornaBanner();
         });
         [calibro, ...$$('.contatto, .modulo')].forEach((el) => osserva.observe(el));
+        // Chi arriva già a metà pagina (un link a una sezione, una pagina ricaricata) non trova il banner ad aspettarlo:
+        // compare solo dopo il primo gesto del visitatore (rotella, tocco, tastiera, puntatore).
+        const gesti = ['wheel', 'touchstart', 'keydown', 'pointerdown'];
+        const primoGesto = () => {
+          mosso = true;
+          gesti.forEach((g) => window.removeEventListener(g, primoGesto));
+          aggiornaBanner();
+        };
+        gesti.forEach((g) => window.addEventListener(g, primoGesto, { passive: true }));
 
         apriBanner.addEventListener('click', () => apri('banner', apriBanner));
         banner.querySelector('.banner-chiudi').addEventListener('click', () => {
