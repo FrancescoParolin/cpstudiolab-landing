@@ -26,8 +26,9 @@ Legenda: ✅ deciso da Paro · ⬜ da decidere insieme · ⚠️ da sapere.
 - A destra su computer, sotto titolo e bottoni su telefono, il **video di 5 secondi**: dall'alto verso una casetta di
   cartoncino, dentro la porta, fermo su due figure al computer (una verde, una crema). Parte una volta, senza audio,
   quando il riquadro è in vista, e si ferma.
-- Con «riduci movimento» si vede solo l'immagine finale. Su telefono il video è arrivato con una seconda
-  pubblicazione, lo stesso 11 novembre: nella prima c'era solo l'immagine. Dettagli e prompt: `VIDEO_APERTURA.md`.
+- Con «riduci movimento», e su iPhone in risparmio energetico, si vede solo l'immagine finale. Su telefono il video
+  è arrivato con altre due pubblicazioni, lo stesso 11 novembre: nella prima c'era solo l'immagine, nella seconda su
+  iPhone non partiva. Dettagli e prompt: `VIDEO_APERTURA.md`.
 - Il bottone ora dice «Check-up gratuito».
 
 ### Calibro
