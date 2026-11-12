@@ -14,6 +14,7 @@ Nessun build, nessuna libreria, nessuna richiesta a server esterni. Online su Ne
 - Poche parole, concrete: frasi brevi ma intere. Le loro parole: preventivo, lavorazioni, disegno allegato, conto terzi.
 - Niente inglese dove c'è l'italiano, niente parole da agenzia («soluzioni», «innovativo», «engagement»).
 - Niente prezzi, ore comprese o condizioni di pagamento fisse: importi e scadenze stanno nel preventivo (il listino è interno).
+- Il check-up gratuito non si chiede dal sito: pulsanti e chiusure dicono «Entriamo in contatto», il modulo «Inviate la richiesta».
 - Mai clienti, numeri, lavori o recensioni inventati. Gli esempi si dichiarano «Esempio».
 - Lo studio vende servizi digitali; l'analisi è solo la fase 10 del metodo.
 

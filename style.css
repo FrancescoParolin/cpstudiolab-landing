@@ -2281,7 +2281,7 @@ html:is(.menu-aperto, .finestra-aperta) .calibro-banner { opacity: 0; visibility
 .modulo .campo label { font-size: var(--t-corpo); }
 .modulo .btn { min-height: var(--s8); font-size: var(--t-lead); }
 
-/* Sotto il titolo del check-up: quando arriva e come. Due voci in riga, con le parole del modulo 0.1 */
+/* Sotto il titolo del contatto: entro quando rispondiamo e chi risponde. Due voci in riga */
 .checkup-dati { display: flex; flex-wrap: wrap; gap: var(--s3) var(--s6); margin: var(--s5) 0 0; }
 .checkup-dati div { display: grid; gap: var(--scarto); }
 .checkup-dati dd { margin: 0; font-size: var(--t-lead); font-weight: var(--peso-medio); }
@@ -2432,7 +2432,7 @@ html:is(.menu-aperto, .finestra-aperta) .calibro-banner { opacity: 0; visibility
 .checkup-passi { display: grid; gap: var(--s2); margin-bottom: var(--s3); }
 .checkup-passi .checkup { margin-bottom: 0; }
 .checkup-completo { background: var(--superficie); border: var(--linea) solid var(--accento); }
-/* L'etichetta come un bottone: contornata per il gratuito, piena per il completo, che è l'opportunità */
+/* L'etichetta come un bottone: contornata per il punto di partenza, piena per il completo, che è l'opportunità */
 .checkup-etichetta {
   margin-bottom: var(--s1);
   padding: var(--s1) var(--s2);
